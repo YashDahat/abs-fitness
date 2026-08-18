@@ -2952,14 +2952,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "The main layout for the admin section, including a sidebar for navigation.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "AdminLayout",
+      "parameters" : [ "React.PropsWithChildren<{}> props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the admin layout with a sidebar and content area."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — provides the main layout structure for all admin pages, including a sidebar for navigation.",
     "change_required" : null
   }, {
     "file_name" : "AdminDashboardPage.tsx",
@@ -2970,14 +2975,40 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "The landing page for the admin portal, showing key stats and quick links.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "AdminDashboardPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the admin dashboard with summary cards for memberships, classes, and enquiries."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/memberships/plans",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all membership plans for summary statistics.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/classes",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all gym classes for summary statistics.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/content/enquiries",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all enquiries for summary statistics.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "PAGE layer — the landing page for the admin portal, displaying key statistics and quick navigation links.",
     "change_required" : null
   }, {
     "file_name" : "AdminMembershipsPage.tsx",
@@ -2988,14 +3019,47 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin page for creating, reading, updating, and deleting membership plans.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "AdminMembershipsPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the membership management page with a table and form for plans."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/memberships/plans",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all membership plans for display in the table.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/memberships/plans",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new membership plan.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/memberships/plans/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates an existing membership plan.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/memberships/plans/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Deletes a membership plan.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/components/admin/MembershipPlanTable.tsx", "frontend/src/components/admin/MembershipPlanForm.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "PAGE layer — provides the interface for administrators to manage membership plans, including creation, viewing, updating, and deletion.",
     "change_required" : null
   }, {
     "file_name" : "AdminClassesPage.tsx",
@@ -3006,14 +3070,75 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin page for managing gym classes and trainers.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "AdminClassesPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the class and trainer management page with tables and forms."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/classes",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all gym classes for display in the table.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/classes",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new gym class.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/classes/{classId}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates an existing gym class.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/classes/{classId}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Deletes a gym class.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/trainers",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all trainers for display in the table and class forms.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/trainers",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new trainer.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/trainers/{trainerId}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates an existing trainer.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/trainers/{trainerId}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Deletes a trainer.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/components/admin/ClassTable.tsx", "frontend/src/components/admin/ClassForm.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "PAGE layer — provides the interface for administrators to manage gym classes and trainers, including creation, viewing, updating, and deletion.",
     "change_required" : null
   }, {
     "file_name" : "AdminBookingsPage.tsx",
@@ -3024,14 +3149,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin page for viewing all member bookings.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "AdminBookingsPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the bookings overview page with a table of all member bookings."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/bookings",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all member bookings for display in the table.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/components/admin/BookingsOverviewTable.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "PAGE layer — provides the interface for administrators to view and manage all member bookings.",
     "change_required" : null
   }, {
     "file_name" : "AdminContentPage.tsx",
@@ -3042,14 +3179,61 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin page for managing testimonials and viewing enquiries.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "AdminContentPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the content management page with tables and forms for testimonials and enquiries."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/content/testimonials",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all testimonials for display in the table.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/content/testimonials",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new testimonial.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/content/testimonials/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates an existing testimonial.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/content/testimonials/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Deletes a testimonial.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/content/enquiries",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all enquiries for display in the table.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/content/enquiries/{id}/status",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates the status of an enquiry.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/components/admin/TestimonialTable.tsx", "frontend/src/components/admin/TestimonialForm.tsx", "frontend/src/components/admin/EnquiryTable.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "PAGE layer — provides the interface for administrators to manage website testimonials and customer enquiries.",
     "change_required" : null
   }, {
     "file_name" : "MembershipPlanTable.tsx",
@@ -3060,14 +3244,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A table for displaying and managing membership plans in the admin portal.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "MembershipPlanTable",
+      "parameters" : [ "onEdit: (plan: MembershipPlanDto) => void" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a table of membership plans with edit and delete actions. Monetary values are displayed in ₹ (Indian Rupees)."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/hooks/useMembership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a table of membership plans with actions for editing and deleting. It consumes the `useMembershipPlans` and `useDeleteMembershipPlan` hooks.",
     "change_required" : null
   }, {
     "file_name" : "MembershipPlanForm.tsx",
@@ -3078,14 +3267,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A form (in a modal or drawer) for creating/editing membership plans.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "MembershipPlanForm",
+      "parameters" : [ "isOpen: boolean", "onClose: () => void", "currentPlan?: MembershipPlanDto" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a form to create or edit a membership plan. Monetary values are displayed in ₹ (Indian Rupees)."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/hooks/useMembership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — provides a form for creating or editing membership plans. It consumes the `useCreateMembershipPlan` and `useUpdateMembershipPlan` hooks.",
     "change_required" : null
   }, {
     "file_name" : "ClassTable.tsx",
@@ -3096,14 +3290,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A table for displaying and managing gym classes in the admin portal.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "ClassTable",
+      "parameters" : [ "onEdit: (gymClass: GymClassDto) => void" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a table of gym classes with edit and delete actions."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/hooks/useBooking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a table of gym classes with actions for editing and deleting. It consumes the `useGymClasses` and `useDeleteGymClass` hooks.",
     "change_required" : null
   }, {
     "file_name" : "ClassForm.tsx",
@@ -3114,14 +3313,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A form for creating/editing gym classes.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "ClassForm",
+      "parameters" : [ "isOpen: boolean", "onClose: () => void", "currentClass?: GymClassDto" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a form to create or edit a gym class."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/hooks/useBooking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — provides a form for creating or editing gym classes. It consumes the `useCreateGymClass`, `useUpdateGymClass`, and `useTrainers` hooks.",
     "change_required" : null
   }, {
     "file_name" : "BookingsOverviewTable.tsx",
@@ -3132,14 +3336,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A table for viewing all member bookings with filtering options.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "BookingsOverviewTable",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a table of all member bookings with filtering and sorting capabilities."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/hooks/useBooking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a table of all member bookings with filtering and sorting options. It consumes the `useAllBookings` hook.",
     "change_required" : null
   }, {
     "file_name" : "TestimonialTable.tsx",
@@ -3150,14 +3359,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A table for managing website testimonials.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "TestimonialTable",
+      "parameters" : [ "onEdit: (testimonial: TestimonialDto) => void" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a table of testimonials with edit and delete actions."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/hooks/useContent.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a table of testimonials with actions for editing and deleting. It consumes the `useTestimonials` and `useDeleteTestimonial` hooks.",
     "change_required" : null
   }, {
     "file_name" : "TestimonialForm.tsx",
@@ -3168,14 +3382,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A form for creating/editing testimonials.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "TestimonialForm",
+      "parameters" : [ "isOpen: boolean", "onClose: () => void", "currentTestimonial?: TestimonialDto" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a form to create or edit a testimonial."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/hooks/useContent.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — provides a form for creating or editing testimonials. It consumes the `useCreateTestimonial` and `useUpdateTestimonial` hooks.",
     "change_required" : null
   }, {
     "file_name" : "EnquiryTable.tsx",
@@ -3186,14 +3405,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A table for viewing and managing lead capture enquiries.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "EnquiryTable",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a table of customer enquiries with status update functionality."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/hooks/useContent.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a table of customer enquiries with an action to update their status. It consumes the `useEnquiries` and `useUpdateEnquiryStatus` hooks.",
     "change_required" : null
   } ],
   "features" : [ {
@@ -3282,8 +3506,8 @@
     "feature_display_name" : "Admin Portal",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/pages/AdminDashboardPage.tsx", "frontend/src/pages/AdminMembershipsPage.tsx", "frontend/src/pages/AdminClassesPage.tsx", "frontend/src/pages/AdminBookingsPage.tsx", "frontend/src/pages/AdminContentPage.tsx", "frontend/src/components/admin/MembershipPlanTable.tsx", "frontend/src/components/admin/MembershipPlanForm.tsx", "frontend/src/components/admin/ClassTable.tsx", "frontend/src/components/admin/ClassForm.tsx", "frontend/src/components/admin/BookingsOverviewTable.tsx", "frontend/src/components/admin/TestimonialTable.tsx", "frontend/src/components/admin/TestimonialForm.tsx", "frontend/src/components/admin/EnquiryTable.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-orange-600 text-white font-semibold rounded-md px-6 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-lg shadow-sm border border-gray-100 p-4\n- Section container: <section className=\"py-8 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThe Admin Portal feature provides a comprehensive web interface for ABS FITNESS administrators to manage various aspects of the gym's operations, including membership plans, gym classes, trainer details, member bookings, testimonials, and customer enquiries. This feature is built using React and TypeScript, leveraging `react-router-dom` for navigation and Tailwind CSS for styling, adhering to the provided design tokens for a professional and consistent look.\n\n### AdminLayout.tsx\nThis component serves as the main layout for all admin pages. It includes a persistent sidebar for navigation and a header. The sidebar will contain links to `AdminDashboardPage`, `AdminMembershipsPage`, `AdminClassesPage`, `AdminBookingsPage`, and `AdminContentPage`. The layout ensures that all admin content is wrapped within this structure, providing a consistent user experience. It will use the `AdminLayoutProps` interface for its children prop.\n\n### AdminDashboardPage.tsx\nThis page is the entry point for the admin portal, providing an overview of key operational metrics and quick links to other admin sections. It will display summary cards for active memberships, upcoming classes, and new enquiries. This page will consume data from the backend to populate these summary statistics, calling the generated service functions `getAllMembershipPlans()`, `getAllGymClasses()`, and `getAllEnquiries()`.\n\n### AdminMembershipsPage.tsx\nThis page allows administrators to manage membership plans. It will display a table of all membership plans using the `MembershipPlanTable` component and provide functionality to create, edit, and delete plans via the `MembershipPlanForm` component, which will typically appear in a modal or drawer. The page will use the `useMembershipPlans` hook to fetch and manage membership plan data, and `useCreateMembershipPlan`, `useUpdateMembershipPlan`, `useDeleteMembershipPlan` hooks for mutations.\n\n### AdminClassesPage.tsx\nThis page is dedicated to managing gym classes and trainers. It will feature two main sections: one for managing classes using `ClassTable` and `ClassForm`, and another for managing trainers using `TrainerTable` and `TrainerForm` (these trainer components are assumed to be part of this feature, similar to membership components). The page will utilize the `useGymClasses`, `useTrainers` hooks to fetch data and `useCreateGymClass`, `useUpdateGymClass`, `useDeleteGymClass`, `useCreateTrainer`, `useUpdateTrainer`, `useDeleteTrainer` hooks for mutations.\n\n### AdminBookingsPage.tsx\nThis page provides an overview of all member bookings. It will display a sortable and filterable table of bookings using the `BookingsOverviewTable` component. The page will use the `useAllBookings` hook to fetch booking data from the backend.\n\n### AdminContentPage.tsx\nThis page allows administrators to manage website content, specifically testimonials and customer enquiries. It will include a `TestimonialTable` and `TestimonialForm` for managing testimonials, and an `EnquiryTable` for viewing and managing customer enquiries. The page will use `useTestimonials`, `useEnquiries` hooks to fetch data and `useCreateTestimonial`, `useUpdateTestimonial`, `useDeleteTestimonial`, `useUpdateEnquiryStatus` hooks for mutations.\n\n### MembershipPlanTable.tsx\nThis component displays a paginated and sortable table of `MembershipPlanDto` objects. It will provide actions for editing and deleting membership plans, which will trigger the `MembershipPlanForm` modal/drawer. It will consume the `useMembershipPlans` hook to get data and `useDeleteMembershipPlan` for deletion.\n\n### MembershipPlanForm.tsx\nThis component is a form for creating or editing `MembershipPlanDto` objects. It will be rendered within a modal or drawer and will include fields for `name`, `description`, `price`, `durationInMonths`, and `isActive`. It will use `useCreateMembershipPlan` for new plans and `useUpdateMembershipPlan` for existing ones.\n\n### ClassTable.tsx\nThis component displays a paginated and sortable table of `GymClassDto` objects. It will provide actions for editing and deleting gym classes, which will trigger the `ClassForm` modal/drawer. It will consume the `useGymClasses` hook to get data and `useDeleteGymClass` for deletion.\n\n### ClassForm.tsx\nThis component is a form for creating or editing `GymClassDto` objects. It will be rendered within a modal or drawer and will include fields for `name`, `description`, `startTime`, `endTime`, `capacity`, and `trainerId`. It will use `useCreateGymClass` for new classes and `useUpdateGymClass` for existing ones. It will also need to fetch trainers for a dropdown, using `useTrainers`.\n\n### BookingsOverviewTable.tsx\nThis component displays a paginated, sortable, and filterable table of `BookingDto` objects. It will show details like `gymClassName`, `gymClassStartTime`, `trainerName`, `userName`, and `status`. It will consume the `useAllBookings` hook to get data.\n\n### TestimonialTable.tsx\nThis component displays a table of `TestimonialDto` objects. It will provide actions for editing and deleting testimonials, which will trigger the `TestimonialForm` modal/drawer. It will consume the `useTestimonials` hook to get data and `useDeleteTestimonial` for deletion.\n\n### TestimonialForm.tsx\nThis component is a form for creating or editing `TestimonialDto` objects. It will be rendered within a modal or drawer and will include fields for `authorName`, `quote`, `imageUrl`, and `displayOrder`. It will use `useCreateTestimonial` for new testimonials and `useUpdateTestimonial` for existing ones.\n\n### EnquiryTable.tsx\nThis component displays a table of `EnquiryDto` objects. It will show details like `name`, `email`, `phone`, `message`, `submissionTime`, and `status`. It will provide an action to update the enquiry status. It will consume the `useEnquiries` hook to get data and `useUpdateEnquiryStatus` for status updates.\n",
+    "depends_on_features" : [ "membership-management", "scheduling-and-booking", "content-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
