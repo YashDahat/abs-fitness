@@ -218,7 +218,7 @@ public class BookingService {
                 .endTime(gymClass.getEndTime())
                 .capacity(gymClass.getCapacity())
                 .bookedSlots(gymClass.getBookedSlots())
-                .trainerId(gymClass.getTrainer() != null ? gymClass.getTrainer().getId().getMostSignificantBits() : null) // Assuming GymClassDto uses Long for trainerId
+                .trainerId(gymClass.getTrainer() != null ? gymClass.getTrainer().getId() : null)
                 .trainerName(gymClass.getTrainer() != null ? gymClass.getTrainer().getName() : null)
                 .build();
     }

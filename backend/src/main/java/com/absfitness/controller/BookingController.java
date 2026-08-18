@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.absfitness.exception.ResourceNotFoundException;
 import com.absfitness.exception.GlobalExceptionHandler; // For context on error handling
-import com.absfitness.annotation.CurrentUser; // Assuming this annotation is in this package or a common one
 
 import jakarta.validation.Valid;
 import java.util.List;

@@ -21,6 +21,6 @@ public class GymClassDto {
     private LocalDateTime endTime;
     private Integer capacity;
     private Integer bookedSlots;
-    private Long trainerId;
+    private UUID trainerId;
     private String trainerName;
 }
