@@ -1,5 +1,4 @@
 import { useAuth } from '@/context/AuthContext';
-import { useMembership } from '@/hooks/useMembership';
 import SubscriptionStatusCard from '@/components/account/SubscriptionStatusCard';
 import ProtectedRoute from '@/components/ProtectedRoute';
 

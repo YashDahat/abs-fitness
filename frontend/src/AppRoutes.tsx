@@ -5,7 +5,7 @@
 import { Routes, Route, Outlet } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute'
 import { SiteLayout } from '@/shell'
-import siteConfig from '@/config/siteConfig'
+import { siteConfig } from '@/config/siteConfig'
 
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
@@ -28,6 +28,8 @@ import AdminClassesPage from './pages/AdminClassesPage';
 import AdminContentPage from './pages/AdminContentPage';
 import AdminMembershipsPage from './pages/AdminMembershipsPage';
 import NotFoundPage from './pages/NotFoundPage';
+import CartPage from './pages/CartPage';
+import AdminMediaPage from './pages/admin/AdminMediaPage';
 
 export default function AppRoutes() {
   return (
@@ -37,6 +39,7 @@ export default function AppRoutes() {
       <Route path="/admin/classes" element={<ProtectedRoute><AdminClassesPage /></ProtectedRoute>} />
       <Route path="/admin/content" element={<ProtectedRoute><AdminContentPage /></ProtectedRoute>} />
       <Route path="/admin/memberships" element={<ProtectedRoute><AdminMembershipsPage /></ProtectedRoute>} />
+      <Route path="/admin/media" element={<ProtectedRoute><AdminMediaPage /></ProtectedRoute>} />
       <Route element={<SiteLayout config={siteConfig}><Outlet /></SiteLayout>}>
         {/* Outlet receives the matched child route */}
         <Route path="/" element={<HomePage />} />
@@ -55,6 +58,7 @@ export default function AppRoutes() {
         <Route path="/trainers" element={<TrainersPage />} />
         <Route path="/virtual-tour" element={<VirtualTourPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/cart" element={<CartPage />} />
       </Route>
     </Routes>
   )

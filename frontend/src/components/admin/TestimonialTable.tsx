@@ -26,7 +26,7 @@ import { TestimonialDto } from '@/types/testimonial';
 import { toast } from 'sonner';
 import { PencilIcon, Trash2Icon } from 'lucide-react';
 import TestimonialForm from './TestimonialForm';
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 export default function TestimonialTable() {
   const { data: testimonials, isLoading, isError, error } = useAdminTestimonials();

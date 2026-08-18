@@ -14,7 +14,7 @@ interface ClassTableProps {
 
 export default function ClassTable({ onEdit }: ClassTableProps) {
   const { data: gymClasses, isLoading, isError, error } = useGymClasses();
-  const { mutate: deleteGymClass, isPending: isDeleting } = useCancelBooking(); // Placeholder for actual delete hook
+  const { mutateAsync: deleteGymClass, isPending: isDeleting } = useCancelBooking(); // Placeholder for actual delete hook
 
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
   const [selectedClass, setSelectedClass] = useState<GymClassDto | null>(null);
@@ -25,16 +25,14 @@ export default function ClassTable({ onEdit }: ClassTableProps) {
     setIsFormOpen(true);
   };
 
-  const handleDeleteClick = (classId: number): void => {
+  const handleDeleteClick = async (classId: number): Promise<void> => {
     if (window.confirm('Are you sure you want to delete this class?')) {
-      deleteGymClass(classId, {
-        onSuccess: () => {
-          toast.success('Class deleted successfully.');
-        },
-        onError: (err) => {
-          toast.error(`Failed to delete class: ${err.message}`);
-        },
-      });
+      try {
+        await deleteGymClass(classId);
+        toast.success('Class deleted successfully.');
+      } catch (err: unknown) {
+        toast.error(`Failed to delete class: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      }
     }
   };
 

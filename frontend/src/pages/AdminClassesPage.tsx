@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import AdminLayout from '@/components/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import ClassTable from '@/components/admin/ClassTable';
@@ -26,7 +25,7 @@ export default function AdminClassesPage() {
   };
 
   return (
-    <AdminLayout>
+    <div>
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-semibold">Manage Classes</h1>
         <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
@@ -44,6 +43,6 @@ export default function AdminClassesPage() {
         </Dialog>
       </div>
       <ClassTable onEdit={handleEditClass} />
-    </AdminLayout>
+    </div>
   );
 }

@@ -12,3 +12,9 @@ Advisory — residual foundation impedance in generated code (Phase 4 detection 
 - `backend/src/main/java/com/absfitness/model/Trainer.java:11` — private UUID id;
 - `backend/src/main/java/com/absfitness/model/Trainer.java:18` — public UUID getId() {
 <!-- AUDIT:BACKEND:END -->
+
+<!-- AUDIT:FRONTEND:START -->
+## FRONTEND
+
+Clean — no residual foundation impedance.
+<!-- AUDIT:FRONTEND:END -->

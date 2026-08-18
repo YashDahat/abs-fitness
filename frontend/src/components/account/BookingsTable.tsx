@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import {
@@ -18,7 +19,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useCancelBooking, useMyBookings } from '@/hooks/useBooking';
 import type { BookingDto } from '@/types/booking';
@@ -30,7 +30,7 @@ interface BookingsTableProps {
 }
 
 export default function BookingsTable({ bookings }: BookingsTableProps): React.JSX.Element {
-  const { mutate: cancelBookingMutation, isPending: isCancelling } = useCancelBooking();
+  const { mutateAsync: cancelBookingAsync, isPending: isCancelling } = useCancelBooking();
   const { isLoading: isLoadingBookings } = useMyBookings();
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [selectedBookingId, setSelectedBookingId] = useState<number | null>(null);
@@ -40,20 +40,17 @@ export default function BookingsTable({ bookings }: BookingsTableProps): React.J
     setOpenDialog(true);
   };
 
-  const confirmCancel = (): void => {
+  const confirmCancel = async (): Promise<void> => {
     if (selectedBookingId !== null) {
-      cancelBookingMutation(selectedBookingId, {
-        onSuccess: () => {
-          toast.success('Booking cancelled successfully.');
-          setOpenDialog(false);
-          setSelectedBookingId(null);
-        },
-        onError: (error) => {
-          toast.error(`Failed to cancel booking: ${error.message}`);
-          setOpenDialog(false);
-          setSelectedBookingId(null);
-        },
-      });
+      try {
+        await cancelBookingAsync(selectedBookingId);
+        toast.success('Booking cancelled successfully.');
+      } catch (error: unknown) {
+        toast.error(`Failed to cancel booking: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      } finally {
+        setOpenDialog(false);
+        setSelectedBookingId(null);
+      }
     }
   };
 

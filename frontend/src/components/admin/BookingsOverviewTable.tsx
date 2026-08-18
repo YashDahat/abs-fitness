@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { BookingDto, BookingStatus } from '@/types/booking';
+import { BookingDto } from '@/types/booking';
 import { ArrowUpDown } from 'lucide-react';
 
 type SortKey = keyof BookingDto;

@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { EnquiryDto, EnquiryStatus } from '@/types/enquiry';
+import { EnquiryDto } from '@/types/enquiry';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 import { useState } from 'react';
@@ -28,22 +28,20 @@ import { Loader2 } from 'lucide-react';
 
 export default function EnquiryTable() {
   const { data: enquiries, isLoading, isError, error } = useAllEnquiries();
-  const { mutate: updateStatus, isPending: isUpdatingStatus } = useUpdateEnquiryStatus();
+  const { mutateAsync: updateStatus, isPending: isUpdatingStatus } = useUpdateEnquiryStatus();
   const [openDialogId, setOpenDialogId] = useState<number | null>(null);
 
-  const handleUpdateStatus = (id: number) => {
-    updateStatus(String(id), {
-      onSuccess: () => {
-        toast.success('Enquiry status updated successfully.');
-        setOpenDialogId(null);
-      },
-      onError: (err) => {
-        toast.error('Failed to update enquiry status.', {
-          description: err.message,
-        });
-        setOpenDialogId(null);
-      },
-    });
+  const handleUpdateStatus = async (id: number) => {
+    try {
+      await updateStatus(String(id));
+      toast.success('Enquiry status updated successfully.');
+    } catch (err: unknown) {
+      toast.error('Failed to update enquiry status.', {
+        description: err instanceof Error ? err.message : 'Unknown error',
+      });
+    } finally {
+      setOpenDialogId(null);
+    }
   };
 
   if (isLoading) {

@@ -16,7 +16,7 @@ interface CheckoutFormProps {
 }
 
 export default function CheckoutForm({ membershipPlanId, planName, planPrice }: CheckoutFormProps) {
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const { mutate: createSubscription, isPending, isError, error } = useCreateSubscription();
   const [paymentDetails, setPaymentDetails] = useState({
@@ -33,7 +33,7 @@ export default function CheckoutForm({ membershipPlanId, planName, planPrice }: 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    if (!isAuthenticated || !user?.id) {
+    if (!isAuthenticated) {
       toast.error('You must be logged in to subscribe.');
       navigate(ROUTES.LOGIN);
       return;
@@ -43,23 +43,11 @@ export default function CheckoutForm({ membershipPlanId, planName, planPrice }: 
     // For this exercise, we'll simulate a successful payment with a placeholder paymentId.
     const placeholderPaymentId = `PAY-${Date.now()}`;
 
-    createSubscription(
-      {
-        membershipPlanId: membershipPlanId,
-        userId: user.id,
-        paymentId: placeholderPaymentId,
-      },
-      {
-        onSuccess: () => {
-          toast.success('Membership subscribed successfully!');
-          navigate(ROUTES.MY_SUBSCRIPTION);
-        },
-        onError: (err) => {
-          toast.error(`Subscription failed: ${err.message}`);
-          console.error('Subscription error:', err);
-        },
-      },
-    );
+    createSubscription({
+      membershipPlanId: membershipPlanId,
+      userId: 0,
+      paymentId: placeholderPaymentId,
+    });
   };
 
   return (

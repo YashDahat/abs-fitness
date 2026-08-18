@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { PencilIcon, Trash2Icon } from 'lucide-react';
 import { useAdminMembershipPlans, useDeleteAdminMembershipPlan } from '@/hooks/useMembership';
 import { MembershipPlanDto } from '@/types/membership';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
 
 interface MembershipPlanTableProps {
@@ -22,27 +22,25 @@ interface MembershipPlanTableProps {
 
 export default function MembershipPlanTable({ onEdit }: MembershipPlanTableProps) {
   const { data: membershipPlans, isLoading, isError, error } = useAdminMembershipPlans();
-  const { mutate: deletePlan, isPending: isDeleting } = useDeleteAdminMembershipPlan();
+  const { mutateAsync: deletePlan, isPending: isDeleting } = useDeleteAdminMembershipPlan();
   const [deletePlanId, setDeletePlanId] = useState<number | null>(null);
 
   const handleDelete = (id: number) => {
     setDeletePlanId(id);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (deletePlanId !== null) {
-      deletePlan(deletePlanId, {
-        onSuccess: () => {
-          toast.success('Membership plan deleted successfully.');
-          setDeletePlanId(null);
-        },
-        onError: (err) => {
-          toast.error('Failed to delete membership plan.', {
-            description: err.message,
-          });
-          setDeletePlanId(null);
-        },
-      });
+      try {
+        await deletePlan(deletePlanId);
+        toast.success('Membership plan deleted successfully.');
+      } catch (err: unknown) {
+        toast.error('Failed to delete membership plan.', {
+          description: err instanceof Error ? err.message : 'Unknown error',
+        });
+      } finally {
+        setDeletePlanId(null);
+      }
     }
   };
 

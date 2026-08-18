@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import AdminLayout from '@/components/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { PlusCircleIcon } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -29,7 +28,7 @@ export default function AdminMembershipsPage() {
   };
 
   return (
-    <AdminLayout>
+    <div>
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Membership Plans</h1>
         <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
@@ -49,6 +48,6 @@ export default function AdminMembershipsPage() {
       <div className="mt-6">
         <MembershipPlanTable onEdit={handleEditPlan} />
       </div>
-    </AdminLayout>
+    </div>
   );
 }

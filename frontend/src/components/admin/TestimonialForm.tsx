@@ -69,32 +69,25 @@ export default function TestimonialForm({
     };
 
     if (initialData) {
-      updateTestimonialMutation.mutate(
+      updateTestimonialMutation.mutateAsync(
         { id: initialData.id.toString(), request: testimonialRequest },
-        {
-          onSuccess: () => {
-            toast.success('Testimonial updated successfully.');
-            onSuccess?.();
-          },
-          onError: (error) => {
-            toast.error('Failed to update testimonial.', {
-              description: error.message,
-            });
-          },
-        },
-      );
+      ).then(() => {
+        toast.success('Testimonial updated successfully.');
+        onSuccess?.();
+      }).catch((error: unknown) => {
+        toast.error('Failed to update testimonial.', {
+          description: error instanceof Error ? error.message : 'Unknown error',
+        });
+      });
     } else {
-      createTestimonialMutation.mutate(testimonialRequest, {
-        onSuccess: () => {
-          toast.success('Testimonial created successfully.');
-          form.reset();
-          onSuccess?.();
-        },
-        onError: (error) => {
-          toast.error('Failed to create testimonial.', {
-            description: error.message,
-          });
-        },
+      createTestimonialMutation.mutateAsync(testimonialRequest).then(() => {
+        toast.success('Testimonial created successfully.');
+        form.reset();
+        onSuccess?.();
+      }).catch((error: unknown) => {
+        toast.error('Failed to create testimonial.', {
+          description: error instanceof Error ? error.message : 'Unknown error',
+        });
       });
     }
   };

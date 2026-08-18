@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import BookingsTable from '@/components/account/BookingsTable';
 import { useMyBookings } from '@/hooks/useBooking';
 import ProtectedRoute from '@/components/ProtectedRoute';

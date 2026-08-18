@@ -1,6 +1,5 @@
-import AdminLayout from '@/components/AdminLayout';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { useAdminMembershipPlans, useMembershipPlans } from '@/hooks/useMembership';
+import { useAdminMembershipPlans } from '@/hooks/useMembership';
 import { useGymClasses } from '@/hooks/useBooking';
 import { useAllEnquiries } from '@/hooks/useContent';
 import { Link } from 'react-router-dom';
@@ -17,8 +16,7 @@ export default function AdminDashboardPage() {
   const newEnquiriesCount = enquiries?.filter(enq => enq.status === 'NEW').length || 0;
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
+    <div className="space-y-6">
         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -83,6 +81,5 @@ export default function AdminDashboardPage() {
           </Card>
         </div>
       </div>
-    </AdminLayout>
   );
 }

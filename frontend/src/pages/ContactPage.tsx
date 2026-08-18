@@ -1,5 +1,5 @@
 import LeadCaptureForm from '@/components/home/LeadCaptureForm';
-import siteConfig from '@/config/siteConfig';
+import { siteConfig } from '@/config/siteConfig';
 
 export default function ContactPage() {
   const { address, phone, email, openingHours } = siteConfig.footer;
