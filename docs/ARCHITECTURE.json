@@ -1278,14 +1278,34 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Represents a customer testimonial or review, curated by an admin.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the testimonial. Not null."
+    }, {
+      "name" : "authorName",
+      "type" : "String",
+      "description" : "Name of the person giving the testimonial. Not null, max 100 characters."
+    }, {
+      "name" : "quote",
+      "type" : "String",
+      "description" : "The actual testimonial quote. Not null, max 1000 characters."
+    }, {
+      "name" : "imageUrl",
+      "type" : "String",
+      "description" : "URL of the author's image, if any. Nullable, max 255 characters."
+    }, {
+      "name" : "displayOrder",
+      "type" : "Integer",
+      "description" : "Order in which the testimonial should be displayed. Not null."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "MODEL layer — represents a customer testimonial or review, curated by an admin.",
     "change_required" : null
   }, {
     "file_name" : "Enquiry.java",
@@ -1296,14 +1316,42 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Represents a lead capture or contact form submission from the website.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the enquiry. Not null."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the person submitting the enquiry. Not null, max 100 characters."
+    }, {
+      "name" : "email",
+      "type" : "String",
+      "description" : "Email address of the person submitting the enquiry. Not null, valid email format, max 100 characters."
+    }, {
+      "name" : "phone",
+      "type" : "String",
+      "description" : "Phone number of the person submitting the enquiry. Nullable, max 20 characters."
+    }, {
+      "name" : "message",
+      "type" : "String",
+      "description" : "The message content of the enquiry. Not null, max 2000 characters."
+    }, {
+      "name" : "submissionTime",
+      "type" : "LocalDateTime",
+      "description" : "Timestamp when the enquiry was submitted. Not null."
+    }, {
+      "name" : "status",
+      "type" : "EnquiryStatus",
+      "description" : "Current status of the enquiry (e.g., NEW, CONTACTED, CLOSED). Not null."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/EnquiryStatus.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "MODEL layer — represents a lead capture or contact form submission from the website.",
     "change_required" : null
   }, {
     "file_name" : "EnquiryStatus.java",
@@ -1314,14 +1362,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Enum for the status of an enquiry (e.g., NEW, CONTACTED, CLOSED).",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "NEW",
+      "type" : "EnquiryStatus",
+      "description" : "The enquiry has just been submitted."
+    }, {
+      "name" : "CONTACTED",
+      "type" : "EnquiryStatus",
+      "description" : "The gym has contacted the enquirer."
+    }, {
+      "name" : "CLOSED",
+      "type" : "EnquiryStatus",
+      "description" : "The enquiry has been resolved or closed."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "MODEL layer — enum for the status of an enquiry (e.g., NEW, CONTACTED, CLOSED).",
     "change_required" : null
   }, {
     "file_name" : "TestimonialRepository.java",
@@ -1332,14 +1392,39 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Spring Data JPA repository for Testimonial entities.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "findAll",
+      "parameters" : [ ],
+      "return_type" : "List<Testimonial>",
+      "description" : "Retrieves all Testimonial entities."
+    }, {
+      "name" : "findById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "Optional<Testimonial>",
+      "description" : "Retrieves a Testimonial by its ID."
+    }, {
+      "name" : "save",
+      "parameters" : [ "Testimonial testimonial" ],
+      "return_type" : "Testimonial",
+      "description" : "Saves a Testimonial entity."
+    }, {
+      "name" : "deleteById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "void",
+      "description" : "Deletes a Testimonial entity by its ID."
+    }, {
+      "name" : "existsById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "boolean",
+      "description" : "Checks if a Testimonial with the given ID exists."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Testimonial.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "REPOSITORY layer — Spring Data JPA repository for Testimonial entities.",
     "change_required" : null
   }, {
     "file_name" : "EnquiryRepository.java",
@@ -1350,14 +1435,29 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Spring Data JPA repository for Enquiry entities.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "findAll",
+      "parameters" : [ ],
+      "return_type" : "List<Enquiry>",
+      "description" : "Retrieves all Enquiry entities."
+    }, {
+      "name" : "findById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "Optional<Enquiry>",
+      "description" : "Retrieves an Enquiry by its ID."
+    }, {
+      "name" : "save",
+      "parameters" : [ "Enquiry enquiry" ],
+      "return_type" : "Enquiry",
+      "description" : "Saves an Enquiry entity."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Enquiry.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "REPOSITORY layer — Spring Data JPA repository for Enquiry entities.",
     "change_required" : null
   }, {
     "file_name" : "ContentService.java",
@@ -1368,14 +1468,54 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Handles business logic for testimonials and enquiries.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createTestimonial",
+      "parameters" : [ "TestimonialDto testimonialDto" ],
+      "return_type" : "TestimonialDto",
+      "description" : "Creates a new testimonial."
+    }, {
+      "name" : "getTestimonialById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "TestimonialDto",
+      "description" : "Retrieves a testimonial by its ID. Throws ResourceNotFoundException if not found."
+    }, {
+      "name" : "getAllTestimonials",
+      "parameters" : [ ],
+      "return_type" : "List<TestimonialDto>",
+      "description" : "Retrieves all testimonials, sorted by display order."
+    }, {
+      "name" : "updateTestimonial",
+      "parameters" : [ "UUID id", "TestimonialDto testimonialDto" ],
+      "return_type" : "TestimonialDto",
+      "description" : "Updates an existing testimonial. Throws ResourceNotFoundException if not found."
+    }, {
+      "name" : "deleteTestimonial",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "void",
+      "description" : "Deletes a testimonial by its ID. Throws ResourceNotFoundException if not found."
+    }, {
+      "name" : "submitEnquiry",
+      "parameters" : [ "CreateEnquiryRequest request" ],
+      "return_type" : "EnquiryDto",
+      "description" : "Submits a new enquiry."
+    }, {
+      "name" : "getAllEnquiries",
+      "parameters" : [ ],
+      "return_type" : "List<EnquiryDto>",
+      "description" : "Retrieves all enquiries."
+    }, {
+      "name" : "updateEnquiryStatus",
+      "parameters" : [ "UUID id", "EnquiryStatus newStatus" ],
+      "return_type" : "EnquiryDto",
+      "description" : "Updates the status of an enquiry. Throws ResourceNotFoundException if not found."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/TestimonialRepository.java", "backend/src/main/java/com/absfitness/repository/EnquiryRepository.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — implements createTestimonial(TestimonialDto): TestimonialDto, getTestimonialById(UUID): TestimonialDto, getAllTestimonials(): List<TestimonialDto>, updateTestimonial(UUID, TestimonialDto): TestimonialDto, deleteTestimonial(UUID): void, submitEnquiry(CreateEnquiryRequest): EnquiryDto, getAllEnquiries(): List<EnquiryDto>, and updateEnquiryStatus(UUID, EnquiryStatus): EnquiryDto; delegates persistence to TestimonialRepository and EnquiryRepository.",
     "change_required" : null
   }, {
     "file_name" : "TestimonialDto.java",
@@ -1386,14 +1526,34 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Data Transfer Object for Testimonial entities.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the testimonial. Nullable for creation."
+    }, {
+      "name" : "authorName",
+      "type" : "String",
+      "description" : "Name of the person giving the testimonial. Not null, max 100 characters."
+    }, {
+      "name" : "quote",
+      "type" : "String",
+      "description" : "The actual testimonial quote. Not null, max 1000 characters."
+    }, {
+      "name" : "imageUrl",
+      "type" : "String",
+      "description" : "URL of the author's image, if any. Nullable, max 255 characters."
+    }, {
+      "name" : "displayOrder",
+      "type" : "Integer",
+      "description" : "Order in which the testimonial should be displayed. Not null."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "DTO layer — Data Transfer Object for Testimonial entities.",
     "change_required" : null
   }, {
     "file_name" : "EnquiryDto.java",
@@ -1404,14 +1564,42 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Data Transfer Object for Enquiry entities.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the enquiry."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the person submitting the enquiry."
+    }, {
+      "name" : "email",
+      "type" : "String",
+      "description" : "Email address of the person submitting the enquiry."
+    }, {
+      "name" : "phone",
+      "type" : "String",
+      "description" : "Phone number of the person submitting the enquiry."
+    }, {
+      "name" : "message",
+      "type" : "String",
+      "description" : "The message content of the enquiry."
+    }, {
+      "name" : "submissionTime",
+      "type" : "LocalDateTime",
+      "description" : "Timestamp when the enquiry was submitted."
+    }, {
+      "name" : "status",
+      "type" : "EnquiryStatus",
+      "description" : "Current status of the enquiry."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "DTO layer — Data Transfer Object for Enquiry entities.",
     "change_required" : null
   }, {
     "file_name" : "CreateEnquiryRequest.java",
@@ -1422,14 +1610,30 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Request body for submitting a new enquiry or lead capture form.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the person submitting the enquiry. Not null, max 100 characters."
+    }, {
+      "name" : "email",
+      "type" : "String",
+      "description" : "Email address of the person submitting the enquiry. Not null, valid email format, max 100 characters."
+    }, {
+      "name" : "phone",
+      "type" : "String",
+      "description" : "Phone number of the person submitting the enquiry. Nullable, max 20 characters."
+    }, {
+      "name" : "message",
+      "type" : "String",
+      "description" : "The message content of the enquiry. Not null, max 2000 characters."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "DTO layer — Request body for submitting a new enquiry or lead capture form.",
     "change_required" : null
   }, {
     "file_name" : "ContentController.java",
@@ -1440,14 +1644,38 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Public API endpoints for fetching testimonials and submitting enquiries.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllTestimonials",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<TestimonialDto>>",
+      "description" : "Handles GET requests for all testimonials."
+    }, {
+      "name" : "submitEnquiry",
+      "parameters" : [ "CreateEnquiryRequest request" ],
+      "return_type" : "ResponseEntity<EnquiryDto>",
+      "description" : "Handles POST requests for submitting a new enquiry."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/content/testimonials",
+      "request_body" : null,
+      "response_body" : "List<TestimonialDto>",
+      "description" : "Retrieves a list of all testimonials.",
+      "access" : "public"
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/content/enquiries",
+      "request_body" : "CreateEnquiryRequest",
+      "response_body" : "EnquiryDto",
+      "description" : "Submits a new enquiry from a public user.",
+      "access" : "public"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/ContentService.java", "backend/src/main/java/com/absfitness/dto/TestimonialDto.java", "backend/src/main/java/com/absfitness/dto/CreateEnquiryRequest.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — Public API endpoints for fetching testimonials and submitting enquiries.",
     "change_required" : null
   }, {
     "file_name" : "AdminContentController.java",
@@ -1458,14 +1686,98 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin-only API endpoints for CRUD operations on testimonials and managing enquiries.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllTestimonials",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<TestimonialDto>>",
+      "description" : "Handles GET requests for all testimonials (admin)."
+    }, {
+      "name" : "getTestimonialById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<TestimonialDto>",
+      "description" : "Handles GET requests for a testimonial by ID (admin)."
+    }, {
+      "name" : "createTestimonial",
+      "parameters" : [ "TestimonialDto testimonialDto" ],
+      "return_type" : "ResponseEntity<TestimonialDto>",
+      "description" : "Handles POST requests for creating a new testimonial (admin)."
+    }, {
+      "name" : "updateTestimonial",
+      "parameters" : [ "UUID id", "TestimonialDto testimonialDto" ],
+      "return_type" : "ResponseEntity<TestimonialDto>",
+      "description" : "Handles PUT requests for updating a testimonial (admin)."
+    }, {
+      "name" : "deleteTestimonial",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<Void>",
+      "description" : "Handles DELETE requests for a testimonial (admin)."
+    }, {
+      "name" : "getAllEnquiries",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<EnquiryDto>>",
+      "description" : "Handles GET requests for all enquiries (admin)."
+    }, {
+      "name" : "updateEnquiryStatus",
+      "parameters" : [ "UUID id", "EnquiryStatus newStatus" ],
+      "return_type" : "ResponseEntity<EnquiryDto>",
+      "description" : "Handles PUT requests for updating an enquiry's status (admin)."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/content/testimonials",
+      "request_body" : null,
+      "response_body" : "List<TestimonialDto>",
+      "description" : "Retrieves a list of all testimonials for admin management.",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/content/testimonials/{id}",
+      "request_body" : null,
+      "response_body" : "TestimonialDto",
+      "description" : "Retrieves a specific testimonial by ID for admin management.",
+      "access" : "admin"
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/content/testimonials",
+      "request_body" : "TestimonialDto",
+      "response_body" : "TestimonialDto",
+      "description" : "Creates a new testimonial.",
+      "access" : "admin"
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/content/testimonials/{id}",
+      "request_body" : "TestimonialDto",
+      "response_body" : "TestimonialDto",
+      "description" : "Updates an existing testimonial by ID.",
+      "access" : "admin"
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/content/testimonials/{id}",
+      "request_body" : null,
+      "response_body" : "void",
+      "description" : "Deletes a testimonial by ID.",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/content/enquiries",
+      "request_body" : null,
+      "response_body" : "List<EnquiryDto>",
+      "description" : "Retrieves a list of all enquiries for admin management.",
+      "access" : "admin"
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/content/enquiries/{id}/status",
+      "request_body" : "EnquiryStatus",
+      "response_body" : "EnquiryDto",
+      "description" : "Updates the status of a specific enquiry by ID.",
+      "access" : "admin"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/ContentService.java", "backend/src/main/java/com/absfitness/dto/TestimonialDto.java", "backend/src/main/java/com/absfitness/dto/EnquiryDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — Admin-only API endpoints for CRUD operations on testimonials and managing enquiries.",
     "change_required" : null
   }, {
     "file_name" : "App.tsx",
@@ -2580,8 +2892,8 @@
     "feature_display_name" : "Content Management (Backend)",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/model/Testimonial.java", "backend/src/main/java/com/absfitness/model/Enquiry.java", "backend/src/main/java/com/absfitness/model/EnquiryStatus.java", "backend/src/main/java/com/absfitness/repository/TestimonialRepository.java", "backend/src/main/java/com/absfitness/repository/EnquiryRepository.java", "backend/src/main/java/com/absfitness/service/ContentService.java", "backend/src/main/java/com/absfitness/dto/TestimonialDto.java", "backend/src/main/java/com/absfitness/dto/EnquiryDto.java", "backend/src/main/java/com/absfitness/dto/CreateEnquiryRequest.java", "backend/src/main/java/com/absfitness/controller/ContentController.java", "backend/src/main/java/com/absfitness/controller/admin/AdminContentController.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "The Content Management feature handles the backend logic and data persistence for customer testimonials and website enquiries. It provides public API endpoints for fetching testimonials and submitting new enquiries, and admin-only API endpoints for full CRUD operations on testimonials and managing enquiry statuses. This feature is designed to be consumed by the `core-ui` frontend feature for displaying content and capturing leads, and by the `admin-portal` frontend feature for content moderation.\n\n## Testimonial Management\nTestimonials are managed by administrators. The `Testimonial` model represents a customer review with fields for `id`, `authorName`, `quote`, `imageUrl`, and `displayOrder`. The `TestimonialRepository` provides standard JPA operations. The `ContentService` exposes methods for creating, retrieving, updating, and deleting testimonials, mapping between `Testimonial` entities and `TestimonialDto` objects. The `AdminContentController` exposes REST endpoints for these operations, requiring admin authentication.\n\n### `ContentService.createTestimonial(TestimonialDto testimonialDto): TestimonialDto`\n1. Validates `testimonialDto`.\n2. Creates a new `Testimonial` entity from `testimonialDto`.\n3. Saves the `Testimonial` entity using `testimonialRepository.save()`.\n4. Returns the saved `Testimonial` mapped to `TestimonialDto`.\n\n### `ContentService.getTestimonialById(UUID id): TestimonialDto`\n1. Retrieves a `Testimonial` by `id` using `testimonialRepository.findById()`.\n2. If not found, throws `ResourceNotFoundException`.\n3. Returns the `Testimonial` mapped to `TestimonialDto`.\n\n### `ContentService.getAllTestimonials(): List<TestimonialDto>`\n1. Retrieves all `Testimonial` entities using `testimonialRepository.findAll()`.\n2. Sorts testimonials by `displayOrder`.\n3. Returns the list of `Testimonial` entities mapped to `List<TestimonialDto>`.\n\n### `ContentService.updateTestimonial(UUID id, TestimonialDto testimonialDto): TestimonialDto`\n1. Retrieves the existing `Testimonial` by `id` using `testimonialRepository.findById()`.\n2. If not found, throws `ResourceNotFoundException`.\n3. Updates the `authorName`, `quote`, `imageUrl`, and `displayOrder` fields of the existing `Testimonial` entity from `testimonialDto`.\n4. Saves the updated `Testimonial` entity using `testimonialRepository.save()`.\n5. Returns the updated `Testimonial` mapped to `TestimonialDto`.\n\n### `ContentService.deleteTestimonial(UUID id): void`\n1. Checks if a `Testimonial` with the given `id` exists using `testimonialRepository.existsById()`.\n2. If not found, throws `ResourceNotFoundException`.\n3. Deletes the `Testimonial` entity by `id` using `testimonialRepository.deleteById()`.\n\n## Enquiry Management\nEnquiries are submitted by public users via a contact form and managed by administrators. The `Enquiry` model captures `id`, `name`, `email`, `phone`, `message`, `submissionTime`, and `status`. The `EnquiryStatus` enum defines possible states like `NEW`, `CONTACTED`, `CLOSED`. The `EnquiryRepository` provides standard JPA operations. The `ContentService` exposes methods for submitting new enquiries, retrieving all enquiries, and updating an enquiry's status. The `ContentController` exposes a public endpoint for submitting enquiries, and `AdminContentController` exposes admin-only endpoints for viewing and updating enquiries.\n\n### `ContentService.submitEnquiry(CreateEnquiryRequest request): EnquiryDto`\n1. Validates `request`.\n2. Creates a new `Enquiry` entity from `request`, setting `submissionTime` to `LocalDateTime.now()` and `status` to `EnquiryStatus.NEW`.\n3. Saves the `Enquiry` entity using `enquiryRepository.save()`.\n4. Returns the saved `Enquiry` mapped to `EnquiryDto`.\n\n### `ContentService.getAllEnquiries(): List<EnquiryDto>`\n1. Retrieves all `Enquiry` entities using `enquiryRepository.findAll()`.\n2. Returns the list of `Enquiry` entities mapped to `List<EnquiryDto>`.\n\n### `ContentService.updateEnquiryStatus(UUID id, EnquiryStatus newStatus): EnquiryDto`\n1. Retrieves the existing `Enquiry` by `id` using `enquiryRepository.findById()`.\n2. If not found, throws `ResourceNotFoundException`.\n3. Updates the `status` field of the existing `Enquiry` entity to `newStatus`.\n4. Saves the updated `Enquiry` entity using `enquiryRepository.save()`.\n5. Returns the updated `Enquiry` mapped to `EnquiryDto`.\n\n## Controllers\n- `ContentController` provides public API endpoints:\n    - `GET /api/v1/content/testimonials`: Retrieves all testimonials.\n    - `POST /api/v1/content/enquiries`: Submits a new enquiry.\n- `AdminContentController` provides admin-only API endpoints:\n    - `GET /api/v1/admin/content/testimonials`: Retrieves all testimonials.\n    - `GET /api/v1/admin/content/testimonials/{id}`: Retrieves a testimonial by ID.\n    - `POST /api/v1/admin/content/testimonials`: Creates a new testimonial.\n    - `PUT /api/v1/admin/content/testimonials/{id}`: Updates an existing testimonial.\n    - `DELETE /api/v1/admin/content/testimonials/{id}`: Deletes a testimonial.\n    - `GET /api/v1/admin/content/enquiries`: Retrieves all enquiries.\n    - `PUT /api/v1/admin/content/enquiries/{id}/status`: Updates the status of an enquiry.\n\nBoth controllers inject `ContentService` to perform business operations. Error handling for `ResourceNotFoundException` is managed by the `shared-backend`'s `GlobalExceptionHandler`.",
+    "depends_on_features" : [ "shared-backend" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
