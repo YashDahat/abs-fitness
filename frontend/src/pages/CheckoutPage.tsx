@@ -1,54 +1,87 @@
-import { useCart } from '@/cart';
-import { useAuth } from '@/context/AuthContext';
-import { Button } from '@/components/ui/button';
-import {
-  Card, CardContent, CardDescription, CardHeader, CardTitle,
-} from '@/components/ui/card';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useMembershipPlan } from '@/hooks/useMembership';
+import OrderSummary from '@/components/checkout/OrderSummary';
+import CheckoutForm from '@/components/checkout/CheckoutForm';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { TriangleAlert } from 'lucide-react';
+import { ROUTES } from '@/routes';
 
-// Minimal foundation checkout — mounted behind <RequireAuth>, so a guest is sent to /login first
-// and returns here with their cart intact. A generated business replaces this with its real
-// checkout (which sends only the cart to the server; the current user is derived from the token —
-// orders link by Integer userId, never email/phone).
 export default function CheckoutPage() {
-  const { cartItems, totals, clearCart } = useCart();
-  const { user } = useAuth();
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const membershipPlanId = id ? parseInt(id) : undefined;
+
+  const { data: membershipPlan, isLoading, isError, error } = useMembershipPlan(
+    membershipPlanId !== undefined ? membershipPlanId : -1, // Pass -1 or a similar invalid ID if undefined
+  );
+
+  if (isLoading) {
+    return (
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-3xl md:text-4xl font-semibold text-center mb-10">
+            Complete Your ABS FITNESS Membership Purchase
+          </h1>
+          <div className="flex flex-col lg:flex-row gap-8 items-start">
+            <div className="w-full lg:w-1/2">
+              <Skeleton className="h-64 w-full" />
+            </div>
+            <div className="w-full lg:w-1/2">
+              <Skeleton className="h-96 w-full" />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (isError || !membershipPlan) {
+    return (
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-3xl md:text-4xl font-semibold text-center mb-10">
+            Complete Your ABS FITNESS Membership Purchase
+          </h1>
+          <Alert variant="destructive" className="max-w-xl mx-auto">
+            <TriangleAlert className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>
+              {isError ? error?.message : 'Membership plan not found or an unexpected error occurred.'}
+              <br />
+              Please try again or select a different plan.
+              <button
+                onClick={() => navigate(ROUTES.MEMBERSHIP)}
+                className="text-[#FF5722] hover:underline ml-2"
+              >
+                Go to Membership Plans
+              </button>
+            </AlertDescription>
+          </Alert>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12">
-      <Card data-testid="checkout-card">
-        <CardHeader>
-          <CardTitle>Checkout</CardTitle>
-          <CardDescription>
-            Logged in as <span data-testid="checkout-user">{user?.username}</span>.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {cartItems.length === 0 ? (
-            <p data-testid="checkout-empty" className="text-muted-foreground">Your cart is empty.</p>
-          ) : (
-            <ul className="space-y-1" data-testid="checkout-items">
-              {cartItems.map((item) => (
-                <li key={`${item.id}:${item.variantKey ?? ''}`} className="flex justify-between text-sm">
-                  <span>{item.name} × {item.quantity}</span>
-                  <span>₹{item.unitPrice * item.quantity}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className="flex items-center justify-between border-t pt-3 font-semibold">
-            <span>Total</span>
-            <span data-testid="checkout-total">₹{totals.total}</span>
+    <section className="py-16 px-4">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-3xl md:text-4xl font-semibold text-center mb-10">
+          Complete Your ABS FITNESS Membership Purchase
+        </h1>
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
+          <div className="w-full lg:w-1/2">
+            <OrderSummary membershipPlan={membershipPlan} />
           </div>
-          <Button
-            className="w-full"
-            disabled={cartItems.length === 0}
-            data-testid="place-order"
-            onClick={clearCart}
-          >
-            Place order
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
+          <div className="w-full lg:w-1/2">
+            <CheckoutForm
+              membershipPlanId={membershipPlan.id}
+              planName={membershipPlan.name}
+              planPrice={membershipPlan.price}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
