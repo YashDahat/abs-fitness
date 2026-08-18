@@ -1788,14 +1788,14 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "The root component of the React application, responsible for setting up routing.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "The root component of the React application, responsible for setting up routing using `react-router-dom`.",
     "change_required" : null
   }, {
     "file_name" : "siteConfig.ts",
@@ -1806,14 +1806,18 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Central configuration for site-wide properties like brand name, navigation links, and footer content.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "siteConfig",
+      "type" : "{ brandName: string; navLinks: { label: string; href: string; }[]; footer: { address: string; phone: string; email: string; socialLinks: { platform: string; href: string; }[]; }; contact: { address: string; phone: string; email: string; coordinates: { lat: number; lng: number; }; openingHours: string; }; }",
+      "description" : "Object containing site-wide configuration details including brand name, navigation links, footer content, and contact information."
+    } ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Central configuration for site-wide properties like brand name, navigation links, and footer content, consumed by the global `SiteHeader` and `SiteFooter`.",
     "change_required" : null
   }, {
     "file_name" : "HomePage.tsx",
@@ -1824,14 +1828,14 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "The main landing page, featuring a high-energy hero, facilities highlights, testimonials, and a lead capture form.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/components/home/HeroSection.tsx", "frontend/src/components/home/FacilitiesHighlight.tsx", "frontend/src/components/home/TestimonialsSection.tsx", "frontend/src/components/home/LeadCaptureForm.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "PAGE layer — the main landing page, composed of `HeroSection`, `FacilitiesHighlight`, `TestimonialsSection`, and `LeadCaptureForm`.",
     "change_required" : null
   }, {
     "file_name" : "HeroSection.tsx",
@@ -1842,14 +1846,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Full-bleed hero component with a video background showcasing the gym's premium atmosphere and a prominent CTA.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ {
+      "name" : "HeroSection",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the hero section with a video background, headline, sub-headline, and a call-to-action button."
+    } ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a full-bleed hero with a video background and a prominent call to action.",
     "change_required" : null
   }, {
     "file_name" : "FacilitiesHighlight.tsx",
@@ -1860,14 +1869,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A grid or card-based section to visually showcase key facilities like the swimming pool and modern equipment.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ {
+      "name" : "FacilitiesHighlight",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a section highlighting the gym's key facilities with images, titles, and descriptions."
+    } ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a grid or card-based section to visually showcase key facilities.",
     "change_required" : null
   }, {
     "file_name" : "TestimonialsSection.tsx",
@@ -1878,14 +1892,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Displays a rotating carousel of curated customer reviews to build social proof.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ {
+      "name" : "TestimonialsSection",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a section displaying customer testimonials in a carousel format."
+    } ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/hooks/useContent.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a rotating carousel of curated customer reviews, fetching data via `useContent().useTestimonials()`.",
     "change_required" : null
   }, {
     "file_name" : "LeadCaptureForm.tsx",
@@ -1896,14 +1915,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A form for prospective members to request a free trial or book a tour of the facility.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ {
+      "name" : "LeadCaptureForm",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a form for users to submit enquiries, including fields for name, email, phone, and message."
+    } ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/hooks/useContent.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — provides a form for prospective members to request a free trial or book a tour, submitting data via `useContent().useSubmitEnquiry()`.",
     "change_required" : null
   }, {
     "file_name" : "AboutPage.tsx",
@@ -1914,14 +1938,14 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Static page describing the gym's mission, history, and values, with team photos.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "PAGE layer — a static page describing the gym's mission, history, and values.",
     "change_required" : null
   }, {
     "file_name" : "ContactPage.tsx",
@@ -1932,14 +1956,14 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Displays contact information, address with an embedded Google Map, and the lead capture form.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/components/home/LeadCaptureForm.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "PAGE layer — displays contact information, an embedded Google Map, and the `LeadCaptureForm`.",
     "change_required" : null
   }, {
     "file_name" : "VirtualTourPage.tsx",
@@ -1950,14 +1974,14 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A page to host an embedded 360-degree virtual tour of the gym facility.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "PAGE layer — a page to host an embedded 360-degree virtual tour of the gym facility.",
     "change_required" : null
   }, {
     "file_name" : "NotFoundPage.tsx",
@@ -1968,14 +1992,14 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A user-friendly 404 page to handle invalid routes.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "PAGE layer — a user-friendly 404 page to handle invalid routes.",
     "change_required" : null
   }, {
     "file_name" : "testimonial.ts",
@@ -1986,14 +2010,18 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "TypeScript types for the Testimonial data structure.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "Testimonial",
+      "type" : "{ id: string; authorName: string; quote: string; imageUrl?: string; displayOrder: number; }",
+      "description" : "Interface representing a customer testimonial."
+    } ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "TypeScript types for the Testimonial data structure, mirroring the backend `TestimonialDto`.",
     "change_required" : null
   }, {
     "file_name" : "enquiry.ts",
@@ -2004,14 +2032,22 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "TypeScript types for the Enquiry data structure.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "Enquiry",
+      "type" : "{ id: string; name: string; email: string; phone: string; message: string; submissionTime: string; status: 'NEW' | 'CONTACTED' | 'CLOSED'; }",
+      "description" : "Interface representing a customer enquiry."
+    }, {
+      "name" : "CreateEnquiryRequest",
+      "type" : "{ name: string; email: string; phone: string; message: string; }",
+      "description" : "Interface representing the request body for submitting a new enquiry."
+    } ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "TypeScript types for the Enquiry data structure and `CreateEnquiryRequest`, mirroring backend DTOs.",
     "change_required" : null
   }, {
     "file_name" : "contentService.ts",
@@ -2022,14 +2058,38 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "API client functions for fetching testimonials and submitting enquiries.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ {
+      "name" : "getAllTestimonials",
+      "parameters" : [ ],
+      "return_type" : "Promise<Testimonial[]>",
+      "description" : "Fetches all testimonials from the backend."
+    }, {
+      "name" : "submitEnquiry",
+      "parameters" : [ "CreateEnquiryRequest request" ],
+      "return_type" : "Promise<Enquiry>",
+      "description" : "Submits a new enquiry to the backend."
+    } ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/content/testimonials",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all testimonials.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/content/enquiries",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Submits a new enquiry.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/testimonial.ts", "frontend/src/types/enquiry.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — provides API client functions `getAllTestimonials(): Promise<Testimonial[]>` and `submitEnquiry(request: CreateEnquiryRequest): Promise<Enquiry>` for interacting with the `content-management` backend.",
     "change_required" : null
   }, {
     "file_name" : "useContent.ts",
@@ -2040,14 +2100,24 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "React Query hook for managing testimonial and enquiry data.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "public_functions" : [ {
+      "name" : "useTestimonials",
+      "parameters" : [ ],
+      "return_type" : "{ data: Testimonial[]; isLoading: boolean; error: Error; }",
+      "description" : "React Query hook to fetch and manage testimonial data."
+    }, {
+      "name" : "useSubmitEnquiry",
+      "parameters" : [ ],
+      "return_type" : "{ mutate: (request: CreateEnquiryRequest) => void; isLoading: boolean; isSuccess: boolean; error: Error; }",
+      "description" : "React Query mutation hook to submit new enquiry data."
+    } ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/services/contentService.ts", "frontend/src/types/testimonial.ts", "frontend/src/types/enquiry.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "HOOK layer — React Query hook for managing testimonial and enquiry data, exporting `useTestimonials()` and `useSubmitEnquiry()`.",
     "change_required" : null
   }, {
     "file_name" : "ProtectedRoute.tsx",
@@ -2901,8 +2971,8 @@
     "feature_display_name" : "Core UI & Static Pages",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/App.tsx", "frontend/src/config/siteConfig.ts", "frontend/src/pages/HomePage.tsx", "frontend/src/components/home/HeroSection.tsx", "frontend/src/components/home/FacilitiesHighlight.tsx", "frontend/src/components/home/TestimonialsSection.tsx", "frontend/src/components/home/LeadCaptureForm.tsx", "frontend/src/pages/AboutPage.tsx", "frontend/src/pages/ContactPage.tsx", "frontend/src/pages/VirtualTourPage.tsx", "frontend/src/pages/NotFoundPage.tsx", "frontend/src/types/testimonial.ts", "frontend/src/types/enquiry.ts", "frontend/src/services/contentService.ts", "frontend/src/hooks/useContent.ts" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "This feature, Core UI & Static Pages, establishes the foundational user interface and routing for the ABS FITNESS frontend application. It includes the main application entry point (`App.tsx`), global site configuration (`siteConfig.ts`), and several static marketing pages (`HomePage.tsx`, `AboutPage.tsx`, `ContactPage.tsx`, `VirtualTourPage.tsx`, `NotFoundPage.tsx`). It also defines shared UI components for the homepage (`HeroSection.tsx`, `FacilitiesHighlight.tsx`, `TestimonialsSection.tsx`, `LeadCaptureForm.tsx`) and the necessary TypeScript types (`testimonial.ts`, `enquiry.ts`) and API client (`contentService.ts`) and React Query hook (`useContent.ts`) for testimonials and lead enquiries.\n\n## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\n### `App.tsx`\nThis file sets up the main routing for the application using `react-router-dom`. It defines public routes for the static pages and a catch-all for `NotFoundPage`. It also integrates the global `SiteLayout` (which includes `SiteHeader` and `SiteFooter`) provided by the application shell, meaning individual pages do not need to wrap themselves in a layout.\n\n### `siteConfig.ts`\nThis file centralizes all site-wide configuration, including the brand name, navigation links, and footer content. It exports a `siteConfig` object that is consumed by `SiteHeader` and `SiteFooter` (from the application shell). The contact details for ABS FITNESS (address, phone, coordinates, opening hours) are provided verbatim here.\n\n### `HomePage.tsx`\nThis page serves as the main landing page for ABS FITNESS. It is composed of several key sections:\n1.  **Hero Section**: Utilizes `HeroSection` to display a dynamic, full-bleed hero with a video background and a prominent call to action.\n2.  **Facilities Highlight**: Integrates `FacilitiesHighlight` to showcase the gym's premium amenities.\n3.  **Testimonials Section**: Renders `TestimonialsSection` to display customer reviews, fetching data using `useContent().useTestimonials()`.\n4.  **Lead Capture Form**: Includes `LeadCaptureForm` to encourage prospective members to request a free trial or tour. This form submits data using `useContent().useSubmitEnquiry()`.\n\n### `HeroSection.tsx`\nThis component displays a full-bleed hero with a video background. It should feature the gym's name \"ABS FITNESS\" prominently as the main headline and a motivational sub-headline like \"Unleash Your Potential. Transform Your Body. Elevate Your Life.\" It includes a primary call-to-action button, styled with `bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200`, with the text \"Start Your Free Trial\". The background video should be a relevant Unsplash image URL for a gym, with a `bg-black bg-opacity-50` overlay.\n\n### `FacilitiesHighlight.tsx`\nThis component presents a grid or card-based layout to highlight key facilities. Each facility card should include an image, a title (e.g., \"State-of-the-Art Equipment\", \"Olympic-Size Swimming Pool\", \"Expert Personal Trainers\"), and a brief description. Use the `Card` design token for styling individual facility cards.\n\n### `TestimonialsSection.tsx`\nThis component displays a rotating carousel of customer testimonials. It fetches testimonial data using the `useContent().useTestimonials()` hook. Each testimonial card should display the `authorName`, `quote`, and `imageUrl` (if available) from the `TestimonialDto`. Use the `Card` design token for styling individual testimonial cards. The section heading should be \"What Our Members Say\" with a sub-heading \"Hear from our thriving community.\"\n\n### `LeadCaptureForm.tsx`\nThis component provides a form for prospective members to submit enquiries. It should include fields for `name`, `email`, `phone`, and `message`. Upon submission, it calls the `useContent().useSubmitEnquiry()` mutation. The form should have a clear call-to-action button, styled with `bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200`, with the text \"Request a Free Trial\". Include a success toast notification using `sonner` upon successful submission.\n\n### `AboutPage.tsx`\nThis static page describes the gym's mission, history, and values. It should include sections with headings like \"Our Story,\" \"Our Mission,\" and \"Our Values.\" Incorporate placeholder text that aligns with the motivational and professional tone. Include team photos (using relevant Unsplash URLs) and descriptive text for each section. Use `Section bg` and `Section container` design tokens for layout.\n\n### `ContactPage.tsx`\nThis page displays the gym's contact information, including the address, phone number, and opening hours from `siteConfig.ts`. It should embed a Google Map using the coordinates from `siteConfig.ts` to show the gym's location. It also reuses the `LeadCaptureForm` component for enquiries. The section heading should be \"Get in Touch\" and a sub-heading \"We're here to help you achieve your fitness goals.\"\n\n### `VirtualTourPage.tsx`\nThis page is dedicated to hosting an embedded 360-degree virtual tour of the ABS FITNESS facility. It should contain a placeholder for an iframe or similar embed code for a virtual tour (e.g., from Google Street View or a dedicated virtual tour service). The page should have a clear heading like \"Explore ABS FITNESS\" and a sub-heading \"Take a virtual walk through our world-class facility.\"\n\n### `NotFoundPage.tsx`\nThis page provides a user-friendly 404 error message for invalid routes. It should display a prominent \"404\" or \"Page Not Found\" message, a brief explanation (e.g., \"The page you are looking for does not exist.\"), and a link back to the `HomePage` with the text \"Go to Homepage\".\n\n### `testimonial.ts`\nThis file defines the TypeScript interface `Testimonial` which mirrors the `TestimonialDto` from the `content-management` backend feature. It includes fields for `id`, `authorName`, `quote`, `imageUrl`, and `displayOrder`.\n\n### `enquiry.ts`\nThis file defines the TypeScript interface `Enquiry` which mirrors the `EnquiryDto` from the `content-management` backend feature, and `CreateEnquiryRequest` for submitting new enquiries. It includes fields for `id`, `name`, `email`, `phone`, `message`, `submissionTime`, and `status` for `Enquiry`, and `name`, `email`, `phone`, `message` for `CreateEnquiryRequest`.\n\n### `contentService.ts`\nThis service provides API client functions for interacting with the `content-management` backend feature. It includes `getAllTestimonials()` to fetch a list of testimonials and `submitEnquiry(request: CreateEnquiryRequest)` to submit a new enquiry. These functions will make HTTP requests to the `/api/v1/content/testimonials` (GET) and `/api/v1/content/enquiries` (POST) endpoints respectively.\n\n### `useContent.ts`\nThis React Query hook centralizes data fetching and mutation logic for testimonials and enquiries. It exports `useTestimonials()` to query all testimonials and `useSubmitEnquiry()` to mutate (create) a new enquiry. These hooks utilize `contentService.ts` to interact with the backend.",
+    "depends_on_features" : [ "content-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
