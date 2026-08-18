@@ -2128,14 +2128,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A component that guards routes, redirecting unauthenticated or unauthorized users.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ProtectedRoute",
+      "parameters" : [ "React.PropsWithChildren<{}> props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders children if authenticated, otherwise redirects to login."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "auth-and-account",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — guards routes, redirecting unauthenticated users to the login page.",
     "change_required" : null
   }, {
     "file_name" : "LoginPage.tsx",
@@ -2153,7 +2158,7 @@
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "auth-and-account",
-    "file_role" : null,
+    "file_role" : "PAGE layer — provides a form for users to log in, using `useAuth().login`.",
     "change_required" : null
   }, {
     "file_name" : "SignupPage.tsx",
@@ -2171,7 +2176,7 @@
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "auth-and-account",
-    "file_role" : null,
+    "file_role" : "PAGE layer — provides a form for new users to register, using `useAuth().register`.",
     "change_required" : null
   }, {
     "file_name" : "AccountPage.tsx",
@@ -2189,7 +2194,7 @@
     "imports_from" : [ "frontend/src/components/account/ProfileDetails.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "auth-and-account",
-    "file_role" : null,
+    "file_role" : "PAGE layer — the main dashboard for a logged-in member, displaying profile details and navigation.",
     "change_required" : null
   }, {
     "file_name" : "MyBookingsPage.tsx",
@@ -2207,7 +2212,7 @@
     "imports_from" : [ "frontend/src/components/account/BookingsTable.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "auth-and-account",
-    "file_role" : null,
+    "file_role" : "PAGE layer — displays a list of the logged-in member's class bookings, using `useBooking().useMyBookings`.",
     "change_required" : null
   }, {
     "file_name" : "MySubscriptionPage.tsx",
@@ -2225,7 +2230,7 @@
     "imports_from" : [ "frontend/src/components/account/SubscriptionStatusCard.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "auth-and-account",
-    "file_role" : null,
+    "file_role" : "PAGE layer — displays the logged-in member's membership plan status, using `useMembership().useMySubscription`.",
     "change_required" : null
   }, {
     "file_name" : "ProfileDetails.tsx",
@@ -2236,14 +2241,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Component to display and allow editing of the logged-in user's profile information.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ProfileDetails",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays user profile details and provides an edit option."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "auth-and-account",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays and allows editing of the logged-in user's profile information.",
     "change_required" : null
   }, {
     "file_name" : "BookingsTable.tsx",
@@ -2254,14 +2264,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A table listing a member's class bookings with options to view details or cancel.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "BookingsTable",
+      "parameters" : [ "bookings: BookingDto[]" ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays a table of user bookings with cancellation options."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/hooks/useBooking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "auth-and-account",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — a table listing a member's class bookings, with options to view details or cancel.",
     "change_required" : null
   }, {
     "file_name" : "SubscriptionStatusCard.tsx",
@@ -2272,14 +2287,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A card displaying the user's current membership plan, expiry date, and a renewal CTA.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "SubscriptionStatusCard",
+      "parameters" : [ "subscription: MemberSubscriptionDto" ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays membership plan details and renewal options."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/hooks/useMembership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "auth-and-account",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays the user's current membership plan, expiry date, and a renewal CTA.",
     "change_required" : null
   }, {
     "file_name" : "membership.ts",
@@ -2980,8 +3000,8 @@
     "feature_display_name" : "Authentication & Member Account",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/components/ProtectedRoute.tsx", "frontend/src/pages/LoginPage.tsx", "frontend/src/pages/SignupPage.tsx", "frontend/src/pages/AccountPage.tsx", "frontend/src/pages/MyBookingsPage.tsx", "frontend/src/pages/MySubscriptionPage.tsx", "frontend/src/components/account/ProfileDetails.tsx", "frontend/src/components/account/BookingsTable.tsx", "frontend/src/components/account/SubscriptionStatusCard.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "This feature provides user authentication (login, signup) and a member account area with protected routes. It integrates with the pre-scaffolded `AuthContext` for authentication state management and `authService` for API calls. The member account pages (`AccountPage`, `MyBookingsPage`, `MySubscriptionPage`) are protected by `ProtectedRoute` and display user-specific data by calling backend APIs from the `scheduling-and-booking` and `membership-management` features.\n\n## Design Tokens\n- Navbar: bg-[#1A1A1A] text-white\n- Primary CTA: bg-[#FF5722] hover:bg-[#e64a19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-white (odd sections) / bg-[#F5F5F5] (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\n### ProtectedRoute.tsx\nThis component wraps routes that require authentication. It uses the `useAuth` hook to check `isAuthenticated`. If the user is not authenticated, it redirects them to the `/login` page. Otherwise, it renders the child components.\n\n### LoginPage.tsx\nThis page provides a login form. It uses the `useAuth` hook's `login` function to authenticate the user. On successful login, the user is redirected to the `/account` page. The form includes fields for `username` and `password` and a submit button with the text \"Login to your ABS FITNESS Account\". It should also include a link to the signup page.\n\n### SignupPage.tsx\nThis page provides a signup form for new users. It uses the `useAuth` hook's `register` function to create a new user account and automatically log them in. On successful registration, the user is redirected to the `/account` page. The form includes fields for `username`, `email`, `password`, and `confirm password`, and a submit button with the text \"Join ABS FITNESS Today\". It should also include a link to the login page.\n\n### AccountPage.tsx\nThis is the main dashboard for a logged-in member. It displays a welcome message including the user's username (from `useAuth().user.username`). It includes navigation links to `MyBookingsPage` and `MySubscriptionPage`. It renders the `ProfileDetails` component to display and allow editing of the user's profile information.\n\n### MyBookingsPage.tsx\nThis page displays a list of the logged-in member's upcoming and past class bookings. It uses the `useAuth` hook to get the `userId` and then calls the `useBooking().useMyBookings(userId)` hook to fetch the booking data. The bookings are displayed in the `BookingsTable` component.\n\n### MySubscriptionPage.tsx\nThis page displays the status of the logged-in member's current membership plan and renewal options. It uses the `useAuth` hook to get the `userId` and then calls the `useMembership().useMySubscription(userId)` hook to fetch the subscription data. The subscription status is displayed in the `SubscriptionStatusCard` component.\n\n### ProfileDetails.tsx\nThis component displays the logged-in user's profile information. It should fetch the user's profile details (e.g., name, email) from a backend API (if available, otherwise use `useAuth().user.username` as a placeholder). It should provide an option to edit these details. The component should display the username from `useAuth().user.username`.\n\n### BookingsTable.tsx\nThis component is a table that lists a member's class bookings. It receives a `List<BookingDto>` as props. Each row should display the class name, start time, end time, trainer name, and booking status. It should also include options to view details or cancel a booking (if the status allows). Cancellation should call `useBooking().useCancelBooking().mutate(bookingId)`.\n\n### SubscriptionStatusCard.tsx\nThis component displays the user's current membership plan, expiry date, and a renewal CTA. It receives a `MemberSubscriptionDto` as props. It should display the `membershipPlanName`, `startDate`, `endDate`, and `status`. If the subscription is `EXPIRED` or `CANCELLED`, it should show a prominent \"Renew Now\" CTA that links to the `/membership` page.",
+    "depends_on_features" : [ "scheduling-and-booking", "membership-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
