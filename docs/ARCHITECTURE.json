@@ -30,7 +30,7 @@
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
-    "imports_from" : [ "backend/src/main/java/com/absfitness/dto/ErrorResponse.java", "backend/src/main/java/com/absfitness/exception/ResourceNotFoundException.java" ],
+    "imports_from" : [ "backend/src/main/java/com/absfitness/dto/ErrorResponse.java" ],
     "depends_on" : [ ],
     "feature_name" : "shared-backend",
     "file_role" : "Exception handling layer — provides centralized exception handling for the entire application, mapping specific exceptions to standardized `ErrorResponse` DTOs with appropriate HTTP status codes.",
@@ -74,29 +74,6 @@
     "file_role" : "DTO layer — defines the standardized JSON response structure for API errors, consumed by `GlobalExceptionHandler`.",
     "change_required" : null
   }, {
-    "file_name" : "ResourceNotFoundException.java",
-    "file_path" : "backend/src/main/java/com/absfitness/exception/ResourceNotFoundException.java",
-    "file_type" : "BACKEND",
-    "layer" : "EXCEPTION",
-    "created_date" : "2024-07-30",
-    "updated_date" : "2024-07-30",
-    "status" : "PLANNED",
-    "description" : "Custom exception for cases where a requested entity is not found in the database.",
-    "public_functions" : [ {
-      "name" : "ResourceNotFoundException",
-      "parameters" : [ "String message" ],
-      "return_type" : "void",
-      "description" : "Constructor for `ResourceNotFoundException` that accepts an error message."
-    } ],
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
-    "imports_from" : [ ],
-    "depends_on" : [ ],
-    "feature_name" : "shared-backend",
-    "file_role" : "Custom exception class — indicates that a requested resource was not found, to be caught by `GlobalExceptionHandler`.",
-    "change_required" : null
-  }, {
     "file_name" : "MembershipPlan.java",
     "file_path" : "backend/src/main/java/com/absfitness/model/MembershipPlan.java",
     "file_type" : "BACKEND",
@@ -108,7 +85,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the membership plan. Not null."
     }, {
       "name" : "name",
@@ -150,12 +127,12 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the member subscription. Not null."
     }, {
       "name" : "userId",
-      "type" : "UUID",
-      "description" : "ID of the user who owns this subscription. Not null."
+      "type" : "Integer",
+      "description" : "ID of the user who owns this subscription. Not null. Reference to the platform user (foundation convention; no DB foreign key)."
     }, {
       "name" : "membershipPlan",
       "type" : "MembershipPlan",
@@ -190,8 +167,8 @@
     "file_type" : "BACKEND",
     "layer" : "MODEL",
     "created_date" : "2024-07-30",
-    "updated_date" : "2024-07-30",
-    "status" : "PLANNED",
+    "updated_date" : "2026-08-18",
+    "status" : "GENERATED",
     "description" : "Enum for the status of a member's subscription (e.g., ACTIVE, EXPIRED).",
     "public_functions" : [ ],
     "public_variables" : [ {
@@ -329,7 +306,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the membership plan."
     }, {
       "name" : "name",
@@ -371,15 +348,15 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the member subscription."
     }, {
       "name" : "userId",
-      "type" : "UUID",
-      "description" : "ID of the user who owns this subscription."
+      "type" : "Integer",
+      "description" : "ID of the user who owns this subscription. Reference to the platform user (foundation convention; no DB foreign key)."
     }, {
       "name" : "membershipPlanId",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "ID of the associated membership plan."
     }, {
       "name" : "membershipPlanName",
@@ -421,12 +398,12 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "membershipPlanId",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "The ID of the membership plan to subscribe to. @NotNull."
     }, {
       "name" : "userId",
-      "type" : "UUID",
-      "description" : "The ID of the user creating the subscription. @NotNull."
+      "type" : "Integer",
+      "description" : "The ID of the user creating the subscription. @NotNull. Reference to the platform user (foundation convention; no DB foreign key)."
     }, {
       "name" : "paymentId",
       "type" : "String",
@@ -571,7 +548,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the trainer. Not null."
     }, {
       "name" : "name",
@@ -609,7 +586,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the gym class. Not null."
     }, {
       "name" : "name",
@@ -659,12 +636,12 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the booking. Not null."
     }, {
       "name" : "userId",
-      "type" : "UUID",
-      "description" : "ID of the user who made the booking. Not null."
+      "type" : "Integer",
+      "description" : "ID of the user who made the booking. Not null. Reference to the platform user (foundation convention; no DB foreign key)."
     }, {
       "name" : "gymClass",
       "type" : "GymClass",
@@ -691,8 +668,8 @@
     "file_type" : "BACKEND",
     "layer" : "MODEL",
     "created_date" : "2024-07-30",
-    "updated_date" : "2024-07-30",
-    "status" : "PLANNED",
+    "updated_date" : "2026-08-18",
+    "status" : "GENERATED",
     "description" : "Enum for the status of a class booking (e.g., CONFIRMED, CANCELLED).",
     "public_functions" : [ ],
     "public_variables" : [ {
@@ -909,7 +886,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the trainer."
     }, {
       "name" : "name",
@@ -947,7 +924,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the gym class."
     }, {
       "name" : "name",
@@ -975,7 +952,7 @@
       "description" : "Current number of booked slots. @NotNull, @Min(0)"
     }, {
       "name" : "trainerId",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "ID of the trainer conducting the class. @NotNull"
     }, {
       "name" : "trainerName",
@@ -1001,15 +978,15 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the booking."
     }, {
       "name" : "userId",
-      "type" : "UUID",
-      "description" : "ID of the user who made the booking."
+      "type" : "Integer",
+      "description" : "ID of the user who made the booking. Reference to the platform user (foundation convention; no DB foreign key)."
     }, {
       "name" : "gymClassId",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "ID of the gym class booked."
     }, {
       "name" : "gymClassName",
@@ -1055,7 +1032,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "gymClassId",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "ID of the gym class to book. @NotNull"
     } ],
     "api_endpoints" : null,
@@ -1281,7 +1258,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the testimonial. Not null."
     }, {
       "name" : "authorName",
@@ -1319,7 +1296,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the enquiry. Not null."
     }, {
       "name" : "name",
@@ -1359,8 +1336,8 @@
     "file_type" : "BACKEND",
     "layer" : "MODEL",
     "created_date" : "2024-07-30",
-    "updated_date" : "2024-07-30",
-    "status" : "PLANNED",
+    "updated_date" : "2026-08-18",
+    "status" : "GENERATED",
     "description" : "Enum for the status of an enquiry (e.g., NEW, CONTACTED, CLOSED).",
     "public_functions" : [ ],
     "public_variables" : [ {
@@ -1529,7 +1506,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the testimonial. Nullable for creation."
     }, {
       "name" : "authorName",
@@ -1567,7 +1544,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the enquiry."
     }, {
       "name" : "name",
@@ -3424,7 +3401,7 @@
     "feature_name" : "shared-backend",
     "feature_display_name" : "Shared Backend Utilities",
     "feature_type" : "SHARED",
-    "file_paths" : [ "backend/src/main/java/com/absfitness/exception/GlobalExceptionHandler.java", "backend/src/main/java/com/absfitness/dto/ErrorResponse.java", "backend/src/main/java/com/absfitness/exception/ResourceNotFoundException.java" ],
+    "file_paths" : [ "backend/src/main/java/com/absfitness/exception/GlobalExceptionHandler.java", "backend/src/main/java/com/absfitness/dto/ErrorResponse.java" ],
     "feature_instruction" : "This feature provides shared backend utilities, including a global exception handler and common DTOs and custom exceptions. The `GlobalExceptionHandler` intercepts specific exceptions thrown by any service or controller in the application and maps them to a standardized `ErrorResponse` DTO. This ensures a consistent error response format across all API endpoints. The `ErrorResponse` DTO defines the structure for these standardized error messages, including a timestamp, status, error message, and path. The `ResourceNotFoundException` is a custom exception that should be thrown by services when a requested resource (e.g., a `MembershipPlan`, `GymClass`, or `Trainer`) cannot be found in the database. When a `ResourceNotFoundException` is thrown, the `GlobalExceptionHandler` will catch it and return an `ErrorResponse` with an appropriate HTTP status code (e.g., 404 Not Found).",
     "depends_on_features" : [ ],
     "change_required" : true,

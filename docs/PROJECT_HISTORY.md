@@ -1,0 +1,108 @@
+# Project History
+
+This file tracks each generation attempt.
+
+## Attempt 2 — 2026-08-18 [IN PROGRESS]
+
+**Business:** ABS FITNESS
+**Planned Files (98):**
+- backend/src/main/java/com/absfitness/exception/GlobalExceptionHandler.java
+- backend/src/main/java/com/absfitness/dto/ErrorResponse.java
+- backend/src/main/java/com/absfitness/model/MembershipPlan.java
+- backend/src/main/java/com/absfitness/model/MemberSubscription.java
+- backend/src/main/java/com/absfitness/model/SubscriptionStatus.java
+- backend/src/main/java/com/absfitness/repository/MembershipPlanRepository.java
+- backend/src/main/java/com/absfitness/repository/MemberSubscriptionRepository.java
+- backend/src/main/java/com/absfitness/service/MembershipService.java
+- backend/src/main/java/com/absfitness/dto/MembershipPlanDto.java
+- backend/src/main/java/com/absfitness/dto/MemberSubscriptionDto.java
+- backend/src/main/java/com/absfitness/dto/CreateSubscriptionRequest.java
+- backend/src/main/java/com/absfitness/controller/MembershipController.java
+- backend/src/main/java/com/absfitness/controller/admin/AdminMembershipController.java
+- backend/src/main/java/com/absfitness/model/Trainer.java
+- backend/src/main/java/com/absfitness/model/GymClass.java
+- backend/src/main/java/com/absfitness/model/Booking.java
+- backend/src/main/java/com/absfitness/model/BookingStatus.java
+- backend/src/main/java/com/absfitness/repository/TrainerRepository.java
+- backend/src/main/java/com/absfitness/repository/GymClassRepository.java
+- backend/src/main/java/com/absfitness/repository/BookingRepository.java
+- backend/src/main/java/com/absfitness/service/BookingService.java
+- backend/src/main/java/com/absfitness/dto/TrainerDto.java
+- backend/src/main/java/com/absfitness/dto/GymClassDto.java
+- backend/src/main/java/com/absfitness/dto/BookingDto.java
+- backend/src/main/java/com/absfitness/dto/CreateBookingRequest.java
+- backend/src/main/java/com/absfitness/controller/BookingController.java
+- backend/src/main/java/com/absfitness/controller/admin/AdminBookingController.java
+- backend/src/main/java/com/absfitness/model/Testimonial.java
+- backend/src/main/java/com/absfitness/model/Enquiry.java
+- backend/src/main/java/com/absfitness/model/EnquiryStatus.java
+- backend/src/main/java/com/absfitness/repository/TestimonialRepository.java
+- backend/src/main/java/com/absfitness/repository/EnquiryRepository.java
+- backend/src/main/java/com/absfitness/service/ContentService.java
+- backend/src/main/java/com/absfitness/dto/TestimonialDto.java
+- backend/src/main/java/com/absfitness/dto/EnquiryDto.java
+- backend/src/main/java/com/absfitness/dto/CreateEnquiryRequest.java
+- backend/src/main/java/com/absfitness/controller/ContentController.java
+- backend/src/main/java/com/absfitness/controller/admin/AdminContentController.java
+- frontend/src/App.tsx
+- frontend/src/config/siteConfig.ts
+- frontend/src/pages/HomePage.tsx
+- frontend/src/components/home/HeroSection.tsx
+- frontend/src/components/home/FacilitiesHighlight.tsx
+- frontend/src/components/home/TestimonialsSection.tsx
+- frontend/src/components/home/LeadCaptureForm.tsx
+- frontend/src/pages/AboutPage.tsx
+- frontend/src/pages/ContactPage.tsx
+- frontend/src/pages/VirtualTourPage.tsx
+- frontend/src/pages/NotFoundPage.tsx
+- frontend/src/types/testimonial.ts
+- frontend/src/types/enquiry.ts
+- frontend/src/services/contentService.ts
+- frontend/src/hooks/useContent.ts
+- frontend/src/components/ProtectedRoute.tsx
+- frontend/src/pages/LoginPage.tsx
+- frontend/src/pages/SignupPage.tsx
+- frontend/src/pages/AccountPage.tsx
+- frontend/src/pages/MyBookingsPage.tsx
+- frontend/src/pages/MySubscriptionPage.tsx
+- frontend/src/components/account/ProfileDetails.tsx
+- frontend/src/components/account/BookingsTable.tsx
+- frontend/src/components/account/SubscriptionStatusCard.tsx
+- frontend/src/types/membership.ts
+- frontend/src/services/membershipService.ts
+- frontend/src/hooks/useMembership.ts
+- frontend/src/pages/MembershipPage.tsx
+- frontend/src/components/membership/MembershipGrid.tsx
+- frontend/src/components/membership/MembershipPlanCard.tsx
+- frontend/src/pages/CheckoutPage.tsx
+- frontend/src/components/checkout/CheckoutForm.tsx
+- frontend/src/components/checkout/OrderSummary.tsx
+- frontend/src/types/booking.ts
+- frontend/src/services/bookingService.ts
+- frontend/src/hooks/useBooking.ts
+- frontend/src/pages/ClassesPage.tsx
+- frontend/src/pages/TrainersPage.tsx
+- frontend/src/pages/TrainerDetailPage.tsx
+- frontend/src/components/classes/ClassSchedule.tsx
+- frontend/src/components/classes/ClassCard.tsx
+- frontend/src/components/classes/BookingModal.tsx
+- frontend/src/components/trainers/TrainerCard.tsx
+- frontend/src/components/trainers/TrainerProfile.tsx
+- frontend/src/pages/GalleryPage.tsx
+- frontend/src/components/gallery/GalleryGrid.tsx
+- frontend/src/components/AdminLayout.tsx
+- frontend/src/pages/AdminDashboardPage.tsx
+- frontend/src/pages/AdminMembershipsPage.tsx
+- frontend/src/pages/AdminClassesPage.tsx
+- frontend/src/pages/AdminBookingsPage.tsx
+- frontend/src/pages/AdminContentPage.tsx
+- frontend/src/components/admin/MembershipPlanTable.tsx
+- frontend/src/components/admin/MembershipPlanForm.tsx
+- frontend/src/components/admin/ClassTable.tsx
+- frontend/src/components/admin/ClassForm.tsx
+- frontend/src/components/admin/BookingsOverviewTable.tsx
+- frontend/src/components/admin/TestimonialTable.tsx
+- frontend/src/components/admin/TestimonialForm.tsx
+- frontend/src/components/admin/EnquiryTable.tsx
+
+---
