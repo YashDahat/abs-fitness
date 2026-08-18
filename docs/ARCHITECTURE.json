@@ -2906,14 +2906,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Displays a high-quality photo and video gallery of the gym, managed via the admin media library.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "GalleryPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the gallery page, including a hero section and the GalleryGrid component."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/gallery/GalleryGrid.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "gallery-ui",
-    "file_role" : null,
+    "file_role" : "PAGE layer — displays the gym's photo and video gallery, orchestrating the layout and passing media data to the GalleryGrid component.",
     "change_required" : null
   }, {
     "file_name" : "GalleryGrid.tsx",
@@ -2924,14 +2929,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A responsive grid component that displays gallery images and videos.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "GalleryGrid",
+      "parameters" : [ "mediaItems: Array<{ id: string; type: 'image' | 'video'; url: string; thumbnailUrl?: string }>" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a responsive grid of media items. Each item can be an image or a video."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "gallery-ui",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — a reusable component that renders a responsive grid of images and videos based on the provided media items.",
     "change_required" : null
   }, {
     "file_name" : "AdminLayout.tsx",
@@ -3263,8 +3273,8 @@
     "feature_display_name" : "Photo & Video Gallery",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/pages/GalleryPage.tsx", "frontend/src/components/gallery/GalleryGrid.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-white (odd sections) / bg-[#F5F5F5] (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThe `gallery-ui` feature provides a visually engaging photo and video gallery for ABS FITNESS, showcasing the gym's facilities, trainers, and members in action. This feature consists of two files: `GalleryPage.tsx` and `GalleryGrid.tsx`.\n\n`GalleryPage.tsx` serves as the main entry point for the gallery, providing the overall layout and fetching the media items. It will display a hero section at the top with a motivational headline and subheadline, followed by a grid of images and videos. The page will utilize the `GalleryGrid` component to render the actual media.\n\n`GalleryGrid.tsx` is a reusable component responsible for displaying a responsive grid of media items. Each item in the grid will be a `MediaItem` object, which includes `id`, `type` (either 'image' or 'video'), `url`, and `thumbnailUrl` (for videos). The component will handle rendering images directly and videos with a thumbnail that, when clicked, opens a modal or plays the video inline. The grid should be responsive, adapting to different screen sizes.\n\n**Data Flow:**\n1. `GalleryPage.tsx` will fetch the gallery media data from a placeholder array (as there is no backend API for media management in the current scope). This data will simulate the structure of media items that would typically come from a content management system.\n2. `GalleryPage.tsx` will pass the fetched media data as a prop to `GalleryGrid.tsx`.\n3. `GalleryGrid.tsx` will iterate over the `mediaItems` prop and render each item appropriately based on its `type`.\n\n**Styling and Design:**\n- The `GalleryPage` will feature a hero section with a background image relevant to a gym, overlaid with a semi-transparent black layer. The headline will be \"Witness Your Transformation\" and the subheadline \"Explore the vibrant world of ABS FITNESS.\"\n- The main content area will use a `Section container` design token for consistent padding and max-width.\n- The `GalleryGrid` will implement a responsive grid layout using Tailwind CSS, ensuring optimal display on various devices. Each media item will be presented within a `Card` design token, providing a clean and modern look.\n- All text and background colors will strictly adhere to the `Design Tokens` defined above.",
+    "depends_on_features" : [ ],
     "change_required" : true,
     "change_instruction" : null
   }, {
