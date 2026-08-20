@@ -819,14 +819,38 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Represents a member's booking for a specific fitness class or personal training session.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the booking. Not null."
+    }, {
+      "name" : "memberId",
+      "type" : "UUID",
+      "description" : "ID of the member who made the booking. Not null."
+    }, {
+      "name" : "fitnessClass",
+      "type" : "FitnessClass",
+      "description" : "The fitness class being booked. Many-to-one relationship. Not null."
+    }, {
+      "name" : "bookingTime",
+      "type" : "LocalDateTime",
+      "description" : "The date and time the booking was made. Not null."
+    }, {
+      "name" : "status",
+      "type" : "BookingStatus",
+      "description" : "The current status of the booking (e.g., CONFIRMED, CANCELLED). Not null."
+    }, {
+      "name" : "createdAt",
+      "type" : "LocalDateTime",
+      "description" : "Timestamp when the booking record was created. Not null."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/FitnessClass.java", "backend/src/main/java/com/absfitness/model/BookingStatus.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : null,
+    "file_role" : "MODEL layer — represents a member's booking for a specific fitness class or personal training session.",
     "change_required" : null
   }, {
     "file_name" : "BookingStatus.java",
@@ -837,14 +861,26 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Enum representing the status of a booking (e.g., CONFIRMED, CANCELLED).",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "CONFIRMED",
+      "type" : "BookingStatus",
+      "description" : "The booking is confirmed."
+    }, {
+      "name" : "CANCELLED",
+      "type" : "BookingStatus",
+      "description" : "The booking has been cancelled."
+    }, {
+      "name" : "PENDING",
+      "type" : "BookingStatus",
+      "description" : "The booking is pending confirmation."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : null,
+    "file_role" : "MODEL layer — enum representing the status of a booking.",
     "change_required" : null
   }, {
     "file_name" : "BookingRepository.java",
@@ -855,14 +891,24 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "JPA repository for Booking entities.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "findByMemberIdOrderByBookingTimeDesc",
+      "parameters" : [ "UUID memberId" ],
+      "return_type" : "List<Booking>",
+      "description" : "Finds all bookings for a given member, ordered by booking time in descending order."
+    }, {
+      "name" : "findByFitnessClassId",
+      "parameters" : [ "UUID fitnessClassId" ],
+      "return_type" : "List<Booking>",
+      "description" : "Finds all bookings for a given fitness class."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Booking.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : null,
+    "file_role" : "REPOSITORY layer — provides data access operations for Booking entities, including custom queries to find bookings by member ID and fitness class ID.",
     "change_required" : null
   }, {
     "file_name" : "BookingService.java",
@@ -873,14 +919,44 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Handles business logic for creating, viewing, and cancelling class bookings.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createBooking",
+      "parameters" : [ "CreateBookingRequest request", "UUID memberId" ],
+      "return_type" : "BookingDto",
+      "description" : "Creates a new booking for a fitness class for the specified member. Throws ResourceNotFoundException if class not found, IllegalStateException if class is full."
+    }, {
+      "name" : "getBookingById",
+      "parameters" : [ "UUID bookingId" ],
+      "return_type" : "BookingDto",
+      "description" : "Retrieves a booking by its ID. Throws ResourceNotFoundException if not found."
+    }, {
+      "name" : "getMemberBookings",
+      "parameters" : [ "UUID memberId" ],
+      "return_type" : "List<BookingDto>",
+      "description" : "Retrieves all bookings for a specific member."
+    }, {
+      "name" : "getAllBookings",
+      "parameters" : [ ],
+      "return_type" : "List<BookingDto>",
+      "description" : "Retrieves all bookings in the system (admin access)."
+    }, {
+      "name" : "cancelBooking",
+      "parameters" : [ "UUID bookingId", "UUID memberId" ],
+      "return_type" : "BookingDto",
+      "description" : "Cancels a specific booking for the given member. Throws ResourceNotFoundException if not found, IllegalArgumentException if memberId mismatch."
+    }, {
+      "name" : "adminCancelBooking",
+      "parameters" : [ "UUID bookingId" ],
+      "return_type" : "BookingDto",
+      "description" : "Cancels a specific booking (admin access). Throws ResourceNotFoundException if not found."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/BookingRepository.java", "backend/src/main/java/com/absfitness/dto/BookingDto.java", "backend/src/main/java/com/absfitness/dto/CreateBookingRequest.java", "backend/src/main/java/com/absfitness/service/NotificationService.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — implements createBooking(CreateBookingRequest, UUID): BookingDto, getBookingById(UUID): BookingDto, getMemberBookings(UUID): List<BookingDto>, getAllBookings(): List<BookingDto>, cancelBooking(UUID, UUID): BookingDto, and adminCancelBooking(UUID): BookingDto; delegates persistence to BookingRepository and notifications to NotificationService.",
     "change_required" : null
   }, {
     "file_name" : "BookingController.java",
@@ -891,14 +967,62 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Secure REST controller for members to manage their own bookings.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createBooking",
+      "parameters" : [ "CreateBookingRequest request", "UUID memberId" ],
+      "return_type" : "ResponseEntity<BookingDto>",
+      "description" : "Handles POST requests to create a new booking for the authenticated member."
+    }, {
+      "name" : "getMemberBookings",
+      "parameters" : [ "UUID memberId" ],
+      "return_type" : "ResponseEntity<List<BookingDto>>",
+      "description" : "Handles GET requests to retrieve all bookings for the authenticated member."
+    }, {
+      "name" : "getBookingById",
+      "parameters" : [ "UUID id", "UUID memberId" ],
+      "return_type" : "ResponseEntity<BookingDto>",
+      "description" : "Handles GET requests to retrieve a specific booking by ID for the authenticated member."
+    }, {
+      "name" : "cancelBooking",
+      "parameters" : [ "UUID id", "UUID memberId" ],
+      "return_type" : "ResponseEntity<BookingDto>",
+      "description" : "Handles DELETE requests to cancel a specific booking for the authenticated member."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/bookings",
+      "request_body" : "CreateBookingRequest",
+      "response_body" : "BookingDto",
+      "description" : "Creates a new booking for the authenticated member.",
+      "access" : "authenticated"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/bookings/me",
+      "request_body" : null,
+      "response_body" : "List<BookingDto>",
+      "description" : "Retrieves all bookings for the authenticated member.",
+      "access" : "authenticated"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/bookings/{id}",
+      "request_body" : null,
+      "response_body" : "BookingDto",
+      "description" : "Retrieves a specific booking by ID for the authenticated member.",
+      "access" : "authenticated"
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/bookings/{id}",
+      "request_body" : null,
+      "response_body" : "BookingDto",
+      "description" : "Cancels a specific booking for the authenticated member.",
+      "access" : "authenticated"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/BookingService.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — provides secure REST endpoints for members to manage their own bookings.",
     "change_required" : null
   }, {
     "file_name" : "AdminBookingController.java",
@@ -909,14 +1033,50 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Admin-only REST controller for viewing and managing all member bookings.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllBookings",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<BookingDto>>",
+      "description" : "Handles GET requests to retrieve all bookings in the system."
+    }, {
+      "name" : "getBookingById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<BookingDto>",
+      "description" : "Handles GET requests to retrieve a specific booking by ID."
+    }, {
+      "name" : "adminCancelBooking",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<BookingDto>",
+      "description" : "Handles DELETE requests to cancel a specific booking by ID (admin action)."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/bookings",
+      "request_body" : null,
+      "response_body" : "List<BookingDto>",
+      "description" : "Retrieves all bookings in the system.",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/bookings/{id}",
+      "request_body" : null,
+      "response_body" : "BookingDto",
+      "description" : "Retrieves a specific booking by ID.",
+      "access" : "admin"
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/bookings/{id}",
+      "request_body" : null,
+      "response_body" : "BookingDto",
+      "description" : "Cancels a specific booking by ID (admin action).",
+      "access" : "admin"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/BookingService.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — provides admin-only REST endpoints for viewing and managing all member bookings.",
     "change_required" : null
   }, {
     "file_name" : "BookingDto.java",
@@ -927,14 +1087,38 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Data Transfer Object for Booking entities.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the booking."
+    }, {
+      "name" : "memberId",
+      "type" : "UUID",
+      "description" : "ID of the member who made the booking."
+    }, {
+      "name" : "fitnessClassId",
+      "type" : "UUID",
+      "description" : "ID of the fitness class booked."
+    }, {
+      "name" : "fitnessClassName",
+      "type" : "String",
+      "description" : "Name of the fitness class booked."
+    }, {
+      "name" : "bookingTime",
+      "type" : "LocalDateTime",
+      "description" : "The date and time the booking was made."
+    }, {
+      "name" : "status",
+      "type" : "BookingStatus",
+      "description" : "The current status of the booking."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : null,
+    "file_role" : "DTO layer — Data Transfer Object for Booking entities.",
     "change_required" : null
   }, {
     "file_name" : "CreateBookingRequest.java",
@@ -945,14 +1129,18 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "DTO for capturing the required information to create a new booking.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "fitnessClassId",
+      "type" : "UUID",
+      "description" : "ID of the fitness class to book. Not null."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : null,
+    "file_role" : "DTO layer — DTO for capturing the required information to create a new booking.",
     "change_required" : null
   }, {
     "file_name" : "Trainer.java",
@@ -2535,8 +2723,8 @@
     "feature_display_name" : "Booking System",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/model/Booking.java", "backend/src/main/java/com/absfitness/model/BookingStatus.java", "backend/src/main/java/com/absfitness/repository/BookingRepository.java", "backend/src/main/java/com/absfitness/service/BookingService.java", "backend/src/main/java/com/absfitness/controller/BookingController.java", "backend/src/main/java/com/absfitness/controller/admin/AdminBookingController.java", "backend/src/main/java/com/absfitness/dto/BookingDto.java", "backend/src/main/java/com/absfitness/dto/CreateBookingRequest.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "The Booking System feature enables members to book fitness classes and personal training sessions, and allows administrators to manage all bookings. It consists of a `Booking` entity, `BookingStatus` enum, `BookingRepository` for persistence, `BookingService` for business logic, and `BookingController` and `AdminBookingController` for exposing REST APIs. It also includes `BookingDto` and `CreateBookingRequest` DTOs for data transfer.\n\n`BookingStatus.java` defines the possible states of a booking: `CONFIRMED`, `CANCELLED`, `PENDING`.\n\n`Booking.java` is the JPA entity representing a booking. It will have fields for `id` (UUID), `memberId` (UUID), `fitnessClass` (many-to-one relationship with `FitnessClass`), `bookingTime` (LocalDateTime), `status` (BookingStatus), and `createdAt` (LocalDateTime).\n\n`BookingRepository.java` extends `JpaRepository<Booking, UUID>` and provides standard CRUD operations. It will also include custom query methods to find bookings by `memberId` and by `fitnessClassId`.\n\n`BookingService.java` orchestrates the business logic. It injects `BookingRepository` and `NotificationService`. Its public methods are:\n1. `createBooking(CreateBookingRequest request, UUID memberId)`: \n   - Validates the `CreateBookingRequest`.\n   - Fetches the `FitnessClass` using `class-management` feature's `FitnessClassService.getFitnessClassById(request.getFitnessClassId())`. Throws `ResourceNotFoundException` if the class does not exist.\n   - Checks if the class capacity allows for a new booking. Throws `IllegalStateException` if the class is full.\n   - Creates a new `Booking` entity with `PENDING` status.\n   - Saves the booking using `bookingRepository.save()`.\n   - Calls `notification-service` feature's `NotificationService.sendBookingConfirmation(booking)` to send a confirmation.\n   - Returns a `BookingDto` representation of the created booking.\n2. `getBookingById(UUID bookingId)`: \n   - Fetches a booking by its ID using `bookingRepository.findById()`.\n   - Throws `ResourceNotFoundException` if the booking is not found.\n   - Returns a `BookingDto`.\n3. `getMemberBookings(UUID memberId)`: \n   - Fetches all bookings for a given member using `bookingRepository.findByMemberIdOrderByBookingTimeDesc(memberId)`.\n   - Returns a `List<BookingDto>`.\n4. `getAllBookings()`: \n   - Fetches all bookings using `bookingRepository.findAll()`.\n   - Returns a `List<BookingDto>`.\n5. `cancelBooking(UUID bookingId, UUID memberId)`: \n   - Fetches the booking by `bookingId` using `bookingRepository.findById()`.\n   - Throws `ResourceNotFoundException` if the booking is not found.\n   - Checks if the `memberId` matches the booking's `memberId` to ensure the member can only cancel their own booking. Throws `IllegalArgumentException` if not.\n   - Updates the booking status to `CANCELLED`.\n   - Saves the updated booking using `bookingRepository.save()`.\n   - Calls `notification-service` feature's `NotificationService.sendBookingCancellation(booking)`.\n   - Returns a `BookingDto` representation of the cancelled booking.\n6. `adminCancelBooking(UUID bookingId)`: \n   - Fetches the booking by `bookingId` using `bookingRepository.findById()`.\n   - Throws `ResourceNotFoundException` if the booking is not found.\n   - Updates the booking status to `CANCELLED`.\n   - Saves the updated booking using `bookingRepository.save()`.\n   - Calls `notification-service` feature's `NotificationService.sendBookingCancellation(booking)`.\n   - Returns a `BookingDto` representation of the cancelled booking.\n\n`BookingController.java` handles member-facing API endpoints:\n- `POST /api/v1/bookings`: Creates a new booking for the authenticated member. It expects a `CreateBookingRequest` in the request body and returns a `BookingDto`.\n- `GET /api/v1/bookings/me`: Retrieves all bookings for the authenticated member. Returns a `List<BookingDto>`.\n- `GET /api/v1/bookings/{id}`: Retrieves a specific booking by ID for the authenticated member. Returns a `BookingDto`.\n- `DELETE /api/v1/bookings/{id}`: Cancels a specific booking for the authenticated member. Returns a `BookingDto`.\n\n`AdminBookingController.java` handles admin-facing API endpoints:\n- `GET /api/v1/admin/bookings`: Retrieves all bookings in the system. Returns a `List<BookingDto>`.\n- `GET /api/v1/admin/bookings/{id}`: Retrieves a specific booking by ID. Returns a `BookingDto`.\n- `DELETE /api/v1/admin/bookings/{id}`: Cancels a specific booking. Returns a `BookingDto`.\n\n`BookingDto.java` is the DTO for transferring booking data, containing fields like `id`, `memberId`, `fitnessClassId`, `fitnessClassName`, `bookingTime`, `status`.\n\n`CreateBookingRequest.java` is the DTO for creating a new booking, containing `fitnessClassId`.\n\nError Handling: `ResourceNotFoundException` (404 Not Found) will be thrown if a booking or fitness class is not found. `IllegalArgumentException` (400 Bad Request) will be thrown for invalid input or unauthorized cancellation attempts. `IllegalStateException` (400 Bad Request) will be thrown if a class is full.",
+    "depends_on_features" : [ "class-management", "notification-service" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
