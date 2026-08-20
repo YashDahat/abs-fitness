@@ -3564,14 +3564,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Displays a high-quality photo and video gallery of the facility, using the pre-scaffolded gallery components.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "GalleryPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the complete gallery page, including hero section, image grids, and video embeds. Displays all monetary values in Indian Rupees (₹) using the `en-IN` locale."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "gallery-display",
-    "file_role" : null,
+    "file_role" : "PAGE layer — displays a static photo and video gallery of the gym facility.",
     "change_required" : null
   }, {
     "file_name" : "ProfilePage.tsx",
@@ -3804,8 +3809,8 @@
     "feature_display_name" : "Photo & Video Gallery",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/pages/GalleryPage.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThe `GalleryPage.tsx` file is responsible for displaying a high-quality photo and video gallery of the ABS FITNESS facility. It will utilize a clean, spacious layout with dynamic visuals, reflecting the gym's premium, high-energy, and modern aesthetic. The page will be structured into distinct sections to showcase different aspects of the gym, such as equipment, classes, and member experiences. The content will be hardcoded within the page, focusing on high-resolution images and embedded video links to convey a motivational and professional tone. All monetary values, if any, will be displayed in Indian Rupees (₹) using the `en-IN` locale.\n\n### GalleryPage.tsx\nThis page will render a full-width hero section at the top, featuring a dynamic video background or a high-resolution image, a bold headline, and a motivational subheadline. Below the hero, it will present a series of gallery sections. Each section will have a clear heading and a grid layout for images and embedded videos. Images will be displayed using `<img>` tags with appropriate `alt` text, and videos will be embedded using `<iframe>` tags from platforms like YouTube or Vimeo. The page will use Tailwind CSS classes derived from the design tokens to ensure a consistent visual style.",
+    "depends_on_features" : [ ],
     "change_required" : true,
     "change_instruction" : null
   }, {
