@@ -2968,14 +2968,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Layout component for the member portal, including sidebar navigation.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "AccountLayout",
+      "parameters" : [ "object props: { children: React.ReactNode }" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the member portal layout with a sidebar and main content area. The sidebar contains navigation links to dashboard, bookings, membership, and profile. It displays the current user's name and email."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "member-portal",
-    "file_role" : null,
+    "file_role" : "Layout component for the member portal, providing a consistent sidebar navigation and overall structure for member-specific pages. It exposes the `AccountLayout` component which takes `children` as props.",
     "change_required" : null
   }, {
     "file_name" : "AccountDashboardPage.tsx",
@@ -2986,14 +2991,33 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "The main dashboard for logged-in members, summarizing their membership and upcoming bookings.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "AccountDashboardPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the member dashboard, displaying a welcome message, a summary of the user's active membership, and a list of upcoming bookings. It fetches data using generated service functions for user memberships and bookings."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/memberships/users/{userId}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches the active memberships for the logged-in user to display a summary.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/bookings/users/{userId}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches the upcoming bookings for the logged-in user to display a summary.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/account/AccountLayout.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "member-portal",
-    "file_role" : null,
+    "file_role" : "Page component for the member dashboard, summarizing membership and upcoming bookings. It displays a welcome message, current membership details, and upcoming class bookings.",
     "change_required" : null
   }, {
     "file_name" : "MyBookingsPage.tsx",
@@ -3004,14 +3028,33 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A page within the member portal for viewing and managing personal class bookings.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MyBookingsPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a list of all bookings for the logged-in user. Each booking displays class details and a cancel option. It fetches bookings using the generated service function and handles cancellations."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/bookings/users/{userId}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all bookings for the logged-in user.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/bookings/{bookingId}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Cancels a specific booking for the logged-in user.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/account/AccountLayout.tsx", "frontend/src/services/bookingService.ts", "frontend/src/types/booking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "member-portal",
-    "file_role" : null,
+    "file_role" : "Page component for viewing and managing personal class bookings. It displays a detailed list of all bookings made by the logged-in user and allows cancellation.",
     "change_required" : null
   }, {
     "file_name" : "MyMembershipPage.tsx",
@@ -3022,14 +3065,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A page within the member portal for viewing current membership status and history.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MyMembershipPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the user's membership details, including current and past plans. It fetches membership data using generated service functions. All monetary values are displayed in Indian Rupees (₹)."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/memberships/users/{userId}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all memberships (active and past) for the logged-in user.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/account/AccountLayout.tsx", "frontend/src/services/membershipService.ts", "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "member-portal",
-    "file_role" : null,
+    "file_role" : "Page component for viewing current and past membership status and history. It displays details of the user's membership plans.",
     "change_required" : null
   }, {
     "file_name" : "ProfilePage.tsx",
@@ -3040,14 +3095,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A page for members to view and edit their personal profile information.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ProfilePage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the user's profile information, including name and email, retrieved from the authentication context. Placeholder fields are included for future editing capabilities."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/components/account/AccountLayout.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "member-portal",
-    "file_role" : null,
+    "file_role" : "Page component for members to view and edit their personal profile information. It displays the user's basic profile details.",
     "change_required" : null
   }, {
     "file_name" : "AdminLayout.tsx",
@@ -3316,8 +3376,8 @@
     "feature_display_name" : "Member Portal (Frontend)",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/components/account/AccountLayout.tsx", "frontend/src/pages/account/AccountDashboardPage.tsx", "frontend/src/pages/account/MyBookingsPage.tsx", "frontend/src/pages/account/MyMembershipPage.tsx", "frontend/src/pages/account/ProfilePage.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-white (odd sections) / bg-[#F5F5F5] (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-gray-700 leading-relaxed\n\nThis feature implements the member portal for ABS FITNESS, providing a personalized experience for logged-in users to manage their bookings, view membership details, and update their profile. The core of this feature is the `AccountLayout` component, which provides a consistent sidebar navigation and overall structure for all member-specific pages. All pages within this feature (`AccountDashboardPage`, `MyBookingsPage`, `MyMembershipPage`, `ProfilePage`) will utilize this `AccountLayout`.\n\n`AccountLayout` will render a sidebar with navigation links to the dashboard, my bookings, my membership, and profile pages. It will also display the current user's name and email, retrieved from the `useAuth()` hook. The main content area will render the `children` prop, which will be the specific member portal page.\n\n`AccountDashboardPage` will serve as the landing page for the member portal. It will display a welcome message to the user, a summary of their current membership (fetching data using the generated service function `getUserActiveMemberships` from `membership-flow` feature), and a summary of their upcoming bookings (fetching data using the generated service function `getBookingsByUserId` from `booking-ui` feature). It will also include prominent CTAs to view all bookings and manage membership.\n\n`MyBookingsPage` will display a detailed list of all bookings made by the logged-in user. It will fetch booking data using the generated service function `getBookingsByUserId` from `booking-ui` feature. Each booking entry will show the class name, trainer, date, time, and a button to cancel the booking. The cancel booking functionality will call the generated service function `cancelBooking` from `booking-ui` feature. All monetary values will be displayed in Indian Rupees (₹) using the `en-IN` locale.\n\n`MyMembershipPage` will display the user's current and past membership details. It will fetch membership data using the generated service function `getUserActiveMemberships` and `getUserMemberships` from `membership-flow` feature. It will show the membership plan name, start date, end date, and any associated features. All monetary values will be displayed in Indian Rupees (₹) using the `en-IN` locale.\n\n`ProfilePage` will allow members to view and potentially edit their personal profile information. This page will retrieve user information from the `useAuth()` hook. For now, it will display the user's name and email, with placeholder fields for future editing capabilities. No backend calls are required for this initial version beyond what `useAuth()` provides.\n\nAll pages will ensure a professional and results-oriented tone, with clear and empowering messaging for the members.",
+    "depends_on_features" : [ "membership-flow", "booking-ui" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
