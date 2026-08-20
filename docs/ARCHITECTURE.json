@@ -1808,17 +1808,17 @@
       "name" : "sendBookingConfirmationEmail",
       "parameters" : [ "UUID userId", "UUID bookingId" ],
       "return_type" : "void",
-      "description" : "Sends an email confirming a class booking to the specified user."
+      "description" : "Sends an email confirming a class booking to the specified user by fetching booking and class details from booking-system-core."
     }, {
       "name" : "sendMembershipRenewalReminderEmail",
       "parameters" : [ "UUID userId", "UUID userMembershipId" ],
       "return_type" : "void",
-      "description" : "Sends an email reminder to the user about their upcoming membership renewal."
+      "description" : "Sends an email reminder to the user about their upcoming membership renewal by fetching user membership and plan details from membership-management."
     }, {
       "name" : "sendUpcomingClassReminderEmail",
       "parameters" : [ "UUID userId", "UUID bookingId" ],
       "return_type" : "void",
-      "description" : "Sends an email reminder to the user about an upcoming class they have booked."
+      "description" : "Sends an email reminder to the user about an upcoming class they have booked by fetching booking and class details from booking-system-core."
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -1841,12 +1841,12 @@
       "name" : "scheduleUpcomingClassReminders",
       "parameters" : [ ],
       "return_type" : "void",
-      "description" : "Scheduled task to find upcoming classes and send reminder emails to participants."
+      "description" : "Scheduled task to find upcoming classes within a defined window and send reminder emails to participants via NotificationService."
     }, {
       "name" : "scheduleMembershipRenewalReminders",
       "parameters" : [ ],
       "return_type" : "void",
-      "description" : "Scheduled task to find expiring memberships and send renewal reminder emails to users."
+      "description" : "Scheduled task to find expiring memberships within a defined window and send renewal reminder emails to users via NotificationService."
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3493,8 +3493,8 @@
     "feature_display_name" : "Notification Service (Backend)",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/service/NotificationService.java", "backend/src/main/java/com/absfitness/service/ScheduledTasksService.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "The Notification Service feature is responsible for sending various email notifications to users based on events within the ABS FITNESS system. It consists of `NotificationService.java`, which handles the actual email sending logic, and `ScheduledTasksService.java`, which orchestrates the periodic triggering of certain notifications.\n\n### NotificationService.java\nThis service is responsible for constructing and sending email notifications. It will interact with other services to fetch necessary data for the email content.\n\n**`sendBookingConfirmationEmail(UUID userId, UUID bookingId): void`**\n1. Fetch the `BookingDto` for the given `bookingId` using `booking-system-core.BookingService.getBookingById(bookingId)`. If the booking is not found, throw `ResourceNotFoundException`.\n2. Fetch the `GymClassDto` associated with the booking from the `BookingDto`.\n3. Construct the email subject: \"ABS FITNESS: Your Class Booking is Confirmed!\".\n4. Construct the email body including booking details (class name, trainer, date, time) and a motivational message. Ensure all monetary values are formatted using `en-IN` locale for INR.\n5. Send the email to the user associated with `userId` (assuming user email can be retrieved from a user management service, which is outside the scope of this feature, so a placeholder for user email retrieval will be used).\n\n**`sendMembershipRenewalReminderEmail(UUID userId, UUID userMembershipId): void`**\n1. Fetch the `UserMembershipDto` for the given `userMembershipId` using `membership-management.MembershipService.getUserActiveMemberships(userId)` and filtering by `userMembershipId`. If the membership is not found, throw `ResourceNotFoundException`.\n2. Fetch the `MembershipPlanDto` associated with the user membership.\n3. Calculate the remaining days until renewal (`endDate`).\n4. Construct the email subject: \"ABS FITNESS: Your Membership is Expiring Soon!\".\n5. Construct the email body including membership details (plan name, end date, renewal instructions) and a call to action to renew. Ensure all monetary values are formatted using `en-IN` locale for INR.\n6. Send the email to the user associated with `userId`.\n\n**`sendUpcomingClassReminderEmail(UUID userId, UUID bookingId): void`**\n1. Fetch the `BookingDto` for the given `bookingId` using `booking-system-core.BookingService.getBookingById(bookingId)`. If the booking is not found, throw `ResourceNotFoundException`.\n2. Fetch the `GymClassDto` associated with the booking from the `BookingDto`.\n3. Calculate the time until the class starts.\n4. Construct the email subject: \"ABS FITNESS: Reminder for Your Upcoming Class!\".\n5. Construct the email body including class details (class name, trainer, date, time, location) and a reminder to prepare. Ensure all monetary values are formatted using `en-IN` locale for INR.\n6. Send the email to the user associated with `userId`.\n\n### ScheduledTasksService.java\nThis service contains scheduled methods that trigger the sending of reminder emails. It will inject `NotificationService` and interact with `booking-system-core` and `membership-management` to identify relevant events.\n\n**`scheduleUpcomingClassReminders(): void`**\n1. This method will be scheduled to run periodically (e.g., daily).\n2. Query `booking-system-core.GymClassRepository.findByStartTimeBetweenOrderByStartTimeAsc` to find classes scheduled for tomorrow (or a defined reminder window).\n3. For each upcoming class, retrieve all associated bookings using `booking-system-core.BookingRepository.findByGymClassId`.\n4. For each booking, call `notificationService.sendUpcomingClassReminderEmail(booking.getUserId(), booking.getId())`.\n\n**`scheduleMembershipRenewalReminders(): void`**\n1. This method will be scheduled to run periodically (e.g., weekly).\n2. Query `membership-management.UserMembershipRepository.findByUserIdAndEndDateAfter` to find user memberships expiring within the next 7-30 days (or a defined reminder window).\n3. For each expiring `UserMembership`, call `notificationService.sendMembershipRenewalReminderEmail(userMembership.getUserId(), userMembership.getId())`.\n\n**Error Handling:** Both services should catch exceptions during email sending and log them appropriately without re-throwing to avoid stopping the scheduled tasks or core business logic. `ResourceNotFoundException` should be thrown if a required entity (Booking, UserMembership) is not found when attempting to send a notification.",
+    "depends_on_features" : [ "booking-system-core", "membership-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
