@@ -1679,13 +1679,37 @@
     "status" : "PLANNED",
     "description" : "Represents a lead or enquiry submitted through a website form (e.g., 'Free Trial').",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the enquiry, auto-generated."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the person submitting the enquiry, not null, max 100 characters."
+    }, {
+      "name" : "email",
+      "type" : "String",
+      "description" : "Email address of the person, not null, valid email format, max 100 characters."
+    }, {
+      "name" : "phone",
+      "type" : "String",
+      "description" : "Phone number of the person, optional, max 20 characters."
+    }, {
+      "name" : "message",
+      "type" : "String",
+      "description" : "Message or query from the person, not null, max 1000 characters."
+    }, {
+      "name" : "createdAt",
+      "type" : "LocalDateTime",
+      "description" : "Timestamp when the enquiry was created, auto-generated."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "lead-management",
-    "file_role" : null,
+    "file_role" : "JPA Entity — represents a lead or enquiry in the database, with fields for contact information and message.",
     "change_required" : null
   }, {
     "file_name" : "EnquiryRepository.java",
@@ -1696,14 +1720,14 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "JPA repository for Enquiry entities.",
-    "public_functions" : null,
+    "public_functions" : [ ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Enquiry.java" ],
     "depends_on" : [ ],
     "feature_name" : "lead-management",
-    "file_role" : null,
+    "file_role" : "JPA Repository layer — provides CRUD operations for the Enquiry entity.",
     "change_required" : null
   }, {
     "file_name" : "EnquiryService.java",
@@ -1714,14 +1738,29 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Business logic for saving and managing enquiries from lead capture forms.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createEnquiry",
+      "parameters" : [ "EnquiryDto enquiryDto" ],
+      "return_type" : "EnquiryDto",
+      "description" : "Creates a new enquiry from the provided DTO, saves it, and returns the saved enquiry as a DTO."
+    }, {
+      "name" : "getAllEnquiries",
+      "parameters" : [ ],
+      "return_type" : "List<EnquiryDto>",
+      "description" : "Retrieves all submitted enquiries and returns them as a list of DTOs."
+    }, {
+      "name" : "getEnquiryById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "EnquiryDto",
+      "description" : "Retrieves a single enquiry by its ID. Throws ResourceNotFoundException if not found."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/EnquiryRepository.java", "backend/src/main/java/com/absfitness/dto/EnquiryDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "lead-management",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — implements createEnquiry(EnquiryDto): EnquiryDto, getAllEnquiries(): List<EnquiryDto>, and getEnquiryById(UUID): EnquiryDto; delegates persistence to EnquiryRepository.",
     "change_required" : null
   }, {
     "file_name" : "EnquiryController.java",
@@ -1732,14 +1771,26 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Public REST controller for submitting enquiries from the website.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "submitEnquiry",
+      "parameters" : [ "EnquiryDto enquiryDto" ],
+      "return_type" : "ResponseEntity<EnquiryDto>",
+      "description" : "Handles POST requests to submit a new enquiry."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/enquiries",
+      "request_body" : "EnquiryDto",
+      "response_body" : "EnquiryDto",
+      "description" : "Submits a new enquiry from a public form.",
+      "access" : "public"
+    } ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/EnquiryService.java" ],
     "depends_on" : [ ],
     "feature_name" : "lead-management",
-    "file_role" : null,
+    "file_role" : "Public REST controller — exposes an endpoint for unauthenticated users to submit new enquiries.",
     "change_required" : null
   }, {
     "file_name" : "AdminEnquiryController.java",
@@ -1750,14 +1801,38 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Admin-only REST controller for viewing and managing submitted enquiries.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllEnquiries",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<EnquiryDto>>",
+      "description" : "Handles GET requests to retrieve all enquiries."
+    }, {
+      "name" : "getEnquiryById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<EnquiryDto>",
+      "description" : "Handles GET requests to retrieve a single enquiry by ID."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/enquiries",
+      "request_body" : null,
+      "response_body" : "List<EnquiryDto>",
+      "description" : "Retrieves all submitted enquiries for administrative review.",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/enquiries/{id}",
+      "request_body" : null,
+      "response_body" : "EnquiryDto",
+      "description" : "Retrieves a single enquiry by its ID for administrative review.",
+      "access" : "admin"
+    } ],
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/EnquiryService.java" ],
     "depends_on" : [ ],
     "feature_name" : "lead-management",
-    "file_role" : null,
+    "file_role" : "Admin REST controller — provides endpoints for authenticated administrators to view and manage enquiries.",
     "change_required" : null
   }, {
     "file_name" : "EnquiryDto.java",
@@ -1769,13 +1844,37 @@
     "status" : "PLANNED",
     "description" : "Data Transfer Object for Enquiry entities.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the enquiry, optional for creation."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the person submitting the enquiry. Must not be empty, max 100 characters."
+    }, {
+      "name" : "email",
+      "type" : "String",
+      "description" : "Email address of the person. Must be a valid email format, not empty, max 100 characters."
+    }, {
+      "name" : "phone",
+      "type" : "String",
+      "description" : "Phone number of the person. Optional, max 20 characters."
+    }, {
+      "name" : "message",
+      "type" : "String",
+      "description" : "Message or query from the person. Must not be empty, max 1000 characters."
+    }, {
+      "name" : "createdAt",
+      "type" : "LocalDateTime",
+      "description" : "Timestamp when the enquiry was created, read-only."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "lead-management",
-    "file_role" : null,
+    "file_role" : "Data Transfer Object — defines the structure for enquiry data exchanged between layers.",
     "change_required" : null
   }, {
     "file_name" : "NotificationService.java",
@@ -3061,8 +3160,8 @@
     "feature_display_name" : "Lead Management",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/model/Enquiry.java", "backend/src/main/java/com/absfitness/repository/EnquiryRepository.java", "backend/src/main/java/com/absfitness/service/EnquiryService.java", "backend/src/main/java/com/absfitness/controller/EnquiryController.java", "backend/src/main/java/com/absfitness/controller/admin/AdminEnquiryController.java", "backend/src/main/java/com/absfitness/dto/EnquiryDto.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "The Lead Management feature handles the capture, storage, and retrieval of enquiries submitted by potential members through the ABS FITNESS website. This feature consists of an `Enquiry` JPA entity, an `EnquiryRepository` for persistence, an `EnquiryService` for business logic, and two controllers: `EnquiryController` for public submission and `AdminEnquiryController` for administrative management. \n\n**EnquiryDto.java**\nThis DTO defines the structure for transferring enquiry data between the client and the server, and between service and controller layers. It includes fields for `name`, `email`, `phone`, and `message`, with appropriate validation annotations.\n\n**Enquiry.java**\nThis JPA entity maps to a database table to store enquiry details. It mirrors the fields in `EnquiryDto` and includes an auto-generated `id` (UUID) and `createdAt` timestamp. The entity is managed by Spring Data JPA.\n\n**EnquiryRepository.java**\nThis repository extends `JpaRepository` to provide standard CRUD operations for the `Enquiry` entity. No custom query methods are required beyond the basic `findAll()` for the admin view.\n\n**EnquiryService.java**\nThis service layer component encapsulates the business logic for enquiries. It injects `EnquiryRepository` to perform database operations. The `createEnquiry` method takes an `EnquiryDto`, converts it to an `Enquiry` entity, saves it, and returns the saved entity as an `EnquiryDto`. The `getAllEnquiries` method retrieves all enquiries and maps them to a list of `EnquiryDto`s. The `getEnquiryById` method retrieves a single enquiry by its ID, throwing a `ResourceNotFoundException` if not found, and maps it to an `EnquiryDto`.\n\n**EnquiryController.java**\nThis public REST controller exposes an endpoint for submitting new enquiries. It handles `POST /api/v1/enquiries` requests, accepting an `EnquiryDto` in the request body. It calls `enquiryService.createEnquiry()` and returns the created `EnquiryDto` with an HTTP 201 Created status. This endpoint is accessible to unauthenticated users.\n\n**AdminEnquiryController.java**\nThis admin-only REST controller provides endpoints for viewing and managing enquiries. It handles `GET /api/v1/admin/enquiries` to retrieve all enquiries and `GET /api/v1/admin/enquiries/{id}` to retrieve a single enquiry by ID. Both methods call the corresponding `EnquiryService` methods and return `EnquiryDto`s. These endpoints require administrative authentication.\n\n**Error Handling:**\nBoth controllers will leverage the `GlobalExceptionHandler` from the `shared-backend` feature to handle exceptions such as `MethodArgumentNotValidException` (for DTO validation errors) and `ResourceNotFoundException` (thrown by `EnquiryService` if an enquiry is not found).",
+    "depends_on_features" : [ "shared-backend" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
