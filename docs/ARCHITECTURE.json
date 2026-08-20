@@ -1885,14 +1885,24 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Service for sending notifications, such as booking confirmations and reminders.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "sendBookingConfirmation",
+      "parameters" : [ "UUID memberId", "BookingDto bookingDetails" ],
+      "return_type" : "void",
+      "description" : "Sends a booking confirmation email to the member for a specific booking. Formats all monetary values in Indian Rupees (₹)."
+    }, {
+      "name" : "sendMembershipRenewalReminder",
+      "parameters" : [ "UUID memberId", "MemberSubscription subscriptionDetails" ],
+      "return_type" : "void",
+      "description" : "Sends a membership renewal reminder email to the member for an upcoming subscription renewal. Formats all monetary values in Indian Rupees (₹)."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "notification-service",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — orchestrates the sending of various notifications; implements sendBookingConfirmation(UUID memberId, BookingDto bookingDetails): void and sendMembershipRenewalReminder(UUID memberId, MemberSubscription subscriptionDetails): void; delegates email sending to EmailService.",
     "change_required" : null
   }, {
     "file_name" : "EmailService.java",
@@ -1903,14 +1913,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Handles the technical implementation of sending emails via SMTP.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "sendEmail",
+      "parameters" : [ "String to", "String subject", "String body" ],
+      "return_type" : "void",
+      "description" : "Sends an email to the specified recipient with the given subject and body."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "notification-service",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — handles the technical implementation of sending emails; implements sendEmail(String to, String subject, String body): void.",
     "change_required" : null
   }, {
     "file_name" : "MembershipRenewalReminderTask.java",
@@ -1921,14 +1936,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Scheduled task that runs periodically to send membership renewal reminders.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "sendRenewalReminders",
+      "parameters" : [ ],
+      "return_type" : "void",
+      "description" : "Scheduled method that fetches upcoming membership renewals and sends reminder emails."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/NotificationService.java", "backend/src/main/java/com/absfitness/service/MemberSubscriptionService.java" ],
     "depends_on" : [ ],
     "feature_name" : "notification-service",
-    "file_role" : null,
+    "file_role" : "Scheduled task — runs periodically to identify and send membership renewal reminders; calls MemberSubscriptionService.getUpcomingRenewals(LocalDate date) and NotificationService.sendMembershipRenewalReminder(UUID memberId, MemberSubscription subscriptionDetails).",
     "change_required" : null
   }, {
     "file_name" : "App.tsx",
@@ -3169,8 +3189,8 @@
     "feature_display_name" : "Notification Service",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/service/NotificationService.java", "backend/src/main/java/com/absfitness/service/EmailService.java", "backend/src/main/java/com/absfitness/task/MembershipRenewalReminderTask.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "The Notification Service feature is responsible for sending various types of notifications, primarily email, to members. It consists of `NotificationService.java` which orchestrates the sending of different notification types, `EmailService.java` which handles the low-level email sending mechanics, and `MembershipRenewalReminderTask.java` which is a scheduled task to send renewal reminders.\n\n`EmailService.java` provides the core functionality for sending emails. It exposes a `sendEmail(String to, String subject, String body)` method that `NotificationService.java` will call. `NotificationService.java` acts as a higher-level service, providing methods like `sendBookingConfirmation(UUID memberId, BookingDto bookingDetails)` and `sendMembershipRenewalReminder(UUID memberId, MemberSubscription subscriptionDetails)`.\n\nThe `MembershipRenewalReminderTask.java` is a `@Scheduled` task that runs periodically. It will inject `MemberSubscriptionService` from the `membership-management` feature to retrieve upcoming membership renewals and then use `NotificationService` to send renewal reminder emails. It will call `memberSubscriptionService.getUpcomingRenewals(LocalDate date)` to fetch subscriptions nearing their renewal date. The `booking-system` feature, which depends on this `notification-service` feature, will use controller orchestration to trigger booking confirmation emails. Specifically, after a booking is successfully created or updated, the `BookingController` will call `notificationService.sendBookingConfirmation`.\n\nAll monetary values in emails will be formatted using the `en-IN` locale for Indian Rupees (₹).",
+    "depends_on_features" : [ "membership-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
