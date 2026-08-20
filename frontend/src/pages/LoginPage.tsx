@@ -1,83 +1,145 @@
-import { useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import * as z from 'zod';
+
 import { useAuth } from '@/context/AuthContext';
+import { ROUTES } from '@/routes';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
-  Form, FormControl, FormField, FormItem, FormLabel, FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
-import {
-  Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { toast } from 'sonner';
 
-// Login identifier is email OR phone (India-first) — one field for both.
-const schema = z.object({
-  identifier: z.string().min(1, 'Enter your email or phone'),
-  password: z.string().min(1, 'Enter your password'),
+const loginSchema = z.object({
+  username: z.string().min(1, 'Email or phone is required'),
+  password: z.string().min(1, 'Password is required'),
 });
-type Values = z.infer<typeof schema>;
 
-export default function LoginPage() {
-  const { login } = useAuth();
+type LoginFormValues = z.infer<typeof loginSchema>;
+
+export default function LoginPage(): React.JSX.Element {
+  const { login, isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const redirectTo = searchParams.get('redirect') || '/';
-  const signupHref = redirectTo === '/' ? '/signup' : `/signup?redirect=${encodeURIComponent(redirectTo)}`;
-  const [formError, setFormError] = useState<string | null>(null);
+  const location = useLocation();
+  const redirectPath = new URLSearchParams(location.search).get('redirect') || ROUTES.HOME;
 
-  const form = useForm<Values>({
-    resolver: zodResolver(schema),
-    defaultValues: { identifier: '', password: '' },
+  const [loginError, setLoginError] = useState<string | null>(null);
+
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
   });
 
-  const onSubmit = async (values: Values) => {
-    setFormError(null);
+  useEffect(() => {
+    if (isAuthenticated && !isLoading) {
+      navigate(redirectPath, { replace: true });
+    }
+  }, [isAuthenticated, isLoading, navigate, redirectPath]);
+
+  const onSubmit = async (values: LoginFormValues): Promise<void> => {
+    setLoginError(null);
     try {
-      await login(values.identifier, values.password);
-      navigate(redirectTo, { replace: true }); // back to where the guest was (e.g. /checkout)
-    } catch {
-      setFormError('Invalid email/phone or password.');
+      await login(values.username, values.password);
+      toast.success('Logged in successfully!');
+      // Redirection handled by useEffect
+    } catch (error: any) {
+      setLoginError(error.message || 'Login failed. Please check your credentials.');
+      toast.error(error.message || 'Login failed.');
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="mx-auto flex max-w-md flex-col justify-center px-4 py-12">
-      <Card data-testid="login-card">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Welcome back</CardTitle>
-          <CardDescription>Log in with your email or phone number.</CardDescription>
+          <CardTitle className="text-2xl text-center">Login</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField control={form.control} name="identifier" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email or phone</FormLabel>
-                  <FormControl><Input placeholder="you@example.com or +91…" data-testid="login-identifier" {...field} /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
-              <FormField control={form.control} name="password" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl><Input type="password" placeholder="••••••••" data-testid="login-password" {...field} /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
-              {formError && <p className="text-sm font-medium text-destructive" data-testid="login-error">{formError}</p>}
-              <Button type="submit" className="w-full" disabled={form.formState.isSubmitting} data-testid="login-submit">
-                {form.formState.isSubmitting ? 'Logging in…' : 'Log in'}
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email or Phone</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="Enter your email or phone"
+                        data-testid="login-username"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Enter your password"
+                        data-testid="login-password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {loginError && (
+                <p className="text-red-500 text-sm text-center">{loginError}</p>
+              )}
+              <Button
+                type="submit"
+                className="w-full bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200"
+                disabled={form.formState.isSubmitting}
+                data-testid="login-submit"
+              >
+                {form.formState.isSubmitting ? 'Logging in...' : 'Login'}
               </Button>
             </form>
           </Form>
+          <div className="mt-4 text-center text-sm">
+            Don't have an account?{' '}
+            <Button
+              variant="link"
+              onClick={() => navigate(ROUTES.SIGNUP)}
+              className="text-[#FF5722] hover:text-[#E64A19] p-0 h-auto"
+              data-testid="signup-link"
+            >
+              Sign up
+            </Button>
+          </div>
         </CardContent>
-        <CardFooter className="justify-center text-sm text-muted-foreground">
-          New here?&nbsp;
-          <Link to={signupHref} className="font-medium text-primary hover:underline" data-testid="link-signup">Create an account</Link>
-        </CardFooter>
       </Card>
     </div>
   );

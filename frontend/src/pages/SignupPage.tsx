@@ -1,110 +1,171 @@
 import { useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import * as z from 'zod';
+import { toast } from 'sonner';
+
 import { useAuth } from '@/context/AuthContext';
+import { ROUTES } from '@/routes';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
-  Form, FormControl, FormField, FormItem, FormLabel, FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
-import {
-  Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-// India-first signup: phone is required (a primary contact + alternate login identity).
-const schema = z.object({
+const signupSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
   lastName: z.string().min(1, 'Last name is required'),
-  email: z.string().email('Enter a valid email'),
-  phone: z.string().min(10, 'Enter a valid phone number'),
+  email: z.string().email('Invalid email address'),
+  phone: z.string().min(10, 'Phone number must be at least 10 digits').max(15, 'Phone number cannot exceed 15 digits'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
+  confirmPassword: z.string().min(6, 'Confirm password must be at least 6 characters'),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ['confirmPassword'],
 });
-type Values = z.infer<typeof schema>;
+
+type SignupFormValues = z.infer<typeof signupSchema>;
 
 export default function SignupPage() {
   const { register } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const redirectTo = searchParams.get('redirect') || '/';
-  const loginHref = redirectTo === '/' ? '/login' : `/login?redirect=${encodeURIComponent(redirectTo)}`;
-  const [formError, setFormError] = useState<string | null>(null);
+  const redirectPath = searchParams.get('redirect') || ROUTES.HOME;
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<Values>({
-    resolver: zodResolver(schema),
-    defaultValues: { firstName: '', lastName: '', email: '', phone: '', password: '' },
+  const form = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      password: '',
+      confirmPassword: '',
+    },
   });
 
-  const onSubmit = async (values: Values) => {
-    setFormError(null);
+  const onSubmit = async (values: SignupFormValues): Promise<void> => {
+    setIsSubmitting(true);
     try {
-      await register(values); // auto-logs in on success
-      navigate(redirectTo, { replace: true }); // back to where the guest was (e.g. /checkout)
-    } catch (err: unknown) {
-      const e = err as { response?: { data?: { message?: string; detail?: string } }; message?: string };
-      setFormError(e.response?.data?.message ?? e.response?.data?.detail ?? 'Could not create your account. Please try again.');
+      await register({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        phone: values.phone,
+        password: values.password,
+      });
+      toast.success('Registration successful! You are now logged in.');
+      navigate(redirectPath);
+    } catch (error: any) {
+      toast.error(error.message || 'Registration failed. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="mx-auto flex max-w-md flex-col justify-center px-4 py-12">
-      <Card data-testid="signup-card">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Create your account</CardTitle>
-          <CardDescription>Sign up with your details — you'll be logged in automatically.</CardDescription>
+          <CardTitle className="text-center text-2xl font-bold">Sign Up</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <FormField control={form.control} name="firstName" render={({ field }) => (
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
                   <FormItem>
-                    <FormLabel>First name</FormLabel>
-                    <FormControl><Input placeholder="Aarav" data-testid="signup-firstName" {...field} /></FormControl>
+                    <FormLabel>First Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="John" {...field} data-testid="signup-firstName" />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
-                )} />
-                <FormField control={form.control} name="lastName" render={({ field }) => (
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Last name</FormLabel>
-                    <FormControl><Input placeholder="Sharma" data-testid="signup-lastName" {...field} /></FormControl>
+                    <FormLabel>Last Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Doe" {...field} data-testid="signup-lastName" />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
-                )} />
-              </div>
-              <FormField control={form.control} name="email" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl><Input type="email" placeholder="you@example.com" data-testid="signup-email" {...field} /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
-              <FormField control={form.control} name="phone" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone</FormLabel>
-                  <FormControl><Input type="tel" placeholder="+91 98765 43210" data-testid="signup-phone" {...field} /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
-              <FormField control={form.control} name="password" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl><Input type="password" placeholder="••••••••" data-testid="signup-password" {...field} /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
-              {formError && <p className="text-sm font-medium text-destructive" data-testid="signup-error">{formError}</p>}
-              <Button type="submit" className="w-full" disabled={form.formState.isSubmitting} data-testid="signup-submit">
-                {form.formState.isSubmitting ? 'Creating account…' : 'Create account'}
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input type="email" placeholder="john.doe@example.com" {...field} data-testid="signup-email" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input type="tel" placeholder="9876543210" {...field} data-testid="signup-phone" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="••••••••" {...field} data-testid="signup-password" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="••••••••" {...field} data-testid="signup-confirmPassword" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold transition-all duration-200" disabled={isSubmitting} data-testid="signup-submit">
+                {isSubmitting ? 'Signing Up...' : 'Sign Up'}
               </Button>
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="justify-center text-sm text-muted-foreground">
-          Already have an account?&nbsp;
-          <Link to={loginHref} className="font-medium text-primary hover:underline" data-testid="link-login">Log in</Link>
-        </CardFooter>
       </Card>
     </div>
   );
