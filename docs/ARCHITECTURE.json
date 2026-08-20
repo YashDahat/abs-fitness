@@ -3088,13 +3088,17 @@
     "status" : "PLANNED",
     "description" : "TypeScript types and interfaces for fitness classes.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "FitnessClassDto",
+      "type" : "{ id: string; name: string; description: string; scheduleTime: string; durationMinutes: number; capacity: number; trainerId: string; trainerName: string; }",
+      "description" : "Interface for fitness class data transfer object."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract — defines TypeScript interfaces for fitness class data.",
     "change_required" : null
   }, {
     "file_name" : "fitnessClassService.ts",
@@ -3105,14 +3109,38 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Provides functions for interacting with the fitness class API endpoints.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllFitnessClasses",
+      "parameters" : [ ],
+      "return_type" : "Promise<FitnessClassDto[]>",
+      "description" : "Fetches all available fitness classes."
+    }, {
+      "name" : "getFitnessClassById",
+      "parameters" : [ "string id" ],
+      "return_type" : "Promise<FitnessClassDto>",
+      "description" : "Fetches details for a specific fitness class by its ID."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/classes",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a list of all fitness classes.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/classes/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a single fitness class by ID.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "Frontend service layer — provides functions to fetch fitness class data from the backend API.",
     "change_required" : null
   }, {
     "file_name" : "booking.ts",
@@ -3124,13 +3152,21 @@
     "status" : "PLANNED",
     "description" : "TypeScript types and interfaces for class bookings.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "BookingDto",
+      "type" : "{ id: string; memberId: string; fitnessClassId: string; fitnessClassName: string; bookingTime: string; status: 'CONFIRMED' | 'CANCELLED' | 'PENDING'; }",
+      "description" : "Interface for booking data transfer object."
+    }, {
+      "name" : "CreateBookingRequest",
+      "type" : "{ fitnessClassId: string; }",
+      "description" : "Interface for creating a new booking request."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract — defines TypeScript interfaces for class booking data.",
     "change_required" : null
   }, {
     "file_name" : "bookingService.ts",
@@ -3141,14 +3177,38 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Provides functions for interacting with the booking API endpoints.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createBooking",
+      "parameters" : [ "CreateBookingRequest request" ],
+      "return_type" : "Promise<BookingDto>",
+      "description" : "Creates a new class booking."
+    }, {
+      "name" : "cancelBooking",
+      "parameters" : [ "string id" ],
+      "return_type" : "Promise<BookingDto>",
+      "description" : "Cancels an existing class booking by its ID."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/bookings",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new booking.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/bookings/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Cancels a booking by ID.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/booking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "Frontend service layer — provides functions to interact with the class booking backend API.",
     "change_required" : null
   }, {
     "file_name" : "trainer.ts",
@@ -3160,13 +3220,17 @@
     "status" : "PLANNED",
     "description" : "TypeScript types and interfaces for trainer profiles.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "TrainerDto",
+      "type" : "{ id: string; name: string; specialties: string; bio: string; photoUrl: string; }",
+      "description" : "Interface for trainer data transfer object."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract — defines TypeScript interfaces for trainer profile data.",
     "change_required" : null
   }, {
     "file_name" : "trainerService.ts",
@@ -3177,14 +3241,38 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Provides functions for interacting with the trainer API endpoints.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllTrainers",
+      "parameters" : [ ],
+      "return_type" : "Promise<TrainerDto[]>",
+      "description" : "Fetches all available trainers."
+    }, {
+      "name" : "getTrainerById",
+      "parameters" : [ "string id" ],
+      "return_type" : "Promise<TrainerDto>",
+      "description" : "Fetches details for a specific trainer by their ID."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/trainers",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a list of all trainers.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/trainers/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a single trainer by ID.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "Frontend service layer — provides functions to fetch trainer data from the backend API.",
     "change_required" : null
   }, {
     "file_name" : "ClassesPage.tsx",
@@ -3195,14 +3283,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Displays an interactive weekly schedule of fitness classes with options to book.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ClassesPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the fitness classes page with schedule and booking functionality."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/classes/ClassSchedule.tsx", "frontend/src/components/classes/BookingModal.tsx", "frontend/src/services/fitnessClassService.ts", "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "PAGE layer — displays an interactive weekly schedule of fitness classes and handles class booking.",
     "change_required" : null
   }, {
     "file_name" : "ClassSchedule.tsx",
@@ -3213,14 +3306,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A calendar or timeline component to display the class schedule.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ClassSchedule",
+      "parameters" : [ "ClassScheduleProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a schedule of fitness classes. Props include `classes: FitnessClassDto[]` and `onSelectClass: (class: FitnessClassDto) => void`."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a calendar or timeline of fitness classes.",
     "change_required" : null
   }, {
     "file_name" : "BookingModal.tsx",
@@ -3231,14 +3329,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A modal dialog to confirm class booking details.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "BookingModal",
+      "parameters" : [ "BookingModalProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a modal for class booking. Props include `isOpen: boolean`, `onClose: () => void`, `fitnessClass: FitnessClassDto`, and `onBookingSuccess: () => void`."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/services/bookingService.ts", "frontend/src/types/booking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — a modal dialog for confirming and submitting class booking details.",
     "change_required" : null
   }, {
     "file_name" : "TrainersPage.tsx",
@@ -3249,14 +3352,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A gallery page showcasing all trainers with profile summaries.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "TrainersPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the trainers gallery page."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/trainers/TrainerCard.tsx", "frontend/src/services/trainerService.ts", "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "PAGE layer — displays a gallery of all fitness trainers.",
     "change_required" : null
   }, {
     "file_name" : "TrainerCard.tsx",
@@ -3267,14 +3375,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A card component displaying a trainer's photo, name, and specialties.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "TrainerCard",
+      "parameters" : [ "TrainerCardProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a card for a trainer. Props include `trainer: TrainerDto`."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a summary card for a single trainer.",
     "change_required" : null
   }, {
     "file_name" : "TrainersDetailPage.tsx",
@@ -3285,14 +3398,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A detailed profile page for a single trainer, showing their bio, qualifications, and classes.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "TrainersDetailPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the detailed trainer profile page."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/trainers/TrainerDetail.tsx", "frontend/src/services/trainerService.ts", "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "PAGE layer — displays a detailed profile for a single trainer.",
     "change_required" : null
   }, {
     "file_name" : "TrainerDetail.tsx",
@@ -3303,14 +3421,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Component that lays out the detailed information for a trainer profile.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "TrainerDetail",
+      "parameters" : [ "TrainerDetailProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the detailed information for a trainer. Props include `trainer: TrainerDto` and `classes: FitnessClassDto[]`."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — lays out the detailed information for a trainer profile.",
     "change_required" : null
   }, {
     "file_name" : "review.ts",
@@ -3672,8 +3795,8 @@
     "feature_display_name" : "Class & Trainer Booking",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/types/fitnessClass.ts", "frontend/src/services/fitnessClassService.ts", "frontend/src/types/booking.ts", "frontend/src/services/bookingService.ts", "frontend/src/types/trainer.ts", "frontend/src/services/trainerService.ts", "frontend/src/pages/ClassesPage.tsx", "frontend/src/components/classes/ClassSchedule.tsx", "frontend/src/components/classes/BookingModal.tsx", "frontend/src/pages/TrainersPage.tsx", "frontend/src/components/trainers/TrainerCard.tsx", "frontend/src/pages/TrainersDetailPage.tsx", "frontend/src/components/trainers/TrainerDetail.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThis feature provides the frontend for users to browse fitness classes and trainers, view their details, and book classes. It consists of several TypeScript type definitions, service functions for API interaction, and React components for UI presentation.\n\n### Data Types\n- `frontend/src/types/fitnessClass.ts` defines the `FitnessClassDto` interface, mirroring the backend `FitnessClassDto` from the `class-management` feature. It includes fields like `id`, `name`, `description`, `scheduleTime`, `durationMinutes`, `capacity`, `trainerId`, and `trainerName`.\n- `frontend/src/types/booking.ts` defines the `BookingDto` and `CreateBookingRequest` interfaces, mirroring the backend DTOs from the `booking-system` feature. `BookingDto` includes `id`, `memberId`, `fitnessClassId`, `fitnessClassName`, `bookingTime`, and `status`. `CreateBookingRequest` contains `fitnessClassId`.\n- `frontend/src/types/trainer.ts` defines the `TrainerDto` interface, mirroring the backend `TrainerDto` from the `trainer-management` feature. It includes fields like `id`, `name`, `specialties`, `bio`, and `photoUrl`.\n\n### Service Layer\n- `frontend/src/services/fitnessClassService.ts` provides asynchronous functions to interact with the `/api/v1/classes` backend endpoints. It exports `getAllFitnessClasses(): Promise<FitnessClassDto[]>` to fetch all available classes and `getFitnessClassById(id: string): Promise<FitnessClassDto>` to retrieve details for a specific class.\n- `frontend/src/services/bookingService.ts` provides asynchronous functions to interact with the `/api/v1/bookings` backend endpoints. It exports `createBooking(request: CreateBookingRequest): Promise<BookingDto>` to create a new booking and `cancelBooking(id: string): Promise<BookingDto>` to cancel an existing booking.\n- `frontend/src/services/trainerService.ts` provides asynchronous functions to interact with the `/api/v1/trainers` backend endpoints. It exports `getAllTrainers(): Promise<TrainerDto[]>` to fetch all trainers and `getTrainerById(id: string): Promise<TrainerDto>` to retrieve details for a specific trainer.\n\n### UI Pages\n- `frontend/src/pages/ClassesPage.tsx` is the main page for displaying fitness classes. It fetches all fitness classes using `fitnessClassService.getAllFitnessClasses()`. It renders a hero section with a motivational headline, followed by a `ClassSchedule` component to display the classes. When a user selects a class, it opens a `BookingModal` to confirm booking details. The page uses the design tokens for its layout and styling, including a hero image with an overlay and a prominent headline: \"Achieve Your Fitness Goals with Expert-Led Classes at ABS FITNESS\".\n- `frontend/src/pages/TrainersPage.tsx` displays a gallery of all trainers. It fetches all trainers using `trainerService.getAllTrainers()` and renders them using `TrainerCard` components. The page includes a hero section with a headline: \"Meet Our World-Class Trainers at ABS FITNESS\".\n- `frontend/src/pages/TrainersDetailPage.tsx` shows the detailed profile of a single trainer. It retrieves the trainer ID from the URL parameters and fetches the trainer's details using `trainerService.getTrainerById(id)`. It then renders the `TrainerDetail` component to display the trainer's information and any associated classes (which it will fetch using `fitnessClassService.getAllFitnessClasses()` and filter by `trainerId`). The page features a hero section with the trainer's name as the headline.\n\n### UI Components\n- `frontend/src/components/classes/ClassSchedule.tsx` receives a list of `FitnessClassDto[]` as props and renders them in a weekly schedule format. Each class entry should be clickable, emitting an event or calling a prop function with the selected `FitnessClassDto` to trigger the `BookingModal`.\n- `frontend/src/components/classes/BookingModal.tsx` is a modal dialog that takes a `FitnessClassDto` as a prop. It displays the class details and a form for the user to confirm the booking. Upon confirmation, it calls `bookingService.createBooking()` with a `CreateBookingRequest` containing the `fitnessClassId`. It should provide feedback to the user (e.g., using a toast notification) on booking success or failure.\n- `frontend/src/components/trainers/TrainerCard.tsx` receives a `TrainerDto` as a prop and displays the trainer's photo, name, and specialties. It should be clickable, navigating to the `TrainersDetailPage` for that trainer.\n- `frontend/src/components/trainers/TrainerDetail.tsx` receives a `TrainerDto` as a prop and displays the trainer's full bio, qualifications, and a list of classes they teach. It will fetch classes using `fitnessClassService.getAllFitnessClasses()` and filter by the trainer's ID.\n\nAll monetary values (e.g., class prices, if applicable) must be displayed in Indian Rupees (₹) using the `en-IN` locale.",
+    "depends_on_features" : [ "class-management", "booking-system", "trainer-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
