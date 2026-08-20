@@ -2895,13 +2895,29 @@
     "status" : "PLANNED",
     "description" : "TypeScript types and interfaces related to membership plans and subscriptions.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "MembershipPlan",
+      "type" : "{ id: string; name: string; description: string; durationInMonths: number; price: number; }",
+      "description" : "Interface representing a membership plan, mirroring MembershipPlanDto from the backend."
+    }, {
+      "name" : "CreateSubscriptionRequest",
+      "type" : "{ planId: string; }",
+      "description" : "Request body for creating a new membership subscription."
+    }, {
+      "name" : "PaymentOrderResponse",
+      "type" : "{ orderId: string; amount: number; currency: string; receipt: string; status: string; }",
+      "description" : "Response from the backend after initiating a payment order."
+    }, {
+      "name" : "VerifyPaymentRequest",
+      "type" : "{ orderId: string; paymentId: string; signature: string; }",
+      "description" : "Request body for verifying a payment with the backend."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "membership-sales",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract — defines TypeScript types for membership plans and subscription-related data transfer objects.",
     "change_required" : null
   }, {
     "file_name" : "membershipService.ts",
@@ -2912,14 +2928,50 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Provides functions for interacting with the membership-related API endpoints.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllMembershipPlans",
+      "parameters" : [ ],
+      "return_type" : "Promise<MembershipPlan[]>",
+      "description" : "Fetches all available membership plans from the backend."
+    }, {
+      "name" : "createSubscription",
+      "parameters" : [ "string planId" ],
+      "return_type" : "Promise<PaymentOrderResponse>",
+      "description" : "Initiates a new membership subscription for the given plan ID."
+    }, {
+      "name" : "verifyPayment",
+      "parameters" : [ "VerifyPaymentRequest request" ],
+      "return_type" : "Promise<void>",
+      "description" : "Verifies the payment details with the backend after a successful payment gateway transaction."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/membership-plans",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all public membership plans.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/member/subscriptions",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new membership subscription and returns payment order details.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/member/subscriptions/verify-payment",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Verifies the payment for a membership subscription.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "membership-sales",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — provides asynchronous functions to interact with the membership-management backend API, including getAllMembershipPlans(): Promise<MembershipPlan[]> and createSubscription(planId: string): Promise<PaymentOrderResponse> and verifyPayment(request: VerifyPaymentRequest): Promise<void>.",
     "change_required" : null
   }, {
     "file_name" : "MembershipPage.tsx",
@@ -2937,7 +2989,7 @@
     "imports_from" : [ "frontend/src/components/membership/MembershipPlanCard.tsx", "frontend/src/services/membershipService.ts", "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "membership-sales",
-    "file_role" : null,
+    "file_role" : "PAGE layer — fetches and displays all available membership plans using MembershipPlanCard components, with CTAs to add plans to the cart and navigate to checkout.",
     "change_required" : null
   }, {
     "file_name" : "MembershipPlanCard.tsx",
@@ -2948,14 +3000,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A card component to display the details of a single membership plan.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MembershipPlanCard",
+      "parameters" : [ "MembershipPlan plan", "function onSelectPlan" ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays a membership plan's details and handles selection for purchase."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "membership-sales",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays the details of a single membership plan and provides a 'Join Now' CTA to add the plan to the cart.",
     "change_required" : null
   }, {
     "file_name" : "CheckoutPage.tsx",
@@ -2973,7 +3030,7 @@
     "imports_from" : [ "frontend/src/components/checkout/PaymentStep.tsx", "frontend/src/components/checkout/ConfirmationStep.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "membership-sales",
-    "file_role" : null,
+    "file_role" : "PAGE layer — orchestrates the multi-step checkout process for memberships, handling cart integration, payment initiation, and payment verification.",
     "change_required" : null
   }, {
     "file_name" : "PaymentStep.tsx",
@@ -2984,14 +3041,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Component handling the payment gateway integration for the checkout process.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "PaymentStep",
+      "parameters" : [ "number totalAmount", "function onPaymentSuccess" ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays payment details and integrates with the payment gateway."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "membership-sales",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — handles the integration with the payment gateway for the checkout process, displaying the total amount and capturing payment details.",
     "change_required" : null
   }, {
     "file_name" : "ConfirmationStep.tsx",
@@ -3002,14 +3064,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Displays the order confirmation details after a successful payment.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ConfirmationStep",
+      "parameters" : [ "string membershipPlanName", "number totalAmount" ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays a success message and order details after a confirmed payment."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "membership-sales",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays order confirmation details after a successful payment, including the purchased membership plan and total amount.",
     "change_required" : null
   }, {
     "file_name" : "fitnessClass.ts",
@@ -3596,8 +3663,8 @@
     "feature_display_name" : "Membership Sales Flow",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/types/membership.ts", "frontend/src/services/membershipService.ts", "frontend/src/pages/MembershipPage.tsx", "frontend/src/components/membership/MembershipPlanCard.tsx", "frontend/src/pages/CheckoutPage.tsx", "frontend/src/components/checkout/PaymentStep.tsx", "frontend/src/components/checkout/ConfirmationStep.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-white (odd sections) / bg-[#F5F5F5] (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThis feature provides the frontend user interface and logic for displaying membership plans and handling the checkout process for purchasing a membership. It consists of TypeScript types, a service for API interaction, a page to display membership plans, a component for individual plan cards, a multi-step checkout page, and components for payment and confirmation steps.\n\nThe `membership.ts` file defines the `MembershipPlan` interface, which mirrors the `MembershipPlanDto` from the `membership-management` backend feature. It also defines `CreateSubscriptionRequest` and `PaymentOrderResponse` types for the checkout flow.\n\nThe `membershipService.ts` file exports asynchronous functions to interact with the `membership-management` backend API. It includes `getAllMembershipPlans()` to fetch all available plans and `createSubscription(planId: UUID): Promise<PaymentOrderResponse>` to initiate a new membership subscription. It also includes `verifyPayment(request: VerifyPaymentRequest): Promise<void>` to confirm the payment with the backend.\n\nThe `MembershipPage.tsx` component is responsible for fetching and displaying all available membership plans. It uses the `getAllMembershipPlans` capability from `membershipService.ts` to retrieve the data. It renders a hero section with a motivational headline like \"Unlock Your Potential with ABS FITNESS Memberships\" and a subheadline \"Choose the plan that fits your fitness journey.\" Below the hero, it displays a grid of `MembershipPlanCard` components, each representing a membership plan. Each card will have a prominent \"Join Now\" CTA that, when clicked, will add the selected membership plan to the cart using `useCart().addItem()` and navigate the user to the `/checkout` page.\n\nThe `MembershipPlanCard.tsx` component receives a `MembershipPlan` object as a prop. It displays the plan's `name`, `description`, `durationInMonths`, and `price`. The price should be formatted in Indian Rupees (₹) using `toLocaleString('en-IN', { style: 'currency', currency: 'INR' })`. The card includes a \"Join Now\" button that triggers the `onSelectPlan` callback, passing the `MembershipPlan` object.\n\nThe `CheckoutPage.tsx` component orchestrates the multi-step checkout process. It uses the `useCheckout` hook from `@/cart` to manage the checkout steps. The steps include a review of the selected membership plan (from the cart), a payment step, and a confirmation step. It reads the `cartItems` and `totals.total` from `useCart()`. The page will display the total amount in Indian Rupees (₹). When the user proceeds to payment, it calls `membershipService.createSubscription` with the `id` of the membership plan from the cart. Upon successful payment, it calls `membershipService.verifyPayment` and then navigates to the confirmation step. The page will display a clear heading like \"Complete Your Membership Purchase\" and guide the user through the steps.\n\nThe `PaymentStep.tsx` component is rendered within the `CheckoutPage.tsx`. It is responsible for integrating with the payment gateway. It will display the total amount due, formatted in Indian Rupees (₹). It will use the `PaymentOrderResponse` received from `membershipService.createSubscription` to initiate the payment process. Upon successful payment, it will call the `onPaymentSuccess` callback, passing the payment details (orderId, paymentId, signature) to the `CheckoutPage`.\n\nThe `ConfirmationStep.tsx` component is displayed after a successful payment. It will show a success message like \"Congratulations! Your ABS FITNESS Membership is Confirmed!\" and display the membership plan name and the total amount paid, formatted in Indian Rupees (₹). It will also provide a call to action to navigate to the member's dashboard or home page.\n\nAll monetary values displayed in this feature, including membership plan prices, cart totals, and payment amounts, must be formatted in Indian Rupees (₹) using `toLocaleString('en-IN', { style: 'currency', currency: 'INR' })`.",
+    "depends_on_features" : [ "membership-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
