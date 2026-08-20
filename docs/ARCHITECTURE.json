@@ -1949,14 +1949,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Main application component that sets up routing and global providers.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "App",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the main application, including routing and global context providers."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Main application component that sets up routing using React Router and integrates global providers. It defines the structure for public-facing pages and handles 404 routes.",
     "change_required" : null
   }, {
     "file_name" : "siteConfig.ts",
@@ -1968,13 +1973,17 @@
     "status" : "PLANNED",
     "description" : "Central configuration for site-wide settings like navigation links, branding, and contact info.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "siteConfig",
+      "type" : "{ businessName: string; tagline: string; address: string; phone: string; email: string; coordinates: { latitude: number; longitude: number; }; openingHours: string[]; socialMedia: { facebook?: string; instagram?: string; twitter?: string; linkedin?: string; }; navLinks: { label: string; href: string; }[]; }",
+      "description" : "Object containing all site-wide configuration details."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Central configuration for site-wide settings, including navigation links, branding, and contact information, used across the application.",
     "change_required" : null
   }, {
     "file_name" : "HomePage.tsx",
@@ -1985,14 +1994,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Landing page featuring a high-energy hero video, facility highlights, membership preview, and social proof from reviews.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "HomePage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the home page with hero, facilities, membership preview, reviews, and CTA sections."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/home/HeroSection.tsx", "frontend/src/components/home/FacilitiesHighlight.tsx", "frontend/src/components/home/ReviewsSection.tsx", "frontend/src/components/home/MembershipPreview.tsx", "frontend/src/components/home/CtaSection.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Landing page that aggregates various components to present a comprehensive overview of ABS FITNESS, driving user engagement and inquiries.",
     "change_required" : null
   }, {
     "file_name" : "HeroSection.tsx",
@@ -2003,14 +2017,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Full-bleed hero section with a video background, motivational headline, and primary call-to-action.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "HeroSection",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays the hero section with video background and main call to action."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Full-bleed hero section with a video background, a motivational headline, and a primary call-to-action, designed to immediately capture user attention.",
     "change_required" : null
   }, {
     "file_name" : "FacilitiesHighlight.tsx",
@@ -2021,14 +2040,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Visually engaging grid or carousel showcasing key facilities like the swimming pool and premium equipment.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "FacilitiesHighlight",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a section highlighting the gym's key facilities."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Visually engaging component showcasing key gym facilities with descriptions and imagery, designed to highlight the gym's offerings.",
     "change_required" : null
   }, {
     "file_name" : "ReviewsSection.tsx",
@@ -2039,14 +2063,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Displays a curated set of top Google reviews to build social proof.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ReviewsSection",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a section displaying featured customer reviews."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/services/reviewService.ts", "frontend/src/types/review.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Displays a curated set of top Google reviews to build social proof and trust, fetching data from the content-management feature.",
     "change_required" : null
   }, {
     "file_name" : "MembershipPreview.tsx",
@@ -2057,14 +2086,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A section summarizing top membership plans to drive users to the main membership page.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MembershipPreview",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a preview section of available membership plans."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/services/membershipService.ts", "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "A section summarizing top membership plans to drive users to the main membership page, fetching data from the membership-management feature.",
     "change_required" : null
   }, {
     "file_name" : "CtaSection.tsx",
@@ -2075,14 +2109,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A final call-to-action section, prompting users to book a tour or start a free trial.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "CtaSection",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a call-to-action section with options to book a trial or join."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/shared/EnquiryForm.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "A final call-to-action section, prompting users to book a tour or start a free trial, integrating the EnquiryForm component.",
     "change_required" : null
   }, {
     "file_name" : "AboutPage.tsx",
@@ -2093,14 +2132,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Static page detailing the gym's philosophy, history, and team, with high-quality imagery.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "AboutPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the About Us page with information about the gym's mission, history, and team."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Static page detailing the gym's philosophy, history, and team, presented with high-quality imagery and professional copy.",
     "change_required" : null
   }, {
     "file_name" : "FacilitiesPage.tsx",
@@ -2111,14 +2155,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A dedicated page showcasing all gym facilities with detailed descriptions and images, including the virtual tour embed.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "FacilitiesPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the Facilities page, detailing all gym amenities and services."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Dedicated page showcasing all gym facilities with detailed descriptions, images, and an embedded virtual tour to provide a comprehensive view.",
     "change_required" : null
   }, {
     "file_name" : "GalleryPage.tsx",
@@ -2129,14 +2178,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Displays a filterable gallery of high-quality photos and videos from the pre-scaffolded media library.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "GalleryPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the Gallery page, showcasing images and videos of the gym."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Displays a filterable gallery of high-quality photos and videos from the pre-scaffolded media library, allowing users to explore the gym visually.",
     "change_required" : null
   }, {
     "file_name" : "ContactPage.tsx",
@@ -2147,14 +2201,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Provides contact information, an embedded map, and the lead capture form for enquiries.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ContactPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the Contact Us page with contact details, map, and enquiry form."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/shared/EnquiryForm.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Provides comprehensive contact information, an embedded map, and a lead capture form for inquiries, making it easy for users to connect with the gym.",
     "change_required" : null
   }, {
     "file_name" : "NotFoundPage.tsx",
@@ -2165,14 +2224,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A user-friendly 404 page to handle invalid routes.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "NotFoundPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the 404 Not Found page."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "A user-friendly 404 page to gracefully handle invalid routes, providing navigation back to the home page.",
     "change_required" : null
   }, {
     "file_name" : "EnquiryForm.tsx",
@@ -2183,14 +2247,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A reusable form for capturing user enquiries for free trials or tours.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "EnquiryForm",
+      "parameters" : [ "object props: { enquiryType: 'GENERAL_INQUIRY' | 'FREE_TRIAL_REQUEST' }" ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays a form for users to submit enquiries, with a configurable enquiry type."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/services/enquiryService.ts", "frontend/src/types/enquiry.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "A reusable form for capturing user enquiries, submitting data to the lead-management backend feature via the `createEnquiry` service function.",
     "change_required" : null
   }, {
     "file_name" : "FloatingCta.tsx",
@@ -2201,14 +2270,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A site-wide floating action button, likely for WhatsApp chat, to drive immediate engagement.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "FloatingCta",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a floating call-to-action button, typically for WhatsApp."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "A site-wide floating action button, likely for WhatsApp chat, to drive immediate engagement and provide easy access to communication.",
     "change_required" : null
   }, {
     "file_name" : "reviewService.ts",
@@ -2219,14 +2293,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Provides functions for fetching review data from the backend API.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getFeaturedReviews",
+      "parameters" : [ ],
+      "return_type" : "Promise<ReviewDto[]>",
+      "description" : "Fetches a list of featured reviews from the backend."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/reviews/featured",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches featured reviews.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/review.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Frontend service layer for interacting with the backend review API, providing functions to fetch review data.",
     "change_required" : null
   }, {
     "file_name" : "review.ts",
@@ -2244,7 +2330,7 @@
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract — TypeScript types and interfaces related to reviews.",
     "change_required" : null
   }, {
     "file_name" : "enquiryService.ts",
@@ -2255,14 +2341,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Provides functions for submitting enquiry data to the backend API.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createEnquiry",
+      "parameters" : [ "CreateEnquiryRequest request" ],
+      "return_type" : "Promise<EnquiryDto>",
+      "description" : "Submits a new enquiry to the backend."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/enquiries",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Submits a new enquiry.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/enquiry.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Frontend service layer for interacting with the backend enquiry API, providing functions to submit enquiry data.",
     "change_required" : null
   }, {
     "file_name" : "enquiry.ts",
@@ -2280,7 +2378,7 @@
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract — TypeScript types and interfaces related to enquiries.",
     "change_required" : null
   }, {
     "file_name" : "LoginPage.tsx",
@@ -2981,8 +3079,8 @@
     "feature_display_name" : "Core UI (Frontend)",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/App.tsx", "frontend/src/config/siteConfig.ts", "frontend/src/pages/HomePage.tsx", "frontend/src/components/home/HeroSection.tsx", "frontend/src/components/home/FacilitiesHighlight.tsx", "frontend/src/components/home/ReviewsSection.tsx", "frontend/src/components/home/MembershipPreview.tsx", "frontend/src/components/home/CtaSection.tsx", "frontend/src/pages/AboutPage.tsx", "frontend/src/pages/FacilitiesPage.tsx", "frontend/src/pages/GalleryPage.tsx", "frontend/src/pages/ContactPage.tsx", "frontend/src/pages/NotFoundPage.tsx", "frontend/src/components/shared/EnquiryForm.tsx", "frontend/src/components/shared/FloatingCta.tsx", "frontend/src/services/reviewService.ts", "frontend/src/types/review.ts", "frontend/src/services/enquiryService.ts", "frontend/src/types/enquiry.ts" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Secondary CTA: border border-[#FF5722] text-[#FF5722] hover:bg-[#FF5722] hover:text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#FFFFFF] (odd sections) / bg-[#F5F5F5] (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThis feature defines the core user interface and routing for the ABS FITNESS website, providing a premium, high-energy, and modern aesthetic. It includes the main application setup, global configuration, and all public-facing pages and shared components. The `App.tsx` file sets up the React Router for navigation, defining routes for the home page, about page, facilities page, gallery page, contact page, and a 404 not found page. It also integrates global providers and the `SiteLayout` (which includes `SiteHeader` and `SiteFooter` from the fenced foundation). The `siteConfig.ts` file centralizes all site-wide settings, including navigation links, business contact information, and social media links, ensuring consistency across the application. \n\nThe `HomePage.tsx` serves as the landing page, composed of several distinct sections:\n1.  `HeroSection.tsx`: A full-bleed hero with a video background, a motivational headline, and a primary call-to-action to \"Start Your Transformation Today\".\n2.  `FacilitiesHighlight.tsx`: Showcases key gym facilities with engaging visuals and descriptions.\n3.  `MembershipPreview.tsx`: Summarizes top membership plans, fetching data using the generated `getAllActiveMembershipPlans` service function from the `membership-management` feature. This section will display the `name`, `price`, and `features` of each `MembershipPlanDto`.\n4.  `ReviewsSection.tsx`: Displays curated Google reviews, fetching data using the generated `getFeaturedReviews` service function from the `content-management` feature. It will display the `author`, `rating`, and `comment` of each `ReviewDto`.\n5.  `CtaSection.tsx`: A final call-to-action prompting users to \"Book a Free Trial\" or \"Join Now\", which will link to the `EnquiryForm.tsx`.\n\nThe `AboutPage.tsx` provides detailed information about ABS FITNESS's philosophy, history, and team, using high-quality imagery and professional copy. The `FacilitiesPage.tsx` offers an extensive showcase of all gym facilities with detailed descriptions, images, and an embedded virtual tour. The `GalleryPage.tsx` displays a filterable gallery of media from the pre-scaffolded media library. The `ContactPage.tsx` presents all contact details from `siteConfig.ts`, an embedded Google Map, and integrates the `EnquiryForm.tsx` for lead capture.\n\nThe `NotFoundPage.tsx` provides a user-friendly experience for invalid routes. \n\nShared components include `EnquiryForm.tsx` and `FloatingCta.tsx`. `EnquiryForm.tsx` is a reusable form for capturing user inquiries for free trials or tours. It collects `fullName`, `email`, `phoneNumber`, `message`, and `enquiryType` (which will be a fixed value like 'GENERAL_INQUIRY' or 'FREE_TRIAL_REQUEST'). Upon submission, it calls the generated `createEnquiry` service function from the `lead-management` feature. The `FloatingCta.tsx` provides a persistent call-to-action, likely for WhatsApp chat, to drive immediate engagement.\n\nFrontend services (`reviewService.ts`, `enquiryService.ts`) and types (`review.ts`, `enquiry.ts`) are defined to interact with their respective backend APIs. `reviewService.ts` will expose a function to fetch featured reviews, calling the `GET /api/v1/reviews/featured` endpoint. `enquiryService.ts` will expose a function to submit an enquiry, calling the `POST /api/v1/enquiries` endpoint. The types define the data structures for these interactions.\n\nAll monetary values (e.g., membership prices) must be displayed in Indian Rupees (₹) using the `en-IN` locale.",
+    "depends_on_features" : [ "membership-management", "content-management", "lead-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
