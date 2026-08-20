@@ -427,13 +427,33 @@
     "status" : "PLANNED",
     "description" : "Represents a gym trainer with profile information like bio, specializations, and photo.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the trainer. Not null."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the trainer. Not null, max 255 characters."
+    }, {
+      "name" : "bio",
+      "type" : "String",
+      "description" : "Biographical information about the trainer. Max 1000 characters."
+    }, {
+      "name" : "specializations",
+      "type" : "String",
+      "description" : "Comma-separated list of specializations. Max 500 characters."
+    }, {
+      "name" : "imageUrl",
+      "type" : "String",
+      "description" : "URL to the trainer's profile photo. Max 255 characters."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-core",
-    "file_role" : null,
+    "file_role" : "MODEL layer — represents a gym trainer with profile information.",
     "change_required" : null
   }, {
     "file_name" : "GymClass.java",
@@ -445,13 +465,45 @@
     "status" : "PLANNED",
     "description" : "Represents a scheduled class, including type, time, assigned trainer, and capacity.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the gym class. Not null."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the class (e.g., 'Yoga', 'Spin'). Not null, max 255 characters."
+    }, {
+      "name" : "description",
+      "type" : "String",
+      "description" : "Description of the class. Max 1000 characters."
+    }, {
+      "name" : "trainer",
+      "type" : "Trainer",
+      "description" : "The trainer assigned to this class. Not null."
+    }, {
+      "name" : "startTime",
+      "type" : "LocalDateTime",
+      "description" : "Start date and time of the class. Not null."
+    }, {
+      "name" : "endTime",
+      "type" : "LocalDateTime",
+      "description" : "End date and time of the class. Not null."
+    }, {
+      "name" : "capacity",
+      "type" : "Integer",
+      "description" : "Maximum number of participants for the class. Not null, min 1."
+    }, {
+      "name" : "currentBookings",
+      "type" : "Integer",
+      "description" : "Current number of participants booked for the class. Default 0, min 0."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Trainer.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-core",
-    "file_role" : null,
+    "file_role" : "MODEL layer — represents a scheduled gym class.",
     "change_required" : null
   }, {
     "file_name" : "Booking.java",
@@ -463,13 +515,33 @@
     "status" : "PLANNED",
     "description" : "Represents a user's booking for a specific gym class.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the booking. Not null."
+    }, {
+      "name" : "userId",
+      "type" : "UUID",
+      "description" : "ID of the user who made the booking. Not null."
+    }, {
+      "name" : "gymClass",
+      "type" : "GymClass",
+      "description" : "The gym class being booked. Not null."
+    }, {
+      "name" : "bookingTime",
+      "type" : "LocalDateTime",
+      "description" : "Timestamp when the booking was made. Not null."
+    }, {
+      "name" : "status",
+      "type" : "BookingStatus",
+      "description" : "Status of the booking (e.g., CONFIRMED, CANCELLED). Not null."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/GymClass.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-core",
-    "file_role" : null,
+    "file_role" : "MODEL layer — represents a user's booking for a gym class.",
     "change_required" : null
   }, {
     "file_name" : "TrainerRepository.java",
@@ -480,14 +552,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Spring Data JPA repository for Trainer entities.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "findByNameContainingIgnoreCase",
+      "parameters" : [ "String name" ],
+      "return_type" : "List<Trainer>",
+      "description" : "Finds trainers whose names contain the given string, case-insensitively."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Trainer.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-core",
-    "file_role" : null,
+    "file_role" : "REPOSITORY layer — provides data access for Trainer entities.",
     "change_required" : null
   }, {
     "file_name" : "GymClassRepository.java",
@@ -498,14 +575,24 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Spring Data JPA repository for GymClass entities.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "findByStartTimeBetweenOrderByStartTimeAsc",
+      "parameters" : [ "LocalDateTime start", "LocalDateTime end" ],
+      "return_type" : "List<GymClass>",
+      "description" : "Finds gym classes scheduled within a given time range, ordered by start time."
+    }, {
+      "name" : "findByTrainerId",
+      "parameters" : [ "UUID trainerId" ],
+      "return_type" : "List<GymClass>",
+      "description" : "Finds gym classes taught by a specific trainer."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/GymClass.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-core",
-    "file_role" : null,
+    "file_role" : "REPOSITORY layer — provides data access for GymClass entities.",
     "change_required" : null
   }, {
     "file_name" : "BookingRepository.java",
@@ -516,14 +603,29 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Spring Data JPA repository for Booking entities.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "findByUserId",
+      "parameters" : [ "UUID userId" ],
+      "return_type" : "List<Booking>",
+      "description" : "Finds all bookings for a specific user."
+    }, {
+      "name" : "findByGymClassId",
+      "parameters" : [ "UUID gymClassId" ],
+      "return_type" : "List<Booking>",
+      "description" : "Finds all bookings for a specific gym class."
+    }, {
+      "name" : "findByUserIdAndGymClassId",
+      "parameters" : [ "UUID userId", "UUID gymClassId" ],
+      "return_type" : "Optional<Booking>",
+      "description" : "Finds a specific booking by user ID and gym class ID."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Booking.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-core",
-    "file_role" : null,
+    "file_role" : "REPOSITORY layer — provides data access for Booking entities.",
     "change_required" : null
   }, {
     "file_name" : "BookingService.java",
@@ -534,14 +636,39 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Handles business logic for creating, viewing, and canceling class bookings.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createBooking",
+      "parameters" : [ "CreateBookingRequest request" ],
+      "return_type" : "BookingDto",
+      "description" : "Creates a new booking for a gym class. Checks class capacity and updates current bookings. Throws ResourceNotFoundException if class not found, IllegalStateException if class is full or already booked."
+    }, {
+      "name" : "cancelBooking",
+      "parameters" : [ "UUID bookingId" ],
+      "return_type" : "void",
+      "description" : "Cancels an existing booking. Decrements class current bookings. Throws ResourceNotFoundException if booking not found."
+    }, {
+      "name" : "getBookingsByUserId",
+      "parameters" : [ "UUID userId" ],
+      "return_type" : "List<BookingDto>",
+      "description" : "Retrieves all bookings for a specific user."
+    }, {
+      "name" : "getBookingById",
+      "parameters" : [ "UUID bookingId" ],
+      "return_type" : "BookingDto",
+      "description" : "Retrieves a single booking by its ID. Throws ResourceNotFoundException if booking not found."
+    }, {
+      "name" : "getAllBookings",
+      "parameters" : [ ],
+      "return_type" : "List<BookingDto>",
+      "description" : "Retrieves all bookings in the system (admin access)."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/BookingRepository.java", "backend/src/main/java/com/absfitness/repository/GymClassRepository.java", "backend/src/main/java/com/absfitness/service/NotificationService.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-core",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — implements createBooking(CreateBookingRequest): BookingDto, cancelBooking(UUID): void, and getBookingsByUserId(UUID): List<BookingDto>; delegates persistence to BookingRepository and GymClassRepository, and sends notifications via NotificationService.",
     "change_required" : null
   }, {
     "file_name" : "GymClassService.java",
@@ -552,14 +679,44 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Handles business logic for managing gym classes and schedules.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllGymClasses",
+      "parameters" : [ ],
+      "return_type" : "List<GymClassDto>",
+      "description" : "Retrieves all gym classes."
+    }, {
+      "name" : "getGymClassById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "GymClassDto",
+      "description" : "Retrieves a gym class by its ID. Throws ResourceNotFoundException if class not found."
+    }, {
+      "name" : "createGymClass",
+      "parameters" : [ "GymClassDto dto" ],
+      "return_type" : "GymClassDto",
+      "description" : "Creates a new gym class."
+    }, {
+      "name" : "updateGymClass",
+      "parameters" : [ "UUID id", "GymClassDto dto" ],
+      "return_type" : "GymClassDto",
+      "description" : "Updates an existing gym class. Throws ResourceNotFoundException if class not found."
+    }, {
+      "name" : "deleteGymClass",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "void",
+      "description" : "Deletes a gym class by its ID. Throws ResourceNotFoundException if class not found."
+    }, {
+      "name" : "getClassesByTrainerId",
+      "parameters" : [ "UUID trainerId" ],
+      "return_type" : "List<GymClassDto>",
+      "description" : "Retrieves all gym classes taught by a specific trainer."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/GymClassRepository.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-core",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — implements getAllGymClasses(): List<GymClassDto>, getGymClassById(UUID): GymClassDto, createGymClass(GymClassDto): GymClassDto, updateGymClass(UUID, GymClassDto): GymClassDto, and deleteGymClass(UUID): void; delegates persistence to GymClassRepository.",
     "change_required" : null
   }, {
     "file_name" : "TrainerService.java",
@@ -570,14 +727,39 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Handles business logic for managing trainer profiles.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllTrainers",
+      "parameters" : [ ],
+      "return_type" : "List<TrainerDto>",
+      "description" : "Retrieves all trainer profiles."
+    }, {
+      "name" : "getTrainerById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "TrainerDto",
+      "description" : "Retrieves a trainer profile by its ID. Throws ResourceNotFoundException if trainer not found."
+    }, {
+      "name" : "createTrainer",
+      "parameters" : [ "TrainerDto dto" ],
+      "return_type" : "TrainerDto",
+      "description" : "Creates a new trainer profile."
+    }, {
+      "name" : "updateTrainer",
+      "parameters" : [ "UUID id", "TrainerDto dto" ],
+      "return_type" : "TrainerDto",
+      "description" : "Updates an existing trainer profile. Throws ResourceNotFoundException if trainer not found."
+    }, {
+      "name" : "deleteTrainer",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "void",
+      "description" : "Deletes a trainer profile by its ID. Throws ResourceNotFoundException if trainer not found."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/TrainerRepository.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-core",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — implements getAllTrainers(): List<TrainerDto>, getTrainerById(UUID): TrainerDto, createTrainer(TrainerDto): TrainerDto, updateTrainer(UUID, TrainerDto): TrainerDto, and deleteTrainer(UUID): void; delegates persistence to TrainerRepository.",
     "change_required" : null
   }, {
     "file_name" : "BookingController.java",
@@ -2118,8 +2300,8 @@
     "feature_display_name" : "Booking System Core (Backend)",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/model/Trainer.java", "backend/src/main/java/com/absfitness/model/GymClass.java", "backend/src/main/java/com/absfitness/model/Booking.java", "backend/src/main/java/com/absfitness/repository/TrainerRepository.java", "backend/src/main/java/com/absfitness/repository/GymClassRepository.java", "backend/src/main/java/com/absfitness/repository/BookingRepository.java", "backend/src/main/java/com/absfitness/service/BookingService.java", "backend/src/main/java/com/absfitness/service/GymClassService.java", "backend/src/main/java/com/absfitness/service/TrainerService.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "The Booking System Core (Backend) feature manages the core entities and business logic for gym trainers, classes, and user bookings. It defines the data models for `Trainer`, `GymClass`, and `Booking`, and provides repositories for their persistence. The `TrainerService` handles CRUD operations for trainer profiles, `GymClassService` manages the creation, retrieval, and updates of gym classes, and `BookingService` orchestrates the booking and cancellation of classes by users. The `BookingService` interacts with `GymClassRepository` to check class capacity and `BookingRepository` to persist booking information. It also integrates with the `NotificationService` (from the `notification-service` feature) to send booking confirmation emails. All services expose methods that operate on DTOs rather than directly on entities, ensuring a clean separation of concerns and data encapsulation. Error handling includes `ResourceNotFoundException` for cases where entities are not found.",
+    "depends_on_features" : [ "notification-service" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
