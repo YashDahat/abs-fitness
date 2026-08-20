@@ -2237,14 +2237,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A reusable modal dialog for confirming delete actions in admin panels.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "DeleteConfirmationDialog",
+      "parameters" : [ "DeleteConfirmationDialogProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a modal dialog for confirming an action. Props include `isOpen: boolean`, `onClose: () => void`, `onConfirm: () => void`, `title: string`, `description: string`."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "A reusable modal dialog component for confirming destructive actions like deletion or cancellation. It exposes `DeleteConfirmationDialog` as a functional component accepting props for visibility, close handler, confirm handler, title, and description.",
     "change_required" : null
   }, {
     "file_name" : "LoginPage.tsx",
@@ -2314,14 +2319,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "The main layout for the admin section, including a sidebar for navigation.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "AdminLayout",
+      "parameters" : [ "React.PropsWithChildren<{}> props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the main admin layout with a sidebar and header, wrapping its children content."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "The main layout component for all admin pages, providing a consistent header and sidebar navigation. It exposes `AdminLayout` as a functional component that takes `children` as props.",
     "change_required" : null
   }, {
     "file_name" : "AdminDashboardPage.tsx",
@@ -2332,14 +2342,42 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "The landing page for the admin portal, showing key stats and quick links.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/membership-plans",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all membership plans to display summary statistics.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/classes",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all fitness classes to display summary statistics.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/bookings",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all bookings to display summary statistics.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/enquiries",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all enquiries to display summary statistics.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "The landing page for the admin portal, displaying key statistics and quick navigation links. This page consumes generated service functions from `membership-management`, `class-management`, and `lead-management` to fetch dashboard data.",
     "change_required" : null
   }, {
     "file_name" : "AdminMembershipPlansPage.tsx",
@@ -2350,14 +2388,49 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Admin page for managing membership plans, composed of a data table and a creation/edit form.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/membership-plans",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all membership plans for display in the table.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/membership-plans/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a specific membership plan for editing.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/membership-plans",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new membership plan.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/membership-plans/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates an existing membership plan.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/membership-plans/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Deletes a membership plan.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/components/membership/MembershipPlanTable.tsx", "frontend/src/components/membership/MembershipPlanForm.tsx", "frontend/src/components/shared/DeleteConfirmationDialog.tsx", "frontend/src/services/membershipService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "An admin page for managing membership plans, allowing creation, viewing, editing, and deletion. This page consumes generated service functions from `membership-management` for all CRUD operations.",
     "change_required" : null
   }, {
     "file_name" : "MembershipPlanTable.tsx",
@@ -2368,14 +2441,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A data table to display, sort, and filter all membership plans.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "MembershipPlanTable",
+      "parameters" : [ "MembershipPlanTableProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a table of membership plans. Props include `plans: MembershipPlanDto[]`, `onEdit: (id: string) => void`, `onDelete: (id: string) => void`."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "A data table component for displaying a list of membership plans with actions for editing and deleting. It exposes `MembershipPlanTable` as a functional component accepting `plans`, `onEdit`, and `onDelete` as props.",
     "change_required" : null
   }, {
     "file_name" : "MembershipPlanForm.tsx",
@@ -2386,14 +2464,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A form (used in a dialog) for creating and editing membership plans.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "MembershipPlanForm",
+      "parameters" : [ "MembershipPlanFormProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a form for membership plan creation/editing. Props include `initialData?: MembershipPlanDto`, `onSubmit: (plan: MembershipPlanDto) => void`."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "A form component for creating or editing membership plans, typically used within a dialog. It exposes `MembershipPlanForm` as a functional component accepting `initialData` and `onSubmit` as props.",
     "change_required" : null
   }, {
     "file_name" : "AdminClassesPage.tsx",
@@ -2404,14 +2487,49 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Admin page for managing fitness classes, composed of a data table and a creation/edit form.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/classes",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all fitness classes for display in the table.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/classes/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a specific fitness class for editing.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/classes",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new fitness class.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/classes/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates an existing fitness class.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/classes/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Deletes a fitness class.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/components/classes/FitnessClassTable.tsx", "frontend/src/components/classes/FitnessClassForm.tsx", "frontend/src/components/shared/DeleteConfirmationDialog.tsx", "frontend/src/services/fitnessClassService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "An admin page for managing fitness classes, allowing creation, viewing, editing, and deletion. This page consumes generated service functions from `class-management` for all CRUD operations.",
     "change_required" : null
   }, {
     "file_name" : "FitnessClassTable.tsx",
@@ -2422,14 +2540,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A data table to display, sort, and filter all fitness classes.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "FitnessClassTable",
+      "parameters" : [ "FitnessClassTableProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a table of fitness classes. Props include `classes: FitnessClassDto[]`, `onEdit: (id: string) => void`, `onDelete: (id: string) => void`."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "A data table component for displaying a list of fitness classes with actions for editing and deleting. It exposes `FitnessClassTable` as a functional component accepting `classes`, `onEdit`, and `onDelete` as props.",
     "change_required" : null
   }, {
     "file_name" : "FitnessClassForm.tsx",
@@ -2440,14 +2563,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A form (used in a dialog) for creating and editing fitness classes.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "FitnessClassForm",
+      "parameters" : [ "FitnessClassFormProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a form for fitness class creation/editing. Props include `initialData?: FitnessClassDto`, `onSubmit: (fitnessClass: FitnessClassDto) => void`."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "A form component for creating or editing fitness classes, typically used within a dialog. It exposes `FitnessClassForm` as a functional component accepting `initialData` and `onSubmit` as props.",
     "change_required" : null
   }, {
     "file_name" : "AdminBookingsPage.tsx",
@@ -2458,14 +2586,28 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Admin page for viewing all member bookings, with filtering and search capabilities.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/bookings",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all bookings for display in the table.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/bookings/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Cancels a specific booking.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/components/bookings/BookingTable.tsx", "frontend/src/services/bookingService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "An admin page for viewing and managing all member bookings. This page consumes generated service functions from `booking-system` to fetch and cancel bookings.",
     "change_required" : null
   }, {
     "file_name" : "BookingTable.tsx",
@@ -2476,14 +2618,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A data table to display, sort, and filter all member bookings.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "BookingTable",
+      "parameters" : [ "BookingTableProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a table of bookings. Props include `bookings: BookingDto[]`, `onCancel: (id: string) => void`."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/booking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "A data table component for displaying a list of member bookings with an option to cancel. It exposes `BookingTable` as a functional component accepting `bookings` and `onCancel` as props.",
     "change_required" : null
   }, {
     "file_name" : "AdminTrainersPage.tsx",
@@ -2494,14 +2641,49 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Admin page for managing trainer profiles, composed of a data table and a creation/edit form.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/trainers",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all trainers for display in the table.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/trainers/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a specific trainer for editing.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/trainers",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new trainer profile.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/trainers/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates an existing trainer profile.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/trainers/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Deletes a trainer profile.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/components/trainers/TrainerTable.tsx", "frontend/src/components/trainers/TrainerForm.tsx", "frontend/src/components/shared/DeleteConfirmationDialog.tsx", "frontend/src/services/trainerService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "An admin page for managing trainer profiles, allowing creation, viewing, editing, and deletion. This page consumes generated service functions from `trainer-management` for all CRUD operations.",
     "change_required" : null
   }, {
     "file_name" : "TrainerTable.tsx",
@@ -2512,14 +2694,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A data table to display, sort, and filter all trainer profiles.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "TrainerTable",
+      "parameters" : [ "TrainerTableProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a table of trainer profiles. Props include `trainers: TrainerDto[]`, `onEdit: (id: string) => void`, `onDelete: (id: string) => void`."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "A data table component for displaying a list of trainer profiles with actions for editing and deleting. It exposes `TrainerTable` as a functional component accepting `trainers`, `onEdit`, and `onDelete` as props.",
     "change_required" : null
   }, {
     "file_name" : "TrainerForm.tsx",
@@ -2530,14 +2717,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A form (used in a dialog) for creating and editing trainer profiles.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "TrainerForm",
+      "parameters" : [ "TrainerFormProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a form for trainer profile creation/editing. Props include `initialData?: TrainerDto`, `onSubmit: (trainer: TrainerDto) => void`."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "A form component for creating or editing trainer profiles, typically used within a dialog. It exposes `TrainerForm` as a functional component accepting `initialData` and `onSubmit` as props.",
     "change_required" : null
   }, {
     "file_name" : "AdminReviewsPage.tsx",
@@ -2548,14 +2740,49 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Admin page for managing curated reviews, composed of a data table and a creation/edit form.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/reviews",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all reviews for display in the table.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/reviews/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a specific review for editing.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/reviews",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new review.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/reviews/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates an existing review.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/reviews/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Deletes a review.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/components/reviews/ReviewTable.tsx", "frontend/src/components/reviews/ReviewForm.tsx", "frontend/src/components/shared/DeleteConfirmationDialog.tsx", "frontend/src/services/reviewService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "An admin page for managing curated reviews, allowing creation, viewing, editing, and deletion. This page consumes generated service functions from `content-management` for all CRUD operations.",
     "change_required" : null
   }, {
     "file_name" : "ReviewTable.tsx",
@@ -2566,14 +2793,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A data table to display, sort, and filter all curated reviews.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "ReviewTable",
+      "parameters" : [ "ReviewTableProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a table of reviews. Props include `reviews: ReviewDto[]`, `onEdit: (id: string) => void`, `onDelete: (id: string) => void`."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/review.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "A data table component for displaying a list of curated reviews with actions for editing and deleting. It exposes `ReviewTable` as a functional component accepting `reviews`, `onEdit`, and `onDelete` as props.",
     "change_required" : null
   }, {
     "file_name" : "ReviewForm.tsx",
@@ -2584,14 +2816,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A form (used in a dialog) for creating and editing curated reviews.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "ReviewForm",
+      "parameters" : [ "ReviewFormProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a form for review creation/editing. Props include `initialData?: ReviewDto`, `onSubmit: (review: ReviewDto) => void`."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/review.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "A form component for creating or editing curated reviews, typically used within a dialog. It exposes `ReviewForm` as a functional component accepting `initialData` and `onSubmit` as props.",
     "change_required" : null
   }, {
     "file_name" : "AdminEnquiriesPage.tsx",
@@ -2602,14 +2839,28 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Admin page for viewing submitted enquiries from the lead capture forms.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/enquiries",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all enquiries for display in the table.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/enquiries/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a specific enquiry for detailed viewing.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/components/enquiries/EnquiryTable.tsx", "frontend/src/services/enquiryService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "An admin page for viewing submitted enquiries from lead capture forms. This page consumes generated service functions from `lead-management` to fetch enquiry data.",
     "change_required" : null
   }, {
     "file_name" : "EnquiryTable.tsx",
@@ -2620,14 +2871,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A data table to display, sort, and filter all submitted enquiries.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "EnquiryTable",
+      "parameters" : [ "EnquiryTableProps props" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a table of enquiries. Props include `enquiries: EnquiryDto[]`, `onViewDetails: (id: string) => void`."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/enquiry.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "A data table component for displaying a list of submitted enquiries with an option to view details. It exposes `EnquiryTable` as a functional component accepting `enquiries` and `onViewDetails` as props.",
     "change_required" : null
   }, {
     "file_name" : "membership.ts",
@@ -3331,8 +3587,8 @@
     "feature_display_name" : "Admin Portal",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/components/shared/DeleteConfirmationDialog.tsx", "frontend/src/components/AdminLayout.tsx", "frontend/src/pages/AdminDashboardPage.tsx", "frontend/src/pages/AdminMembershipPlansPage.tsx", "frontend/src/components/membership/MembershipPlanTable.tsx", "frontend/src/components/membership/MembershipPlanForm.tsx", "frontend/src/pages/AdminClassesPage.tsx", "frontend/src/components/classes/FitnessClassTable.tsx", "frontend/src/components/classes/FitnessClassForm.tsx", "frontend/src/pages/AdminBookingsPage.tsx", "frontend/src/components/bookings/BookingTable.tsx", "frontend/src/pages/AdminTrainersPage.tsx", "frontend/src/components/trainers/TrainerTable.tsx", "frontend/src/components/trainers/TrainerForm.tsx", "frontend/src/pages/AdminReviewsPage.tsx", "frontend/src/components/reviews/ReviewTable.tsx", "frontend/src/components/reviews/ReviewForm.tsx", "frontend/src/pages/AdminEnquiriesPage.tsx", "frontend/src/components/enquiries/EnquiryTable.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-lg px-6 py-3 transition-all duration-200\n- Secondary CTA: border border-[#FF5722] text-[#FF5722] hover:bg-[#FF5722] hover:text-white font-semibold rounded-lg px-6 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThe Admin Portal feature provides a comprehensive interface for managing various aspects of the ABS FITNESS gym, including membership plans, fitness classes, bookings, trainers, reviews, and enquiries. It consists of a main layout component, `AdminLayout.tsx`, which provides a consistent navigation sidebar and header for all admin pages. Each administrative domain (memberships, classes, etc.) has its own dedicated page, such as `AdminMembershipPlansPage.tsx`, `AdminClassesPage.tsx`, `AdminBookingsPage.tsx`, `AdminTrainersPage.tsx`, `AdminReviewsPage.tsx`, and `AdminEnquiriesPage.tsx`. These pages utilize shared components like `DeleteConfirmationDialog.tsx` for common actions and domain-specific components like `MembershipPlanTable.tsx` and `MembershipPlanForm.tsx` for data display and manipulation.\n\nAll admin pages are wrapped by the `AdminLayout` component, which provides a consistent sidebar navigation. The `AdminLayout` component takes `children` as props, rendering the content of the current admin page within its layout. Authentication is handled by the fenced `ProtectedRoute` from `auth-ui`, ensuring that only authenticated users with appropriate roles can access these pages.\n\nEach admin page (e.g., `AdminMembershipPlansPage.tsx`, `AdminClassesPage.tsx`) follows a similar pattern:\n1. It fetches a list of entities (e.g., `MembershipPlanDto`, `FitnessClassDto`) using the generated service functions (e.g., `getAllMembershipPlans()`, `getAllFitnessClasses()`).\n2. It displays these entities in a data table component (e.g., `MembershipPlanTable.tsx`, `FitnessClassTable.tsx`), which allows for viewing, sorting, and filtering.\n3. It provides functionality to create new entities and edit existing ones using a form component (e.g., `MembershipPlanForm.tsx`, `FitnessClassForm.tsx`), typically rendered within a modal dialog.\n4. It includes a `DeleteConfirmationDialog.tsx` for confirming deletion actions, which then calls the appropriate delete service function (e.g., `deleteMembershipPlan(id)`, `deleteFitnessClass(id)`).\n\n**Data Flow and Interactions:**\n- **AdminLayout.tsx:** Renders the sidebar navigation and wraps all admin content. It does not directly interact with backend services but provides the structural foundation for the admin section.\n- **AdminDashboardPage.tsx:** Serves as the landing page for the admin portal. It will display summary statistics (e.g., total members, upcoming classes, new enquiries) by calling relevant generated service functions from `membership-management`, `class-management`, and `lead-management` features. It will also provide quick links to other admin sections.\n- **AdminMembershipPlansPage.tsx:**\n    - Fetches all membership plans using the generated service function `getAllMembershipPlans(): Promise<MembershipPlanDto[]>`. \n    - Displays them in `MembershipPlanTable.tsx`.\n    - When creating a new plan, opens `MembershipPlanForm.tsx` in a dialog. On submission, calls `createMembershipPlan(plan: MembershipPlanDto): Promise<MembershipPlanDto>`.\n    - When editing a plan, fetches the specific plan using `getMembershipPlanById(id: string): Promise<MembershipPlanDto>`, populates `MembershipPlanForm.tsx` with the data, and on submission, calls `updateMembershipPlan(id: string, plan: MembershipPlanDto): Promise<MembershipPlanDto>`.\n    - When deleting a plan, opens `DeleteConfirmationDialog.tsx`. On confirmation, calls `deleteMembershipPlan(id: string): Promise<void>`.\n- **AdminClassesPage.tsx:**\n    - Fetches all fitness classes using the generated service function `getAllFitnessClasses(): Promise<FitnessClassDto[]>`. \n    - Displays them in `FitnessClassTable.tsx`.\n    - When creating a new class, opens `FitnessClassForm.tsx` in a dialog. On submission, calls `createFitnessClass(fitnessClass: FitnessClassDto): Promise<FitnessClassDto>`.\n    - When editing a class, fetches the specific class using `getFitnessClassById(id: string): Promise<FitnessClassDto>`, populates `FitnessClassForm.tsx` with the data, and on submission, calls `updateFitnessClass(id: string, fitnessClass: FitnessClassDto): Promise<FitnessClassDto>`.\n    - When deleting a class, opens `DeleteConfirmationDialog.tsx`. On confirmation, calls `deleteFitnessClass(id: string): Promise<void>`.\n- **AdminBookingsPage.tsx:**\n    - Fetches all bookings using the generated service function `getAllBookings(): Promise<BookingDto[]>`. \n    - Displays them in `BookingTable.tsx`.\n    - Provides an option to cancel a booking, which opens `DeleteConfirmationDialog.tsx` (repurposed for cancellation) and on confirmation, calls `adminCancelBooking(id: string): Promise<BookingDto>`.\n- **AdminTrainersPage.tsx:**\n    - Fetches all trainers using the generated service function `getAllTrainers(): Promise<TrainerDto[]>`. \n    - Displays them in `TrainerTable.tsx`.\n    - When creating a new trainer, opens `TrainerForm.tsx` in a dialog. On submission, calls `createTrainer(trainer: TrainerDto): Promise<TrainerDto>`.\n    - When editing a trainer, fetches the specific trainer using `getTrainerById(id: string): Promise<TrainerDto>`, populates `TrainerForm.tsx` with the data, and on submission, calls `updateTrainer(id: string, trainer: TrainerDto): Promise<TrainerDto>`.\n    - When deleting a trainer, opens `DeleteConfirmationDialog.tsx`. On confirmation, calls `deleteTrainer(id: string): Promise<void>`.\n- **AdminReviewsPage.tsx:**\n    - Fetches all reviews using the generated service function `getAllReviews(): Promise<ReviewDto[]>`. \n    - Displays them in `ReviewTable.tsx`.\n    - When creating a new review, opens `ReviewForm.tsx` in a dialog. On submission, calls `createReview(review: ReviewDto): Promise<ReviewDto>`.\n    - When editing a review, fetches the specific review using `getReviewById(id: string): Promise<ReviewDto>`, populates `ReviewForm.tsx` with the data, and on submission, calls `updateReview(id: string, review: ReviewDto): Promise<ReviewDto>`.\n    - When deleting a review, opens `DeleteConfirmationDialog.tsx`. On confirmation, calls `deleteReview(id: string): Promise<void>`.\n- **AdminEnquiriesPage.tsx:**\n    - Fetches all enquiries using the generated service function `getAllEnquiries(): Promise<EnquiryDto[]>`. \n    - Displays them in `EnquiryTable.tsx`.\n    - Provides an option to view enquiry details by calling `getEnquiryById(id: string): Promise<EnquiryDto>`.\n\n**Shared Components:**\n- **DeleteConfirmationDialog.tsx:** A reusable modal dialog that takes `isOpen`, `onClose`, `onConfirm`, `title`, and `description` as props. It is used across various admin pages to confirm deletion or cancellation actions.\n- **MembershipPlanTable.tsx, FitnessClassTable.tsx, BookingTable.tsx, TrainerTable.tsx, ReviewTable.tsx, EnquiryTable.tsx:** These table components are responsible for rendering lists of their respective entities, handling sorting, filtering, and pagination. They receive the data as props and emit events for edit/delete actions.\n- **MembershipPlanForm.tsx, FitnessClassForm.tsx, TrainerForm.tsx, ReviewForm.tsx:** These form components are used for creating and editing entities. They receive initial data (for edits) and an `onSubmit` callback. They handle form validation and state management.\n\nAll monetary values displayed in the admin portal, such as membership plan prices, should be formatted in Indian Rupees (₹) using `toLocaleString('en-IN', { style: 'currency', currency: 'INR' })`.",
+    "depends_on_features" : [ "membership-management", "class-management", "booking-system", "trainer-management", "content-management", "lead-management", "auth-ui" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
