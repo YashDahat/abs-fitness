@@ -770,14 +770,50 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Secure endpoints for authenticated users to manage their class bookings.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createBooking",
+      "parameters" : [ "CreateBookingRequest request" ],
+      "return_type" : "ResponseEntity<BookingDto>",
+      "description" : "Creates a new class booking for the authenticated user."
+    }, {
+      "name" : "cancelBooking",
+      "parameters" : [ "UUID bookingId" ],
+      "return_type" : "ResponseEntity<Void>",
+      "description" : "Cancels an existing class booking for the authenticated user."
+    }, {
+      "name" : "getUserBookings",
+      "parameters" : [ "UUID userId" ],
+      "return_type" : "ResponseEntity<List<BookingDto>>",
+      "description" : "Retrieves all class bookings for a specific user."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/bookings",
+      "request_body" : "CreateBookingRequest",
+      "response_body" : "BookingDto",
+      "description" : "Creates a new class booking.",
+      "access" : "authenticated"
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/bookings/{bookingId}",
+      "request_body" : null,
+      "response_body" : "void",
+      "description" : "Cancels an existing class booking.",
+      "access" : "authenticated"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/bookings/users/{userId}",
+      "request_body" : null,
+      "response_body" : "List<BookingDto>",
+      "description" : "Retrieves all class bookings for a specific user.",
+      "access" : "authenticated"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/BookingService.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-api",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — provides secure endpoints for authenticated users to create, cancel, and view their class bookings. It exposes createBooking(CreateBookingRequest), cancelBooking(UUID), and getUserBookings(UUID) methods.",
     "change_required" : null
   }, {
     "file_name" : "GymClassController.java",
@@ -788,14 +824,38 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Public endpoints for fetching the gym class schedule.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllGymClasses",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<GymClassDto>>",
+      "description" : "Retrieves all available gym classes."
+    }, {
+      "name" : "getGymClassById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<GymClassDto>",
+      "description" : "Retrieves a single gym class by its ID."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/gym-classes",
+      "request_body" : null,
+      "response_body" : "List<GymClassDto>",
+      "description" : "Retrieves all available gym classes.",
+      "access" : "public"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/gym-classes/{id}",
+      "request_body" : null,
+      "response_body" : "GymClassDto",
+      "description" : "Retrieves a single gym class by its ID.",
+      "access" : "public"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/GymClassService.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-api",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — provides public endpoints for fetching gym class schedules. It exposes getAllGymClasses() and getGymClassById(UUID) methods.",
     "change_required" : null
   }, {
     "file_name" : "TrainerController.java",
@@ -806,14 +866,38 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Public endpoints for fetching trainer profiles.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllTrainers",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<TrainerDto>>",
+      "description" : "Retrieves all available trainers."
+    }, {
+      "name" : "getTrainerById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<TrainerDto>",
+      "description" : "Retrieves a single trainer by their ID."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/trainers",
+      "request_body" : null,
+      "response_body" : "List<TrainerDto>",
+      "description" : "Retrieves all available trainers.",
+      "access" : "public"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/trainers/{id}",
+      "request_body" : null,
+      "response_body" : "TrainerDto",
+      "description" : "Retrieves a single trainer by their ID.",
+      "access" : "public"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/TrainerService.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-api",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — provides public endpoints for fetching trainer profiles. It exposes getAllTrainers() and getTrainerById(UUID) methods.",
     "change_required" : null
   }, {
     "file_name" : "AdminBookingController.java",
@@ -824,14 +908,50 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin endpoints to view and manage all user bookings.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllBookings",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<BookingDto>>",
+      "description" : "Retrieves all class bookings in the system."
+    }, {
+      "name" : "getBookingById",
+      "parameters" : [ "UUID bookingId" ],
+      "return_type" : "ResponseEntity<BookingDto>",
+      "description" : "Retrieves a single booking by its ID."
+    }, {
+      "name" : "cancelBooking",
+      "parameters" : [ "UUID bookingId" ],
+      "return_type" : "ResponseEntity<Void>",
+      "description" : "Cancels an existing class booking."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/bookings",
+      "request_body" : null,
+      "response_body" : "List<BookingDto>",
+      "description" : "Retrieves all class bookings.",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/bookings/{bookingId}",
+      "request_body" : null,
+      "response_body" : "BookingDto",
+      "description" : "Retrieves a single booking by its ID.",
+      "access" : "admin"
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/bookings/{bookingId}",
+      "request_body" : null,
+      "response_body" : "void",
+      "description" : "Cancels an existing class booking.",
+      "access" : "admin"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/BookingService.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-api",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — provides admin endpoints to view and manage all user bookings. It exposes getAllBookings(), getBookingById(UUID), and cancelBooking(UUID) methods.",
     "change_required" : null
   }, {
     "file_name" : "AdminGymClassController.java",
@@ -842,14 +962,74 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin endpoints for CRUD operations on gym classes.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllGymClasses",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<GymClassDto>>",
+      "description" : "Retrieves all gym classes."
+    }, {
+      "name" : "getGymClassById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<GymClassDto>",
+      "description" : "Retrieves a single gym class by its ID."
+    }, {
+      "name" : "createGymClass",
+      "parameters" : [ "GymClassDto dto" ],
+      "return_type" : "ResponseEntity<GymClassDto>",
+      "description" : "Creates a new gym class."
+    }, {
+      "name" : "updateGymClass",
+      "parameters" : [ "UUID id", "GymClassDto dto" ],
+      "return_type" : "ResponseEntity<GymClassDto>",
+      "description" : "Updates an existing gym class."
+    }, {
+      "name" : "deleteGymClass",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<Void>",
+      "description" : "Deletes a gym class."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/gym-classes",
+      "request_body" : null,
+      "response_body" : "List<GymClassDto>",
+      "description" : "Retrieves all gym classes.",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/gym-classes/{id}",
+      "request_body" : null,
+      "response_body" : "GymClassDto",
+      "description" : "Retrieves a single gym class by its ID.",
+      "access" : "admin"
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/gym-classes",
+      "request_body" : "GymClassDto",
+      "response_body" : "GymClassDto",
+      "description" : "Creates a new gym class.",
+      "access" : "admin"
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/gym-classes/{id}",
+      "request_body" : "GymClassDto",
+      "response_body" : "GymClassDto",
+      "description" : "Updates an existing gym class.",
+      "access" : "admin"
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/gym-classes/{id}",
+      "request_body" : null,
+      "response_body" : "void",
+      "description" : "Deletes a gym class.",
+      "access" : "admin"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/GymClassService.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-api",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — provides admin endpoints for CRUD operations on gym classes. It exposes getAllGymClasses(), getGymClassById(UUID), createGymClass(GymClassDto), updateGymClass(UUID, GymClassDto), and deleteGymClass(UUID) methods.",
     "change_required" : null
   }, {
     "file_name" : "AdminTrainerController.java",
@@ -860,14 +1040,74 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin endpoints for CRUD operations on trainer profiles.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllTrainers",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<TrainerDto>>",
+      "description" : "Retrieves all trainers."
+    }, {
+      "name" : "getTrainerById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<TrainerDto>",
+      "description" : "Retrieves a single trainer by their ID."
+    }, {
+      "name" : "createTrainer",
+      "parameters" : [ "TrainerDto dto" ],
+      "return_type" : "ResponseEntity<TrainerDto>",
+      "description" : "Creates a new trainer profile."
+    }, {
+      "name" : "updateTrainer",
+      "parameters" : [ "UUID id", "TrainerDto dto" ],
+      "return_type" : "ResponseEntity<TrainerDto>",
+      "description" : "Updates an existing trainer profile."
+    }, {
+      "name" : "deleteTrainer",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<Void>",
+      "description" : "Deletes a trainer profile."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/trainers",
+      "request_body" : null,
+      "response_body" : "List<TrainerDto>",
+      "description" : "Retrieves all trainers.",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/trainers/{id}",
+      "request_body" : null,
+      "response_body" : "TrainerDto",
+      "description" : "Retrieves a single trainer by their ID.",
+      "access" : "admin"
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/trainers",
+      "request_body" : "TrainerDto",
+      "response_body" : "TrainerDto",
+      "description" : "Creates a new trainer profile.",
+      "access" : "admin"
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/trainers/{id}",
+      "request_body" : "TrainerDto",
+      "response_body" : "TrainerDto",
+      "description" : "Updates an existing trainer profile.",
+      "access" : "admin"
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/trainers/{id}",
+      "request_body" : null,
+      "response_body" : "void",
+      "description" : "Deletes a trainer profile.",
+      "access" : "admin"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/TrainerService.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-api",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — provides admin endpoints for CRUD operations on trainer profiles. It exposes getAllTrainers(), getTrainerById(UUID), createTrainer(TrainerDto), updateTrainer(UUID, TrainerDto), and deleteTrainer(UUID) methods.",
     "change_required" : null
   }, {
     "file_name" : "BookingDto.java",
@@ -879,13 +1119,33 @@
     "status" : "PLANNED",
     "description" : "Data Transfer Object for Booking entities.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the booking."
+    }, {
+      "name" : "userId",
+      "type" : "UUID",
+      "description" : "ID of the user who made the booking."
+    }, {
+      "name" : "gymClass",
+      "type" : "GymClassDto",
+      "description" : "Details of the gym class booked."
+    }, {
+      "name" : "bookingTime",
+      "type" : "LocalDateTime",
+      "description" : "Timestamp when the booking was made."
+    }, {
+      "name" : "status",
+      "type" : "BookingStatus",
+      "description" : "Current status of the booking (e.g., CONFIRMED, CANCELLED)."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-api",
-    "file_role" : null,
+    "file_role" : "DTO layer — defines the data structure for transferring booking information between layers.",
     "change_required" : null
   }, {
     "file_name" : "GymClassDto.java",
@@ -897,13 +1157,45 @@
     "status" : "PLANNED",
     "description" : "Data Transfer Object for GymClass entities.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the gym class."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the gym class. Not null, max 100 characters."
+    }, {
+      "name" : "description",
+      "type" : "String",
+      "description" : "Description of the gym class. Max 500 characters."
+    }, {
+      "name" : "trainer",
+      "type" : "TrainerDto",
+      "description" : "Trainer conducting the class."
+    }, {
+      "name" : "startTime",
+      "type" : "LocalDateTime",
+      "description" : "Start time of the class. Not null."
+    }, {
+      "name" : "endTime",
+      "type" : "LocalDateTime",
+      "description" : "End time of the class. Not null."
+    }, {
+      "name" : "capacity",
+      "type" : "Integer",
+      "description" : "Maximum capacity of the class. Not null, positive integer."
+    }, {
+      "name" : "currentBookings",
+      "type" : "Integer",
+      "description" : "Current number of bookings for the class. Non-negative."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-api",
-    "file_role" : null,
+    "file_role" : "DTO layer — defines the data structure for transferring gym class information between layers.",
     "change_required" : null
   }, {
     "file_name" : "TrainerDto.java",
@@ -915,13 +1207,33 @@
     "status" : "PLANNED",
     "description" : "Data Transfer Object for Trainer entities.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the trainer."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the trainer. Not null, max 100 characters."
+    }, {
+      "name" : "bio",
+      "type" : "String",
+      "description" : "Biography of the trainer. Max 1000 characters."
+    }, {
+      "name" : "specializations",
+      "type" : "String",
+      "description" : "Trainer's specializations, comma-separated. Max 255 characters."
+    }, {
+      "name" : "imageUrl",
+      "type" : "String",
+      "description" : "URL to the trainer's profile image. Max 255 characters."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-api",
-    "file_role" : null,
+    "file_role" : "DTO layer — defines the data structure for transferring trainer information between layers.",
     "change_required" : null
   }, {
     "file_name" : "CreateBookingRequest.java",
@@ -933,13 +1245,21 @@
     "status" : "PLANNED",
     "description" : "Request body for creating a new class booking.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "gymClassId",
+      "type" : "UUID",
+      "description" : "ID of the gym class to book. Not null."
+    }, {
+      "name" : "userId",
+      "type" : "UUID",
+      "description" : "ID of the user making the booking. Not null."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "booking-system-api",
-    "file_role" : null,
+    "file_role" : "DTO layer — defines the request body structure for creating a new class booking.",
     "change_required" : null
   }, {
     "file_name" : "Enquiry.java",
@@ -2309,8 +2629,8 @@
     "feature_display_name" : "Booking System API (Backend)",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/controller/BookingController.java", "backend/src/main/java/com/absfitness/controller/GymClassController.java", "backend/src/main/java/com/absfitness/controller/TrainerController.java", "backend/src/main/java/com/absfitness/controller/admin/AdminBookingController.java", "backend/src/main/java/com/absfitness/controller/admin/AdminGymClassController.java", "backend/src/main/java/com/absfitness/controller/admin/AdminTrainerController.java", "backend/src/main/java/com/absfitness/dto/BookingDto.java", "backend/src/main/java/com/absfitness/dto/GymClassDto.java", "backend/src/main/java/com/absfitness/dto/TrainerDto.java", "backend/src/main/java/com/absfitness/dto/CreateBookingRequest.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "The Booking System API feature provides backend services and controllers for managing gym classes, trainers, and user bookings. It exposes public endpoints for viewing class schedules and trainer profiles, and authenticated endpoints for users to manage their personal bookings. Additionally, it includes administrative endpoints for full CRUD operations on classes, trainers, and all bookings.\n\n**Data Transfer Objects (DTOs):**\n- `BookingDto`: Represents a booking with `id` (UUID), `userId` (UUID), `gymClass` (GymClassDto), `bookingTime` (LocalDateTime), and `status` (BookingStatus).\n- `GymClassDto`: Represents a gym class with `id` (UUID), `name` (String), `description` (String), `trainer` (TrainerDto), `startTime` (LocalDateTime), `endTime` (LocalDateTime), `capacity` (Integer), and `currentBookings` (Integer).\n- `TrainerDto`: Represents a trainer with `id` (UUID), `name` (String), `bio` (String), `specializations` (String), and `imageUrl` (String).\n- `CreateBookingRequest`: Used for creating a new booking, containing `gymClassId` (UUID) and `userId` (UUID).\n\n**Service Layer:**\n- `BookingService`: Handles the core business logic for bookings. It depends on `BookingRepository` and `GymClassRepository` from the `booking-system-core` feature.\n  - `createBooking(CreateBookingRequest request)`: Creates a new booking. It first validates if the gym class exists and has available capacity. It also checks if the user has an active membership (by calling `membership-management`'s `MembershipService.getUserActiveMemberships`). If the user has no active membership, it throws an `IllegalArgumentException`. If the class is full, it throws an `IllegalStateException`. If the user has already booked this class, it throws an `IllegalStateException`. It then saves the booking and updates the `currentBookings` count for the `GymClass`. Returns `BookingDto`.\n  - `cancelBooking(UUID bookingId)`: Cancels an existing booking. It retrieves the booking, marks it as cancelled, and decrements the `currentBookings` count for the associated `GymClass`. Throws `ResourceNotFoundException` if the booking does not exist. Returns `void`.\n  - `getBookingsByUserId(UUID userId)`: Retrieves all bookings for a specific user. Returns `List<BookingDto>`.\n  - `getBookingById(UUID bookingId)`: Retrieves a single booking by its ID. Throws `ResourceNotFoundException` if the booking does not exist. Returns `BookingDto`.\n  - `getAllBookings()`: Retrieves all bookings in the system. Returns `List<BookingDto>`.\n- `GymClassService`: Manages gym class-related business logic. It depends on `GymClassRepository` and `TrainerRepository` from the `booking-system-core` feature.\n  - `getAllGymClasses()`: Retrieves all gym classes. Returns `List<GymClassDto>`.\n  - `getGymClassById(UUID id)`: Retrieves a gym class by its ID. Throws `ResourceNotFoundException` if the class does not exist. Returns `GymClassDto`.\n  - `createGymClass(GymClassDto dto)`: Creates a new gym class. Returns `GymClassDto`.\n  - `updateGymClass(UUID id, GymClassDto dto)`: Updates an existing gym class. Throws `ResourceNotFoundException` if the class does not exist. Returns `GymClassDto`.\n  - `deleteGymClass(UUID id)`: Deletes a gym class. Throws `ResourceNotFoundException` if the class does not exist. Returns `void`.\n  - `getClassesByTrainerId(UUID trainerId)`: Retrieves all classes taught by a specific trainer. Returns `List<GymClassDto>`.\n- `TrainerService`: Manages trainer-related business logic. It depends on `TrainerRepository` from the `booking-system-core` feature.\n  - `getAllTrainers()`: Retrieves all trainers. Returns `List<TrainerDto>`.\n  - `getTrainerById(UUID id)`: Retrieves a trainer by their ID. Throws `ResourceNotFoundException` if the trainer does not exist. Returns `TrainerDto`.\n  - `createTrainer(TrainerDto dto)`: Creates a new trainer. Returns `TrainerDto`.\n  - `updateTrainer(UUID id, TrainerDto dto)`: Updates an existing trainer. Throws `ResourceNotFoundException` if the trainer does not exist. Returns `TrainerDto`.\n  - `deleteTrainer(UUID id)`: Deletes a trainer. Throws `ResourceNotFoundException` if the trainer does not exist. Returns `void`.\n\n**Controller Layer:**\n- `BookingController`: Exposes REST endpoints for authenticated users to manage their bookings. It injects `BookingService`.\n  - `createBooking(CreateBookingRequest request)`: Handles POST requests to `/api/v1/bookings` to create a new booking. Returns `ResponseEntity<BookingDto>` (201 Created on success, 400 Bad Request for validation errors, 404 Not Found if class or user not found, 409 Conflict if class is full or already booked).\n  - `cancelBooking(UUID bookingId)`: Handles DELETE requests to `/api/v1/bookings/{bookingId}` to cancel a booking. Returns `ResponseEntity<Void>` (204 No Content on success, 404 Not Found if booking not found).\n  - `getUserBookings(UUID userId)`: Handles GET requests to `/api/v1/bookings/users/{userId}` to retrieve all bookings for a specific user. Returns `ResponseEntity<List<BookingDto>>` (200 OK).\n- `GymClassController`: Exposes public REST endpoints for fetching gym class schedules. It injects `GymClassService`.\n  - `getAllGymClasses()`: Handles GET requests to `/api/v1/gym-classes` to retrieve all gym classes. Returns `ResponseEntity<List<GymClassDto>>` (200 OK).\n  - `getGymClassById(UUID id)`: Handles GET requests to `/api/v1/gym-classes/{id}` to retrieve a single gym class by ID. Returns `ResponseEntity<GymClassDto>` (200 OK, 404 Not Found if class not found).\n- `TrainerController`: Exposes public REST endpoints for fetching trainer profiles. It injects `TrainerService`.\n  - `getAllTrainers()`: Handles GET requests to `/api/v1/trainers` to retrieve all trainers. Returns `ResponseEntity<List<TrainerDto>>` (200 OK).\n  - `getTrainerById(UUID id)`: Handles GET requests to `/api/v1/trainers/{id}` to retrieve a single trainer by ID. Returns `ResponseEntity<TrainerDto>` (200 OK, 404 Not Found if trainer not found).\n- `AdminBookingController`: Exposes admin REST endpoints for managing all bookings. It injects `BookingService`.\n  - `getAllBookings()`: Handles GET requests to `/api/v1/admin/bookings` to retrieve all bookings. Returns `ResponseEntity<List<BookingDto>>` (200 OK).\n  - `getBookingById(UUID bookingId)`: Handles GET requests to `/api/v1/admin/bookings/{bookingId}` to retrieve a single booking by ID. Returns `ResponseEntity<BookingDto>` (200 OK, 404 Not Found if booking not found).\n  - `cancelBooking(UUID bookingId)`: Handles DELETE requests to `/api/v1/admin/bookings/{bookingId}` to cancel a booking. Returns `ResponseEntity<Void>` (204 No Content on success, 404 Not Found if booking not found).\n- `AdminGymClassController`: Exposes admin REST endpoints for CRUD operations on gym classes. It injects `GymClassService`.\n  - `getAllGymClasses()`: Handles GET requests to `/api/v1/admin/gym-classes` to retrieve all gym classes. Returns `ResponseEntity<List<GymClassDto>>` (200 OK).\n  - `getGymClassById(UUID id)`: Handles GET requests to `/api/v1/admin/gym-classes/{id}` to retrieve a single gym class by ID. Returns `ResponseEntity<GymClassDto>` (200 OK, 404 Not Found if class not found).\n  - `createGymClass(GymClassDto dto)`: Handles POST requests to `/api/v1/admin/gym-classes` to create a new gym class. Returns `ResponseEntity<GymClassDto>` (201 Created).\n  - `updateGymClass(UUID id, GymClassDto dto)`: Handles PUT requests to `/api/v1/admin/gym-classes/{id}` to update an existing gym class. Returns `ResponseEntity<GymClassDto>` (200 OK, 404 Not Found if class not found).\n  - `deleteGymClass(UUID id)`: Handles DELETE requests to `/api/v1/admin/gym-classes/{id}` to delete a gym class. Returns `ResponseEntity<Void>` (204 No Content, 404 Not Found if class not found).\n- `AdminTrainerController`: Exposes admin REST endpoints for CRUD operations on trainer profiles. It injects `TrainerService`.\n  - `getAllTrainers()`: Handles GET requests to `/api/v1/admin/trainers` to retrieve all trainers. Returns `ResponseEntity<List<TrainerDto>>` (200 OK).\n  - `getTrainerById(UUID id)`: Handles GET requests to `/api/v1/admin/trainers/{id}` to retrieve a single trainer by ID. Returns `ResponseEntity<TrainerDto>` (200 OK, 404 Not Found if trainer not found).\n  - `createTrainer(TrainerDto dto)`: Handles POST requests to `/api/v1/admin/trainers` to create a new trainer. Returns `ResponseEntity<TrainerDto>` (201 Created).\n  - `updateTrainer(UUID id, TrainerDto dto)`: Handles PUT requests to `/api/v1/admin/trainers/{id}` to update an existing trainer. Returns `ResponseEntity<TrainerDto>` (200 OK, 404 Not Found if trainer not found).\n  - `deleteTrainer(UUID id)`: Handles DELETE requests to `/api/v1/admin/trainers/{id}` to delete a trainer. Returns `ResponseEntity<Void>` (204 No Content, 404 Not Found if trainer not found).\n\nError handling for all controllers will be managed by `GlobalExceptionHandler` from the `shared-backend` feature, which maps `ResourceNotFoundException` to 404 Not Found and other exceptions to appropriate HTTP status codes.",
+    "depends_on_features" : [ "booking-system-core", "membership-management", "shared-backend" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
