@@ -1959,14 +1959,14 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "The root component of the React application, responsible for setting up providers and routing.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "The root component of the React application, responsible for setting up providers and routing for public, authenticated, and admin pages.",
     "change_required" : null
   }, {
     "file_name" : "siteConfig.ts",
@@ -1977,14 +1977,18 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Central configuration for site-wide branding, navigation links, and contact information.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "siteConfig",
+      "type" : "{ businessName: string; navLinks: { href: string; label: string; }[]; footerLinks: { title: string; links: { href: string; label: string; }[]; }[]; contact: { address: string; phone: string; email: string; coordinates: { latitude: number; longitude: number; }; openingHours: string[]; }; }",
+      "description" : "Configuration object containing business details, navigation links, and contact information."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Central configuration for site-wide branding, navigation links, and contact information, consumed by global layout components and static pages.",
     "change_required" : null
   }, {
     "file_name" : "HomePage.tsx",
@@ -1995,14 +1999,14 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Landing page featuring a high-energy hero, USP section, class highlights, membership tiers, and lead capture.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/home/HeroSection.tsx", "frontend/src/components/home/WhyAbsFitnessSection.tsx", "frontend/src/components/home/ClassHighlights.tsx", "frontend/src/components/home/MembershipTiers.tsx", "frontend/src/components/home/ReviewsSection.tsx", "frontend/src/components/home/LeadCaptureForm.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Landing page featuring a high-energy hero, USP section, class highlights, membership tiers, reviews, and lead capture, integrating various home-specific components.",
     "change_required" : null
   }, {
     "file_name" : "HeroSection.tsx",
@@ -2013,14 +2017,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Full-bleed hero component with a video background, motivational headline, and primary CTA.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "HeroSection",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the hero section with a background image, headline, and CTA."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Full-bleed hero component with a background image, motivational headline, and primary CTA, designed to capture immediate visitor attention.",
     "change_required" : null
   }, {
     "file_name" : "WhyAbsFitnessSection.tsx",
@@ -2031,14 +2040,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Highlights key differentiators like the premium location, swimming pool, and top-tier equipment.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "WhyAbsFitnessSection",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a section detailing the unique selling points of ABS FITNESS."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Highlights key differentiators like the premium location, swimming pool, and top-tier equipment, presented as a compelling value proposition.",
     "change_required" : null
   }, {
     "file_name" : "ClassHighlights.tsx",
@@ -2049,14 +2063,26 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A dynamic grid or carousel showcasing popular fitness classes.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "ClassHighlights",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Fetches and displays a selection of fitness classes with details and a call-to-action."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/classes",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a list of all fitness classes.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/services/fitnessClassService.ts", "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "A dynamic grid or carousel showcasing popular fitness classes, fetching data from the class-management feature.",
     "change_required" : null
   }, {
     "file_name" : "MembershipTiers.tsx",
@@ -2067,14 +2093,26 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Displays a summary of key membership plans to drive conversions.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "MembershipTiers",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Fetches and displays available membership plans with pricing in INR and sign-up CTAs."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/membership-plans",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a list of all membership plans.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/services/membershipService.ts", "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Displays a summary of key membership plans to drive conversions, fetching data from the membership-management feature.",
     "change_required" : null
   }, {
     "file_name" : "ReviewsSection.tsx",
@@ -2085,14 +2123,26 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Displays curated Google reviews as social proof, building trust with potential members.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "ReviewsSection",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Fetches and displays customer reviews to provide social proof."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/reviews",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a list of all reviews.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/services/reviewService.ts", "frontend/src/types/review.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Displays curated Google reviews as social proof, building trust with potential members, fetching data via reviewService.",
     "change_required" : null
   }, {
     "file_name" : "LeadCaptureForm.tsx",
@@ -2103,14 +2153,26 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A form for capturing leads for 'Free Trial' or 'Tour Booking' enquiries.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "LeadCaptureForm",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a form for submitting enquiries and handles form submission."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/enquiries",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Submits a new enquiry.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/services/enquiryService.ts", "frontend/src/types/enquiry.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "A form for capturing leads for 'Free Trial' or 'Tour Booking' enquiries, submitting data via enquiryService.",
     "change_required" : null
   }, {
     "file_name" : "AboutPage.tsx",
@@ -2121,14 +2183,14 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Static page detailing the gym's philosophy, history, and a preview of the training team.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Static page detailing the gym's philosophy, history, and a preview of the training team, using engaging copy and imagery.",
     "change_required" : null
   }, {
     "file_name" : "ContactPage.tsx",
@@ -2139,14 +2201,14 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Provides contact details, an embedded Google Map, and a contact/enquiry form.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/home/LeadCaptureForm.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Provides contact details, an embedded Google Map, and a contact/enquiry form, reusing the LeadCaptureForm component.",
     "change_required" : null
   }, {
     "file_name" : "NotFoundPage.tsx",
@@ -2157,14 +2219,14 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A user-friendly 404 page to handle invalid routes.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "A user-friendly 404 page to handle invalid routes, providing clear messaging and navigation back to the home page.",
     "change_required" : null
   }, {
     "file_name" : "DeleteConfirmationDialog.tsx",
@@ -2931,14 +2993,18 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "TypeScript types and interfaces for curated reviews.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "Review",
+      "type" : "{ id: string; author: string; rating: number; comment: string; source: string; createdAt: string; }",
+      "description" : "Interface for a review object."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract — TypeScript types and interfaces for curated reviews.",
     "change_required" : null
   }, {
     "file_name" : "reviewService.ts",
@@ -2949,14 +3015,38 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Provides functions for interacting with the review API endpoints.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "getAllReviews",
+      "parameters" : [ ],
+      "return_type" : "Promise<Review[]>",
+      "description" : "Fetches all reviews from the backend."
+    }, {
+      "name" : "getReviewById",
+      "parameters" : [ "string id" ],
+      "return_type" : "Promise<Review>",
+      "description" : "Fetches a single review by its ID from the backend."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/reviews",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a list of all reviews.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/reviews/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a single review by ID.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/review.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Provides functions for interacting with the review API endpoints, specifically `getAllReviews(): Promise<Review[]>` and `getReviewById(id: string): Promise<Review>`.",
     "change_required" : null
   }, {
     "file_name" : "enquiry.ts",
@@ -2967,14 +3057,22 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "TypeScript types and interfaces for enquiries.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "Enquiry",
+      "type" : "{ id: string; name: string; email: string; phone: string; message: string; createdAt: string; }",
+      "description" : "Interface for an enquiry object."
+    }, {
+      "name" : "EnquiryRequest",
+      "type" : "{ name: string; email: string; phone: string; message: string; }",
+      "description" : "Interface for the request body when creating a new enquiry."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract — TypeScript types and interfaces for enquiries.",
     "change_required" : null
   }, {
     "file_name" : "enquiryService.ts",
@@ -2985,14 +3083,26 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Provides functions for interacting with the enquiry API endpoints.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "createEnquiry",
+      "parameters" : [ "EnquiryRequest enquiry" ],
+      "return_type" : "Promise<Enquiry>",
+      "description" : "Submits a new enquiry to the backend."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/enquiries",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Submits a new enquiry.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/enquiry.ts" ],
     "depends_on" : [ ],
     "feature_name" : "core-ui",
-    "file_role" : null,
+    "file_role" : "Provides functions for interacting with the enquiry API endpoints, specifically `createEnquiry(enquiry: EnquiryRequest): Promise<Enquiry>`.",
     "change_required" : null
   }, {
     "file_name" : "GalleryPage.tsx",
@@ -3198,8 +3308,8 @@
     "feature_display_name" : "Core UI & Static Pages",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/App.tsx", "frontend/src/config/siteConfig.ts", "frontend/src/pages/HomePage.tsx", "frontend/src/components/home/HeroSection.tsx", "frontend/src/components/home/WhyAbsFitnessSection.tsx", "frontend/src/components/home/ClassHighlights.tsx", "frontend/src/components/home/MembershipTiers.tsx", "frontend/src/components/home/ReviewsSection.tsx", "frontend/src/components/home/LeadCaptureForm.tsx", "frontend/src/pages/AboutPage.tsx", "frontend/src/pages/ContactPage.tsx", "frontend/src/pages/NotFoundPage.tsx", "frontend/src/types/review.ts", "frontend/src/services/reviewService.ts", "frontend/src/types/enquiry.ts", "frontend/src/services/enquiryService.ts" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Secondary CTA: bg-transparent border border-[#FF5722] text-[#FF5722] hover:bg-[#FF5722] hover:text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThis feature provides the core UI structure and static content pages for the ABS FITNESS gym website. It defines the main application routing in `App.tsx`, centralizes site configuration in `siteConfig.ts`, and implements key public-facing pages: `HomePage.tsx`, `AboutPage.tsx`, `ContactPage.tsx`, and `NotFoundPage.tsx`. The `HomePage.tsx` is composed of several distinct components: `HeroSection.tsx`, `WhyAbsFitnessSection.tsx`, `ClassHighlights.tsx`, `MembershipTiers.tsx`, `ReviewsSection.tsx`, and `LeadCaptureForm.tsx`. These components fetch data from various backend services to display dynamic content such as fitness classes, membership plans, and reviews. The `ContactPage.tsx` reuses the `LeadCaptureForm.tsx` for enquiries. The `review.ts` and `enquiry.ts` files define the TypeScript types for data consumed and submitted, respectively. The `reviewService.ts` and `enquiryService.ts` files provide the frontend service layer for interacting with the backend API endpoints for reviews and enquiries. All monetary values displayed on the site, such as membership prices, must be formatted in Indian Rupees (₹) using the `en-IN` locale.\n\n### `App.tsx`\nThis file sets up the main routing for the application using `react-router-dom`. It defines routes for the `HomePage`, `AboutPage`, `ContactPage`, and `NotFoundPage`. It also includes routes for authentication pages (`LoginPage`, `SignupPage`) and admin pages, which are handled by other features but integrated here for overall application flow. The `App.tsx` is responsible for wrapping the application with necessary providers, such as the `AuthContext` and `QueryClientProvider` (for TanStack Query, which generates data hooks).\n\n### `siteConfig.ts`\nThis file exports a `siteConfig` object containing global configuration details. This includes the business name, navigation links for the header and footer, and contact information (address, phone, coordinates, opening hours). This configuration is consumed by the globally applied `SiteHeader` and `SiteFooter` (from the fenced foundation) and the `ContactPage.tsx`.\n\n### `HomePage.tsx`\nThis page serves as the landing page for ABS FITNESS. It is structured into several sections, each implemented by a dedicated component:\n1.  **Hero Section**: Utilizes `HeroSection.tsx` to display a full-bleed hero image with a motivational headline and a primary call-to-action.\n2.  **Why ABS FITNESS Section**: Uses `WhyAbsFitnessSection.tsx` to highlight the gym's unique selling points.\n3.  **Class Highlights**: Renders `ClassHighlights.tsx` to showcase popular fitness classes. This component will call the generated service function `getAllFitnessClasses(): Promise<FitnessClassDto[]>` from the `class-management` feature to fetch class data.\n4.  **Membership Tiers**: Displays `MembershipTiers.tsx` to present a summary of membership plans. This component will call the generated service function `getAllMembershipPlans(): Promise<MembershipPlanDto[]>` from the `membership-management` feature to fetch membership plan data. Prices will be formatted in `en-IN` locale.\n5.  **Reviews Section**: Integrates `ReviewsSection.tsx` to show curated customer reviews. This component will call `reviewService.getAllReviews(): Promise<Review[]>` to fetch review data.\n6.  **Lead Capture Form**: Includes `LeadCaptureForm.tsx` to allow visitors to submit enquiries for free trials or tour bookings. This component will call `enquiryService.createEnquiry(enquiry: EnquiryRequest): Promise<Enquiry>` to submit the form data.\n\n### `HeroSection.tsx`\nThis component renders a visually striking hero section. It features a background image (using the provided Unsplash URL for gyms) with a dark overlay, a prominent `h1` headline with the business name and a motivational subheadline, and a primary call-to-action button linking to the membership plans page.\n\n### `WhyAbsFitnessSection.tsx`\nThis component details the unique advantages of ABS FITNESS. It will present key differentiators such as the premium location, swimming pool, and top-tier equipment in a clean, engaging layout.\n\n### `ClassHighlights.tsx`\nThis component displays a selection of fitness classes. It will fetch a list of `FitnessClassDto` objects using the generated service function `getAllFitnessClasses()` and render them as cards. Each card will display the class name, description, and schedule time. It will include a call-to-action button (e.g., \"View Details\" or \"Book Now\") that navigates to the `/classes` page.\n\n### `MembershipTiers.tsx`\nThis component showcases the gym's membership plans. It will fetch a list of `MembershipPlanDto` objects using the generated service function `getAllMembershipPlans()` and display them as distinct cards. Each card will detail the plan name, description, duration, and price. Prices will be formatted in Indian Rupees (₹) using the `en-IN` locale. Each card will feature a primary call-to-action button (e.g., \"Join Now\") that links to the `/membership` page.\n\n### `ReviewsSection.tsx`\nThis component presents customer testimonials. It will fetch a list of `Review` objects using `reviewService.getAllReviews()` and display them in a visually appealing manner, such as a carousel or grid, to build trust and social proof.\n\n### `LeadCaptureForm.tsx`\nThis reusable component renders a form for capturing lead information (name, email, phone, message). Upon submission, it calls `enquiryService.createEnquiry(enquiry: EnquiryRequest)` to send the data to the backend. It should provide user feedback on submission success or failure.\n\n### `AboutPage.tsx`\nThis static page provides information about ABS FITNESS, including its philosophy, history, and a preview of the training team. It will feature engaging copy and imagery consistent with the brand's tone.\n\n### `ContactPage.tsx`\nThis page provides all necessary contact information for ABS FITNESS. It will display the address, phone number, and opening hours from `siteConfig.ts`. It will also embed a Google Map using the coordinates from `siteConfig.ts` and include an instance of the `LeadCaptureForm.tsx` for direct enquiries.\n\n### `NotFoundPage.tsx`\nThis page serves as a user-friendly 404 error page, informing the user that the requested resource could not be found and providing a link back to the home page.\n\n### `review.ts`\nThis file defines the TypeScript interface for a `Review` object, mirroring the `ReviewDto` from the `content-management` backend feature.\n\n### `reviewService.ts`\nThis file provides a frontend service for interacting with the `/api/v1/reviews` backend endpoints. It exports an `getAllReviews()` function to fetch all reviews and a `getReviewById(id: string)` function to fetch a single review.\n\n### `enquiry.ts`\nThis file defines the TypeScript interfaces for `Enquiry` and `EnquiryRequest` objects, mirroring the `EnquiryDto` from the `lead-management` backend feature.\n\n### `enquiryService.ts`\nThis file provides a frontend service for interacting with the `/api/v1/enquiries` backend endpoints. It exports a `createEnquiry(enquiry: EnquiryRequest)` function to submit new enquiries.",
+    "depends_on_features" : [ "class-management", "membership-management", "content-management", "lead-management", "auth-ui", "admin-portal", "membership-sales", "class-booking" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
