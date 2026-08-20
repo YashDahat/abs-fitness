@@ -1541,14 +1541,38 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Stores customer reviews, potentially sourced from Google, for display on the site.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the review. Not null."
+    }, {
+      "name" : "author",
+      "type" : "String",
+      "description" : "Name of the review author. Not null, max 100 characters."
+    }, {
+      "name" : "rating",
+      "type" : "Integer",
+      "description" : "Rating given by the author (e.g., 1-5 stars). Not null, min 1, max 5."
+    }, {
+      "name" : "comment",
+      "type" : "String",
+      "description" : "The actual review comment. Not null, max 1000 characters."
+    }, {
+      "name" : "submissionDate",
+      "type" : "LocalDateTime",
+      "description" : "Date and time when the review was submitted or recorded. Not null."
+    }, {
+      "name" : "isFeatured",
+      "type" : "Boolean",
+      "description" : "Flag indicating if the review should be prominently displayed on the frontend. Not null, default false."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "MODEL layer — defines the structure and persistence mapping for customer reviews.",
     "change_required" : null
   }, {
     "file_name" : "ReviewRepository.java",
@@ -1559,14 +1583,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Spring Data JPA repository for Review entities.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "findByIsFeaturedTrueOrderBySubmissionDateDesc",
+      "parameters" : [ ],
+      "return_type" : "List<Review>",
+      "description" : "Retrieves all featured reviews, ordered by submission date in descending order."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Review.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "REPOSITORY layer — provides data access operations for `Review` entities, including `findByIsFeaturedTrueOrderBySubmissionDateDesc()`.",
     "change_required" : null
   }, {
     "file_name" : "ReviewService.java",
@@ -1577,14 +1606,44 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Service to manage and retrieve reviews, with potential for automated fetching.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllReviews",
+      "parameters" : [ ],
+      "return_type" : "List<ReviewDto>",
+      "description" : "Retrieves all reviews from the database."
+    }, {
+      "name" : "getFeaturedReviews",
+      "parameters" : [ ],
+      "return_type" : "List<ReviewDto>",
+      "description" : "Retrieves all reviews marked as featured."
+    }, {
+      "name" : "createReview",
+      "parameters" : [ "ReviewDto reviewDto" ],
+      "return_type" : "ReviewDto",
+      "description" : "Creates a new review based on the provided DTO. Throws IllegalArgumentException if reviewDto is invalid."
+    }, {
+      "name" : "updateReview",
+      "parameters" : [ "UUID id", "ReviewDto reviewDto" ],
+      "return_type" : "ReviewDto",
+      "description" : "Updates an existing review identified by its ID. Throws ResourceNotFoundException if the review does not exist, or IllegalArgumentException if reviewDto is invalid."
+    }, {
+      "name" : "deleteReview",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "void",
+      "description" : "Deletes a review by its ID. Throws ResourceNotFoundException if the review does not exist."
+    }, {
+      "name" : "setReviewFeaturedStatus",
+      "parameters" : [ "UUID id", "boolean isFeatured" ],
+      "return_type" : "ReviewDto",
+      "description" : "Sets the featured status of a review by its ID. Throws ResourceNotFoundException if the review does not exist."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/ReviewRepository.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — implements `getAllReviews(): List<ReviewDto>`, `getFeaturedReviews(): List<ReviewDto>`, `createReview(ReviewDto): ReviewDto`, `updateReview(UUID, ReviewDto): ReviewDto`, `deleteReview(UUID): void`, and `setReviewFeaturedStatus(UUID, boolean): ReviewDto`.",
     "change_required" : null
   }, {
     "file_name" : "ReviewController.java",
@@ -1595,14 +1654,38 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Public endpoint to fetch reviews for display on the frontend.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllReviews",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<ReviewDto>>",
+      "description" : "Handles GET requests to retrieve all reviews."
+    }, {
+      "name" : "getFeaturedReviews",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<ReviewDto>>",
+      "description" : "Handles GET requests to retrieve only featured reviews."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/reviews",
+      "request_body" : null,
+      "response_body" : "List<ReviewDto>",
+      "description" : "Retrieves a list of all reviews.",
+      "access" : "public"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/reviews/featured",
+      "request_body" : null,
+      "response_body" : "List<ReviewDto>",
+      "description" : "Retrieves a list of featured reviews.",
+      "access" : "public"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/ReviewService.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — exposes public API endpoints for fetching reviews: `GET /api/v1/reviews` and `GET /api/v1/reviews/featured`.",
     "change_required" : null
   }, {
     "file_name" : "AdminReviewController.java",
@@ -1613,14 +1696,62 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin endpoints to manually add, feature, or remove reviews.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createReview",
+      "parameters" : [ "ReviewDto reviewDto" ],
+      "return_type" : "ResponseEntity<ReviewDto>",
+      "description" : "Handles POST requests to create a new review."
+    }, {
+      "name" : "updateReview",
+      "parameters" : [ "UUID id", "ReviewDto reviewDto" ],
+      "return_type" : "ResponseEntity<ReviewDto>",
+      "description" : "Handles PUT requests to update an existing review."
+    }, {
+      "name" : "deleteReview",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<Void>",
+      "description" : "Handles DELETE requests to remove a review."
+    }, {
+      "name" : "setReviewFeaturedStatus",
+      "parameters" : [ "UUID id", "boolean isFeatured" ],
+      "return_type" : "ResponseEntity<ReviewDto>",
+      "description" : "Handles PUT requests to set the featured status of a review."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/admin/reviews",
+      "request_body" : "ReviewDto",
+      "response_body" : "ReviewDto",
+      "description" : "Creates a new review.",
+      "access" : "admin"
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/reviews/{id}",
+      "request_body" : "ReviewDto",
+      "response_body" : "ReviewDto",
+      "description" : "Updates an existing review by ID.",
+      "access" : "admin"
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/reviews/{id}",
+      "request_body" : null,
+      "response_body" : "void",
+      "description" : "Deletes a review by ID.",
+      "access" : "admin"
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/reviews/{id}/featured",
+      "request_body" : "{ \"isFeatured\": boolean }",
+      "response_body" : "ReviewDto",
+      "description" : "Sets the featured status of a review by ID.",
+      "access" : "admin"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/ReviewService.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — exposes admin API endpoints for managing reviews: `POST /api/v1/admin/reviews`, `PUT /api/v1/admin/reviews/{id}`, `DELETE /api/v1/admin/reviews/{id}`, and `PUT /api/v1/admin/reviews/{id}/featured`.",
     "change_required" : null
   }, {
     "file_name" : "ReviewDto.java",
@@ -1631,14 +1762,38 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Data Transfer Object for Review entities.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the review."
+    }, {
+      "name" : "author",
+      "type" : "String",
+      "description" : "Name of the review author. @NotBlank, @Size(max=100)."
+    }, {
+      "name" : "rating",
+      "type" : "Integer",
+      "description" : "Rating given by the author (e.g., 1-5 stars). @NotNull, @Min(1), @Max(5)."
+    }, {
+      "name" : "comment",
+      "type" : "String",
+      "description" : "The actual review comment. @NotBlank, @Size(max=1000)."
+    }, {
+      "name" : "submissionDate",
+      "type" : "LocalDateTime",
+      "description" : "Date and time when the review was submitted or recorded. @NotNull."
+    }, {
+      "name" : "isFeatured",
+      "type" : "Boolean",
+      "description" : "Flag indicating if the review should be prominently displayed on the frontend. @NotNull."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "DTO layer — defines the data transfer object for `Review` entities.",
     "change_required" : null
   }, {
     "file_name" : "NotificationService.java",
@@ -2774,8 +2929,8 @@
     "feature_display_name" : "Content Management (Backend)",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/model/Review.java", "backend/src/main/java/com/absfitness/repository/ReviewRepository.java", "backend/src/main/java/com/absfitness/service/ReviewService.java", "backend/src/main/java/com/absfitness/controller/ReviewController.java", "backend/src/main/java/com/absfitness/controller/admin/AdminReviewController.java", "backend/src/main/java/com/absfitness/dto/ReviewDto.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "The Content Management (Backend) feature provides the API and persistence layer for managing customer reviews. It allows for public retrieval of reviews for display on the frontend and provides administrative endpoints for CRUD operations on reviews. The `Review` model represents a customer review, storing details such as the author, rating, comment, and a flag to indicate if it should be featured. `ReviewRepository` handles the database interactions for `Review` entities. `ReviewService` encapsulates the business logic for reviews, including fetching all reviews, fetching featured reviews, and administrative operations like creating, updating, and deleting reviews. `ReviewDto` is used for transferring review data between the service and controller layers. `ReviewController` exposes public API endpoints for fetching reviews, specifically `getAllReviews()` and `getFeaturedReviews()`. `AdminReviewController` provides authenticated administrative endpoints for `createReview()`, `updateReview()`, `deleteReview()`, and `setReviewFeaturedStatus()`. The `ReviewService` will inject `ReviewRepository` to perform its operations. Both `ReviewController` and `AdminReviewController` will inject `ReviewService` to handle business logic.",
+    "depends_on_features" : [ ],
     "change_required" : true,
     "change_instruction" : null
   }, {
