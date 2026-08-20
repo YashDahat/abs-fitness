@@ -3587,14 +3587,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Member portal page for viewing and updating personal account details.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ProfilePage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the member's profile page, fetching user data and passing it to ProfileForm for display and editing."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/components/account/ProfileForm.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "member-account",
-    "file_role" : null,
+    "file_role" : "Member portal page for viewing and updating personal account details, consuming user profile data and rendering `ProfileForm.tsx`.",
     "change_required" : null
   }, {
     "file_name" : "ProfileForm.tsx",
@@ -3605,14 +3610,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A form for editing the logged-in user's profile information.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ProfileForm",
+      "parameters" : [ "UserProfile user", "function onUpdate" ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays a form to edit user profile details and handles submission to update the profile. All monetary values are displayed in Indian Rupees (₹) using the en-IN locale."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "member-account",
-    "file_role" : null,
+    "file_role" : "A form component for editing the logged-in user's profile information, handling form submission and validation.",
     "change_required" : null
   }, {
     "file_name" : "MyBookingsPage.tsx",
@@ -3623,14 +3633,33 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Member portal page for viewing upcoming and past class bookings.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MyBookingsPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the member's bookings page, fetching all bookings for the current user and displaying them via BookingsList. All monetary values are displayed in Indian Rupees (₹) using the en-IN locale."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/bookings/me",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a list of all bookings for the currently authenticated member.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/bookings/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Cancels a specific booking for the currently authenticated member.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/account/BookingsList.tsx", "frontend/src/services/bookingService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "member-account",
-    "file_role" : null,
+    "file_role" : "Member portal page for viewing upcoming and past class bookings, fetching data from `booking-system` and rendering `BookingsList.tsx`.",
     "change_required" : null
   }, {
     "file_name" : "BookingsList.tsx",
@@ -3641,14 +3670,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A list or table displaying the user's bookings with an option to cancel.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "BookingsList",
+      "parameters" : [ "List<BookingDto> bookings", "function onCancelBooking" ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays a list of fitness class bookings, including class name, schedule time, and status, with a button to cancel each booking. All monetary values are displayed in Indian Rupees (₹) using the en-IN locale."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/types/booking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "member-account",
-    "file_role" : null,
+    "file_role" : "A component displaying a list of the user's bookings with an option to cancel, consuming `BookingDto`.",
     "change_required" : null
   }, {
     "file_name" : "MyMembershipPage.tsx",
@@ -3659,14 +3693,26 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Member portal page for viewing current membership status and payment history.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MyMembershipPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the member's membership page, fetching current and past membership subscriptions and displaying them via MembershipDetails. All monetary values are displayed in Indian Rupees (₹) using the en-IN locale."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/member/subscriptions",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a list of all membership subscriptions for the currently authenticated member.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/account/MembershipDetails.tsx", "frontend/src/services/membershipService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "member-account",
-    "file_role" : null,
+    "file_role" : "Member portal page for viewing current membership status and payment history, fetching data from `membership-management` and rendering `MembershipDetails.tsx`.",
     "change_required" : null
   }, {
     "file_name" : "MembershipDetails.tsx",
@@ -3677,14 +3723,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Component displaying the details of the user's current membership plan and status.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MembershipDetails",
+      "parameters" : [ "List<MemberSubscription> subscriptions" ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays the details of the member's current and past membership plans, including plan name, duration, price, and status. All monetary values are displayed in Indian Rupees (₹) using the en-IN locale."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "member-account",
-    "file_role" : null,
+    "file_role" : "Component displaying the details of the user's current membership plan and status, consuming `MemberSubscription`.",
     "change_required" : null
   } ],
   "features" : [ {
@@ -3818,8 +3869,8 @@
     "feature_display_name" : "Member Account Portal",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/pages/account/ProfilePage.tsx", "frontend/src/components/account/ProfileForm.tsx", "frontend/src/pages/account/MyBookingsPage.tsx", "frontend/src/components/account/BookingsList.tsx", "frontend/src/pages/account/MyMembershipPage.tsx", "frontend/src/components/account/MembershipDetails.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThe Member Account Portal feature provides a personalized experience for logged-in users to manage their profile, view bookings, and check membership status. It consists of three main pages: `ProfilePage.tsx`, `MyBookingsPage.tsx`, and `MyMembershipPage.tsx`, each supported by dedicated components and consuming backend services.\n\n`ProfilePage.tsx` will display the user's profile information using the `ProfileForm.tsx` component. This page will fetch the current user's profile details from the backend (implicitly via `useAuth().user` which is populated from the `/api/v1/users/me` endpoint) and allow updates. The `ProfileForm.tsx` component will handle the form submission to update the user's profile, calling a generated service function to interact with the backend's user profile update endpoint. It will display form fields for name, email, and other relevant profile details, applying validation and providing feedback to the user.\n\n`MyBookingsPage.tsx` will display a list of the member's upcoming and past fitness class bookings. It will fetch booking data by calling the generated service function `getMemberBookings(): Promise<BookingDto[]>` from the `booking-system` feature. The page will render these bookings using the `BookingsList.tsx` component. `BookingsList.tsx` will display each booking with details such as class name, schedule time, and status. It will also provide a 'Cancel' button for each booking, which, when clicked, will call the generated service function `cancelBooking(id: string): Promise<BookingDto>` from the `booking-system` feature, updating the booking status and refreshing the list.\n\n`MyMembershipPage.tsx` will present the member's current membership details and historical payment information. It will retrieve membership subscription data by calling the generated service function `getMemberSubscriptions(): Promise<MemberSubscription[]>` from the `membership-management` feature. The page will then render these details using the `MembershipDetails.tsx` component. `MembershipDetails.tsx` will display the membership plan name, start and end dates, and status. It will also show a history of payments associated with the membership, formatted in Indian Rupees (₹) using the `en-IN` locale.\n\nAll pages will be protected routes, ensuring only authenticated members can access them. The `ProfilePage.tsx` and `MyBookingsPage.tsx` will utilize the `useAuth()` hook to get the current user's ID for fetching user-specific data. Error handling and loading states will be implemented across all pages and components to provide a robust user experience. All monetary values will be displayed in Indian Rupees (₹) using the `en-IN` locale.",
+    "depends_on_features" : [ "booking-system", "membership-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
