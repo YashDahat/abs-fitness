@@ -3118,14 +3118,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "The main layout for the admin section, including a sidebar for navigation between management pages.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "AdminLayout",
+      "parameters" : [ "object props: { children: React.ReactNode }" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the admin layout with a sidebar and content area."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — provides the main layout for the admin section, including a sidebar for navigation between management pages.",
     "change_required" : null
   }, {
     "file_name" : "AdminDashboardPage.tsx",
@@ -3136,14 +3141,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "The landing page for the admin portal, showing key stats and quick links.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "AdminDashboardPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the admin dashboard with a welcome message and navigation links."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "PAGE layer — the landing page for the admin portal, showing key stats and quick links.",
     "change_required" : null
   }, {
     "file_name" : "AdminMembershipPlansPage.tsx",
@@ -3154,14 +3164,47 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin page for creating, reading, updating, and deleting membership plans.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "AdminMembershipPlansPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the membership plan management interface, fetching, creating, updating, and deleting membership plans. Displays monetary values in Indian Rupees (₹)."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/memberships/plans",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all membership plans for display.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/memberships/plans",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new membership plan.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/memberships/plans/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates an existing membership plan.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/memberships/plans/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Deletes a membership plan.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/components/admin/membership/MembershipPlanTable.tsx", "frontend/src/components/admin/membership/MembershipPlanForm.tsx", "frontend/src/services/membershipService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "PAGE layer — admin page for creating, reading, updating, and deleting membership plans, consuming membership-management backend APIs via generated service functions.",
     "change_required" : null
   }, {
     "file_name" : "MembershipPlanTable.tsx",
@@ -3172,14 +3215,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A table component for displaying and managing membership plans in the admin portal.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MembershipPlanTable",
+      "parameters" : [ "object props: { plans: MembershipPlanDto[], onEdit: (plan: MembershipPlanDto) => void, onDelete: (id: string) => void }" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a table of membership plans with edit and delete actions. Displays monetary values in Indian Rupees (₹)."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a table of membership plans and provides actions for editing and deleting them.",
     "change_required" : null
   }, {
     "file_name" : "MembershipPlanForm.tsx",
@@ -3190,14 +3238,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A form component for creating or editing membership plans in the admin portal.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MembershipPlanForm",
+      "parameters" : [ "object props: { initialData?: MembershipPlanDto, onSubmit: (plan: MembershipPlanDto) => void, onCancel: () => void }" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a form for entering membership plan details, supporting both creation and editing."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — provides a form for creating or editing membership plans.",
     "change_required" : null
   }, {
     "file_name" : "AdminTrainersPage.tsx",
@@ -3208,14 +3261,47 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin page for managing trainer profiles.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "AdminTrainersPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the trainer management interface, fetching, creating, updating, and deleting trainer profiles."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/trainers",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all trainer profiles for display.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/trainers",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new trainer profile.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/trainers/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates an existing trainer profile.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/trainers/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Deletes a trainer profile.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/services/trainerService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "PAGE layer — admin page for managing trainer profiles, consuming booking-system-api backend APIs via generated service functions.",
     "change_required" : null
   }, {
     "file_name" : "AdminClassesPage.tsx",
@@ -3226,14 +3312,47 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin page for managing the gym class schedule.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "AdminClassesPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the gym class management interface, fetching, creating, updating, and deleting gym classes."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/gym-classes",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all gym classes for display.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/gym-classes",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new gym class.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/gym-classes/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates an existing gym class.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/gym-classes/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Deletes a gym class.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/services/gymClassService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "PAGE layer — admin page for managing the gym class schedule, consuming booking-system-api backend APIs via generated service functions.",
     "change_required" : null
   }, {
     "file_name" : "AdminEnquiriesPage.tsx",
@@ -3244,14 +3363,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin page for viewing and managing lead capture enquiries.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "AdminEnquiriesPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the enquiries management interface, fetching and displaying all submitted enquiries."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/enquiries",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all lead capture enquiries for display.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/services/enquiryService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "PAGE layer — admin page for viewing and managing lead capture enquiries, consuming lead-management backend APIs via generated service functions.",
     "change_required" : null
   }, {
     "file_name" : "AdminReviewsPage.tsx",
@@ -3262,14 +3393,54 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin page for managing the reviews displayed on the website.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "AdminReviewsPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the reviews management interface, fetching, creating, updating, deleting, and setting featured status for reviews."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/reviews",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all reviews for display.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/reviews",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new review.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/reviews/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Updates an existing review.",
+      "access" : null
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/reviews/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Deletes a review.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/reviews/{id}/featured",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Sets the featured status of a review.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/services/reviewService.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : null,
+    "file_role" : "PAGE layer — admin page for managing the reviews displayed on the website, consuming content-management backend APIs via generated service functions.",
     "change_required" : null
   } ],
   "features" : [ {
@@ -3385,8 +3556,8 @@
     "feature_display_name" : "Admin Portal (Frontend)",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/components/AdminLayout.tsx", "frontend/src/pages/AdminDashboardPage.tsx", "frontend/src/pages/AdminMembershipPlansPage.tsx", "frontend/src/components/admin/membership/MembershipPlanTable.tsx", "frontend/src/components/admin/membership/MembershipPlanForm.tsx", "frontend/src/pages/AdminTrainersPage.tsx", "frontend/src/pages/AdminClassesPage.tsx", "frontend/src/pages/AdminEnquiriesPage.tsx", "frontend/src/pages/AdminReviewsPage.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThis feature implements the administrative portal for ABS FITNESS, providing a comprehensive interface for managing various aspects of the gym's operations. It consists of an `AdminLayout` component that provides a consistent navigation and structure for all admin pages. The layout includes a sidebar with links to `AdminDashboardPage`, `AdminMembershipPlansPage`, `AdminTrainersPage`, `AdminClassesPage`, `AdminEnquiriesPage`, and `AdminReviewsPage`. Each admin page is responsible for fetching and displaying data related to its domain, and providing functionality for creating, updating, and deleting records where applicable.\n\n`AdminLayout.tsx` serves as the wrapper for all admin-specific pages. It renders a responsive sidebar for navigation and a main content area. The sidebar will contain links to the dashboard, membership plans, trainers, classes, enquiries, and reviews. The layout ensures a consistent look and feel across the admin section.\n\n`AdminDashboardPage.tsx` is the landing page for the admin portal. It will display a welcoming message and potentially quick links or summary statistics (e.g., total members, upcoming classes, new enquiries). This page will not consume any specific backend APIs directly but will serve as a navigation hub.\n\n`AdminMembershipPlansPage.tsx` allows administrators to manage membership plans. This page will fetch all membership plans using the generated service function `getAllMembershipPlans(): Promise<MembershipPlanDto[]>` from the `membership-flow` feature. It will render these plans in a `MembershipPlanTable` component. It will also provide functionality to create new plans or edit existing ones using the `MembershipPlanForm` component. The page will call the generated service functions `createMembershipPlan(dto: MembershipPlanDto): Promise<MembershipPlanDto>` and `updateMembershipPlan(id: string, dto: MembershipPlanDto): Promise<MembershipPlanDto>` for saving changes, and `deleteMembershipPlan(id: string): Promise<void>` for deleting plans. All monetary values (prices) will be displayed in Indian Rupees (₹) using `toLocaleString('en-IN', { style: 'currency', currency: 'INR' })`.\n\n`MembershipPlanTable.tsx` is a reusable component for displaying a list of `MembershipPlanDto` objects in a tabular format. It will receive an array of `MembershipPlanDto` as props and provide actions for editing and deleting individual plans. It will emit events or call prop functions when an edit or delete action is triggered. All monetary values (prices) will be displayed in Indian Rupees (₹) using `toLocaleString('en-IN', { style: 'currency', currency: 'INR' })`.\n\n`MembershipPlanForm.tsx` is a reusable component for creating or editing a `MembershipPlanDto`. It will receive an optional `MembershipPlanDto` for editing, or be used for creating a new plan. It will include input fields for `name`, `durationInMonths`, `price`, `features`, and `isActive`. Upon submission, it will emit an event or call a prop function with the `MembershipPlanDto` data. Monetary values (prices) will be handled as numbers in the form, but displayed as Indian Rupees (₹) in the table.\n\n`AdminTrainersPage.tsx` enables administrators to manage trainer profiles. This page will fetch all trainers using the generated service function `getAllTrainers(): Promise<TrainerDto[]>` from the `booking-ui` feature. It will display them in a table and provide functionality to create, update, and delete trainers. It will call the generated service functions `createTrainer(dto: TrainerDto): Promise<TrainerDto>`, `updateTrainer(id: string, dto: TrainerDto): Promise<TrainerDto>`, and `deleteTrainer(id: string): Promise<void>`.\n\n`AdminClassesPage.tsx` allows administrators to manage the gym class schedule. This page will fetch all gym classes using the generated service function `getAllGymClasses(): Promise<GymClassDto[]>` from the `booking-ui` feature. It will display them in a table and provide functionality to create, update, and delete classes. It will call the generated service functions `createGymClass(dto: GymClassDto): Promise<GymClassDto>`, `updateGymClass(id: string, dto: GymClassDto): Promise<GymClassDto>`, and `deleteGymClass(id: string): Promise<void>`.\n\n`AdminEnquiriesPage.tsx` provides an interface for viewing and managing lead capture enquiries. This page will fetch all enquiries using the generated service function `getAllEnquiries(): Promise<EnquiryDto[]>` from the `core-ui` feature. It will display them in a table, allowing administrators to review submitted enquiries.\n\n`AdminReviewsPage.tsx` allows administrators to manage the reviews displayed on the website. This page will fetch all reviews using the generated service function `getAllReviews(): Promise<ReviewDto[]>` from the `core-ui` feature. It will display them in a table and provide functionality to create, update, delete, and set the featured status of reviews. It will call the generated service functions `createReview(reviewDto: ReviewDto): Promise<ReviewDto>`, `updateReview(id: string, reviewDto: ReviewDto): Promise<ReviewDto>`, `deleteReview(id: string): Promise<void>`, and `setReviewFeaturedStatus(id: string, isFeatured: boolean): Promise<ReviewDto>`.",
+    "depends_on_features" : [ "membership-management", "booking-system-api", "lead-management", "content-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
