@@ -34,13 +34,13 @@ public class MembershipPlanService {
                 .collect(Collectors.toList());
     }
 
-    public MembershipPlanDto getMembershipPlanById(UUID id) {
+    public MembershipPlanDto getMembershipPlanById(Long id) {
         MembershipPlan membershipPlan = membershipPlanRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Membership Plan not found with id: " + id));
         return convertToDto(membershipPlan);
     }
 
-    public MembershipPlanDto updateMembershipPlan(UUID id, MembershipPlanDto planDto) {
+    public MembershipPlanDto updateMembershipPlan(Long id, MembershipPlanDto planDto) {
         MembershipPlan existingPlan = membershipPlanRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Membership Plan not found with id: " + id));
 
@@ -53,7 +53,7 @@ public class MembershipPlanService {
         return convertToDto(updatedPlan);
     }
 
-    public void deleteMembershipPlan(UUID id) {
+    public void deleteMembershipPlan(Long id) {
         if (!membershipPlanRepository.existsById(id)) {
             throw new ResourceNotFoundException("Membership Plan not found with id: " + id);
         }

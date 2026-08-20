@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/admin/membership-plans")
@@ -32,19 +31,19 @@ public class AdminMembershipPlanController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MembershipPlanDto> getMembershipPlanById(@PathVariable UUID id) {
+    public ResponseEntity<MembershipPlanDto> getMembershipPlanById(@PathVariable Long id) {
         MembershipPlanDto plan = membershipPlanService.getMembershipPlanById(id);
         return ResponseEntity.ok(plan);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MembershipPlanDto> updateMembershipPlan(@PathVariable UUID id, @RequestBody MembershipPlanDto planDto) {
+    public ResponseEntity<MembershipPlanDto> updateMembershipPlan(@PathVariable Long id, @RequestBody MembershipPlanDto planDto) {
         MembershipPlanDto updatedPlan = membershipPlanService.updateMembershipPlan(id, planDto);
         return ResponseEntity.ok(updatedPlan);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMembershipPlan(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteMembershipPlan(@PathVariable Long id) {
         membershipPlanService.deleteMembershipPlan(id);
         return ResponseEntity.noContent().build();
     }

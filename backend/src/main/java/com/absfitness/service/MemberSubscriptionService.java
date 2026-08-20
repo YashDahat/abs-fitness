@@ -3,10 +3,10 @@ package com.absfitness.service;
 import com.absfitness.model.MemberSubscription;
 import com.absfitness.model.MembershipPlan;
 import com.absfitness.repository.MemberSubscriptionRepository;
+import com.absfitness.repository.MembershipPlanRepository;
 import com.absfitness.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.absfitness.service.MembershipPlanService;
 import com.absfitness.service.PaymentService;
 import com.absfitness.dto.CreatePaymentRequest;
 import com.absfitness.dto.PaymentOrderResponse;
@@ -18,26 +18,27 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.Optional;
-import com.absfitness.model.Payment;
+import com.absfitness.model.SubscriptionStatus;
 
 @Service
 public class MemberSubscriptionService {
 
     private final MemberSubscriptionRepository memberSubscriptionRepository;
-    private final MembershipPlanService membershipPlanService;
+    private final MembershipPlanRepository membershipPlanRepository;
     private final PaymentService paymentService;
 
     public MemberSubscriptionService(MemberSubscriptionRepository memberSubscriptionRepository,
-                                     MembershipPlanService membershipPlanService,
+                                     MembershipPlanRepository membershipPlanRepository,
                                      PaymentService paymentService) {
         this.memberSubscriptionRepository = memberSubscriptionRepository;
-        this.membershipPlanService = membershipPlanService;
+        this.membershipPlanRepository = membershipPlanRepository;
         this.paymentService = paymentService;
     }
 
     @Transactional
     public PaymentOrderResponse createSubscription(Integer userId, Long planId) {
-        MembershipPlan membershipPlan = membershipPlanService.getMembershipPlanById(planId);
+        MembershipPlan membershipPlan = membershipPlanRepository.findById(planId)
+                .orElseThrow(() -> new ResourceNotFoundException("Membership Plan not found with id: " + planId));
 
         MemberSubscription subscription = new MemberSubscription();
         subscription.setUserId(userId);
@@ -59,6 +60,10 @@ public class MemberSubscriptionService {
 
     public List<MemberSubscription> getMemberSubscriptions(Integer userId) {
         return memberSubscriptionRepository.findByUserId(userId);
+    }
+
+    public List<MemberSubscription> getUpcomingRenewals(LocalDate date) {
+        return memberSubscriptionRepository.findByEndDateAndStatus(date, SubscriptionStatus.ACTIVE);
     }
 
     @Transactional

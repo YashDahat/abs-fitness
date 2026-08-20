@@ -1,11 +1,9 @@
 // GENERATED from the backend API contract — do not edit by hand.
 // Source of truth: backend controllers/DTOs (see docs/API_INVENTORY.json).
 
-export interface PaymentOrderResponse {
+export interface VerifyPaymentRequest {
   gatewayOrderId: string;
-  gatewayKeyId: string;
-  amount: number;
-  currency: string;
-  paymentRecordId: number;
+  gatewayPaymentId: string;
+  signature: string;
 }
 

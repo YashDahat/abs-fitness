@@ -92,8 +92,10 @@ public class FitnessClassService {
 
         if (dto.getTrainerId() != null) {
             UUID trainerUuid = new UUID(dto.getTrainerId(), 0L); // Convert Long to UUID
-            Trainer trainer = trainerService.getTrainerById(trainerUuid)
-                    .orElseThrow(() -> new ResourceNotFoundException("Trainer not found with ID: " + dto.getTrainerId()));
+            // getTrainerById already throws ResourceNotFoundException if not found
+            trainerService.getTrainerById(trainerUuid);
+            Trainer trainer = new Trainer();
+            trainer.setId(trainerUuid);
             entity.setTrainer(trainer);
         } else {
             entity.setTrainer(null);

@@ -30,23 +30,35 @@ public class BookingService {
     }
 
     public BookingDto createBooking(CreateBookingRequest request, UUID memberId) {
-        FitnessClass fitnessClass = fitnessClassService.getFitnessClassById(request.getFitnessClassId());
+        UUID fitnessClassUuid = new UUID(request.getFitnessClassId(), 0L);
+        com.absfitness.dto.FitnessClassDto fitnessClassDto = fitnessClassService.getFitnessClassById(fitnessClassUuid);
 
-        int currentBookings = bookingRepository.countByFitnessClassIdAndStatus(fitnessClass.getId(), BookingStatus.CONFIRMED);
-        if (currentBookings >= fitnessClass.getCapacity()) {
+        int currentBookings = bookingRepository.countByFitnessClassIdAndStatus(fitnessClassUuid, BookingStatus.CONFIRMED);
+        if (currentBookings >= fitnessClassDto.getCapacity()) {
             throw new IllegalStateException("Fitness class is full.");
         }
+
+        com.absfitness.model.FitnessClass fitnessClass = new com.absfitness.model.FitnessClass();
+        fitnessClass.setId(fitnessClassUuid);
 
         Booking booking = new Booking();
         booking.setMemberId(memberId);
         booking.setFitnessClass(fitnessClass);
         booking.setBookingTime(LocalDateTime.now());
-        booking.setStatus(BookingStatus.CONFIRMED); // Changed from PENDING to CONFIRMED as per common practice for immediate booking
+        booking.setStatus(BookingStatus.CONFIRMED);
         booking.setCreatedAt(LocalDateTime.now());
 
         Booking savedBooking = bookingRepository.save(booking);
-        notificationService.sendBookingConfirmation(savedBooking);
-        return convertToDto(savedBooking);
+        BookingDto bookingDto = BookingDto.builder()
+                .id(savedBooking.getId().getMostSignificantBits())
+                .memberId(memberId.getMostSignificantBits())
+                .fitnessClassId(request.getFitnessClassId())
+                .fitnessClassName(fitnessClassDto.getName())
+                .bookingTime(savedBooking.getBookingTime())
+                .status(savedBooking.getStatus())
+                .build();
+        notificationService.sendBookingConfirmation(memberId, bookingDto);
+        return bookingDto;
     }
 
     public BookingDto getBookingById(UUID bookingId) {
@@ -77,8 +89,9 @@ public class BookingService {
 
         booking.setStatus(BookingStatus.CANCELLED);
         Booking updatedBooking = bookingRepository.save(booking);
-        notificationService.sendBookingCancellation(updatedBooking);
-        return convertToDto(updatedBooking);
+        BookingDto dto = convertToDto(updatedBooking);
+        notificationService.sendBookingConfirmation(updatedBooking.getMemberId(), dto);
+        return dto;
     }
 
     public BookingDto adminCancelBooking(UUID bookingId) {
@@ -87,8 +100,9 @@ public class BookingService {
 
         booking.setStatus(BookingStatus.CANCELLED);
         Booking updatedBooking = bookingRepository.save(booking);
-        notificationService.sendBookingCancellation(updatedBooking);
-        return convertToDto(updatedBooking);
+        BookingDto dto = convertToDto(updatedBooking);
+        notificationService.sendBookingConfirmation(updatedBooking.getMemberId(), dto);
+        return dto;
     }
 
     private BookingDto convertToDto(Booking booking) {

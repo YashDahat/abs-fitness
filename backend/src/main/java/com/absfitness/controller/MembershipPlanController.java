@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/membership-plans")
@@ -28,7 +27,7 @@ public class MembershipPlanController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MembershipPlanDto> getMembershipPlanById(@PathVariable UUID id) {
+    public ResponseEntity<MembershipPlanDto> getMembershipPlanById(@PathVariable Long id) {
         MembershipPlanDto plan = membershipPlanService.getMembershipPlanById(id);
         return ResponseEntity.ok(plan);
     }
