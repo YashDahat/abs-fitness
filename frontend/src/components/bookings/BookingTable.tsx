@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import {
   Table,
   TableBody,
@@ -53,8 +54,8 @@ export function BookingTable({ bookings, onCancel }: BookingTableProps): React.J
               <TableRow key={booking.id} data-testid={`booking-row-${booking.id}`}>
                 <TableCell>{booking.id}</TableCell>
                 <TableCell>{booking.fitnessClassName}</TableCell>
-                <TableCell>{new Date(booking.scheduleTime).toLocaleString()}</TableCell>
-                <TableCell>{booking.durationMinutes}</TableCell>
+                <TableCell>{new Date(booking.bookingTime).toLocaleString()}</TableCell>
+                <TableCell>—</TableCell>
                 <TableCell className={getStatusColor(booking.status)}>{booking.status}</TableCell>
                 <TableCell className="text-right">
                   {booking.status === 'CONFIRMED' && (

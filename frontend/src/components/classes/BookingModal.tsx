@@ -24,24 +24,19 @@ export default function BookingModal({
   onClose,
   fitnessClass,
 }: BookingModalProps) {
-  const { mutate: createBooking, isPending } = useCreateBooking();
+  const { mutateAsync: createBooking, isPending } = useCreateBooking();
   const [isBookingConfirmed, setIsBookingConfirmed] = useState<boolean>(false);
 
-  const handleConfirmBooking = (): void => {
+  const handleConfirmBooking = async (): Promise<void> => {
     if (fitnessClass) {
-      createBooking(
-        { fitnessClassId: fitnessClass.id },
-        {
-          onSuccess: () => {
-            toast.success('Booking successful!');
-            setIsBookingConfirmed(true);
-            onClose();
-          },
-          onError: (error) => {
-            toast.error(`Booking failed: ${error.message}`);
-          },
-        },
-      );
+      try {
+        await createBooking({ fitnessClassId: fitnessClass.id });
+        toast.success('Booking successful!');
+        setIsBookingConfirmed(true);
+        onClose();
+      } catch (error: unknown) {
+        toast.error(`Booking failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
     }
   };
 

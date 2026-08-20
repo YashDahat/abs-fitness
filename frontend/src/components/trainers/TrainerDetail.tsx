@@ -1,5 +1,3 @@
-import { useParams } from 'react-router-dom';
-import { useTrainerById } from '@/hooks/trainerHooks';
 import { useFitnessClasses } from '@/hooks/fitnessClassHooks';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';

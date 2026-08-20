@@ -1,5 +1,5 @@
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
-import siteConfig from '@/config/siteConfig';
+import { siteConfig } from '@/config/siteConfig';
 import LeadCaptureForm from '@/components/home/LeadCaptureForm';
 
 export default function ContactPage() {
@@ -45,7 +45,7 @@ export default function ContactPage() {
             </h2>
             <div className="aspect-w-16 aspect-h-9 w-full h-[400px] rounded-xl overflow-hidden shadow-lg border border-gray-100">
               <iframe
-                src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&q=${siteConfig.footer.address}`}
+                src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&q=${siteConfig.footer.address}`}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

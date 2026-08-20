@@ -23,3 +23,9 @@ Advisory — residual foundation impedance in generated code (Phase 4 detection 
 - `backend/src/main/java/com/absfitness/model/FitnessClass.java:22` — private UUID id;
 - `backend/src/main/java/com/absfitness/model/FitnessClass.java:49` — public UUID getId() {
 <!-- AUDIT:BACKEND:END -->
+
+<!-- AUDIT:FRONTEND:START -->
+## FRONTEND
+
+Clean — no residual foundation impedance.
+<!-- AUDIT:FRONTEND:END -->

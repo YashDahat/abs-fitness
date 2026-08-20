@@ -1,3 +1,4 @@
+import { Card } from '@/components/ui/card';
 import { useState } from 'react';
 import { useFitnessClasses } from '@/hooks/fitnessClassHooks';
 import ClassSchedule from '@/components/classes/ClassSchedule';

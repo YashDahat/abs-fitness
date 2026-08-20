@@ -3,8 +3,13 @@
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
+import { ReactNode } from 'react';
 
-export default function AdminLayout() {
+interface AdminLayoutProps {
+  children?: ReactNode;
+}
+
+export default function AdminLayout({ children }: AdminLayoutProps) {
   const { logout } = useAuth();
   const navigate = useNavigate();
 

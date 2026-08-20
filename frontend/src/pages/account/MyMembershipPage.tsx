@@ -1,6 +1,6 @@
 import { useMemberSubscriptions } from '@/hooks/membershipHooks';
 import MembershipDetails from '@/components/account/MembershipDetails';
-import AdminLayout from '@/components/AdminLayout'; // This is a mistake, should be SiteLayout or no layout for public pages
+// This is a mistake, should be SiteLayout or no layout for public pages
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function MyMembershipPage() {

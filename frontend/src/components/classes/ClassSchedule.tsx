@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { FitnessClassDto } from '@/types/fitnessClass';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { format, parseISO, isSameDay, getDay } from 'date-fns';
-import { cn } from '@/lib/utils';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { format, parseISO, getDay } from 'date-fns';
 import BookingModal from '@/components/classes/BookingModal';
 
 interface ClassScheduleProps {

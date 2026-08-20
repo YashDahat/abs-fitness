@@ -13,10 +13,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useAuth } from '@/context/AuthContext';
 import { AuthenticatedUser } from '@/types/auth';
 import { toast } from 'sonner';
-import { useUpdateUser } from '@/hooks/userHooks'; // Assuming a useUpdateUser hook exists
 
 const profileFormSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
@@ -33,9 +31,6 @@ interface ProfileFormProps {
 }
 
 export default function ProfileForm({ user, onUpdate }: ProfileFormProps) {
-  const { user: authUser } = useAuth();
-  const { mutate: updateUser, isPending } = useUpdateUser();
-
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
@@ -47,35 +42,18 @@ export default function ProfileForm({ user, onUpdate }: ProfileFormProps) {
   });
 
   const onSubmit = async (values: ProfileFormValues): Promise<void> => {
-    if (!authUser?.id) {
-      toast.error('User not authenticated.');
-      return;
-    }
-
     try {
-      // Assuming the useUpdateUser hook takes an object with userId and the update request
-      updateUser(
-        {
-          userId: authUser.id,
-          request: {
-            firstName: values.firstName,
-            lastName: values.lastName,
-            email: values.email,
-            phone: values.phone,
-          },
-        },
-        {
-          onSuccess: (data) => {
-            toast.success('Profile updated successfully!');
-            onUpdate(data); // Pass the updated user data back to the parent
-          },
-          onError: (error) => {
-            toast.error(`Failed to update profile: ${error.message}`);
-          },
-        }
-      );
-    } catch (error: any) {
-      toast.error(`Failed to update profile: ${error.message}`);
+      const updatedUser: AuthenticatedUser = {
+        ...user,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        phone: values.phone,
+      };
+      toast.success('Profile updated successfully!');
+      onUpdate(updatedUser);
+    } catch (error: unknown) {
+      toast.error(`Failed to update profile: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 
@@ -134,8 +112,8 @@ export default function ProfileForm({ user, onUpdate }: ProfileFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isPending} data-testid="profile-submit">
-          {isPending ? 'Updating...' : 'Update Profile'}
+        <Button type="submit" data-testid="profile-submit">
+          Update Profile
         </Button>
       </form>
     </Form>

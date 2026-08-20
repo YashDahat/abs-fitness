@@ -3,7 +3,6 @@ import AdminLayout from '@/components/AdminLayout';
 import { BookingTable } from '@/components/bookings/BookingTable';
 import { DeleteConfirmationDialog } from '@/components/shared/DeleteConfirmationDialog';
 import { useBookings, useAdminCancelBooking } from '@/hooks/bookingHooks';
-import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -19,18 +18,16 @@ export default function AdminBookingsPage() {
     setIsCancelDialogOpen(true);
   };
 
-  const handleConfirmCancel = (): void => {
+  const handleConfirmCancel = async (): Promise<void> => {
     if (selectedBookingId) {
-      cancelBooking(selectedBookingId, {
-        onSuccess: () => {
-          toast.success('Booking cancelled successfully.');
-          setIsCancelDialogOpen(false);
-          setSelectedBookingId(null);
-        },
-        onError: (err) => {
-          toast.error(`Failed to cancel booking: ${err.message}`);
-        },
-      });
+      try {
+        await cancelBooking(selectedBookingId);
+        toast.success('Booking cancelled successfully.');
+        setIsCancelDialogOpen(false);
+        setSelectedBookingId(null);
+      } catch (err: unknown) {
+        toast.error(`Failed to cancel booking: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      }
     }
   };
 

@@ -1,8 +1,8 @@
+import type { JSX } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMembershipPlans } from '@/hooks/membershipHooks';
 import { useCart } from '@/cart/CartContext';
 import MembershipPlanCard from '@/components/membership/MembershipPlanCard';
-import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ROUTES } from '@/routes';
 import type { MembershipPlan } from '@/types/membership';

@@ -12,26 +12,24 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export default function AdminTrainersPage() {
   const { data: trainers, isLoading, isError, error } = useAdminGetAllTrainers();
-  const { mutate: createTrainer } = useCreateTrainer();
-  const { mutate: updateTrainer } = useUpdateTrainer();
-  const { mutate: deleteTrainer } = useDeleteTrainer();
+  const { mutateAsync: createTrainer } = useCreateTrainer();
+  const { mutateAsync: updateTrainer } = useUpdateTrainer();
+  const { mutateAsync: deleteTrainer } = useDeleteTrainer();
 
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
   const [selectedTrainer, setSelectedTrainer] = useState<TrainerDto | null>(null);
   const [trainerToDeleteId, setTrainerToDeleteId] = useState<string | null>(null);
 
-  const handleCreateTrainer = (data: TrainerDto): void => {
-    createTrainer(data, {
-      onSuccess: () => {
-        toast.success('Trainer created successfully.');
-        setIsFormOpen(false);
-        setSelectedTrainer(null);
-      },
-      onError: (err) => {
-        toast.error(`Failed to create trainer: ${err.message}`);
-      },
-    });
+  const handleCreateTrainer = async (data: TrainerDto): Promise<void> => {
+    try {
+      await createTrainer(data);
+      toast.success('Trainer created successfully.');
+      setIsFormOpen(false);
+      setSelectedTrainer(null);
+    } catch (err: unknown) {
+      toast.error(`Failed to create trainer: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    }
   };
 
   const handleEditTrainer = (trainer: TrainerDto): void => {
@@ -39,21 +37,16 @@ export default function AdminTrainersPage() {
     setIsFormOpen(true);
   };
 
-  const handleUpdateTrainer = (data: TrainerDto): void => {
+  const handleUpdateTrainer = async (data: TrainerDto): Promise<void> => {
     if (selectedTrainer) {
-      updateTrainer(
-        { id: selectedTrainer.id.toString(), request: data },
-        {
-          onSuccess: () => {
-            toast.success('Trainer updated successfully.');
-            setIsFormOpen(false);
-            setSelectedTrainer(null);
-          },
-          onError: (err) => {
-            toast.error(`Failed to update trainer: ${err.message}`);
-          },
-        },
-      );
+      try {
+        await updateTrainer({ id: selectedTrainer.id.toString(), request: data });
+        toast.success('Trainer updated successfully.');
+        setIsFormOpen(false);
+        setSelectedTrainer(null);
+      } catch (err: unknown) {
+        toast.error(`Failed to update trainer: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      }
     }
   };
 
@@ -62,18 +55,16 @@ export default function AdminTrainersPage() {
     setIsDeleteDialogOpen(true);
   };
 
-  const confirmDeleteTrainer = (): void => {
+  const confirmDeleteTrainer = async (): Promise<void> => {
     if (trainerToDeleteId) {
-      deleteTrainer(trainerToDeleteId, {
-        onSuccess: () => {
-          toast.success('Trainer deleted successfully.');
-          setIsDeleteDialogOpen(false);
-          setTrainerToDeleteId(null);
-        },
-        onError: (err) => {
-          toast.error(`Failed to delete trainer: ${err.message}`);
-        },
-      });
+      try {
+        await deleteTrainer(trainerToDeleteId);
+        toast.success('Trainer deleted successfully.');
+        setIsDeleteDialogOpen(false);
+        setTrainerToDeleteId(null);
+      } catch (err: unknown) {
+        toast.error(`Failed to delete trainer: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      }
     }
   };
 

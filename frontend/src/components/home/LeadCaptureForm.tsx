@@ -26,7 +26,7 @@ const formSchema = z.object({
 });
 
 export default function LeadCaptureForm() {
-  const { mutate: createEnquiry, isPending } = useCreateEnquiry();
+  const { mutateAsync: createEnquiry, isPending } = useCreateEnquiry();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,26 +38,23 @@ export default function LeadCaptureForm() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>): void => {
-    createEnquiry(
-      {
+  const onSubmit = async (values: z.infer<typeof formSchema>): Promise<void> => {
+    try {
+      await createEnquiry({
         name: values.name,
         email: values.email,
         phone: values.phone,
         message: values.message,
-      },
-      {
-        onSuccess: () => {
-          toast.success('Enquiry submitted successfully!');
-          form.reset();
-        },
-        onError: (error) => {
-          toast.error('Failed to submit enquiry.', {
-            description: error.message,
-          });
-        },
-      },
-    );
+        id: 0,
+        createdAt: '',
+      });
+      toast.success('Enquiry submitted successfully!');
+      form.reset();
+    } catch (error: unknown) {
+      toast.error('Failed to submit enquiry.', {
+        description: error instanceof Error ? error.message : 'Unknown error',
+      });
+    }
   };
 
   return (

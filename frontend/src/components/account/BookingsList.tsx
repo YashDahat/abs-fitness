@@ -40,7 +40,7 @@ export default function BookingsList({ bookings, onCancelBooking }: BookingsList
             </CardHeader>
             <CardContent className="space-y-2">
               <p>
-                <span className="font-medium">Trainer:</span> {booking.trainerName}
+                <span className="font-medium">Booking ID:</span> {booking.id}
               </p>
               <p>
                 <span className="font-medium">Scheduled:</span>{' '}

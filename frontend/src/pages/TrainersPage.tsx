@@ -1,3 +1,4 @@
+import { Card } from '@/components/ui/card';
 import { useTrainers } from '@/hooks/trainerHooks';
 import TrainerCard from '@/components/trainers/TrainerCard';
 import { Skeleton } from '@/components/ui/skeleton';

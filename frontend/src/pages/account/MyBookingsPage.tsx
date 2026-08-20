@@ -8,17 +8,15 @@ import { BookingDto } from '@/types/booking';
 
 const MyBookingsPage = () => {
   const { data: bookings, isLoading, isError, error } = useMemberBookings();
-  const { mutate: cancelBookingMutation, isPending: isCancelling } = useCancelBooking();
+  const { mutateAsync: cancelBookingMutation, isPending: isCancelling } = useCancelBooking();
 
-  const handleCancelBooking = (bookingId: string): void => {
-    cancelBookingMutation(bookingId, {
-      onSuccess: (updatedBooking: BookingDto) => {
-        toast.success(`Booking for ${updatedBooking.fitnessClassName} on ${new Date(updatedBooking.bookingTime).toLocaleDateString()} cancelled.`);
-      },
-      onError: (err) => {
-        toast.error(`Failed to cancel booking: ${err.message}`);
-      },
-    });
+  const handleCancelBooking = async (bookingId: string): Promise<void> => {
+    try {
+      const updatedBooking = await cancelBookingMutation(bookingId);
+      toast.success(`Booking for ${updatedBooking.fitnessClassName} on ${new Date(updatedBooking.bookingTime).toLocaleDateString()} cancelled.`);
+    } catch (err: unknown) {
+      toast.error(`Failed to cancel booking: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    }
   };
 
   if (isLoading) {

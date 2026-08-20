@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import AdminLayout from '@/components/AdminLayout';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ReviewTable } from '@/components/reviews/ReviewTable';
 import { ReviewForm } from '@/components/reviews/ReviewForm';
 import { DeleteConfirmationDialog } from '@/components/shared/DeleteConfirmationDialog';

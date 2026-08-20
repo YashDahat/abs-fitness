@@ -1,6 +1,6 @@
 import GallerySection from '@/components/gallery/GallerySection';
 import SiteLayout from '@/shell/SiteLayout';
-import siteConfig from '@/config/siteConfig';
+import { siteConfig } from '@/config/siteConfig';
 
 export default function GalleryPage() {
   return (

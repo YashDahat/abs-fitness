@@ -26,6 +26,8 @@ export const ROUTES = {
   ADMIN_REVIEWS: '/admin/reviews',
   ADMIN_TRAINERS: '/admin/trainers',
   NOT_FOUND: '*',
+  CART: '/cart',
+  ADMIN_MEDIA: '/admin/media',
 } as const;
 
 export interface RouteEntry {
@@ -61,4 +63,6 @@ export const routeTable: RouteEntry[] = [
   { key: 'ADMIN_REVIEWS', path: ROUTES.ADMIN_REVIEWS, page: 'AdminReviewsPage', importPath: './pages/AdminReviewsPage', label: 'Reviews', admin: true, nav: true },
   { key: 'ADMIN_TRAINERS', path: ROUTES.ADMIN_TRAINERS, page: 'AdminTrainersPage', importPath: './pages/AdminTrainersPage', label: 'Trainers', admin: true, nav: true },
   { key: 'NOT_FOUND', path: ROUTES.NOT_FOUND, page: 'NotFoundPage', importPath: './pages/NotFoundPage', label: 'Not Found', admin: false, nav: false },
+  { key: 'CART', path: ROUTES.CART, page: 'CartPage', importPath: './pages/CartPage', label: 'Cart', admin: false, nav: true },
+  { key: 'ADMIN_MEDIA', path: ROUTES.ADMIN_MEDIA, page: 'AdminMediaPage', importPath: './pages/admin/AdminMediaPage', label: 'Media', admin: true, nav: true },
 ];

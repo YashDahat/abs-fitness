@@ -12,56 +12,51 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export default function AdminClassesPage() {
   const { data: classes, isLoading, isError, error } = useAdminGetAllFitnessClasses();
-  const { mutate: createClass } = useCreateFitnessClass();
-  const { mutate: updateClass } = useUpdateFitnessClass();
-  const { mutate: deleteClass } = useDeleteFitnessClass();
-  const { data: editingClass, isLoading: isLoadingEditingClass } = useFitnessClassById(editingClassId || '');
+  const { mutateAsync: createClass } = useCreateFitnessClass();
+  const { mutateAsync: updateClass } = useUpdateFitnessClass();
+  const { mutateAsync: deleteClass } = useDeleteFitnessClass();
 
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
   const [editingClassId, setEditingClassId] = useState<string | null>(null);
   const [deletingClassId, setDeletingClassId] = useState<string | null>(null);
 
-  const handleCreateClass = (data: FitnessClassDto): void => {
-    createClass(data, {
-      onSuccess: () => {
-        toast.success('Fitness class created successfully.');
-        setIsFormOpen(false);
-        setEditingClassId(null);
-      },
-      onError: (err) => {
-        toast.error(`Failed to create fitness class: ${err.message}`);
-      },
-    });
-  };
+  const { data: editingClass, isLoading: isLoadingEditingClass } = useFitnessClassById(editingClassId || '');
 
-  const handleEditClass = (data: FitnessClassDto): void => {
-    if (editingClassId) {
-      updateClass({ id: editingClassId, request: data }, {
-        onSuccess: () => {
-          toast.success('Fitness class updated successfully.');
-          setIsFormOpen(false);
-          setEditingClassId(null);
-        },
-        onError: (err) => {
-          toast.error(`Failed to update fitness class: ${err.message}`);
-        },
-      });
+  const handleCreateClass = async (data: FitnessClassDto): Promise<void> => {
+    try {
+      await createClass(data);
+      toast.success('Fitness class created successfully.');
+      setIsFormOpen(false);
+      setEditingClassId(null);
+    } catch (err: unknown) {
+      toast.error(`Failed to create fitness class: ${err instanceof Error ? err.message : 'Unknown error'}`);
     }
   };
 
-  const handleDeleteClass = (): void => {
+  const handleEditClass = async (data: FitnessClassDto): Promise<void> => {
+    if (editingClassId) {
+      try {
+        await updateClass({ id: editingClassId, request: data });
+        toast.success('Fitness class updated successfully.');
+        setIsFormOpen(false);
+        setEditingClassId(null);
+      } catch (err: unknown) {
+        toast.error(`Failed to update fitness class: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      }
+    }
+  };
+
+  const handleDeleteClass = async (): Promise<void> => {
     if (deletingClassId) {
-      deleteClass(deletingClassId, {
-        onSuccess: () => {
-          toast.success('Fitness class deleted successfully.');
-          setIsDeleteDialogOpen(false);
-          setDeletingClassId(null);
-        },
-        onError: (err) => {
-          toast.error(`Failed to delete fitness class: ${err.message}`);
-        },
-      });
+      try {
+        await deleteClass(deletingClassId);
+        toast.success('Fitness class deleted successfully.');
+        setIsDeleteDialogOpen(false);
+        setDeletingClassId(null);
+      } catch (err: unknown) {
+        toast.error(`Failed to delete fitness class: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      }
     }
   };
 
