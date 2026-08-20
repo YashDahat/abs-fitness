@@ -2389,14 +2389,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Page with a form for users to log in to their member account.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "LoginPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the login form and handles user authentication."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "auth-ui",
-    "file_role" : null,
+    "file_role" : "PAGE layer — provides the user interface for user login, interacting with the authentication context via `useAuth().login(email, password)`.",
     "change_required" : null
   }, {
     "file_name" : "SignupPage.tsx",
@@ -2407,14 +2412,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Page with a form for new users to register for a member account.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "SignupPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the signup form and handles new user registration."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "auth-ui",
-    "file_role" : null,
+    "file_role" : "PAGE layer — provides the user interface for new user registration, interacting with the authentication context via `useAuth().signup(email, password)`.",
     "change_required" : null
   }, {
     "file_name" : "ProtectedRoute.tsx",
@@ -2425,14 +2435,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A component that guards routes, redirecting unauthenticated or unauthorized users.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ProtectedRoute",
+      "parameters" : [ "object props: { children: React.ReactNode }" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders children if authenticated, otherwise redirects to login."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "auth-ui",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — guards routes by checking user authentication status using `useAuth().isAuthenticated` and redirects unauthenticated users.",
     "change_required" : null
   }, {
     "file_name" : "MembershipPage.tsx",
@@ -3088,8 +3103,8 @@
     "feature_display_name" : "Authentication UI (Frontend)",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/pages/LoginPage.tsx", "frontend/src/pages/SignupPage.tsx", "frontend/src/components/ProtectedRoute.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThis feature provides the user interface for authentication, including login and signup pages, and a protected route component to guard access to authenticated sections of the application. It leverages the pre-scaffolded `@/context/AuthContext` for authentication state management and API calls. The `LoginPage.tsx` will present a form for existing users to log in. Upon successful login, the user will be redirected to the dashboard or the page they were trying to access. The `SignupPage.tsx` will provide a form for new users to register. Upon successful registration, the user will be logged in and redirected. The `ProtectedRoute.tsx` component will wrap routes that require authentication. If a user tries to access a protected route without being authenticated, they will be redirected to the login page. Both `LoginPage` and `SignupPage` will use the `useAuth()` hook to interact with the authentication context for `login(email, password)` and `signup(email, password)` respectively. The `ProtectedRoute` will use `useAuth().isAuthenticated` to determine access.\n\n### LoginPage.tsx\nThis page will display a login form with fields for email and password. It will include a prominent heading \"Welcome Back to ABS FITNESS\" and a call to action button \"Login\". Below the login form, there will be a link to the signup page. The form submission will call `useAuth().login(email, password)`. On successful login, the user will be navigated to the `/account/dashboard` route. On error, a toast notification will display the error message.\n\n### SignupPage.tsx\nThis page will display a signup form with fields for email, password, and confirm password. It will include a prominent heading \"Join the ABS FITNESS Community\" and a call to action button \"Sign Up\". Below the signup form, there will be a link to the login page. The form submission will call `useAuth().signup(email, password)`. On successful signup, the user will be navigated to the `/account/dashboard` route. On error, a toast notification will display the error message.\n\n### ProtectedRoute.tsx\nThis component will receive `children` as props. It will use the `useAuth().isAuthenticated` value to determine if the user is logged in. If `isAuthenticated` is `false`, the user will be redirected to the `/login` page using `react-router-dom`'s `Navigate` component. Otherwise, it will render the `children` components. This component ensures that only authenticated users can access specific routes within the application, such as the member portal.",
+    "depends_on_features" : [ ],
     "change_required" : true,
     "change_instruction" : null
   }, {
