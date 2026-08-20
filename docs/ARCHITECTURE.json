@@ -2255,14 +2255,14 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Page with a form for users to log in to their member accounts.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "auth-ui",
-    "file_role" : null,
+    "file_role" : "PAGE layer — renders a login form and handles user authentication using the `useAuth().login()` function.",
     "change_required" : null
   }, {
     "file_name" : "SignupPage.tsx",
@@ -2273,14 +2273,14 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Page with a form for new users to register for a member account.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "auth-ui",
-    "file_role" : null,
+    "file_role" : "PAGE layer — renders a signup form and handles new user registration using the `useAuth().register()` function.",
     "change_required" : null
   }, {
     "file_name" : "ProtectedRoute.tsx",
@@ -2291,14 +2291,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "A component that guards routes, redirecting unauthenticated or unauthorized users.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "ProtectedRoute",
+      "parameters" : [ "React.PropsWithChildren<{ roles?: string[]; redirectPath?: string }>" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders children if authenticated and authorized, otherwise redirects."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "auth-ui",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — guards routes, redirecting unauthenticated or unauthorized users based on `useAuth().isAuthenticated` and `useAuth().user.roles`.",
     "change_required" : null
   }, {
     "file_name" : "AdminLayout.tsx",
@@ -3317,8 +3322,8 @@
     "feature_display_name" : "Authentication UI",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/pages/LoginPage.tsx", "frontend/src/pages/SignupPage.tsx", "frontend/src/components/ProtectedRoute.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThis feature provides the user interface for authentication, including login and signup pages, and a protected route component to guard access to authenticated sections of the application. It leverages the pre-scaffolded authentication context (`useAuth()`) for managing user sessions, login, and registration. All forms will include appropriate input validation and display user-friendly error messages. Upon successful authentication, users will be redirected to their intended destination or a default authenticated route.\n\n### LoginPage.tsx\nThis page renders a login form allowing users to enter their email and password. It uses the `useAuth()` hook to call the `login(email, password)` function. Upon successful login, the user is redirected to the dashboard or the `redirectPath` if provided. The form includes client-side validation for email format and password presence. Error messages from the `login` function are displayed to the user.\n\n### SignupPage.tsx\nThis page renders a signup form for new users to register. It uses the `useAuth()` hook to call the `register(email, password, name)` function. Upon successful registration, the user is automatically logged in and redirected to the dashboard or the `redirectPath`. The form includes client-side validation for email format, password strength, and matching passwords. Error messages from the `register` function are displayed to the user.\n\n### ProtectedRoute.tsx\nThis component acts as a wrapper for routes that require authentication. It uses the `useAuth()` hook to check if a user is currently authenticated. If the user is not authenticated, they are redirected to the `/login` page. If the user is authenticated, the component renders its children. It also handles an optional `roles` prop to restrict access based on user roles, redirecting unauthorized users to a `/unauthorized` page (which is outside the scope of this feature).",
+    "depends_on_features" : [ ],
     "change_required" : true,
     "change_instruction" : null
   }, {
