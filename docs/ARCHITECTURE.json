@@ -533,13 +533,41 @@
     "status" : "PLANNED",
     "description" : "Represents a bookable fitness class, including schedule, trainer, and capacity.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the fitness class. Not null."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the fitness class. Not null, max 100 characters."
+    }, {
+      "name" : "description",
+      "type" : "String",
+      "description" : "Description of the fitness class. Max 500 characters."
+    }, {
+      "name" : "scheduleTime",
+      "type" : "LocalDateTime",
+      "description" : "Scheduled date and time of the class. Not null."
+    }, {
+      "name" : "durationMinutes",
+      "type" : "Integer",
+      "description" : "Duration of the class in minutes. Not null, min 1."
+    }, {
+      "name" : "capacity",
+      "type" : "Integer",
+      "description" : "Maximum number of participants for the class. Not null, min 1."
+    }, {
+      "name" : "trainer",
+      "type" : "Trainer",
+      "description" : "The trainer conducting this class. Many-to-one relationship with Trainer entity."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Trainer.java" ],
     "depends_on" : [ ],
     "feature_name" : "class-management",
-    "file_role" : null,
+    "file_role" : "MODEL layer - Represents a bookable fitness class, including schedule, trainer, and capacity.",
     "change_required" : null
   }, {
     "file_name" : "FitnessClassRepository.java",
@@ -550,14 +578,24 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "JPA repository for FitnessClass entities.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "findByTrainerId",
+      "parameters" : [ "UUID trainerId" ],
+      "return_type" : "List<FitnessClass>",
+      "description" : "Retrieves a list of fitness classes associated with a specific trainer."
+    }, {
+      "name" : "findByScheduleTimeBetween",
+      "parameters" : [ "LocalDateTime start", "LocalDateTime end" ],
+      "return_type" : "List<FitnessClass>",
+      "description" : "Retrieves a list of fitness classes scheduled within a given time range."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/FitnessClass.java" ],
     "depends_on" : [ ],
     "feature_name" : "class-management",
-    "file_role" : null,
+    "file_role" : "REPOSITORY layer - JPA repository for FitnessClass entities, providing standard CRUD and custom query methods.",
     "change_required" : null
   }, {
     "file_name" : "FitnessClassService.java",
@@ -568,14 +606,39 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Business logic for managing fitness classes and their schedules.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createFitnessClass",
+      "parameters" : [ "FitnessClassDto fitnessClassDto" ],
+      "return_type" : "FitnessClassDto",
+      "description" : "Creates a new fitness class based on the provided DTO."
+    }, {
+      "name" : "getAllFitnessClasses",
+      "parameters" : [ ],
+      "return_type" : "List<FitnessClassDto>",
+      "description" : "Retrieves all available fitness classes."
+    }, {
+      "name" : "getFitnessClassById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "FitnessClassDto",
+      "description" : "Retrieves a fitness class by its unique identifier."
+    }, {
+      "name" : "updateFitnessClass",
+      "parameters" : [ "UUID id", "FitnessClassDto fitnessClassDto" ],
+      "return_type" : "FitnessClassDto",
+      "description" : "Updates an existing fitness class identified by its ID."
+    }, {
+      "name" : "deleteFitnessClass",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "void",
+      "description" : "Deletes a fitness class by its unique identifier."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/FitnessClassRepository.java", "backend/src/main/java/com/absfitness/dto/FitnessClassDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "class-management",
-    "file_role" : null,
+    "file_role" : "SERVICE layer - Implements createFitnessClass(FitnessClassDto): FitnessClassDto, getAllFitnessClasses(): List<FitnessClassDto>, getFitnessClassById(UUID): FitnessClassDto, updateFitnessClass(UUID, FitnessClassDto): FitnessClassDto, and deleteFitnessClass(UUID): void; delegates persistence to FitnessClassRepository and trainer lookup to TrainerService.",
     "change_required" : null
   }, {
     "file_name" : "FitnessClassController.java",
@@ -586,14 +649,38 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Public REST controller for fetching fitness class schedules.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllFitnessClasses",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<FitnessClassDto>>",
+      "description" : "Retrieves a list of all fitness classes."
+    }, {
+      "name" : "getFitnessClassById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<FitnessClassDto>",
+      "description" : "Retrieves a single fitness class by its ID."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/classes",
+      "request_body" : null,
+      "response_body" : "List<FitnessClassDto>",
+      "description" : "Get all fitness classes.",
+      "access" : "public"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/classes/{id}",
+      "request_body" : null,
+      "response_body" : "FitnessClassDto",
+      "description" : "Get a fitness class by ID.",
+      "access" : "public"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/FitnessClassService.java" ],
     "depends_on" : [ ],
     "feature_name" : "class-management",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer - Public REST controller for fetching fitness class schedules via getAllFitnessClasses(): ResponseEntity<List<FitnessClassDto>> and getFitnessClassById(UUID): ResponseEntity<FitnessClassDto>.",
     "change_required" : null
   }, {
     "file_name" : "AdminFitnessClassController.java",
@@ -604,14 +691,74 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Admin-only REST controller for CRUD operations on fitness classes.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createFitnessClass",
+      "parameters" : [ "FitnessClassDto fitnessClassDto" ],
+      "return_type" : "ResponseEntity<FitnessClassDto>",
+      "description" : "Creates a new fitness class."
+    }, {
+      "name" : "getAllFitnessClasses",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<FitnessClassDto>>",
+      "description" : "Retrieves a list of all fitness classes."
+    }, {
+      "name" : "getFitnessClassById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<FitnessClassDto>",
+      "description" : "Retrieves a single fitness class by its ID."
+    }, {
+      "name" : "updateFitnessClass",
+      "parameters" : [ "UUID id", "FitnessClassDto fitnessClassDto" ],
+      "return_type" : "ResponseEntity<FitnessClassDto>",
+      "description" : "Updates an existing fitness class."
+    }, {
+      "name" : "deleteFitnessClass",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<Void>",
+      "description" : "Deletes a fitness class by its ID."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/admin/classes",
+      "request_body" : "FitnessClassDto",
+      "response_body" : "FitnessClassDto",
+      "description" : "Create a new fitness class.",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/classes",
+      "request_body" : null,
+      "response_body" : "List<FitnessClassDto>",
+      "description" : "Get all fitness classes (admin).",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/classes/{id}",
+      "request_body" : null,
+      "response_body" : "FitnessClassDto",
+      "description" : "Get a fitness class by ID (admin).",
+      "access" : "admin"
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/classes/{id}",
+      "request_body" : "FitnessClassDto",
+      "response_body" : "FitnessClassDto",
+      "description" : "Update a fitness class by ID.",
+      "access" : "admin"
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/classes/{id}",
+      "request_body" : null,
+      "response_body" : "void",
+      "description" : "Delete a fitness class by ID.",
+      "access" : "admin"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/FitnessClassService.java" ],
     "depends_on" : [ ],
     "feature_name" : "class-management",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer - Admin-only REST controller for CRUD operations on fitness classes via createFitnessClass(FitnessClassDto): ResponseEntity<FitnessClassDto>, getAllFitnessClasses(): ResponseEntity<List<FitnessClassDto>>, getFitnessClassById(UUID): ResponseEntity<FitnessClassDto>, updateFitnessClass(UUID, FitnessClassDto): ResponseEntity<FitnessClassDto>, and deleteFitnessClass(UUID): ResponseEntity<Void>.",
     "change_required" : null
   }, {
     "file_name" : "FitnessClassDto.java",
@@ -623,13 +770,45 @@
     "status" : "PLANNED",
     "description" : "Data Transfer Object for FitnessClass entities.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the fitness class."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the fitness class. Not null, min 2, max 100 characters."
+    }, {
+      "name" : "description",
+      "type" : "String",
+      "description" : "Description of the fitness class. Max 500 characters."
+    }, {
+      "name" : "scheduleTime",
+      "type" : "LocalDateTime",
+      "description" : "Scheduled date and time of the class. Not null."
+    }, {
+      "name" : "durationMinutes",
+      "type" : "Integer",
+      "description" : "Duration of the class in minutes. Not null, min 1, max 240."
+    }, {
+      "name" : "capacity",
+      "type" : "Integer",
+      "description" : "Maximum number of participants for the class. Not null, min 1, max 500."
+    }, {
+      "name" : "trainerId",
+      "type" : "UUID",
+      "description" : "ID of the trainer conducting this class."
+    }, {
+      "name" : "trainerName",
+      "type" : "String",
+      "description" : "Name of the trainer conducting this class (read-only)."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "class-management",
-    "file_role" : null,
+    "file_role" : "DTO layer - Data Transfer Object for FitnessClass entities, used for API request and response bodies.",
     "change_required" : null
   }, {
     "file_name" : "Booking.java",
@@ -2347,8 +2526,8 @@
     "feature_display_name" : "Class Management",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/model/FitnessClass.java", "backend/src/main/java/com/absfitness/repository/FitnessClassRepository.java", "backend/src/main/java/com/absfitness/service/FitnessClassService.java", "backend/src/main/java/com/absfitness/controller/FitnessClassController.java", "backend/src/main/java/com/absfitness/controller/admin/AdminFitnessClassController.java", "backend/src/main/java/com/absfitness/dto/FitnessClassDto.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "The Class Management feature provides a complete backend solution for managing fitness classes at ABS FITNESS. It includes an entity to represent fitness classes, a repository for persistence, a service layer for business logic, and two controllers: one public for fetching class schedules and one admin-only for CRUD operations. This feature integrates with the `trainer-management` feature to associate classes with trainers.\n\n## FitnessClass.java\nThis JPA entity defines the structure of a fitness class, including its name, description, schedule, capacity, and associated trainer. It will be mapped to a PostgreSQL table.\n\n## FitnessClassRepository.java\nThis Spring Data JPA repository provides standard CRUD operations for `FitnessClass` entities. It will also include custom query methods to fetch classes based on various criteria, such as by trainer or by schedule.\n\n## FitnessClassService.java\nThis service layer handles the core business logic for fitness classes. It interacts with `FitnessClassRepository` for data persistence and with `TrainerService` (from `trainer-management` feature) to retrieve trainer details. All public methods in this service will use `FitnessClassDto` for input and output, ensuring a clean separation between the domain model and the API contract.\n\n### Public Functions:\n1. `createFitnessClass(FitnessClassDto fitnessClassDto): FitnessClassDto`\n   - Creates a new fitness class.\n   - Steps:\n     1. Validate `fitnessClassDto` using Bean Validation annotations.\n     2. Convert `fitnessClassDto` to a `FitnessClass` entity.\n     3. If a `trainerId` is provided in the DTO, fetch the `Trainer` entity using `trainerService.getTrainerById(trainerId)`. Throws `ResourceNotFoundException` if the trainer does not exist.\n     4. Save the `FitnessClass` entity using `fitnessClassRepository.save()`.\n     5. Convert the saved `FitnessClass` entity back to `FitnessClassDto` and return it.\n   - Error Cases:\n     - `MethodArgumentNotValidException` (400 Bad Request) if `fitnessClassDto` validation fails.\n     - `ResourceNotFoundException` (404 Not Found) if the specified trainer does not exist.\n\n2. `getAllFitnessClasses(): List<FitnessClassDto>`\n   - Retrieves all fitness classes.\n   - Steps:\n     1. Fetch all `FitnessClass` entities from `fitnessClassRepository.findAll()`.\n     2. Convert each `FitnessClass` entity to `FitnessClassDto`.\n     3. Return the list of `FitnessClassDto`.\n\n3. `getFitnessClassById(UUID id): FitnessClassDto`\n   - Retrieves a single fitness class by its ID.\n   - Steps:\n     1. Fetch the `FitnessClass` entity by `id` from `fitnessClassRepository.findById(id)`.\n     2. If the class is not found, throw `ResourceNotFoundException`.\n     3. Convert the `FitnessClass` entity to `FitnessClassDto` and return it.\n   - Error Cases:\n     - `ResourceNotFoundException` (404 Not Found) if the fitness class with the given ID does not exist.\n\n4. `updateFitnessClass(UUID id, FitnessClassDto fitnessClassDto): FitnessClassDto`\n   - Updates an existing fitness class.\n   - Steps:\n     1. Validate `fitnessClassDto` using Bean Validation annotations.\n     2. Fetch the existing `FitnessClass` entity by `id` from `fitnessClassRepository.findById(id)`. If not found, throw `ResourceNotFoundException`.\n     3. Update the fields of the existing `FitnessClass` entity with values from `fitnessClassDto`.\n     4. If a `trainerId` is provided in the DTO, fetch the `Trainer` entity using `trainerService.getTrainerById(trainerId)`. Throws `ResourceNotFoundException` if the trainer does not exist.\n     5. Save the updated `FitnessClass` entity using `fitnessClassRepository.save()`.\n     6. Convert the saved `FitnessClass` entity back to `FitnessClassDto` and return it.\n   - Error Cases:\n     - `MethodArgumentNotValidException` (400 Bad Request) if `fitnessClassDto` validation fails.\n     - `ResourceNotFoundException` (404 Not Found) if the fitness class or specified trainer does not exist.\n\n5. `deleteFitnessClass(UUID id): void`\n   - Deletes a fitness class by its ID.\n   - Steps:\n     1. Check if the `FitnessClass` entity exists by `id` using `fitnessClassRepository.existsById(id)`. If not found, throw `ResourceNotFoundException`.\n     2. Delete the `FitnessClass` entity using `fitnessClassRepository.deleteById(id)`.\n   - Error Cases:\n     - `ResourceNotFoundException` (404 Not Found) if the fitness class with the given ID does not exist.\n\n## FitnessClassController.java\nThis controller exposes public API endpoints for retrieving fitness class schedules. It injects `FitnessClassService`.\n\n### Public Functions:\n1. `getAllFitnessClasses(): ResponseEntity<List<FitnessClassDto>>`\n   - Handles GET requests to `/api/v1/classes`.\n   - Calls `fitnessClassService.getAllFitnessClasses()`.\n   - Returns a `200 OK` with a list of `FitnessClassDto`.\n\n2. `getFitnessClassById(UUID id): ResponseEntity<FitnessClassDto>`\n   - Handles GET requests to `/api/v1/classes/{id}`.\n   - Calls `fitnessClassService.getFitnessClassById(id)`.\n   - Returns a `200 OK` with the `FitnessClassDto`.\n   - Returns `404 Not Found` if `ResourceNotFoundException` is thrown by the service.\n\n## AdminFitnessClassController.java\nThis controller exposes admin-only API endpoints for CRUD operations on fitness classes. It injects `FitnessClassService`.\n\n### Public Functions:\n1. `createFitnessClass(FitnessClassDto fitnessClassDto): ResponseEntity<FitnessClassDto>`\n   - Handles POST requests to `/api/v1/admin/classes`.\n   - Calls `fitnessClassService.createFitnessClass(fitnessClassDto)`.\n   - Returns a `201 Created` with the created `FitnessClassDto`.\n   - Returns `400 Bad Request` if `MethodArgumentNotValidException` is thrown by the service.\n   - Returns `404 Not Found` if `ResourceNotFoundException` is thrown by the service.\n\n2. `getAllFitnessClasses(): ResponseEntity<List<FitnessClassDto>>`\n   - Handles GET requests to `/api/v1/admin/classes`.\n   - Calls `fitnessClassService.getAllFitnessClasses()`.\n   - Returns a `200 OK` with a list of `FitnessClassDto`.\n\n3. `getFitnessClassById(UUID id): ResponseEntity<FitnessClassDto>`\n   - Handles GET requests to `/api/v1/admin/classes/{id}`.\n   - Calls `fitnessClassService.getFitnessClassById(id)`.\n   - Returns a `200 OK` with the `FitnessClassDto`.\n   - Returns `404 Not Found` if `ResourceNotFoundException` is thrown by the service.\n\n4. `updateFitnessClass(UUID id, FitnessClassDto fitnessClassDto): ResponseEntity<FitnessClassDto>`\n   - Handles PUT requests to `/api/v1/admin/classes/{id}`.\n   - Calls `fitnessClassService.updateFitnessClass(id, fitnessClassDto)`.\n   - Returns a `200 OK` with the updated `FitnessClassDto`.\n   - Returns `400 Bad Request` if `MethodArgumentNotValidException` is thrown by the service.\n   - Returns `404 Not Found` if `ResourceNotFoundException` is thrown by the service.\n\n5. `deleteFitnessClass(UUID id): ResponseEntity<Void>`\n   - Handles DELETE requests to `/api/v1/admin/classes/{id}`.\n   - Calls `fitnessClassService.deleteFitnessClass(id)`.\n   - Returns a `204 No Content` on successful deletion.\n   - Returns `404 Not Found` if `ResourceNotFoundException` is thrown by the service.\n\n## FitnessClassDto.java\nThis DTO defines the data contract for fitness class information exchanged between the client and the server. It includes fields for class details and trainer information, with appropriate Bean Validation annotations.",
+    "depends_on_features" : [ "trainer-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
