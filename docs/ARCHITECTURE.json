@@ -1408,14 +1408,38 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Represents a curated customer review (e.g., from Google) to be displayed on the site.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the review. Not null."
+    }, {
+      "name" : "author",
+      "type" : "String",
+      "description" : "Name of the review author. Not null, max 100 characters."
+    }, {
+      "name" : "rating",
+      "type" : "Integer",
+      "description" : "Rating given by the author (e.g., 1-5 stars). Not null, min 1, max 5."
+    }, {
+      "name" : "comment",
+      "type" : "String",
+      "description" : "The review comment. Not null, max 1000 characters."
+    }, {
+      "name" : "source",
+      "type" : "String",
+      "description" : "Source of the review (e.g., 'Google', 'Website'). Not null, max 50 characters."
+    }, {
+      "name" : "createdAt",
+      "type" : "LocalDateTime",
+      "description" : "Timestamp when the review was created. Not null."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "JPA Entity — represents a curated customer review in the database.",
     "change_required" : null
   }, {
     "file_name" : "ReviewRepository.java",
@@ -1426,14 +1450,19 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "JPA repository for Review entities.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "findAllByOrderByCreatedAtDesc",
+      "parameters" : [ ],
+      "return_type" : "List<Review>",
+      "description" : "Retrieves all reviews, ordered by creation date in descending order."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Review.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "REPOSITORY layer — provides data access operations for Review entities.",
     "change_required" : null
   }, {
     "file_name" : "ReviewService.java",
@@ -1444,14 +1473,39 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Business logic for managing curated customer reviews.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ {
+      "name" : "createReview",
+      "parameters" : [ "ReviewDto reviewDto" ],
+      "return_type" : "ReviewDto",
+      "description" : "Creates a new review. Throws IllegalArgumentException if reviewDto is invalid."
+    }, {
+      "name" : "getAllReviews",
+      "parameters" : [ ],
+      "return_type" : "List<ReviewDto>",
+      "description" : "Retrieves all reviews, ordered by creation date descending."
+    }, {
+      "name" : "getReviewById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ReviewDto",
+      "description" : "Retrieves a review by its ID. Throws ResourceNotFoundException if not found."
+    }, {
+      "name" : "updateReview",
+      "parameters" : [ "UUID id", "ReviewDto reviewDto" ],
+      "return_type" : "ReviewDto",
+      "description" : "Updates an existing review. Throws ResourceNotFoundException if review not found, or IllegalArgumentException if reviewDto is invalid."
+    }, {
+      "name" : "deleteReview",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "void",
+      "description" : "Deletes a review by its ID. Throws ResourceNotFoundException if review not found."
+    } ],
+    "public_variables" : [ ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/ReviewRepository.java", "backend/src/main/java/com/absfitness/dto/ReviewDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — implements business logic for managing reviews, including createReview(ReviewDto), getAllReviews(): List<ReviewDto>, getReviewById(UUID): ReviewDto, updateReview(UUID, ReviewDto): ReviewDto, and deleteReview(UUID).",
     "change_required" : null
   }, {
     "file_name" : "ReviewController.java",
@@ -1462,14 +1516,38 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Public REST controller for fetching reviews to display on the website.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
+    "public_functions" : [ {
+      "name" : "getAllReviews",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<ReviewDto>>",
+      "description" : "Handles GET requests to retrieve all reviews."
+    }, {
+      "name" : "getReviewById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<ReviewDto>",
+      "description" : "Handles GET requests to retrieve a single review by ID."
+    } ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/reviews",
+      "request_body" : null,
+      "response_body" : "List<ReviewDto>",
+      "description" : "Retrieves all curated customer reviews, ordered by creation date descending.",
+      "access" : "public"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/reviews/{id}",
+      "request_body" : null,
+      "response_body" : "ReviewDto",
+      "description" : "Retrieves a single curated customer review by its ID. Returns 404 if not found.",
+      "access" : "public"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/ReviewService.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — exposes public REST endpoints for fetching reviews.",
     "change_required" : null
   }, {
     "file_name" : "AdminReviewController.java",
@@ -1480,14 +1558,74 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Admin-only REST controller for CRUD operations on reviews.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
+    "public_functions" : [ {
+      "name" : "createReview",
+      "parameters" : [ "ReviewDto reviewDto" ],
+      "return_type" : "ResponseEntity<ReviewDto>",
+      "description" : "Handles POST requests to create a new review."
+    }, {
+      "name" : "getAllReviews",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<ReviewDto>>",
+      "description" : "Handles GET requests to retrieve all reviews for admin."
+    }, {
+      "name" : "getReviewById",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<ReviewDto>",
+      "description" : "Handles GET requests to retrieve a single review by ID for admin."
+    }, {
+      "name" : "updateReview",
+      "parameters" : [ "UUID id", "ReviewDto reviewDto" ],
+      "return_type" : "ResponseEntity<ReviewDto>",
+      "description" : "Handles PUT requests to update an existing review."
+    }, {
+      "name" : "deleteReview",
+      "parameters" : [ "UUID id" ],
+      "return_type" : "ResponseEntity<Void>",
+      "description" : "Handles DELETE requests to delete a review by ID."
+    } ],
+    "public_variables" : [ ],
+    "api_endpoints" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/admin/reviews",
+      "request_body" : "ReviewDto",
+      "response_body" : "ReviewDto",
+      "description" : "Creates a new curated customer review. Returns 400 if input is invalid.",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/reviews",
+      "request_body" : null,
+      "response_body" : "List<ReviewDto>",
+      "description" : "Retrieves all curated customer reviews for administrative purposes, ordered by creation date descending.",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/reviews/{id}",
+      "request_body" : null,
+      "response_body" : "ReviewDto",
+      "description" : "Retrieves a single curated customer review by its ID for administrative purposes. Returns 404 if not found.",
+      "access" : "admin"
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/reviews/{id}",
+      "request_body" : "ReviewDto",
+      "response_body" : "ReviewDto",
+      "description" : "Updates an existing curated customer review. Returns 404 if not found, 400 if input is invalid.",
+      "access" : "admin"
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/reviews/{id}",
+      "request_body" : null,
+      "response_body" : "void",
+      "description" : "Deletes a curated customer review by its ID. Returns 404 if not found.",
+      "access" : "admin"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/ReviewService.java" ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — exposes admin-only REST endpoints for CRUD operations on reviews.",
     "change_required" : null
   }, {
     "file_name" : "ReviewDto.java",
@@ -1498,14 +1636,38 @@
     "updated_date" : "2024-07-26",
     "status" : "PLANNED",
     "description" : "Data Transfer Object for Review entities.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "UUID",
+      "description" : "Unique identifier for the review."
+    }, {
+      "name" : "author",
+      "type" : "String",
+      "description" : "Name of the review author. @NotBlank, @Size(max = 100)."
+    }, {
+      "name" : "rating",
+      "type" : "Integer",
+      "description" : "Rating given by the author. @NotNull, @Min(1), @Max(5)."
+    }, {
+      "name" : "comment",
+      "type" : "String",
+      "description" : "The review comment. @NotBlank, @Size(max = 1000)."
+    }, {
+      "name" : "source",
+      "type" : "String",
+      "description" : "Source of the review. @NotBlank, @Size(max = 50)."
+    }, {
+      "name" : "createdAt",
+      "type" : "LocalDateTime",
+      "description" : "Timestamp when the review was created."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "content-management",
-    "file_role" : null,
+    "file_role" : "Data Transfer Object — used for transferring review data between layers.",
     "change_required" : null
   }, {
     "file_name" : "Enquiry.java",
@@ -2890,8 +3052,8 @@
     "feature_display_name" : "Content Management",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/model/Review.java", "backend/src/main/java/com/absfitness/repository/ReviewRepository.java", "backend/src/main/java/com/absfitness/service/ReviewService.java", "backend/src/main/java/com/absfitness/controller/ReviewController.java", "backend/src/main/java/com/absfitness/controller/admin/AdminReviewController.java", "backend/src/main/java/com/absfitness/dto/ReviewDto.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "The Content Management feature handles the creation, retrieval, update, and deletion of curated customer reviews for ABS FITNESS. This feature consists of a `Review` JPA entity, a `ReviewRepository` for data access, a `ReviewService` for business logic, a `ReviewDto` for data transfer, and two controllers: `ReviewController` for public access to reviews, and `AdminReviewController` for administrative CRUD operations. The `ReviewService` orchestrates interactions between the controllers and the repository. Public endpoints allow any visitor to fetch reviews to be displayed on the website, while admin endpoints are secured and require authentication to manage the reviews. All monetary values, if any, will be displayed in Indian Rupees (₹) using the en-IN locale.",
+    "depends_on_features" : [ ],
     "change_required" : true,
     "change_instruction" : null
   }, {
