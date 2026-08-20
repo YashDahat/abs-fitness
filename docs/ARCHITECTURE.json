@@ -35,28 +35,10 @@
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
-    "imports_from" : [ "backend/src/main/java/com/absfitness/dto/ErrorResponse.java", "backend/src/main/java/com/absfitness/exception/ResourceNotFoundException.java" ],
+    "imports_from" : [ "backend/src/main/java/com/absfitness/dto/ErrorResponse.java" ],
     "depends_on" : [ ],
     "feature_name" : "shared-backend",
     "file_role" : "Centralized exception handler for the backend, mapping various exceptions to standardized HTTP responses using the ErrorResponse DTO. It handles ResourceNotFoundException by returning a 404 Not Found status.",
-    "change_required" : null
-  }, {
-    "file_name" : "ResourceNotFoundException.java",
-    "file_path" : "backend/src/main/java/com/absfitness/exception/ResourceNotFoundException.java",
-    "file_type" : "BACKEND",
-    "layer" : "EXCEPTION",
-    "created_date" : "2024-07-26",
-    "updated_date" : "2024-07-26",
-    "status" : "PLANNED",
-    "description" : "Custom exception for cases where a requested domain entity is not found.",
-    "public_functions" : [ ],
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
-    "imports_from" : [ ],
-    "depends_on" : [ ],
-    "feature_name" : "shared-backend",
-    "file_role" : "Custom runtime exception to be thrown when a requested resource (e.g., a database entity) cannot be found, leading to an HTTP 404 response.",
     "change_required" : null
   }, {
     "file_name" : "ErrorResponse.java",
@@ -112,7 +94,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the membership plan."
     }, {
       "name" : "name",
@@ -331,7 +313,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the membership plan."
     }, {
       "name" : "name",
@@ -369,11 +351,11 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the member subscription."
     }, {
       "name" : "memberId",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "ID of the member who owns this subscription, not null."
     }, {
       "name" : "membershipPlan",
@@ -535,7 +517,7 @@
     "public_functions" : null,
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the fitness class. Not null."
     }, {
       "name" : "name",
@@ -772,7 +754,7 @@
     "public_functions" : null,
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the fitness class."
     }, {
       "name" : "name",
@@ -796,7 +778,7 @@
       "description" : "Maximum number of participants for the class. Not null, min 1, max 500."
     }, {
       "name" : "trainerId",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "ID of the trainer conducting this class."
     }, {
       "name" : "trainerName",
@@ -822,11 +804,11 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the booking. Not null."
     }, {
       "name" : "memberId",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "ID of the member who made the booking. Not null."
     }, {
       "name" : "fitnessClass",
@@ -858,8 +840,8 @@
     "file_type" : "BACKEND",
     "layer" : "MODEL",
     "created_date" : "2024-07-26",
-    "updated_date" : "2024-07-26",
-    "status" : "PLANNED",
+    "updated_date" : "2026-08-20",
+    "status" : "GENERATED",
     "description" : "Enum representing the status of a booking (e.g., CONFIRMED, CANCELLED).",
     "public_functions" : [ ],
     "public_variables" : [ {
@@ -1090,15 +1072,15 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the booking."
     }, {
       "name" : "memberId",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "ID of the member who made the booking."
     }, {
       "name" : "fitnessClassId",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "ID of the fitness class booked."
     }, {
       "name" : "fitnessClassName",
@@ -1132,7 +1114,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "fitnessClassId",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "ID of the fitness class to book. Not null."
     } ],
     "api_endpoints" : null,
@@ -1154,7 +1136,7 @@
     "public_functions" : null,
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the trainer, not null."
     }, {
       "name" : "name",
@@ -1373,7 +1355,7 @@
     "public_functions" : null,
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the trainer."
     }, {
       "name" : "name",
@@ -1411,7 +1393,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the review. Not null."
     }, {
       "name" : "author",
@@ -1639,7 +1621,7 @@
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the review."
     }, {
       "name" : "author",
@@ -1681,7 +1663,7 @@
     "public_functions" : null,
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the enquiry, auto-generated."
     }, {
       "name" : "name",
@@ -1846,7 +1828,7 @@
     "public_functions" : null,
     "public_variables" : [ {
       "name" : "id",
-      "type" : "UUID",
+      "type" : "Long",
       "description" : "Unique identifier for the enquiry, optional for creation."
     }, {
       "name" : "name",
@@ -3742,7 +3724,7 @@
     "feature_name" : "shared-backend",
     "feature_display_name" : "Shared Backend Utilities",
     "feature_type" : "SHARED",
-    "file_paths" : [ "backend/src/main/java/com/absfitness/exception/GlobalExceptionHandler.java", "backend/src/main/java/com/absfitness/exception/ResourceNotFoundException.java", "backend/src/main/java/com/absfitness/dto/ErrorResponse.java" ],
+    "file_paths" : [ "backend/src/main/java/com/absfitness/exception/GlobalExceptionHandler.java", "backend/src/main/java/com/absfitness/dto/ErrorResponse.java" ],
     "feature_instruction" : "The Shared Backend Utilities feature provides foundational components for error handling and standardized API responses across the entire backend. It includes `ResourceNotFoundException`, a custom exception for when an entity is not found, `ErrorResponse` DTO for consistent error reporting, and `GlobalExceptionHandler` to catch and process exceptions, mapping them to appropriate HTTP status codes and `ErrorResponse` bodies. Other features will throw `ResourceNotFoundException` when an entity cannot be found, and `GlobalExceptionHandler` will automatically convert this into a 404 Not Found HTTP response with a structured `ErrorResponse` body. All API controllers across the application will benefit from this centralized error handling, ensuring a consistent client experience.",
     "depends_on_features" : [ ],
     "change_required" : true,
