@@ -2458,14 +2458,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Displays all available membership plans in a comparable format, leading to checkout.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MembershipPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the membership plans page, including a hero section and a grid of MembershipPlanCard components."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/membership/MembershipPlanCard.tsx", "frontend/src/services/membershipService.ts", "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "membership-flow",
-    "file_role" : null,
+    "file_role" : "PAGE layer — displays all available membership plans by fetching them via `membershipService.getAllMembershipPlans()` and rendering them using `MembershipPlanCard` components.",
     "change_required" : null
   }, {
     "file_name" : "MembershipPlanCard.tsx",
@@ -2476,14 +2481,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A card component to display the details of a single membership plan.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MembershipPlanCard",
+      "parameters" : [ "object props: { plan: MembershipPlanDto }" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a card for a membership plan, displaying its name, duration, price (in ₹), features, and a 'Select Plan' button."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "membership-flow",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays details of a single membership plan and provides a call-to-action to proceed to checkout.",
     "change_required" : null
   }, {
     "file_name" : "CheckoutPage.tsx",
@@ -2494,14 +2504,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Multi-step checkout page for purchasing a membership, including summary and payment.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "CheckoutPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the multi-step checkout page, displaying order summary and payment form."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/checkout/OrderSummary.tsx", "frontend/src/components/checkout/PaymentForm.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "membership-flow",
-    "file_role" : null,
+    "file_role" : "PAGE layer — orchestrates the multi-step checkout process for purchasing a membership, fetching the selected plan via `membershipService.getMembershipPlanById()` and initiating purchase via `membershipService.purchaseMembership()`.",
     "change_required" : null
   }, {
     "file_name" : "OrderSummary.tsx",
@@ -2512,14 +2527,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Component within the checkout flow that displays the selected plan and total cost.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "OrderSummary",
+      "parameters" : [ "object props: { plan: MembershipPlanDto }" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a summary of the selected membership plan, including its name, duration, and total price (in ₹)."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "membership-flow",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a summary of the selected membership plan and its total cost.",
     "change_required" : null
   }, {
     "file_name" : "PaymentForm.tsx",
@@ -2530,14 +2550,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Component that integrates with the payment gateway to process the transaction.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "PaymentForm",
+      "parameters" : [ "object props: { membershipPlanId: string, onPaymentSuccess: () => void }" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a payment form and handles the submission to purchase a membership."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "membership-flow",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — handles payment processing for membership purchases by calling `membershipService.purchaseMembership()`.",
     "change_required" : null
   }, {
     "file_name" : "membershipService.ts",
@@ -2548,14 +2573,50 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Provides functions for fetching and purchasing membership plans via the backend API.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllMembershipPlans",
+      "parameters" : [ ],
+      "return_type" : "Promise<MembershipPlanDto[]>",
+      "description" : "Fetches all active membership plans from the backend."
+    }, {
+      "name" : "getMembershipPlanById",
+      "parameters" : [ "string id" ],
+      "return_type" : "Promise<MembershipPlanDto>",
+      "description" : "Fetches a single membership plan by its ID from the backend."
+    }, {
+      "name" : "purchaseMembership",
+      "parameters" : [ "PurchaseMembershipRequest request" ],
+      "return_type" : "Promise<UserMembershipDto>",
+      "description" : "Initiates the purchase of a membership plan via the backend."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/memberships/plans",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all active membership plans.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/memberships/plans/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a specific membership plan by ID.",
+      "access" : null
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/memberships/purchase",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Purchases a membership plan for the authenticated user.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "membership-flow",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — provides functions for fetching membership plans via `getAllMembershipPlans(): Promise<MembershipPlanDto[]>` and `getMembershipPlanById(id: string): Promise<MembershipPlanDto>`, and for purchasing memberships via `purchaseMembership(request: PurchaseMembershipRequest): Promise<UserMembershipDto>`.",
     "change_required" : null
   }, {
     "file_name" : "membership.ts",
@@ -2567,13 +2628,25 @@
     "status" : "PLANNED",
     "description" : "TypeScript types and interfaces related to membership plans and user memberships.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "MembershipPlanDto",
+      "type" : "{ id: string; name: string; durationInMonths: number; price: number; features: string; isActive: boolean; }",
+      "description" : "DTO for a membership plan, mirroring the backend contract."
+    }, {
+      "name" : "PurchaseMembershipRequest",
+      "type" : "{ membershipPlanId: string; userId: string; }",
+      "description" : "Request DTO for purchasing a membership, mirroring the backend contract."
+    }, {
+      "name" : "UserMembershipDto",
+      "type" : "{ id: string; userId: string; membershipPlan: MembershipPlanDto; startDate: string; endDate: string; }",
+      "description" : "DTO for a user's membership, mirroring the backend contract."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "membership-flow",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract — defines TypeScript types for membership plans and purchase requests.",
     "change_required" : null
   }, {
     "file_name" : "SchedulePage.tsx",
@@ -3112,8 +3185,8 @@
     "feature_display_name" : "Membership & Checkout Flow (Frontend)",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/pages/MembershipPage.tsx", "frontend/src/components/membership/MembershipPlanCard.tsx", "frontend/src/pages/CheckoutPage.tsx", "frontend/src/components/checkout/OrderSummary.tsx", "frontend/src/components/checkout/PaymentForm.tsx", "frontend/src/services/membershipService.ts", "frontend/src/types/membership.ts" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThis feature provides the frontend user interface for viewing and purchasing membership plans for ABS FITNESS. It consists of a `MembershipPage` to display all available plans, `MembershipPlanCard` components to render individual plan details, a `CheckoutPage` for the multi-step purchase process, and `OrderSummary` and `PaymentForm` components within the checkout flow. The `membershipService.ts` file handles all API interactions with the backend `membership-management` feature, specifically calling `getAllMembershipPlans` to fetch plans and `purchaseMembership` to complete a transaction. The `membership.ts` file defines the TypeScript types used across this feature.\n\n### MembershipPage.tsx\nThis page is responsible for fetching all active membership plans from the backend using the `membershipService.getAllMembershipPlans()` function. It will display these plans in a grid layout, with each plan rendered by a `MembershipPlanCard` component. The page will have a hero section with a motivational headline and subheadline, followed by a section showcasing the membership plans. Each `MembershipPlanCard` will have a prominent call-to-action button that, when clicked, navigates the user to the `CheckoutPage` with the selected `MembershipPlanDto.id` as a URL parameter.\n\n### MembershipPlanCard.tsx\nThis component receives a `MembershipPlanDto` as a prop and displays its details, including `name`, `durationInMonths`, `price`, and `features`. The price should be formatted in Indian Rupees (₹) using `toLocaleString('en-IN', { style: 'currency', currency: 'INR' })`. It will include a \"Select Plan\" or \"Join Now\" button that triggers navigation to the `CheckoutPage` with the plan's ID. The card design will reflect a premium aesthetic with clear typography and a prominent CTA.\n\n### CheckoutPage.tsx\nThis page orchestrates the multi-step membership purchase process. It will retrieve the `membershipPlanId` from the URL parameters and fetch the corresponding `MembershipPlanDto` using `membershipService.getMembershipPlanById()`. The checkout flow will involve at least two steps: a summary step displaying the selected plan and total cost (rendered by `OrderSummary`), and a payment step (rendered by `PaymentForm`). The `useAuth()` hook will be used to get the current user's `userId` for the `PurchaseMembershipRequest`. Upon successful payment, the `membershipService.purchaseMembership()` function will be called with the `membershipPlanId` and `userId`. The page will display success or error messages using a toast notification system (e.g., `sonner`).\n\n### OrderSummary.tsx\nThis component receives the selected `MembershipPlanDto` as a prop. It displays a clear summary of the membership plan, including its `name`, `durationInMonths`, and `price`. The total amount due will be prominently displayed, formatted in Indian Rupees (₹). It will also include any relevant disclaimers or terms and conditions.\n\n### PaymentForm.tsx\nThis component is responsible for integrating with the payment gateway. It will render a form for payment details. Upon submission, it will call the `membershipService.purchaseMembership()` function with the `membershipPlanId` and `userId`. It should handle loading states and display feedback to the user regarding the payment status. The component will use the `useAuth()` hook to get the current user's `userId`.\n\n### membershipService.ts\nThis service file provides asynchronous functions to interact with the backend `membership-management` API. It will export `getAllMembershipPlans()` to fetch a list of all active membership plans, `getMembershipPlanById(id: UUID)` to fetch a single membership plan by its ID, and `purchaseMembership(request: PurchaseMembershipRequest)` to initiate the purchase of a membership. These functions will use the generated API client to make HTTP requests to the respective backend endpoints.\n\n### membership.ts\nThis file defines the TypeScript interfaces for `MembershipPlanDto` and `PurchaseMembershipRequest` based on the backend `membership-management` feature's `data_shapes`. It will also define any other local types required for the frontend representation of membership data.",
+    "depends_on_features" : [ "membership-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
