@@ -30,7 +30,7 @@
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
-    "imports_from" : [ "backend/src/main/java/com/absfitness/dto/ErrorResponse.java", "backend/src/main/java/com/absfitness/exception/ResourceNotFoundException.java" ],
+    "imports_from" : [ "backend/src/main/java/com/absfitness/dto/ErrorResponse.java" ],
     "depends_on" : [ ],
     "feature_name" : "shared-backend",
     "file_role" : "Centralized exception handler for the application, mapping specific exceptions to standardized `ErrorResponse` DTOs and appropriate HTTP status codes.",
@@ -76,25 +76,6 @@
     "change_required" : null,
     "contract_reconciled" : null
   }, {
-    "file_name" : "ResourceNotFoundException.java",
-    "file_path" : "backend/src/main/java/com/absfitness/exception/ResourceNotFoundException.java",
-    "file_type" : "BACKEND",
-    "layer" : "EXCEPTION",
-    "created_date" : "2024-07-30",
-    "updated_date" : "2024-07-30",
-    "status" : "PLANNED",
-    "description" : "Custom exception for cases where a requested entity is not found.",
-    "public_functions" : null,
-    "public_variables" : null,
-    "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
-    "imports_from" : [ ],
-    "depends_on" : [ ],
-    "feature_name" : "shared-backend",
-    "file_role" : "Custom exception class to be thrown when a requested resource is not found, which is then handled by `GlobalExceptionHandler`.",
-    "change_required" : null,
-    "contract_reconciled" : null
-  }, {
     "file_name" : "MembershipPlan.java",
     "file_path" : "backend/src/main/java/com/absfitness/model/MembershipPlan.java",
     "file_type" : "BACKEND",
@@ -107,36 +88,36 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Unique identifier for the membership plan. Auto-generated."
+      "description" : null
     }, {
       "name" : "name",
       "type" : "String",
-      "description" : "Name of the membership plan (e.g., 'Premium Monthly', 'Annual Gold'). Not null, max 100 characters."
+      "description" : null
     }, {
       "name" : "description",
       "type" : "String",
-      "description" : "Detailed description of the plan's benefits. Not null, max 500 characters."
+      "description" : null
     }, {
       "name" : "price",
       "type" : "BigDecimal",
-      "description" : "Price of the membership plan in INR. Not null, positive value."
+      "description" : null
     }, {
       "name" : "durationInMonths",
       "type" : "Integer",
-      "description" : "Duration of the plan in months. Not null, positive value."
+      "description" : null
     }, {
       "name" : "isActive",
       "type" : "Boolean",
-      "description" : "Indicates if the membership plan is currently active and available for purchase. Not null."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "membership-management",
-    "file_role" : "MODEL layer — defines the data structure for a gym membership plan.",
+    "file_role" : "MODEL layer — defines the data structure for a gym membership plan.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; name: String; description: String; price: BigDecimal; durationInMonths: Integer; isActive: Boolean }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "MembershipPlanRepository.java",
     "file_path" : "backend/src/main/java/com/absfitness/repository/MembershipPlanRepository.java",
@@ -148,9 +129,9 @@
     "description" : "JPA repository for CRUD operations on MembershipPlan entities.",
     "public_functions" : [ {
       "name" : "findByIsActiveTrue",
-      "parameters" : [ ],
-      "return_type" : "List<MembershipPlan>",
-      "description" : "Retrieves all membership plans that are currently active."
+      "parameters" : [ "List<MembershipPlan> findByIsActiveTrue()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -158,9 +139,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/MembershipPlan.java" ],
     "depends_on" : [ ],
     "feature_name" : "membership-management",
-    "file_role" : "REPOSITORY layer — provides data access operations for MembershipPlan entities, including fetching active plans.",
+    "file_role" : "REPOSITORY layer — provides data access operations for MembershipPlan entities, including fetching active plans.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<MembershipPlan> findByIsActiveTrue()",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "MembershipPlanService.java",
     "file_path" : "backend/src/main/java/com/absfitness/service/MembershipPlanService.java",
@@ -172,34 +153,34 @@
     "description" : "Business logic for managing membership plans.",
     "public_functions" : [ {
       "name" : "getAllMembershipPlans",
-      "parameters" : [ ],
-      "return_type" : "List<MembershipPlanDto>",
-      "description" : "Retrieves all membership plans, both active and inactive."
+      "parameters" : [ "List<MembershipPlanDto> getAllMembershipPlans()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getActiveMembershipPlans",
-      "parameters" : [ ],
-      "return_type" : "List<MembershipPlanDto>",
-      "description" : "Retrieves only the active membership plans."
+      "parameters" : [ "List<MembershipPlanDto> getActiveMembershipPlans()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getMembershipPlanById",
-      "parameters" : [ "Long id" ],
-      "return_type" : "MembershipPlanDto",
-      "description" : "Retrieves a specific membership plan by its ID. Throws ResourceNotFoundException if not found."
+      "parameters" : [ "MembershipPlanDto getMembershipPlanById(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "createMembershipPlan",
-      "parameters" : [ "MembershipPlanDto dto" ],
-      "return_type" : "MembershipPlanDto",
-      "description" : "Creates a new membership plan from the provided DTO."
+      "parameters" : [ "MembershipPlanDto createMembershipPlan(MembershipPlanDto membershipPlanDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "updateMembershipPlan",
-      "parameters" : [ "Long id", "MembershipPlanDto dto" ],
-      "return_type" : "MembershipPlanDto",
-      "description" : "Updates an existing membership plan identified by its ID. Throws ResourceNotFoundException if not found."
+      "parameters" : [ "MembershipPlanDto updateMembershipPlan(Long id, MembershipPlanDto membershipPlanDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "deleteMembershipPlan",
-      "parameters" : [ "Long id" ],
-      "return_type" : "void",
-      "description" : "Deletes a membership plan by its ID. Throws ResourceNotFoundException if not found."
+      "parameters" : [ "void deleteMembershipPlan(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -207,9 +188,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/MembershipPlanRepository.java", "backend/src/main/java/com/absfitness/dto/MembershipPlanDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "membership-management",
-    "file_role" : "SERVICE layer — implements business logic for managing membership plans, including CRUD and fetching active plans.",
+    "file_role" : "SERVICE layer — implements business logic for managing membership plans, including CRUD and fetching active plans.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<MembershipPlanDto> getAllMembershipPlans(); List<MembershipPlanDto> getActiveMembershipPlans(); MembershipPlanDto getMembershipPlanById(Long id); MembershipPlanDto createMembershipPlan(MembershipPlanDto membershipPlanDto); MembershipPlanDto updateMembershipPlan(Long id, MembershipPlanDto membershipPlanDto); void deleteMembershipPlan(Long id)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "MembershipPlanController.java",
     "file_path" : "backend/src/main/java/com/absfitness/controller/MembershipPlanController.java",
@@ -220,15 +201,15 @@
     "status" : "PLANNED",
     "description" : "Public REST controller for fetching available membership plans.",
     "public_functions" : [ {
-      "name" : "getAllActiveMembershipPlans",
-      "parameters" : [ ],
-      "return_type" : "ResponseEntity<List<MembershipPlanDto>>",
-      "description" : "Handles GET requests to retrieve all active membership plans."
+      "name" : "getActiveMembershipPlans",
+      "parameters" : [ "List<MembershipPlanDto> getActiveMembershipPlans()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getMembershipPlanById",
-      "parameters" : [ "Long id" ],
-      "return_type" : "ResponseEntity<MembershipPlanDto>",
-      "description" : "Handles GET requests to retrieve a specific membership plan by ID."
+      "parameters" : [ "MembershipPlanDto getMembershipPlanById(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : [ {
@@ -250,9 +231,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/MembershipPlanService.java", "backend/src/main/java/com/absfitness/dto/MembershipPlanDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "membership-management",
-    "file_role" : "CONTROLLER layer — exposes public REST endpoints for fetching available membership plans.",
+    "file_role" : "CONTROLLER layer — exposes public REST endpoints for fetching available membership plans.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<MembershipPlanDto> getActiveMembershipPlans(); MembershipPlanDto getMembershipPlanById(Long id)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "AdminMembershipPlanController.java",
     "file_path" : "backend/src/main/java/com/absfitness/controller/admin/AdminMembershipPlanController.java",
@@ -264,29 +245,29 @@
     "description" : "Admin-only REST controller for CRUD operations on membership plans.",
     "public_functions" : [ {
       "name" : "getAllMembershipPlans",
-      "parameters" : [ ],
-      "return_type" : "ResponseEntity<List<MembershipPlanDto>>",
-      "description" : "Handles GET requests to retrieve all membership plans (active and inactive)."
+      "parameters" : [ "List<MembershipPlanDto> getAllMembershipPlans()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getMembershipPlanById",
-      "parameters" : [ "Long id" ],
-      "return_type" : "ResponseEntity<MembershipPlanDto>",
-      "description" : "Handles GET requests to retrieve a specific membership plan by ID."
+      "parameters" : [ "MembershipPlanDto getMembershipPlanById(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "createMembershipPlan",
-      "parameters" : [ "MembershipPlanDto dto" ],
-      "return_type" : "ResponseEntity<MembershipPlanDto>",
-      "description" : "Handles POST requests to create a new membership plan."
+      "parameters" : [ "MembershipPlanDto createMembershipPlan(MembershipPlanDto membershipPlanDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "updateMembershipPlan",
-      "parameters" : [ "Long id", "MembershipPlanDto dto" ],
-      "return_type" : "ResponseEntity<MembershipPlanDto>",
-      "description" : "Handles PUT requests to update an existing membership plan."
+      "parameters" : [ "MembershipPlanDto updateMembershipPlan(Long id, MembershipPlanDto membershipPlanDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "deleteMembershipPlan",
-      "parameters" : [ "Long id" ],
-      "return_type" : "ResponseEntity<Void>",
-      "description" : "Handles DELETE requests to delete a membership plan."
+      "parameters" : [ "void deleteMembershipPlan(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : [ {
@@ -329,9 +310,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/MembershipPlanService.java", "backend/src/main/java/com/absfitness/dto/MembershipPlanDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "membership-management",
-    "file_role" : "CONTROLLER layer — exposes admin-only REST endpoints for full CRUD operations on membership plans.",
+    "file_role" : "CONTROLLER layer — exposes admin-only REST endpoints for full CRUD operations on membership plans.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<MembershipPlanDto> getAllMembershipPlans(); MembershipPlanDto getMembershipPlanById(Long id); MembershipPlanDto createMembershipPlan(MembershipPlanDto membershipPlanDto); MembershipPlanDto updateMembershipPlan(Long id, MembershipPlanDto membershipPlanDto); void deleteMembershipPlan(Long id)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "MembershipPlanDto.java",
     "file_path" : "backend/src/main/java/com/absfitness/dto/MembershipPlanDto.java",
@@ -345,36 +326,36 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Unique identifier for the membership plan."
+      "description" : null
     }, {
       "name" : "name",
       "type" : "String",
-      "description" : "Name of the membership plan. @NotBlank, @Size(max=100)."
+      "description" : null
     }, {
       "name" : "description",
       "type" : "String",
-      "description" : "Detailed description of the plan's benefits. @NotBlank, @Size(max=500)."
+      "description" : null
     }, {
       "name" : "price",
       "type" : "BigDecimal",
-      "description" : "Price of the membership plan. @NotNull, @Positive."
+      "description" : null
     }, {
       "name" : "durationInMonths",
       "type" : "Integer",
-      "description" : "Duration of the plan in months. @NotNull, @Positive."
+      "description" : null
     }, {
       "name" : "isActive",
       "type" : "Boolean",
-      "description" : "Indicates if the membership plan is currently active. @NotNull."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "membership-management",
-    "file_role" : "DTO layer — Data Transfer Object for MembershipPlan entities, used for API requests and responses.",
+    "file_role" : "DTO layer — Data Transfer Object for MembershipPlan entities, used for API requests and responses.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; name: String; description: String; price: BigDecimal; durationInMonths: Integer; isActive: Boolean }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "MemberSubscription.java",
     "file_path" : "backend/src/main/java/com/absfitness/model/MemberSubscription.java",
@@ -388,36 +369,36 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Unique identifier for the member subscription. Auto-generated."
+      "description" : null
     }, {
       "name" : "userId",
       "type" : "Integer",
-      "description" : "ID of the user who owns this subscription. Not null."
+      "description" : null
     }, {
       "name" : "membershipPlan",
       "type" : "MembershipPlan",
-      "description" : "The membership plan associated with this subscription. ManyToOne relationship, not null."
+      "description" : null
     }, {
       "name" : "startDate",
       "type" : "LocalDate",
-      "description" : "The date when the subscription became active. Not null."
+      "description" : null
     }, {
       "name" : "endDate",
       "type" : "LocalDate",
-      "description" : "The date when the subscription will expire. Not null."
+      "description" : null
     }, {
       "name" : "status",
       "type" : "SubscriptionStatus",
-      "description" : "Current status of the subscription (e.g., ACTIVE, CANCELLED, EXPIRED). Not null."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/MembershipPlan.java" ],
     "depends_on" : [ ],
     "feature_name" : "membership-management",
-    "file_role" : "MODEL layer — defines the data structure for a member's subscription to a membership plan.",
+    "file_role" : "MODEL layer — defines the data structure for a member's subscription to a membership plan.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; userId: Integer; membershipPlan: MembershipPlan; startDate: LocalDate; endDate: LocalDate; status: SubscriptionStatus }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "MemberSubscriptionRepository.java",
     "file_path" : "backend/src/main/java/com/absfitness/repository/MemberSubscriptionRepository.java",
@@ -429,14 +410,19 @@
     "description" : "JPA repository for MemberSubscription entities.",
     "public_functions" : [ {
       "name" : "findByUserId",
-      "parameters" : [ "Integer userId" ],
-      "return_type" : "List<MemberSubscription>",
-      "description" : "Retrieves all member subscriptions for a given user ID."
+      "parameters" : [ "List<MemberSubscription> findByUserId(Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "findByUserIdAndStatus",
-      "parameters" : [ "Integer userId", "SubscriptionStatus status" ],
-      "return_type" : "List<MemberSubscription>",
-      "description" : "Retrieves member subscriptions for a given user ID and status."
+      "parameters" : [ "List<MemberSubscription> findByUserIdAndStatus(Integer userId, SubscriptionStatus status)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
+    }, {
+      "name" : "findByIdAndUserId",
+      "parameters" : [ "Optional<MemberSubscription> findByIdAndUserId(Long id, Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -444,9 +430,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/MemberSubscription.java" ],
     "depends_on" : [ ],
     "feature_name" : "membership-management",
-    "file_role" : "REPOSITORY layer — provides data access operations for MemberSubscription entities, including finding subscriptions by user and status.",
+    "file_role" : "REPOSITORY layer — provides data access operations for MemberSubscription entities, including finding subscriptions by user and status.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<MemberSubscription> findByUserId(Integer userId); List<MemberSubscription> findByUserIdAndStatus(Integer userId, SubscriptionStatus status); Optional<MemberSubscription> findByIdAndUserId(Long id, Integer userId)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "MemberSubscriptionService.java",
     "file_path" : "backend/src/main/java/com/absfitness/service/MemberSubscriptionService.java",
@@ -458,24 +444,24 @@
     "description" : "Handles logic for creating and managing member subscriptions, integrating with MembershipPlanService.",
     "public_functions" : [ {
       "name" : "getMemberSubscriptions",
-      "parameters" : [ "Integer userId" ],
-      "return_type" : "List<MemberSubscriptionDto>",
-      "description" : "Retrieves all member subscriptions for the specified user."
+      "parameters" : [ "List<MemberSubscriptionDto> getMemberSubscriptions(Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getMemberSubscriptionById",
-      "parameters" : [ "Long id", "Integer userId" ],
-      "return_type" : "MemberSubscriptionDto",
-      "description" : "Retrieves a specific member subscription by ID for the specified user. Throws ResourceNotFoundException if not found or not owned by user."
+      "parameters" : [ "MemberSubscriptionDto getMemberSubscriptionById(Long subscriptionId, Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "createMemberSubscription",
-      "parameters" : [ "Integer userId", "Long membershipPlanId" ],
-      "return_type" : "MemberSubscriptionDto",
-      "description" : "Creates a new member subscription for the given user and membership plan. Throws ResourceNotFoundException if the plan is not found."
+      "parameters" : [ "MemberSubscriptionDto createMemberSubscription(Integer userId, Long membershipPlanId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "cancelMemberSubscription",
-      "parameters" : [ "Long subscriptionId", "Integer userId" ],
-      "return_type" : "MemberSubscriptionDto",
-      "description" : "Cancels an active member subscription for the specified user. Throws ResourceNotFoundException if not found or not owned by user, or IllegalStateException if already cancelled/expired."
+      "parameters" : [ "MemberSubscriptionDto cancelMemberSubscription(Long subscriptionId, Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -483,9 +469,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/MemberSubscriptionRepository.java" ],
     "depends_on" : [ ],
     "feature_name" : "membership-management",
-    "file_role" : "SERVICE layer — handles business logic for creating, viewing, and cancelling member subscriptions.",
+    "file_role" : "SERVICE layer — handles business logic for creating, viewing, and cancelling member subscriptions.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<MemberSubscriptionDto> getMemberSubscriptions(Integer userId); MemberSubscriptionDto getMemberSubscriptionById(Long subscriptionId, Integer userId); MemberSubscriptionDto createMemberSubscription(Integer userId, Long membershipPlanId); MemberSubscriptionDto cancelMemberSubscription(Long subscriptionId, Integer userId)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "MemberSubscriptionController.java",
     "file_path" : "backend/src/main/java/com/absfitness/controller/MemberSubscriptionController.java",
@@ -497,24 +483,24 @@
     "description" : "Secure controller for members to view their subscription status and history.",
     "public_functions" : [ {
       "name" : "getMemberSubscriptions",
-      "parameters" : [ "Integer userId" ],
-      "return_type" : "ResponseEntity<List<MemberSubscriptionDto>>",
-      "description" : "Handles GET requests to retrieve all subscriptions for the authenticated user."
+      "parameters" : [ "List<MemberSubscriptionDto> getMemberSubscriptions(@CurrentUser Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getMemberSubscriptionById",
-      "parameters" : [ "Long id", "Integer userId" ],
-      "return_type" : "ResponseEntity<MemberSubscriptionDto>",
-      "description" : "Handles GET requests to retrieve a specific subscription for the authenticated user."
+      "parameters" : [ "MemberSubscriptionDto getMemberSubscriptionById(Long id, @CurrentUser Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "createMemberSubscription",
-      "parameters" : [ "Integer userId", "Long membershipPlanId" ],
-      "return_type" : "ResponseEntity<MemberSubscriptionDto>",
-      "description" : "Handles POST requests to create a new subscription for the authenticated user."
+      "parameters" : [ "MemberSubscriptionDto createMemberSubscription(CreateSubscriptionRequestDto createDto, @CurrentUser Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "cancelMemberSubscription",
-      "parameters" : [ "Long id", "Integer userId" ],
-      "return_type" : "ResponseEntity<MemberSubscriptionDto>",
-      "description" : "Handles PUT requests to cancel an active subscription for the authenticated user."
+      "parameters" : [ "MemberSubscriptionDto cancelMemberSubscription(Long id, @CurrentUser Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : [ {
@@ -550,9 +536,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/MemberSubscriptionService.java" ],
     "depends_on" : [ ],
     "feature_name" : "membership-management",
-    "file_role" : "CONTROLLER layer — exposes authenticated REST endpoints for members to view and manage their own subscriptions.",
+    "file_role" : "CONTROLLER layer — exposes authenticated REST endpoints for members to view and manage their own subscriptions.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<MemberSubscriptionDto> getMemberSubscriptions(@CurrentUser Integer userId); MemberSubscriptionDto getMemberSubscriptionById(Long id, @CurrentUser Integer userId); MemberSubscriptionDto createMemberSubscription(CreateSubscriptionRequestDto createDto, @CurrentUser Integer userId); MemberSubscriptionDto cancelMemberSubscription(Long id, @CurrentUser Integer userId)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "MemberSubscriptionDto.java",
     "file_path" : "backend/src/main/java/com/absfitness/dto/MemberSubscriptionDto.java",
@@ -566,36 +552,36 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Unique identifier for the member subscription."
+      "description" : null
     }, {
       "name" : "userId",
       "type" : "Integer",
-      "description" : "ID of the user who owns this subscription."
+      "description" : null
     }, {
       "name" : "membershipPlan",
       "type" : "MembershipPlanDto",
-      "description" : "The membership plan associated with this subscription."
+      "description" : null
     }, {
       "name" : "startDate",
       "type" : "LocalDate",
-      "description" : "The date when the subscription became active. @NotNull."
+      "description" : null
     }, {
       "name" : "endDate",
       "type" : "LocalDate",
-      "description" : "The date when the subscription will expire. @NotNull."
+      "description" : null
     }, {
       "name" : "status",
       "type" : "SubscriptionStatus",
-      "description" : "Current status of the subscription (e.g., ACTIVE, CANCELLED, EXPIRED). @NotNull."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "membership-management",
-    "file_role" : "DTO layer — Data Transfer Object for MemberSubscription entities, used for API requests and responses.",
+    "file_role" : "DTO layer — Data Transfer Object for MemberSubscription entities, used for API requests and responses.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; userId: Integer; membershipPlan: MembershipPlanDto; startDate: LocalDate; endDate: LocalDate; status: SubscriptionStatus }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "FitnessClass.java",
     "file_path" : "backend/src/main/java/com/absfitness/model/FitnessClass.java",
@@ -609,44 +595,44 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Unique identifier for the fitness class. Generated automatically."
+      "description" : null
     }, {
       "name" : "name",
       "type" : "String",
-      "description" : "Name of the fitness class (e.g., 'Yoga', 'Zumba'). Not null, max 100 characters."
+      "description" : null
     }, {
       "name" : "description",
       "type" : "String",
-      "description" : "Detailed description of the class. Max 500 characters."
+      "description" : null
     }, {
       "name" : "scheduleTime",
       "type" : "LocalDateTime",
-      "description" : "Date and time when the class is scheduled. Not null."
+      "description" : null
     }, {
       "name" : "durationMinutes",
       "type" : "Integer",
-      "description" : "Duration of the class in minutes. Not null, positive."
+      "description" : null
     }, {
       "name" : "capacity",
       "type" : "Integer",
-      "description" : "Maximum number of participants for the class. Not null, positive."
+      "description" : null
     }, {
       "name" : "bookedSlots",
       "type" : "Integer",
-      "description" : "Current number of booked slots for the class. Default 0."
+      "description" : null
     }, {
       "name" : "trainer",
       "type" : "Trainer",
-      "description" : "The trainer conducting this class. Many-to-one relationship with Trainer entity. Not null."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Trainer.java" ],
     "depends_on" : [ ],
     "feature_name" : "class-management",
-    "file_role" : "MODEL layer — JPA entity representing a schedulable fitness class, including its schedule, capacity, and associated trainer.",
+    "file_role" : "MODEL layer — JPA entity representing a schedulable fitness class, including its schedule, capacity, and associated trainer.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; name: String; description: String; scheduleTime: LocalDateTime; durationMinutes: Integer; capacity: Integer; bookedSlots: Integer; trainer: Trainer }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "FitnessClassRepository.java",
     "file_path" : "backend/src/main/java/com/absfitness/repository/FitnessClassRepository.java",
@@ -658,14 +644,14 @@
     "description" : "JPA repository for FitnessClass entities.",
     "public_functions" : [ {
       "name" : "findByTrainerId",
-      "parameters" : [ "Long trainerId" ],
-      "return_type" : "List<FitnessClass>",
-      "description" : "Finds all fitness classes conducted by a specific trainer."
+      "parameters" : [ "List<FitnessClass> findByTrainerId(Long trainerId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
-      "name" : "findByScheduleTimeAfterAndCapacityGreaterThanBookedSlots",
-      "parameters" : [ "LocalDateTime currentTime" ],
-      "return_type" : "List<FitnessClass>",
-      "description" : "Finds all fitness classes that are scheduled in the future and have available slots."
+      "name" : "findAvailableClasses",
+      "parameters" : [ "List<FitnessClass> findAvailableClasses(LocalDateTime currentTime)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -673,9 +659,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/FitnessClass.java" ],
     "depends_on" : [ ],
     "feature_name" : "class-management",
-    "file_role" : "REPOSITORY layer — provides data access operations for FitnessClass entities, extending JpaRepository.",
+    "file_role" : "REPOSITORY layer — provides data access operations for FitnessClass entities, extending JpaRepository.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<FitnessClass> findByTrainerId(Long trainerId); List<FitnessClass> findAvailableClasses(LocalDateTime currentTime)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "FitnessClassService.java",
     "file_path" : "backend/src/main/java/com/absfitness/service/FitnessClassService.java",
@@ -687,39 +673,39 @@
     "description" : "Business logic for managing fitness classes.",
     "public_functions" : [ {
       "name" : "getAllFitnessClasses",
-      "parameters" : [ ],
-      "return_type" : "List<FitnessClassDto>",
-      "description" : "Retrieves all fitness classes."
+      "parameters" : [ "List<FitnessClassDto> getAllFitnessClasses()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getFitnessClassById",
-      "parameters" : [ "Long id" ],
-      "return_type" : "FitnessClassDto",
-      "description" : "Retrieves a fitness class by its ID, throws ResourceNotFoundException if not found."
+      "parameters" : [ "FitnessClassDto getFitnessClassById(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "createFitnessClass",
-      "parameters" : [ "FitnessClassDto dto" ],
-      "return_type" : "FitnessClassDto",
-      "description" : "Creates a new fitness class, validates trainer existence, and saves it."
+      "parameters" : [ "FitnessClassDto createFitnessClass(FitnessClassDto fitnessClassDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "updateFitnessClass",
-      "parameters" : [ "Long id", "FitnessClassDto dto" ],
-      "return_type" : "FitnessClassDto",
-      "description" : "Updates an existing fitness class by ID, validates trainer existence, and saves changes."
+      "parameters" : [ "FitnessClassDto updateFitnessClass(Long id, FitnessClassDto fitnessClassDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "deleteFitnessClass",
-      "parameters" : [ "Long id" ],
-      "return_type" : "void",
-      "description" : "Deletes a fitness class by its ID, throws ResourceNotFoundException if not found."
+      "parameters" : [ "void deleteFitnessClass(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getClassesByTrainerId",
-      "parameters" : [ "Long trainerId" ],
-      "return_type" : "List<FitnessClassDto>",
-      "description" : "Retrieves all fitness classes associated with a specific trainer."
+      "parameters" : [ "List<FitnessClassDto> getClassesByTrainerId(Long trainerId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getAvailableClasses",
-      "parameters" : [ ],
-      "return_type" : "List<FitnessClassDto>",
-      "description" : "Retrieves all fitness classes that are scheduled in the future and have available slots."
+      "parameters" : [ "List<FitnessClassDto> getAvailableClasses()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -727,9 +713,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/FitnessClassRepository.java", "backend/src/main/java/com/absfitness/dto/FitnessClassDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "class-management",
-    "file_role" : "SERVICE layer — implements business logic for managing fitness classes, including CRUD operations and availability checks.",
+    "file_role" : "SERVICE layer — implements business logic for managing fitness classes, including CRUD operations and availability checks.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<FitnessClassDto> getAllFitnessClasses(); FitnessClassDto getFitnessClassById(Long id); FitnessClassDto createFitnessClass(FitnessClassDto fitnessClassDto); FitnessClassDto updateFitnessClass(Long id, FitnessClassDto fitnessClassDto); void deleteFitnessClass(Long id); List<FitnessClassDto> getClassesByTrainerId(Long trainerId); List<FitnessClassDto> getAvailableClasses()",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "FitnessClassController.java",
     "file_path" : "backend/src/main/java/com/absfitness/controller/FitnessClassController.java",
@@ -741,14 +727,14 @@
     "description" : "Public REST controller for fetching the fitness class schedule.",
     "public_functions" : [ {
       "name" : "getAllAvailableFitnessClasses",
-      "parameters" : [ ],
-      "return_type" : "ResponseEntity<List<FitnessClassDto>>",
-      "description" : "Handles GET requests to retrieve all available fitness classes."
+      "parameters" : [ "ResponseEntity<List<FitnessClassDto>> getAllAvailableFitnessClasses()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getFitnessClassById",
-      "parameters" : [ "Long id" ],
-      "return_type" : "ResponseEntity<FitnessClassDto>",
-      "description" : "Handles GET requests to retrieve a fitness class by its ID."
+      "parameters" : [ "ResponseEntity<FitnessClassDto> getFitnessClassById(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : [ {
@@ -770,9 +756,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/FitnessClassService.java", "backend/src/main/java/com/absfitness/dto/FitnessClassDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "class-management",
-    "file_role" : "CONTROLLER layer — exposes public REST API endpoints for fetching fitness class schedules.",
+    "file_role" : "CONTROLLER layer — exposes public REST API endpoints for fetching fitness class schedules.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: ResponseEntity<List<FitnessClassDto>> getAllAvailableFitnessClasses(); ResponseEntity<FitnessClassDto> getFitnessClassById(Long id)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "AdminFitnessClassController.java",
     "file_path" : "backend/src/main/java/com/absfitness/controller/admin/AdminFitnessClassController.java",
@@ -784,29 +770,29 @@
     "description" : "Admin-only REST controller for CRUD operations on fitness classes.",
     "public_functions" : [ {
       "name" : "getAllFitnessClasses",
-      "parameters" : [ ],
-      "return_type" : "ResponseEntity<List<FitnessClassDto>>",
-      "description" : "Handles GET requests to retrieve all fitness classes for admin."
+      "parameters" : [ "ResponseEntity<List<FitnessClassDto>> getAllFitnessClasses()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getFitnessClassById",
-      "parameters" : [ "Long id" ],
-      "return_type" : "ResponseEntity<FitnessClassDto>",
-      "description" : "Handles GET requests to retrieve a fitness class by its ID for admin."
+      "parameters" : [ "ResponseEntity<FitnessClassDto> getFitnessClassById(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "createFitnessClass",
-      "parameters" : [ "FitnessClassDto dto" ],
-      "return_type" : "ResponseEntity<FitnessClassDto>",
-      "description" : "Handles POST requests to create a new fitness class."
+      "parameters" : [ "ResponseEntity<FitnessClassDto> createFitnessClass(FitnessClassDto fitnessClassDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "updateFitnessClass",
-      "parameters" : [ "Long id", "FitnessClassDto dto" ],
-      "return_type" : "ResponseEntity<FitnessClassDto>",
-      "description" : "Handles PUT requests to update an existing fitness class by ID."
+      "parameters" : [ "ResponseEntity<FitnessClassDto> updateFitnessClass(Long id, FitnessClassDto fitnessClassDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "deleteFitnessClass",
-      "parameters" : [ "Long id" ],
-      "return_type" : "ResponseEntity<Void>",
-      "description" : "Handles DELETE requests to remove a fitness class by ID."
+      "parameters" : [ "ResponseEntity<Void> deleteFitnessClass(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : [ {
@@ -849,9 +835,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/FitnessClassService.java", "backend/src/main/java/com/absfitness/dto/FitnessClassDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "class-management",
-    "file_role" : "CONTROLLER layer — exposes admin-only REST API endpoints for CRUD operations on fitness classes.",
+    "file_role" : "CONTROLLER layer — exposes admin-only REST API endpoints for CRUD operations on fitness classes.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: ResponseEntity<List<FitnessClassDto>> getAllFitnessClasses(); ResponseEntity<FitnessClassDto> getFitnessClassById(Long id); ResponseEntity<FitnessClassDto> createFitnessClass(FitnessClassDto fitnessClassDto); ResponseEntity<FitnessClassDto> updateFitnessClass(Long id, FitnessClassDto fitnessClassDto); ResponseEntity<Void> deleteFitnessClass(Long id)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "FitnessClassDto.java",
     "file_path" : "backend/src/main/java/com/absfitness/dto/FitnessClassDto.java",
@@ -865,48 +851,48 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Unique identifier for the fitness class. Optional for creation."
+      "description" : null
     }, {
       "name" : "name",
       "type" : "String",
-      "description" : "Name of the fitness class (e.g., 'Yoga', 'Zumba'). Not null, min 2, max 100 characters."
+      "description" : null
     }, {
       "name" : "description",
       "type" : "String",
-      "description" : "Detailed description of the class. Max 500 characters."
+      "description" : null
     }, {
       "name" : "scheduleTime",
       "type" : "LocalDateTime",
-      "description" : "Date and time when the class is scheduled. Not null, future date."
+      "description" : null
     }, {
       "name" : "durationMinutes",
       "type" : "Integer",
-      "description" : "Duration of the class in minutes. Not null, min 15, max 180."
+      "description" : null
     }, {
       "name" : "capacity",
       "type" : "Integer",
-      "description" : "Maximum number of participants for the class. Not null, min 1."
+      "description" : null
     }, {
       "name" : "bookedSlots",
       "type" : "Integer",
-      "description" : "Current number of booked slots for the class. Read-only, default 0."
+      "description" : null
     }, {
       "name" : "trainerId",
       "type" : "Long",
-      "description" : "ID of the trainer conducting this class. Not null."
+      "description" : null
     }, {
       "name" : "trainerName",
       "type" : "String",
-      "description" : "Name of the trainer (derived from trainerId for display). Read-only."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "class-management",
-    "file_role" : "DTO layer — Data Transfer Object for FitnessClass entities, used for request and response bodies.",
+    "file_role" : "DTO layer — Data Transfer Object for FitnessClass entities, used for request and response bodies.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; name: String; description: String; scheduleTime: LocalDateTime; durationMinutes: Integer; capacity: Integer; bookedSlots: Integer; trainerId: Long; trainerName: String }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "Booking.java",
     "file_path" : "backend/src/main/java/com/absfitness/model/Booking.java",
@@ -920,32 +906,32 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Unique identifier for the booking. Auto-generated."
+      "description" : null
     }, {
       "name" : "userId",
       "type" : "Integer",
-      "description" : "ID of the user who made the booking. Not null."
+      "description" : null
     }, {
       "name" : "fitnessClass",
       "type" : "FitnessClass",
-      "description" : "The fitness class being booked. Many-to-one relationship, not null."
+      "description" : null
     }, {
       "name" : "bookingTime",
       "type" : "LocalDateTime",
-      "description" : "Timestamp when the booking was made. Not null."
+      "description" : null
     }, {
       "name" : "status",
       "type" : "BookingStatus",
-      "description" : "Current status of the booking (e.g., CONFIRMED, CANCELLED, REMINDER_SENT). Not null."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/FitnessClass.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : "JPA Entity representing a member's booking for a fitness class. It defines the structure of booking records in the database.",
+    "file_role" : "JPA Entity representing a member's booking for a fitness class. It defines the structure of booking records in the database.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; userId: Integer; fitnessClass: FitnessClass; bookingTime: LocalDateTime; status: BookingStatus }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "BookingRepository.java",
     "file_path" : "backend/src/main/java/com/absfitness/repository/BookingRepository.java",
@@ -957,19 +943,24 @@
     "description" : "JPA repository for Booking entities.",
     "public_functions" : [ {
       "name" : "findByUserId",
-      "parameters" : [ "Integer userId" ],
-      "return_type" : "List<Booking>",
-      "description" : "Finds all bookings for a given user ID."
+      "parameters" : [ "List<Booking> findByUserId(Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
-      "name" : "findByFitnessClassIdAndUserIdAndStatus",
-      "parameters" : [ "Long fitnessClassId", "Integer userId", "BookingStatus status" ],
-      "return_type" : "Optional<Booking>",
-      "description" : "Finds a booking by fitness class ID, user ID, and status."
+      "name" : "existsByFitnessClass_IdAndUserIdAndStatus",
+      "parameters" : [ "boolean existsByFitnessClass_IdAndUserIdAndStatus(Long fitnessClassId, Integer userId, BookingStatus status)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "findByStatusAndFitnessClass_ScheduleTimeBetween",
-      "parameters" : [ "BookingStatus status", "LocalDateTime start", "LocalDateTime end" ],
-      "return_type" : "List<Booking>",
-      "description" : "Finds bookings by status within a specific schedule time range."
+      "parameters" : [ "List<Booking> findByStatusAndFitnessClass_ScheduleTimeBetween(BookingStatus status, LocalDateTime start, LocalDateTime end)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
+    }, {
+      "name" : "findByIdAndUserId",
+      "parameters" : [ "Optional<Booking> findByIdAndUserId(Long id, Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -977,9 +968,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Booking.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : "REPOSITORY layer — provides data access operations for Booking entities, including custom queries to find bookings by user and upcoming bookings for reminders.",
+    "file_role" : "REPOSITORY layer — provides data access operations for Booking entities, including custom queries to find bookings by user and upcoming bookings for reminders.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<Booking> findByUserId(Integer userId); boolean existsByFitnessClass_IdAndUserIdAndStatus(Long fitnessClassId, Integer userId, BookingStatus status); List<Booking> findByStatusAndFitnessClass_ScheduleTimeBetween(BookingStatus status, LocalDateTime start, LocalDateTime end); Optional<Booking> findByIdAndUserId(Long id, Integer userId)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "BookingService.java",
     "file_path" : "backend/src/main/java/com/absfitness/service/BookingService.java",
@@ -991,29 +982,29 @@
     "description" : "Business logic for creating, viewing, and cancelling bookings.",
     "public_functions" : [ {
       "name" : "createBooking",
-      "parameters" : [ "Integer userId", "CreateBookingRequest request" ],
-      "return_type" : "BookingDto",
-      "description" : "Creates a new booking for a user, validating membership, class availability, and sending a confirmation email. Throws ResourceNotFoundException if class not found, IllegalStateException if no active membership, class is full, or already booked."
+      "parameters" : [ "BookingDto createBooking(Integer userId, CreateBookingRequest request)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getMemberBookings",
-      "parameters" : [ "Integer userId" ],
-      "return_type" : "List<BookingDto>",
-      "description" : "Retrieves all bookings for a specific member."
+      "parameters" : [ "List<BookingDto> getMemberBookings(Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "cancelBooking",
-      "parameters" : [ "Long bookingId", "Integer userId" ],
-      "return_type" : "BookingDto",
-      "description" : "Cancels an existing booking for a member, decrementing class slots and sending a cancellation email. Throws ResourceNotFoundException if booking not found or not owned by user."
+      "parameters" : [ "BookingDto cancelBooking(Long bookingId, Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getAllBookings",
-      "parameters" : [ ],
-      "return_type" : "List<BookingDto>",
-      "description" : "Retrieves all bookings in the system (admin access)."
+      "parameters" : [ "List<BookingDto> getAllBookings()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getBookingById",
-      "parameters" : [ "Long bookingId" ],
-      "return_type" : "BookingDto",
-      "description" : "Retrieves a specific booking by its ID. Throws ResourceNotFoundException if booking not found."
+      "parameters" : [ "BookingDto getBookingById(Long bookingId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -1021,9 +1012,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/BookingRepository.java", "backend/src/main/java/com/absfitness/dto/BookingDto.java", "backend/src/main/java/com/absfitness/dto/CreateBookingRequest.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : "SERVICE layer — implements createBooking(Integer userId, CreateBookingRequest request): BookingDto, getMemberBookings(Integer userId): List<BookingDto>, cancelBooking(Long bookingId, Integer userId): BookingDto, getAllBookings(): List<BookingDto>, and getBookingById(Long bookingId): BookingDto; delegates persistence to BookingRepository and interacts with FitnessClassService, MemberSubscriptionService, and NotificationService.",
+    "file_role" : "SERVICE layer — implements createBooking(Integer userId, CreateBookingRequest request): BookingDto, getMemberBookings(Integer userId): List<BookingDto>, cancelBooking(Long bookingId, Integer userId): BookingDto, getAllBookings(): List<BookingDto>, and getBookingById(Long bookingId): BookingDto; delegates persistence to BookingRepository and interacts with FitnessClassService, MemberSubscriptionService, and NotificationService.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: BookingDto createBooking(Integer userId, CreateBookingRequest request); List<BookingDto> getMemberBookings(Integer userId); BookingDto cancelBooking(Long bookingId, Integer userId); List<BookingDto> getAllBookings(); BookingDto getBookingById(Long bookingId)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "BookingController.java",
     "file_path" : "backend/src/main/java/com/absfitness/controller/BookingController.java",
@@ -1035,19 +1026,19 @@
     "description" : "Secure REST controller for members to manage their own bookings.",
     "public_functions" : [ {
       "name" : "createBooking",
-      "parameters" : [ "Integer userId", "CreateBookingRequest request" ],
-      "return_type" : "ResponseEntity<BookingDto>",
-      "description" : "Handles POST requests to create a new booking for the authenticated user."
+      "parameters" : [ "BookingDto createBooking(Integer userId, CreateBookingRequest request)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getMemberBookings",
-      "parameters" : [ "Integer userId" ],
-      "return_type" : "ResponseEntity<List<BookingDto>>",
-      "description" : "Handles GET requests to retrieve all bookings for the authenticated user."
+      "parameters" : [ "List<BookingDto> getMemberBookings(Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "cancelBooking",
-      "parameters" : [ "Long bookingId", "Integer userId" ],
-      "return_type" : "ResponseEntity<BookingDto>",
-      "description" : "Handles PUT requests to cancel a specific booking for the authenticated user."
+      "parameters" : [ "BookingDto cancelBooking(Long bookingId, Integer userId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : [ {
@@ -1076,9 +1067,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/BookingService.java", "backend/src/main/java/com/absfitness/dto/BookingDto.java", "backend/src/main/java/com/absfitness/dto/CreateBookingRequest.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : "REST CONTROLLER layer — handles authenticated member requests for creating, viewing, and cancelling their own bookings, delegating to BookingService.",
+    "file_role" : "REST CONTROLLER layer — handles authenticated member requests for creating, viewing, and cancelling their own bookings, delegating to BookingService.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: BookingDto createBooking(Integer userId, CreateBookingRequest request); List<BookingDto> getMemberBookings(Integer userId); BookingDto cancelBooking(Long bookingId, Integer userId)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "AdminBookingController.java",
     "file_path" : "backend/src/main/java/com/absfitness/controller/admin/AdminBookingController.java",
@@ -1090,14 +1081,14 @@
     "description" : "Admin-only REST controller for viewing and managing all member bookings.",
     "public_functions" : [ {
       "name" : "getAllBookings",
-      "parameters" : [ ],
-      "return_type" : "ResponseEntity<List<BookingDto>>",
-      "description" : "Handles GET requests to retrieve all bookings in the system."
+      "parameters" : [ "List<BookingDto> getAllBookings()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getBookingById",
-      "parameters" : [ "Long bookingId" ],
-      "return_type" : "ResponseEntity<BookingDto>",
-      "description" : "Handles GET requests to retrieve a specific booking by ID."
+      "parameters" : [ "BookingDto getBookingById(Long bookingId)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : [ {
@@ -1119,9 +1110,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/BookingService.java", "backend/src/main/java/com/absfitness/dto/BookingDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : "REST CONTROLLER layer — handles admin requests for viewing and managing all member bookings, delegating to BookingService.",
+    "file_role" : "REST CONTROLLER layer — handles admin requests for viewing and managing all member bookings, delegating to BookingService.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<BookingDto> getAllBookings(); BookingDto getBookingById(Long bookingId)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "BookingDto.java",
     "file_path" : "backend/src/main/java/com/absfitness/dto/BookingDto.java",
@@ -1135,44 +1126,44 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Unique identifier for the booking."
+      "description" : null
     }, {
       "name" : "userId",
       "type" : "Integer",
-      "description" : "ID of the user who made the booking."
+      "description" : null
     }, {
       "name" : "fitnessClassId",
       "type" : "Long",
-      "description" : "ID of the fitness class booked."
+      "description" : null
     }, {
       "name" : "fitnessClassName",
       "type" : "String",
-      "description" : "Name of the fitness class booked."
+      "description" : null
     }, {
       "name" : "scheduleTime",
       "type" : "LocalDateTime",
-      "description" : "Scheduled time of the fitness class."
+      "description" : null
     }, {
       "name" : "durationMinutes",
       "type" : "Integer",
-      "description" : "Duration of the fitness class in minutes."
+      "description" : null
     }, {
       "name" : "bookingTime",
       "type" : "LocalDateTime",
-      "description" : "Timestamp when the booking was made."
+      "description" : null
     }, {
       "name" : "status",
       "type" : "BookingStatus",
-      "description" : "Current status of the booking (e.g., CONFIRMED, CANCELLED)."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : "Data Transfer Object for Booking entities, used for exposing booking details via the API.",
+    "file_role" : "Data Transfer Object for Booking entities, used for exposing booking details via the API.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; userId: Integer; fitnessClassId: Long; fitnessClassName: String; scheduleTime: LocalDateTime; durationMinutes: Integer; bookingTime: LocalDateTime; status: BookingStatus }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "CreateBookingRequest.java",
     "file_path" : "backend/src/main/java/com/absfitness/dto/CreateBookingRequest.java",
@@ -1186,16 +1177,16 @@
     "public_variables" : [ {
       "name" : "fitnessClassId",
       "type" : "Long",
-      "description" : "ID of the fitness class to book. Not null."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : "Data Transfer Object for creating a new booking, used as the request body for booking creation API.",
+    "file_role" : "Data Transfer Object for creating a new booking, used as the request body for booking creation API.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { fitnessClassId: Long }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "NotificationService.java",
     "file_path" : "backend/src/main/java/com/absfitness/service/NotificationService.java",
@@ -1207,19 +1198,19 @@
     "description" : "Service responsible for sending emails using JavaMailSender.",
     "public_functions" : [ {
       "name" : "sendBookingConfirmationEmail",
-      "parameters" : [ "Integer userId", "BookingDto bookingDto" ],
-      "return_type" : "void",
-      "description" : "Sends a booking confirmation email to the user."
+      "parameters" : [ "void sendBookingConfirmationEmail(Integer userId, BookingDto bookingDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "sendBookingCancellationEmail",
-      "parameters" : [ "Integer userId", "BookingDto bookingDto" ],
-      "return_type" : "void",
-      "description" : "Sends a booking cancellation email to the user."
+      "parameters" : [ "void sendBookingCancellationEmail(Integer userId, BookingDto bookingDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "sendBookingReminderEmail",
-      "parameters" : [ "BookingDto bookingDto" ],
-      "return_type" : "void",
-      "description" : "Sends a booking reminder email for an upcoming class."
+      "parameters" : [ "void sendBookingReminderEmail(BookingDto bookingDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -1227,9 +1218,9 @@
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : "SERVICE layer — provides methods for sending various email notifications related to bookings, such as confirmations, cancellations, and reminders.",
+    "file_role" : "SERVICE layer — provides methods for sending various email notifications related to bookings, such as confirmations, cancellations, and reminders.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: void sendBookingConfirmationEmail(Integer userId, BookingDto bookingDto); void sendBookingCancellationEmail(Integer userId, BookingDto bookingDto); void sendBookingReminderEmail(BookingDto bookingDto)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "BookingReminderService.java",
     "file_path" : "backend/src/main/java/com/absfitness/service/BookingReminderService.java",
@@ -1241,9 +1232,9 @@
     "description" : "Scheduled service that finds upcoming bookings and sends email reminders.",
     "public_functions" : [ {
       "name" : "sendRemindersForUpcomingBookings",
-      "parameters" : [ ],
-      "return_type" : "void",
-      "description" : "Scheduled method that runs periodically to find upcoming bookings and send reminders."
+      "parameters" : [ "void sendRemindersForUpcomingBookings()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -1251,9 +1242,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/BookingRepository.java", "backend/src/main/java/com/absfitness/service/NotificationService.java" ],
     "depends_on" : [ ],
     "feature_name" : "booking-system",
-    "file_role" : "SERVICE layer — a scheduled service that periodically identifies upcoming confirmed bookings and dispatches email reminders via NotificationService.",
+    "file_role" : "SERVICE layer — a scheduled service that periodically identifies upcoming confirmed bookings and dispatches email reminders via NotificationService.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: void sendRemindersForUpcomingBookings()",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "Trainer.java",
     "file_path" : "backend/src/main/java/com/absfitness/model/Trainer.java",
@@ -1267,36 +1258,36 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Unique identifier for the trainer. Primary key, auto-generated."
+      "description" : null
     }, {
       "name" : "name",
       "type" : "String",
-      "description" : "Name of the trainer. Not null, max 255 characters."
+      "description" : null
     }, {
       "name" : "specialty",
       "type" : "String",
-      "description" : "Specialization of the trainer (e.g., 'Strength Training', 'Yoga'). Not null, max 255 characters."
+      "description" : null
     }, {
       "name" : "bio",
       "type" : "String",
-      "description" : "Biography of the trainer. Not null, max 1000 characters."
+      "description" : null
     }, {
       "name" : "imageUrl",
       "type" : "String",
-      "description" : "URL to the trainer's profile photo. Not null, max 500 characters."
+      "description" : null
     }, {
       "name" : "experienceYears",
       "type" : "Integer",
-      "description" : "Years of experience of the trainer. Not null, must be positive."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "trainer-management",
-    "file_role" : "MODEL layer — represents a personal trainer with attributes like name, specialty, and a profile image URL.",
+    "file_role" : "MODEL layer — represents a personal trainer with attributes like name, specialty, and a profile image URL.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; name: String; specialty: String; bio: String; imageUrl: String; experienceYears: Integer }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "TrainerRepository.java",
     "file_path" : "backend/src/main/java/com/absfitness/repository/TrainerRepository.java",
@@ -1327,29 +1318,29 @@
     "description" : "Business logic for managing trainer profiles.",
     "public_functions" : [ {
       "name" : "getAllTrainers",
-      "parameters" : [ ],
-      "return_type" : "List<TrainerDto>",
-      "description" : "Retrieves all trainer profiles."
+      "parameters" : [ "List<TrainerDto> getAllTrainers()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getTrainerById",
-      "parameters" : [ "Long id" ],
-      "return_type" : "TrainerDto",
-      "description" : "Retrieves a single trainer profile by ID. Throws ResourceNotFoundException if not found."
+      "parameters" : [ "TrainerDto getTrainerById(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "createTrainer",
-      "parameters" : [ "TrainerDto trainerDto" ],
-      "return_type" : "TrainerDto",
-      "description" : "Creates a new trainer profile."
+      "parameters" : [ "TrainerDto createTrainer(TrainerDto trainerDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "updateTrainer",
-      "parameters" : [ "Long id", "TrainerDto trainerDto" ],
-      "return_type" : "TrainerDto",
-      "description" : "Updates an existing trainer profile by ID. Throws ResourceNotFoundException if not found."
+      "parameters" : [ "TrainerDto updateTrainer(Long id, TrainerDto trainerDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "deleteTrainer",
-      "parameters" : [ "Long id" ],
-      "return_type" : "void",
-      "description" : "Deletes a trainer profile by ID. Throws ResourceNotFoundException if not found."
+      "parameters" : [ "void deleteTrainer(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -1357,9 +1348,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/TrainerRepository.java", "backend/src/main/java/com/absfitness/dto/TrainerDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-management",
-    "file_role" : "SERVICE layer — implements business logic for managing trainer profiles, including `getAllTrainers(): List<TrainerDto>`, `getTrainerById(Long id): TrainerDto`, `createTrainer(TrainerDto trainerDto): TrainerDto`, `updateTrainer(Long id, TrainerDto trainerDto): TrainerDto`, and `deleteTrainer(Long id): void`.",
+    "file_role" : "SERVICE layer — implements business logic for managing trainer profiles, including `getAllTrainers(): List<TrainerDto>`, `getTrainerById(Long id): TrainerDto`, `createTrainer(TrainerDto trainerDto): TrainerDto`, `updateTrainer(Long id, TrainerDto trainerDto): TrainerDto`, and `deleteTrainer(Long id): void`.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<TrainerDto> getAllTrainers(); TrainerDto getTrainerById(Long id); TrainerDto createTrainer(TrainerDto trainerDto); TrainerDto updateTrainer(Long id, TrainerDto trainerDto); void deleteTrainer(Long id)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "TrainerController.java",
     "file_path" : "backend/src/main/java/com/absfitness/controller/TrainerController.java",
@@ -1371,14 +1362,14 @@
     "description" : "Public REST controller for fetching trainer profiles.",
     "public_functions" : [ {
       "name" : "getAllTrainers",
-      "parameters" : [ ],
-      "return_type" : "ResponseEntity<List<TrainerDto>>",
-      "description" : "Handles GET requests to retrieve all trainer profiles."
+      "parameters" : [ "ResponseEntity<List<TrainerDto>> getAllTrainers()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getTrainerById",
-      "parameters" : [ "Long id" ],
-      "return_type" : "ResponseEntity<TrainerDto>",
-      "description" : "Handles GET requests to retrieve a single trainer profile by ID."
+      "parameters" : [ "ResponseEntity<TrainerDto> getTrainerById(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : [ {
@@ -1400,9 +1391,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/TrainerService.java", "backend/src/main/java/com/absfitness/dto/TrainerDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-management",
-    "file_role" : "CONTROLLER layer — exposes public REST endpoints for fetching trainer profiles via `getAllTrainers(): ResponseEntity<List<TrainerDto>>` and `getTrainerById(Long id): ResponseEntity<TrainerDto>>`.",
+    "file_role" : "CONTROLLER layer — exposes public REST endpoints for fetching trainer profiles via `getAllTrainers(): ResponseEntity<List<TrainerDto>>` and `getTrainerById(Long id): ResponseEntity<TrainerDto>>`.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: ResponseEntity<List<TrainerDto>> getAllTrainers(); ResponseEntity<TrainerDto> getTrainerById(Long id)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "AdminTrainerController.java",
     "file_path" : "backend/src/main/java/com/absfitness/controller/admin/AdminTrainerController.java",
@@ -1414,29 +1405,29 @@
     "description" : "Admin-only REST controller for CRUD operations on trainers.",
     "public_functions" : [ {
       "name" : "getAllTrainers",
-      "parameters" : [ ],
-      "return_type" : "ResponseEntity<List<TrainerDto>>",
-      "description" : "Handles GET requests to retrieve all trainer profiles for admin."
+      "parameters" : [ "ResponseEntity<List<TrainerDto>> getAllTrainers()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getTrainerById",
-      "parameters" : [ "Long id" ],
-      "return_type" : "ResponseEntity<TrainerDto>",
-      "description" : "Handles GET requests to retrieve a single trainer profile by ID for admin."
+      "parameters" : [ "ResponseEntity<TrainerDto> getTrainerById(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "createTrainer",
-      "parameters" : [ "TrainerDto trainerDto" ],
-      "return_type" : "ResponseEntity<TrainerDto>",
-      "description" : "Handles POST requests to create a new trainer profile."
+      "parameters" : [ "ResponseEntity<TrainerDto> createTrainer(TrainerDto trainerDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "updateTrainer",
-      "parameters" : [ "Long id", "TrainerDto trainerDto" ],
-      "return_type" : "ResponseEntity<TrainerDto>",
-      "description" : "Handles PUT requests to update an existing trainer profile by ID."
+      "parameters" : [ "ResponseEntity<TrainerDto> updateTrainer(Long id, TrainerDto trainerDto)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "deleteTrainer",
-      "parameters" : [ "Long id" ],
-      "return_type" : "ResponseEntity<Void>",
-      "description" : "Handles DELETE requests to delete a trainer profile by ID."
+      "parameters" : [ "ResponseEntity<Void> deleteTrainer(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : [ {
@@ -1479,9 +1470,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/TrainerService.java", "backend/src/main/java/com/absfitness/dto/TrainerDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-management",
-    "file_role" : "CONTROLLER layer — exposes admin-only REST endpoints for CRUD operations on trainers via `getAllTrainers(): ResponseEntity<List<TrainerDto>>`, `getTrainerById(Long id): ResponseEntity<TrainerDto>>`, `createTrainer(TrainerDto trainerDto): ResponseEntity<TrainerDto>>`, `updateTrainer(Long id, TrainerDto trainerDto): ResponseEntity<TrainerDto>>`, and `deleteTrainer(Long id): ResponseEntity<Void>>`.",
+    "file_role" : "CONTROLLER layer — exposes admin-only REST endpoints for CRUD operations on trainers via `getAllTrainers(): ResponseEntity<List<TrainerDto>>`, `getTrainerById(Long id): ResponseEntity<TrainerDto>>`, `createTrainer(TrainerDto trainerDto): ResponseEntity<TrainerDto>>`, `updateTrainer(Long id, TrainerDto trainerDto): ResponseEntity<TrainerDto>>`, and `deleteTrainer(Long id): ResponseEntity<Void>>`.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: ResponseEntity<List<TrainerDto>> getAllTrainers(); ResponseEntity<TrainerDto> getTrainerById(Long id); ResponseEntity<TrainerDto> createTrainer(TrainerDto trainerDto); ResponseEntity<TrainerDto> updateTrainer(Long id, TrainerDto trainerDto); ResponseEntity<Void> deleteTrainer(Long id)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "TrainerDto.java",
     "file_path" : "backend/src/main/java/com/absfitness/dto/TrainerDto.java",
@@ -1495,36 +1486,36 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Unique identifier for the trainer."
+      "description" : null
     }, {
       "name" : "name",
       "type" : "String",
-      "description" : "Name of the trainer. @NotBlank, max 255 characters."
+      "description" : null
     }, {
       "name" : "specialty",
       "type" : "String",
-      "description" : "Specialization of the trainer. @NotBlank, max 255 characters."
+      "description" : null
     }, {
       "name" : "bio",
       "type" : "String",
-      "description" : "Biography of the trainer. @NotBlank, max 1000 characters."
+      "description" : null
     }, {
       "name" : "imageUrl",
       "type" : "String",
-      "description" : "URL to the trainer's profile photo. @NotBlank, max 500 characters."
+      "description" : null
     }, {
       "name" : "experienceYears",
       "type" : "Integer",
-      "description" : "Years of experience of the trainer. @NotNull, @Positive."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "trainer-management",
-    "file_role" : "DTO layer — Data Transfer Object for Trainer entities, used for request and response bodies.",
+    "file_role" : "DTO layer — Data Transfer Object for Trainer entities, used for request and response bodies.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; name: String; specialty: String; bio: String; imageUrl: String; experienceYears: Integer }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "Inquiry.java",
     "file_path" : "backend/src/main/java/com/absfitness/model/Inquiry.java",
@@ -1538,71 +1529,71 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Unique identifier for the inquiry. Auto-generated."
+      "description" : null
     }, {
       "name" : "name",
       "type" : "String",
-      "description" : "Full name of the person making the inquiry. Not null, max 100 characters."
+      "description" : null
     }, {
       "name" : "email",
       "type" : "String",
-      "description" : "Email address of the person making the inquiry. Not null, valid email format, max 100 characters."
+      "description" : null
     }, {
       "name" : "phone",
       "type" : "String",
-      "description" : "Phone number of the person making the inquiry. Not null, max 20 characters."
+      "description" : null
     }, {
       "name" : "inquiryType",
       "type" : "InquiryType",
-      "description" : "Type of inquiry (e.g., FREE_TRIAL, TOUR_BOOKING). Not null."
+      "description" : null
     }, {
       "name" : "message",
       "type" : "String",
-      "description" : "Optional message from the inquirer. Max 500 characters."
+      "description" : null
     }, {
       "name" : "submissionTime",
       "type" : "LocalDateTime",
-      "description" : "Timestamp when the inquiry was submitted. Not null."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/InquiryType.java" ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : "MODEL layer — represents a lead capture inquiry with fields for contact details, type, and submission timestamp.",
+    "file_role" : "MODEL layer — represents a lead capture inquiry with fields for contact details, type, and submission timestamp.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; name: String; email: String; phone: String; inquiryType: InquiryType; message: String; submissionTime: LocalDateTime }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "InquiryType.java",
     "file_path" : "backend/src/main/java/com/absfitness/model/InquiryType.java",
     "file_type" : "BACKEND",
     "layer" : "MODEL",
     "created_date" : "2024-07-30",
-    "updated_date" : "2024-07-30",
-    "status" : "PLANNED",
+    "updated_date" : "2026-08-23",
+    "status" : "GENERATED",
     "description" : "Enum for the type of inquiry (e.g., FREE_TRIAL, TOUR_BOOKING).",
     "public_functions" : [ ],
     "public_variables" : [ {
       "name" : "FREE_TRIAL",
-      "type" : "InquiryType",
-      "description" : "Inquiry for a free trial."
+      "type" : "enum",
+      "description" : null
     }, {
       "name" : "TOUR_BOOKING",
-      "type" : "InquiryType",
-      "description" : "Inquiry for a facility tour booking."
+      "type" : "enum",
+      "description" : null
     }, {
       "name" : "GENERAL_INQUIRY",
-      "type" : "InquiryType",
-      "description" : "General inquiry."
+      "type" : "enum",
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : "MODEL layer — an enum defining the distinct types of inquiries that can be submitted.",
+    "file_role" : "MODEL layer — an enum defining the distinct types of inquiries that can be submitted.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { FREE_TRIAL: enum; TOUR_BOOKING: enum; GENERAL_INQUIRY: enum }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "InquiryRepository.java",
     "file_path" : "backend/src/main/java/com/absfitness/repository/InquiryRepository.java",
@@ -1633,24 +1624,24 @@
     "description" : "Business logic for saving and managing inquiries.",
     "public_functions" : [ {
       "name" : "createInquiry",
-      "parameters" : [ "CreateInquiryRequest request" ],
-      "return_type" : "InquiryDto",
-      "description" : "Creates a new inquiry from the provided request, saves it, and returns the DTO. Throws IllegalArgumentException if request is invalid."
+      "parameters" : [ "InquiryDto createInquiry(CreateInquiryRequest createInquiryRequest)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getAllInquiries",
-      "parameters" : [ ],
-      "return_type" : "List<InquiryDto>",
-      "description" : "Retrieves all inquiries and returns them as a list of DTOs."
+      "parameters" : [ "List<InquiryDto> getAllInquiries()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getInquiryById",
-      "parameters" : [ "Long id" ],
-      "return_type" : "InquiryDto",
-      "description" : "Retrieves an inquiry by its ID and returns it as a DTO. Throws ResourceNotFoundException if the inquiry does not exist."
+      "parameters" : [ "InquiryDto getInquiryById(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "deleteInquiry",
-      "parameters" : [ "Long id" ],
-      "return_type" : "void",
-      "description" : "Deletes an inquiry by its ID. Throws ResourceNotFoundException if the inquiry does not exist."
+      "parameters" : [ "void deleteInquiry(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -1658,9 +1649,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/InquiryRepository.java", "backend/src/main/java/com/absfitness/dto/InquiryDto.java", "backend/src/main/java/com/absfitness/dto/CreateInquiryRequest.java" ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : "SERVICE layer — implements `createInquiry(CreateInquiryRequest): InquiryDto`, `getAllInquiries(): List<InquiryDto>`, `getInquiryById(Long): InquiryDto`, and `deleteInquiry(Long): void` for managing lead inquiries; delegates persistence to `InquiryRepository`.",
+    "file_role" : "SERVICE layer — implements `createInquiry(CreateInquiryRequest): InquiryDto`, `getAllInquiries(): List<InquiryDto>`, `getInquiryById(Long): InquiryDto`, and `deleteInquiry(Long): void` for managing lead inquiries; delegates persistence to `InquiryRepository`.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: InquiryDto createInquiry(CreateInquiryRequest createInquiryRequest); List<InquiryDto> getAllInquiries(); InquiryDto getInquiryById(Long id); void deleteInquiry(Long id)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "InquiryController.java",
     "file_path" : "backend/src/main/java/com/absfitness/controller/InquiryController.java",
@@ -1672,9 +1663,9 @@
     "description" : "Public REST controller for submitting new inquiries.",
     "public_functions" : [ {
       "name" : "createInquiry",
-      "parameters" : [ "CreateInquiryRequest request" ],
-      "return_type" : "ResponseEntity<InquiryDto>",
-      "description" : "Handles POST requests to create a new inquiry."
+      "parameters" : [ "InquiryDto createInquiry(CreateInquiryRequest createInquiryRequest)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : [ {
@@ -1689,9 +1680,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/InquiryService.java", "backend/src/main/java/com/absfitness/dto/CreateInquiryRequest.java" ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : "CONTROLLER layer — exposes public REST endpoints for submitting new inquiries.",
+    "file_role" : "CONTROLLER layer — exposes public REST endpoints for submitting new inquiries.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: InquiryDto createInquiry(CreateInquiryRequest createInquiryRequest)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "AdminInquiryController.java",
     "file_path" : "backend/src/main/java/com/absfitness/controller/admin/AdminInquiryController.java",
@@ -1703,19 +1694,19 @@
     "description" : "Admin-only REST controller for viewing and managing inquiries.",
     "public_functions" : [ {
       "name" : "getAllInquiries",
-      "parameters" : [ ],
-      "return_type" : "ResponseEntity<List<InquiryDto>>",
-      "description" : "Handles GET requests to retrieve all inquiries."
+      "parameters" : [ "List<InquiryDto> getAllInquiries()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getInquiryById",
-      "parameters" : [ "Long id" ],
-      "return_type" : "ResponseEntity<InquiryDto>",
-      "description" : "Handles GET requests to retrieve a specific inquiry by ID."
+      "parameters" : [ "InquiryDto getInquiryById(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "deleteInquiry",
-      "parameters" : [ "Long id" ],
-      "return_type" : "ResponseEntity<Void>",
-      "description" : "Handles DELETE requests to remove an inquiry by ID."
+      "parameters" : [ "void deleteInquiry(Long id)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : [ {
@@ -1744,9 +1735,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/InquiryService.java", "backend/src/main/java/com/absfitness/dto/InquiryDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : "CONTROLLER layer — exposes admin-only REST endpoints for viewing and managing inquiries.",
+    "file_role" : "CONTROLLER layer — exposes admin-only REST endpoints for viewing and managing inquiries.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<InquiryDto> getAllInquiries(); InquiryDto getInquiryById(Long id); void deleteInquiry(Long id)",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "InquiryDto.java",
     "file_path" : "backend/src/main/java/com/absfitness/dto/InquiryDto.java",
@@ -1760,40 +1751,40 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Unique identifier for the inquiry."
+      "description" : null
     }, {
       "name" : "name",
       "type" : "String",
-      "description" : "Full name of the person making the inquiry."
+      "description" : null
     }, {
       "name" : "email",
       "type" : "String",
-      "description" : "Email address of the person making the inquiry."
+      "description" : null
     }, {
       "name" : "phone",
       "type" : "String",
-      "description" : "Phone number of the person making the inquiry."
+      "description" : null
     }, {
       "name" : "inquiryType",
       "type" : "InquiryType",
-      "description" : "Type of inquiry (e.g., FREE_TRIAL, TOUR_BOOKING)."
+      "description" : null
     }, {
       "name" : "message",
       "type" : "String",
-      "description" : "Optional message from the inquirer."
+      "description" : null
     }, {
       "name" : "submissionTime",
       "type" : "LocalDateTime",
-      "description" : "Timestamp when the inquiry was submitted."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : "DTO layer — represents the data structure for an inquiry when exposed via the API.",
+    "file_role" : "DTO layer — represents the data structure for an inquiry when exposed via the API.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; name: String; email: String; phone: String; inquiryType: InquiryType; message: String; submissionTime: LocalDateTime }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "CreateInquiryRequest.java",
     "file_path" : "backend/src/main/java/com/absfitness/dto/CreateInquiryRequest.java",
@@ -1807,32 +1798,32 @@
     "public_variables" : [ {
       "name" : "name",
       "type" : "String",
-      "description" : "Full name of the person making the inquiry. Not null, max 100 characters."
+      "description" : null
     }, {
       "name" : "email",
       "type" : "String",
-      "description" : "Email address of the person making the inquiry. Not null, valid email format, max 100 characters."
+      "description" : null
     }, {
       "name" : "phone",
       "type" : "String",
-      "description" : "Phone number of the person making the inquiry. Not null, max 20 characters."
+      "description" : null
     }, {
       "name" : "inquiryType",
       "type" : "InquiryType",
-      "description" : "Type of inquiry (e.g., FREE_TRIAL, TOUR_BOOKING). Not null."
+      "description" : null
     }, {
       "name" : "message",
       "type" : "String",
-      "description" : "Optional message from the inquirer. Max 500 characters."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : "DTO layer — defines the data structure for creating a new inquiry via the API.",
+    "file_role" : "DTO layer — defines the data structure for creating a new inquiry via the API.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { name: String; email: String; phone: String; inquiryType: InquiryType; message: String }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "Review.java",
     "file_path" : "backend/src/main/java/com/absfitness/model/Review.java",
@@ -1846,40 +1837,40 @@
     "public_variables" : [ {
       "name" : "id",
       "type" : "Long",
-      "description" : "Primary key for the Review entity, auto-generated."
+      "description" : null
     }, {
       "name" : "authorName",
       "type" : "String",
-      "description" : "Name of the review author. Not null, max 255 characters."
+      "description" : null
     }, {
       "name" : "rating",
       "type" : "Integer",
-      "description" : "Rating given by the author (1-5). Not null."
+      "description" : null
     }, {
       "name" : "text",
       "type" : "String",
-      "description" : "Full text of the review. Not null, max 2000 characters."
+      "description" : null
     }, {
       "name" : "time",
       "type" : "Long",
-      "description" : "Timestamp of the review in milliseconds since epoch. Not null."
+      "description" : null
     }, {
       "name" : "profilePhotoUrl",
       "type" : "String",
-      "description" : "URL to the author's profile photo. Nullable, max 500 characters."
+      "description" : null
     }, {
       "name" : "relativeTimeDescription",
       "type" : "String",
-      "description" : "Human-readable relative time description (e.g., 'a month ago'). Not null, max 100 characters."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "review-integration",
-    "file_role" : "MODEL layer — defines the `Review` entity for persisting Google Reviews in the database.",
+    "file_role" : "MODEL layer — defines the `Review` entity for persisting Google Reviews in the database.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: Long; authorName: String; rating: Integer; text: String; time: Long; profilePhotoUrl: String; relativeTimeDescription: String }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "ReviewRepository.java",
     "file_path" : "backend/src/main/java/com/absfitness/repository/ReviewRepository.java",
@@ -1891,9 +1882,14 @@
     "description" : "JPA repository for cached Review entities.",
     "public_functions" : [ {
       "name" : "findByAuthorNameAndText",
-      "parameters" : [ "String authorName", "String text" ],
-      "return_type" : "Optional<Review>",
-      "description" : "Finds a review by its author name and text to check for duplicates."
+      "parameters" : [ "Optional<Review> findByAuthorNameAndText(String authorName, String text)" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
+    }, {
+      "name" : "findAllByOrderByTimeDesc",
+      "parameters" : [ "List<Review> findAllByOrderByTimeDesc()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -1901,9 +1897,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Review.java" ],
     "depends_on" : [ ],
     "feature_name" : "review-integration",
-    "file_role" : "REPOSITORY layer — provides JPA data access operations for the `Review` entity.",
+    "file_role" : "REPOSITORY layer — provides JPA data access operations for the `Review` entity.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: Optional<Review> findByAuthorNameAndText(String authorName, String text); List<Review> findAllByOrderByTimeDesc()",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "GoogleReviewService.java",
     "file_path" : "backend/src/main/java/com/absfitness/service/GoogleReviewService.java",
@@ -1915,14 +1911,14 @@
     "description" : "Service to fetch Google Reviews from the Places API and cache them.",
     "public_functions" : [ {
       "name" : "getAllGoogleReviews",
-      "parameters" : [ ],
-      "return_type" : "List<GoogleReviewDto>",
-      "description" : "Retrieves all cached Google Reviews, ordered by time descending. If the cache is empty or stale, it attempts to fetch new reviews from the Google Places API."
+      "parameters" : [ "List<GoogleReviewDto> getAllGoogleReviews()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "fetchAndCacheGoogleReviews",
-      "parameters" : [ ],
-      "return_type" : "void",
-      "description" : "Fetches reviews from the Google Places API and caches them in the database. This method is intended to be called by a scheduled task."
+      "parameters" : [ "void fetchAndCacheGoogleReviews()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -1930,9 +1926,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/ReviewRepository.java", "backend/src/main/java/com/absfitness/dto/GoogleReviewDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "review-integration",
-    "file_role" : "SERVICE layer — implements `getAllGoogleReviews(): List<GoogleReviewDto>` to fetch, cache, and retrieve Google Reviews.",
+    "file_role" : "SERVICE layer — implements `getAllGoogleReviews(): List<GoogleReviewDto>` to fetch, cache, and retrieve Google Reviews.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<GoogleReviewDto> getAllGoogleReviews(); void fetchAndCacheGoogleReviews()",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "GoogleReviewController.java",
     "file_path" : "backend/src/main/java/com/absfitness/controller/GoogleReviewController.java",
@@ -1944,9 +1940,9 @@
     "description" : "Public REST controller to expose cached Google Reviews to the frontend.",
     "public_functions" : [ {
       "name" : "getAllGoogleReviews",
-      "parameters" : [ ],
-      "return_type" : "ResponseEntity<List<GoogleReviewDto>>",
-      "description" : "Handles GET requests to retrieve all cached Google Reviews."
+      "parameters" : [ "List<GoogleReviewDto> getAllGoogleReviews()" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : [ {
@@ -1961,9 +1957,9 @@
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/GoogleReviewService.java", "backend/src/main/java/com/absfitness/dto/GoogleReviewDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "review-integration",
-    "file_role" : "CONTROLLER layer — exposes a public REST endpoint `/api/v1/reviews/google` for fetching cached Google Reviews.",
+    "file_role" : "CONTROLLER layer — exposes a public REST endpoint `/api/v1/reviews/google` for fetching cached Google Reviews.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: List<GoogleReviewDto> getAllGoogleReviews()",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "GoogleReviewDto.java",
     "file_path" : "backend/src/main/java/com/absfitness/dto/GoogleReviewDto.java",
@@ -1977,32 +1973,32 @@
     "public_variables" : [ {
       "name" : "authorName",
       "type" : "String",
-      "description" : "Name of the review author."
+      "description" : null
     }, {
       "name" : "rating",
       "type" : "Integer",
-      "description" : "Rating given by the author (1-5)."
+      "description" : null
     }, {
       "name" : "text",
       "type" : "String",
-      "description" : "Full text of the review."
+      "description" : null
     }, {
       "name" : "relativeTimeDescription",
       "type" : "String",
-      "description" : "Human-readable relative time description (e.g., 'a month ago')."
+      "description" : null
     }, {
       "name" : "profilePhotoUrl",
       "type" : "String",
-      "description" : "URL to the author's profile photo."
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "review-integration",
-    "file_role" : "DTO layer — defines the `GoogleReviewDto` for transferring Google Review data to the frontend.",
+    "file_role" : "DTO layer — defines the `GoogleReviewDto` for transferring Google Review data to the frontend.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { authorName: String; rating: Integer; text: String; relativeTimeDescription: String; profilePhotoUrl: String }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "App.tsx",
     "file_path" : "frontend/src/App.tsx",
@@ -2309,9 +2305,9 @@
     "description" : "API service for submitting and managing inquiries.",
     "public_functions" : [ {
       "name" : "createInquiry",
-      "parameters" : [ "CreateInquiryRequest request" ],
-      "return_type" : "Promise<InquiryDto>",
-      "description" : "Submits a new inquiry to the backend."
+      "parameters" : [ "createInquiry(inquiry: CreateInquiryDto): Promise<void>" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -2326,9 +2322,9 @@
     "imports_from" : [ "frontend/src/types/inquiry.ts" ],
     "depends_on" : [ ],
     "feature_name" : "customer-engagement-ui",
-    "file_role" : "SERVICE layer — provides functions for submitting inquiries to the backend.",
+    "file_role" : "SERVICE layer — provides functions for submitting inquiries to the backend.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: createInquiry(inquiry: CreateInquiryDto): Promise<void>",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "review.ts",
     "file_path" : "frontend/src/types/review.ts",
@@ -2363,9 +2359,9 @@
     "description" : "API service for fetching Google Reviews.",
     "public_functions" : [ {
       "name" : "getAllGoogleReviews",
-      "parameters" : [ ],
-      "return_type" : "Promise<GoogleReviewDto[]>",
-      "description" : "Fetches all Google Reviews from the backend."
+      "parameters" : [ "getAllGoogleReviews(): Promise<GoogleReviewDto[]>" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -2380,9 +2376,9 @@
     "imports_from" : [ "frontend/src/types/review.ts" ],
     "depends_on" : [ ],
     "feature_name" : "customer-engagement-ui",
-    "file_role" : "SERVICE layer — provides functions for fetching Google Reviews from the backend.",
+    "file_role" : "SERVICE layer — provides functions for fetching Google Reviews from the backend.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: getAllGoogleReviews(): Promise<GoogleReviewDto[]>",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "LoginPage.tsx",
     "file_path" : "frontend/src/pages/LoginPage.tsx",
@@ -2504,9 +2500,9 @@
     "description" : "A route guard that checks for user authentication and authorization.",
     "public_functions" : [ {
       "name" : "ProtectedRoute",
-      "parameters" : [ "React.PropsWithChildren<{}> children" ],
+      "parameters" : [ "children: React.ReactNode" ],
       "return_type" : "JSX.Element",
-      "description" : "Protects routes by redirecting unauthenticated users to the login page."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -2514,9 +2510,9 @@
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "user-account",
-    "file_role" : "A route guard that checks for user authentication and authorization. It uses the `useAuth` hook to determine if a user is logged in.",
+    "file_role" : "A route guard that checks for user authentication and authorization. It uses the `useAuth` hook to determine if a user is logged in.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { children: React.ReactNode }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "AccountPage.tsx",
     "file_path" : "frontend/src/pages/AccountPage.tsx",
@@ -2669,9 +2665,9 @@
     "description" : "A card component to display details of a single membership plan.",
     "public_functions" : [ {
       "name" : "MembershipPlanCard",
-      "parameters" : [ "MembershipPlanDto plan", "() => void onEnroll" ],
+      "parameters" : [ "plan: MembershipPlanDto", "onEnroll: (plan: MembershipPlanDto) => void" ],
       "return_type" : "JSX.Element",
-      "description" : "Renders a card with membership plan details including name, description, price, and duration. The 'Enroll Now' button triggers the onEnroll callback."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -2679,9 +2675,9 @@
     "imports_from" : [ "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "membership-sales",
-    "file_role" : "COMPONENT layer — displays details of a single membership plan and provides an 'Enroll Now' action.",
+    "file_role" : "COMPONENT layer — displays details of a single membership plan and provides an 'Enroll Now' action.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { plan: MembershipPlanDto; onEnroll: (plan: MembershipPlanDto) => void }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "CheckoutPage.tsx",
     "file_path" : "frontend/src/pages/CheckoutPage.tsx",
@@ -2717,9 +2713,9 @@
     "description" : "The form component for entering payment details during checkout.",
     "public_functions" : [ {
       "name" : "CheckoutForm",
-      "parameters" : [ "(formData: { name: string, email: string, phone: string }) => Promise<void> onSubmit" ],
+      "parameters" : [ "onSubmit: () => Promise<void>" ],
       "return_type" : "JSX.Element",
-      "description" : "Renders a form for user details and payment. On submission, it calls the onSubmit callback with user data and handles payment initiation via PaymentService."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -2727,9 +2723,9 @@
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "membership-sales",
-    "file_role" : "COMPONENT layer — provides a form for users to enter details and initiate payment during checkout.",
+    "file_role" : "COMPONENT layer — provides a form for users to enter details and initiate payment during checkout.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { onSubmit: () => Promise<void> }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "OrderSummary.tsx",
     "file_path" : "frontend/src/components/checkout/OrderSummary.tsx",
@@ -2741,9 +2737,9 @@
     "description" : "A component displaying the selected membership and total cost in the checkout flow.",
     "public_functions" : [ {
       "name" : "OrderSummary",
-      "parameters" : [ "CartItem[] cartItems", "{ subtotal: number, adjustments: number, total: number } totals" ],
+      "parameters" : [ "cartItems: CartItem[]", "totals: CartTotals" ],
       "return_type" : "JSX.Element",
-      "description" : "Renders a summary of items in the cart and the total amount, formatted in Indian Rupees."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -2751,9 +2747,9 @@
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "membership-sales",
-    "file_role" : "COMPONENT layer — displays a summary of the selected membership and total cost.",
+    "file_role" : "COMPONENT layer — displays a summary of the selected membership and total cost.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { cartItems: CartItem[]; totals: CartTotals }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "membership.ts",
     "file_path" : "frontend/src/types/membership.ts",
@@ -2765,22 +2761,18 @@
     "description" : "TypeScript types for MembershipPlan and MemberSubscription.",
     "public_functions" : null,
     "public_variables" : [ {
-      "name" : "MembershipPlanDto",
-      "type" : "{ id: Long; name: string; description: string; price: BigDecimal; durationInMonths: Integer; isActive: Boolean; }",
-      "description" : "DTO for membership plan details."
-    }, {
-      "name" : "MemberSubscriptionDto",
-      "type" : "{ id: Long; userId: Integer; membershipPlan: MembershipPlanDto; startDate: LocalDate; endDate: LocalDate; status: SubscriptionStatus; }",
-      "description" : "DTO for member subscription details."
+      "name" : "membershipPlanId",
+      "type" : "number",
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "membership-sales",
-    "file_role" : "Generated from the backend API contract — TypeScript types for MembershipPlanDto and MemberSubscriptionDto.",
+    "file_role" : "Generated from the backend API contract — TypeScript types for MembershipPlanDto and MemberSubscriptionDto.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { membershipPlanId: number }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "membershipService.ts",
     "file_path" : "frontend/src/services/membershipService.ts",
@@ -2792,14 +2784,14 @@
     "description" : "API service for fetching and managing memberships.",
     "public_functions" : [ {
       "name" : "getAllActiveMembershipPlans",
-      "parameters" : [ ],
-      "return_type" : "Promise<MembershipPlanDto[]>",
-      "description" : "Fetches all active membership plans from the backend."
+      "parameters" : [ "getAllActiveMembershipPlans(): Promise<MembershipPlanDto[]>" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "createMemberSubscription",
-      "parameters" : [ "Long membershipPlanId" ],
-      "return_type" : "Promise<MemberSubscriptionDto>",
-      "description" : "Creates a new member subscription for the given membership plan ID."
+      "parameters" : [ "createMemberSubscription(request: CreateMemberSubscriptionRequest): Promise<MemberSubscriptionDto>" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -2821,9 +2813,9 @@
     "imports_from" : [ "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "membership-sales",
-    "file_role" : "SERVICE layer — provides functions to interact with the backend membership API for fetching plans and creating subscriptions.",
+    "file_role" : "SERVICE layer — provides functions to interact with the backend membership API for fetching plans and creating subscriptions.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: getAllActiveMembershipPlans(): Promise<MembershipPlanDto[]>; createMemberSubscription(request: CreateMemberSubscriptionRequest): Promise<MemberSubscriptionDto>",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "ClassesPage.tsx",
     "file_path" : "frontend/src/pages/ClassesPage.tsx",
@@ -2859,9 +2851,9 @@
     "description" : "An interactive schedule/calendar component to display and filter fitness classes.",
     "public_functions" : [ {
       "name" : "ClassSchedule",
-      "parameters" : [ "FitnessClassDto[] classes" ],
+      "parameters" : [ "classes: FitnessClassDto[]", "onSelectClass: (cls: FitnessClassDto) => void" ],
       "return_type" : "JSX.Element",
-      "description" : "Renders a weekly schedule of fitness classes, allowing filtering and selection to open the booking modal."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -2869,9 +2861,9 @@
     "imports_from" : [ "frontend/src/components/classes/ClassBookingModal.tsx", "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : "Interactive schedule/calendar component that displays and filters fitness classes. It takes a list of FitnessClassDto objects as props and opens ClassBookingModal when a class is selected.",
+    "file_role" : "Interactive schedule/calendar component that displays and filters fitness classes. It takes a list of FitnessClassDto objects as props and opens ClassBookingModal when a class is selected.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { classes: FitnessClassDto[]; onSelectClass: (cls: FitnessClassDto) => void }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "ClassBookingModal.tsx",
     "file_path" : "frontend/src/components/classes/ClassBookingModal.tsx",
@@ -2883,9 +2875,9 @@
     "description" : "A dialog component to confirm booking for a selected class.",
     "public_functions" : [ {
       "name" : "ClassBookingModal",
-      "parameters" : [ "FitnessClassDto classToBook", "boolean isOpen", "() => void onClose" ],
+      "parameters" : [ "classToBook: FitnessClassDto | null", "isOpen: boolean", "onClose: () => void", "onBookingSuccess: (booking: BookingDto) => void" ],
       "return_type" : "JSX.Element",
-      "description" : "Displays class details and allows the user to confirm a booking."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -2893,9 +2885,9 @@
     "imports_from" : [ "frontend/src/services/bookingService.ts", "frontend/src/types/booking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : "Dialog component to confirm booking for a selected class. It takes a FitnessClassDto as a prop and calls the bookingService.createBooking function upon confirmation.",
+    "file_role" : "Dialog component to confirm booking for a selected class. It takes a FitnessClassDto as a prop and calls the bookingService.createBooking function upon confirmation.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { classToBook: FitnessClassDto | null; isOpen: boolean; onClose: () => void; onBookingSuccess: (booking: BookingDto) => void }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "fitnessClass.ts",
     "file_path" : "frontend/src/types/fitnessClass.ts",
@@ -2907,18 +2899,50 @@
     "description" : "TypeScript types for FitnessClass.",
     "public_functions" : null,
     "public_variables" : [ {
-      "name" : "FitnessClassDto",
-      "type" : "{ id: number; name: string; description: string; scheduleTime: string; durationMinutes: number; capacity: number; bookedSlots: number; trainerId: number; trainerName: string; }",
-      "description" : "Interface for fitness class data, mirroring the backend DTO."
+      "name" : "id",
+      "type" : "number",
+      "description" : null
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "description" : null
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "description" : null
+    }, {
+      "name" : "scheduleTime",
+      "type" : "string",
+      "description" : null
+    }, {
+      "name" : "durationMinutes",
+      "type" : "number",
+      "description" : null
+    }, {
+      "name" : "capacity",
+      "type" : "number",
+      "description" : null
+    }, {
+      "name" : "bookedSlots",
+      "type" : "number",
+      "description" : null
+    }, {
+      "name" : "trainerId",
+      "type" : "number",
+      "description" : null
+    }, {
+      "name" : "trainerName",
+      "type" : "string",
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : "Generated from the backend API contract – TypeScript types for FitnessClass.",
+    "file_role" : "Generated from the backend API contract – TypeScript types for FitnessClass.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: number; name: string; description: string; scheduleTime: string; durationMinutes: number; capacity: number; bookedSlots: number; trainerId: number; trainerName: string }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "fitnessClassService.ts",
     "file_path" : "frontend/src/services/fitnessClassService.ts",
@@ -2930,9 +2954,9 @@
     "description" : "API service for fetching fitness class data.",
     "public_functions" : [ {
       "name" : "getAllFitnessClasses",
-      "parameters" : [ ],
-      "return_type" : "Promise<FitnessClassDto[]>",
-      "description" : "Fetches all available fitness classes from the backend."
+      "parameters" : [ "getAllFitnessClasses(): Promise<FitnessClassDto[]>" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -2947,9 +2971,9 @@
     "imports_from" : [ "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : "API service for fetching fitness class data. It exports getAllFitnessClasses(): Promise<FitnessClassDto[]>.",
+    "file_role" : "API service for fetching fitness class data. It exports getAllFitnessClasses(): Promise<FitnessClassDto[]>.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: getAllFitnessClasses(): Promise<FitnessClassDto[]>",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "booking.ts",
     "file_path" : "frontend/src/types/booking.ts",
@@ -2961,22 +2985,50 @@
     "description" : "TypeScript types for Bookings.",
     "public_functions" : null,
     "public_variables" : [ {
-      "name" : "BookingDto",
-      "type" : "{ id: number; userId: number; fitnessClassId: number; fitnessClassName: string; scheduleTime: string; durationMinutes: number; bookingTime: string; status: string; }",
-      "description" : "Interface for booking data, mirroring the backend DTO."
+      "name" : "BookingDto.id",
+      "type" : "number",
+      "description" : null
     }, {
-      "name" : "CreateBookingRequest",
-      "type" : "{ fitnessClassId: number; }",
-      "description" : "Interface for creating a new booking, mirroring the backend request DTO."
+      "name" : "BookingDto.userId",
+      "type" : "number",
+      "description" : null
+    }, {
+      "name" : "BookingDto.fitnessClassId",
+      "type" : "number",
+      "description" : null
+    }, {
+      "name" : "BookingDto.fitnessClassName",
+      "type" : "string",
+      "description" : null
+    }, {
+      "name" : "BookingDto.scheduleTime",
+      "type" : "string",
+      "description" : null
+    }, {
+      "name" : "BookingDto.durationMinutes",
+      "type" : "number",
+      "description" : null
+    }, {
+      "name" : "BookingDto.bookingTime",
+      "type" : "string",
+      "description" : null
+    }, {
+      "name" : "BookingDto.status",
+      "type" : "string",
+      "description" : null
+    }, {
+      "name" : "CreateBookingRequest.fitnessClassId",
+      "type" : "number",
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : "Generated from the backend API contract – TypeScript types for Bookings.",
+    "file_role" : "Generated from the backend API contract – TypeScript types for Bookings.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { BookingDto.id: number; BookingDto.userId: number; BookingDto.fitnessClassId: number; BookingDto.fitnessClassName: string; BookingDto.scheduleTime: string; BookingDto.durationMinutes: number; BookingDto.bookingTime: string; BookingDto.status: string; CreateBookingRequest.fitnessClassId: number }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "bookingService.ts",
     "file_path" : "frontend/src/services/bookingService.ts",
@@ -2988,9 +3040,9 @@
     "description" : "API service for creating and managing bookings.",
     "public_functions" : [ {
       "name" : "createBooking",
-      "parameters" : [ "CreateBookingRequest request" ],
-      "return_type" : "Promise<BookingDto>",
-      "description" : "Creates a new booking for a fitness class."
+      "parameters" : [ "createBooking(request: CreateBookingRequest): Promise<BookingDto>" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3005,9 +3057,9 @@
     "imports_from" : [ "frontend/src/types/booking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : "API service for creating and managing bookings. It exports createBooking(request: CreateBookingRequest): Promise<BookingDto>.",
+    "file_role" : "API service for creating and managing bookings. It exports createBooking(request: CreateBookingRequest): Promise<BookingDto>.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: createBooking(request: CreateBookingRequest): Promise<BookingDto>",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "TrainersPage.tsx",
     "file_path" : "frontend/src/pages/TrainersPage.tsx",
@@ -3043,9 +3095,9 @@
     "description" : "A grid layout component for displaying multiple trainer profiles.",
     "public_functions" : [ {
       "name" : "TrainerGrid",
-      "parameters" : [ "TrainerDto[] trainers" ],
+      "parameters" : [ "trainers: TrainerDto[]" ],
       "return_type" : "JSX.Element",
-      "description" : "Renders a grid of TrainerProfileCard components based on the provided array of trainers."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3053,9 +3105,9 @@
     "imports_from" : [ "frontend/src/components/trainer/TrainerProfileCard.tsx", "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-profiles",
-    "file_role" : "COMPONENT layer — responsible for arranging multiple `TrainerProfileCard` components in a responsive grid.",
+    "file_role" : "COMPONENT layer — responsible for arranging multiple `TrainerProfileCard` components in a responsive grid.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { trainers: TrainerDto[] }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "TrainerProfileCard.tsx",
     "file_path" : "frontend/src/components/trainer/TrainerProfileCard.tsx",
@@ -3067,9 +3119,9 @@
     "description" : "A card component for displaying a single trainer's summary.",
     "public_functions" : [ {
       "name" : "TrainerProfileCard",
-      "parameters" : [ "TrainerDto trainer" ],
+      "parameters" : [ "trainer: TrainerDto" ],
       "return_type" : "JSX.Element",
-      "description" : "Renders a card with a trainer's image, name, specialty, experience, and a link to their detail page."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3077,9 +3129,9 @@
     "imports_from" : [ "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-profiles",
-    "file_role" : "COMPONENT layer — displays a single trainer's summary with their image, name, specialty, and a link to their detailed profile.",
+    "file_role" : "COMPONENT layer — displays a single trainer's summary with their image, name, specialty, and a link to their detailed profile.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { trainer: TrainerDto }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "TrainerDetailPage.tsx",
     "file_path" : "frontend/src/pages/TrainerDetailPage.tsx",
@@ -3115,18 +3167,38 @@
     "description" : "TypeScript types for Trainer profiles.",
     "public_functions" : null,
     "public_variables" : [ {
-      "name" : "TrainerDto",
-      "type" : "{ id: Long; name: String; specialty: String; bio: String; imageUrl: String; experienceYears: Integer; }",
-      "description" : "Interface for trainer data, mirroring the backend TrainerDto."
+      "name" : "id",
+      "type" : "number",
+      "description" : null
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "description" : null
+    }, {
+      "name" : "specialty",
+      "type" : "string",
+      "description" : null
+    }, {
+      "name" : "experienceYears",
+      "type" : "number",
+      "description" : null
+    }, {
+      "name" : "bio",
+      "type" : "string",
+      "description" : null
+    }, {
+      "name" : "imageUrl",
+      "type" : "string",
+      "description" : null
     } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "trainer-profiles",
-    "file_role" : "Generated from the backend API contract — defines the TypeScript interface for trainer data.",
+    "file_role" : "Generated from the backend API contract — defines the TypeScript interface for trainer data.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { id: number; name: string; specialty: string; experienceYears: number; bio: string; imageUrl: string }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "trainerService.ts",
     "file_path" : "frontend/src/services/trainerService.ts",
@@ -3138,14 +3210,14 @@
     "description" : "API service for fetching trainer data.",
     "public_functions" : [ {
       "name" : "getAllTrainers",
-      "parameters" : [ ],
-      "return_type" : "Promise<TrainerDto[]>",
-      "description" : "Fetches a list of all trainers from the backend."
+      "parameters" : [ "getAllTrainers(): Promise<TrainerDto[]>" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     }, {
       "name" : "getTrainerById",
-      "parameters" : [ "Long id" ],
-      "return_type" : "Promise<TrainerDto>",
-      "description" : "Fetches a single trainer's details by their ID from the backend."
+      "parameters" : [ "getTrainerById(id: number): Promise<TrainerDto>" ],
+      "return_type" : null,
+      "description" : "Reconciled method contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3167,9 +3239,9 @@
     "imports_from" : [ "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-profiles",
-    "file_role" : "SERVICE layer — provides functions to interact with the backend trainer API, including `getAllTrainers()` and `getTrainerById(id)`.",
+    "file_role" : "SERVICE layer — provides functions to interact with the backend trainer API, including `getAllTrainers()` and `getTrainerById(id)`.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): methods: getAllTrainers(): Promise<TrainerDto[]>; getTrainerById(id: number): Promise<TrainerDto>",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "AdminLayout.tsx",
     "file_path" : "frontend/src/components/AdminLayout.tsx",
@@ -3181,9 +3253,9 @@
     "description" : "The main layout for the admin section, including a sidebar for navigation.",
     "public_functions" : [ {
       "name" : "AdminLayout",
-      "parameters" : [ "React.PropsWithChildren<{}> children" ],
+      "parameters" : [ "children: React.ReactNode" ],
       "return_type" : "JSX.Element",
-      "description" : "Renders the admin layout with a sidebar and content area."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3191,9 +3263,9 @@
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : "Admin portal layout component — provides a consistent navigation and content structure for all admin pages.",
+    "file_role" : "Admin portal layout component — provides a consistent navigation and content structure for all admin pages.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { children: React.ReactNode }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "AdminDashboardPage.tsx",
     "file_path" : "frontend/src/pages/AdminDashboardPage.tsx",
@@ -3281,9 +3353,9 @@
     "description" : "A table for displaying and managing membership plans in the admin portal.",
     "public_functions" : [ {
       "name" : "MembershipPlanTable",
-      "parameters" : [ "MembershipPlanDto[] plans", "(plan: MembershipPlanDto) => void onEdit", "(id: Long) => void onDelete" ],
+      "parameters" : [ "plans: MembershipPlanDto[]", "onEdit: (plan: MembershipPlanDto) => void", "onDelete: (planId: number) => void" ],
       "return_type" : "JSX.Element",
-      "description" : "Displays a table of membership plans with actions for edit and delete. Monetary values are formatted to 'en-IN' locale with 'INR' currency."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3291,9 +3363,9 @@
     "imports_from" : [ "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : "Table component for membership plans — displays a list of plans with edit and delete actions.",
+    "file_role" : "Table component for membership plans — displays a list of plans with edit and delete actions.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { plans: MembershipPlanDto[]; onEdit: (plan: MembershipPlanDto) => void; onDelete: (planId: number) => void }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "MembershipPlanForm.tsx",
     "file_path" : "frontend/src/components/membership/MembershipPlanForm.tsx",
@@ -3305,9 +3377,9 @@
     "description" : "A form (in a modal or drawer) for creating/editing membership plans.",
     "public_functions" : [ {
       "name" : "MembershipPlanForm",
-      "parameters" : [ "boolean isOpen", "() => void onClose", "MembershipPlanDto | null initialData", "(data: MembershipPlanDto) => Promise<void> onSubmit" ],
+      "parameters" : [ "isOpen: boolean", "onClose: () => void", "initialData: MembershipPlanDto | null", "onSubmit: (data: Omit<MembershipPlanDto, 'id'>) => void" ],
       "return_type" : "JSX.Element",
-      "description" : "Provides a form to create or edit a membership plan. Monetary values are formatted to 'en-IN' locale with 'INR' currency."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3315,9 +3387,9 @@
     "imports_from" : [ "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : "Form component for membership plans — handles creation and editing of membership plan details.",
+    "file_role" : "Form component for membership plans — handles creation and editing of membership plan details.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { isOpen: boolean; onClose: () => void; initialData: MembershipPlanDto | null; onSubmit: (data: Omit<MembershipPlanDto, 'id'>) => void }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "AdminClassesPage.tsx",
     "file_path" : "frontend/src/pages/AdminClassesPage.tsx",
@@ -3388,9 +3460,9 @@
     "description" : "A table for displaying and managing fitness classes in the admin portal.",
     "public_functions" : [ {
       "name" : "ClassTable",
-      "parameters" : [ "FitnessClassDto[] classes", "(fitnessClass: FitnessClassDto) => void onEdit", "(id: Long) => void onDelete" ],
+      "parameters" : [ "classes: FitnessClassDto[]", "onEdit: (fitnessClass: FitnessClassDto) => void", "onDelete: (classId: number) => void" ],
       "return_type" : "JSX.Element",
-      "description" : "Displays a table of fitness classes with actions for edit and delete. Schedule times are formatted for 'en-IN' locale."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3398,9 +3470,9 @@
     "imports_from" : [ "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : "Table component for fitness classes — displays a list of classes with edit and delete actions.",
+    "file_role" : "Table component for fitness classes — displays a list of classes with edit and delete actions.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { classes: FitnessClassDto[]; onEdit: (fitnessClass: FitnessClassDto) => void; onDelete: (classId: number) => void }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "ClassForm.tsx",
     "file_path" : "frontend/src/components/classes/ClassForm.tsx",
@@ -3412,9 +3484,9 @@
     "description" : "A form for creating/editing fitness classes.",
     "public_functions" : [ {
       "name" : "ClassForm",
-      "parameters" : [ "boolean isOpen", "() => void onClose", "FitnessClassDto | null initialData", "(data: FitnessClassDto) => Promise<void> onSubmit" ],
+      "parameters" : [ "isOpen: boolean", "onClose: () => void", "initialData: FitnessClassDto | null", "trainers: TrainerDto[]", "onSubmit: (data: Omit<FitnessClassDto, 'id' | 'bookedSlots' | 'trainerName'>) => void" ],
       "return_type" : "JSX.Element",
-      "description" : "Provides a form to create or edit a fitness class. Schedule times are formatted for 'en-IN' locale."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3422,9 +3494,9 @@
     "imports_from" : [ "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : "Form component for fitness classes — handles creation and editing of class details.",
+    "file_role" : "Form component for fitness classes — handles creation and editing of class details.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { isOpen: boolean; onClose: () => void; initialData: FitnessClassDto | null; trainers: TrainerDto[]; onSubmit: (data: Omit<FitnessClassDto, 'id' | 'bookedSlots' | 'trainerName'>) => void }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "AdminBookingsPage.tsx",
     "file_path" : "frontend/src/pages/AdminBookingsPage.tsx",
@@ -3467,9 +3539,9 @@
     "description" : "A table for displaying all bookings in the admin portal.",
     "public_functions" : [ {
       "name" : "BookingTable",
-      "parameters" : [ "BookingDto[] bookings" ],
+      "parameters" : [ "bookings: BookingDto[]" ],
       "return_type" : "JSX.Element",
-      "description" : "Displays a table of bookings. Booking and schedule times are formatted for 'en-IN' locale."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3477,9 +3549,9 @@
     "imports_from" : [ "frontend/src/types/booking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : "Table component for bookings — displays a list of all member bookings.",
+    "file_role" : "Table component for bookings — displays a list of all member bookings.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { bookings: BookingDto[] }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "BookingFilter.tsx",
     "file_path" : "frontend/src/components/booking/BookingFilter.tsx",
@@ -3491,9 +3563,9 @@
     "description" : "Controls for filtering the bookings table by date, class, or member.",
     "public_functions" : [ {
       "name" : "BookingFilter",
-      "parameters" : [ "(filters: { classId?: Long, userId?: Integer, startDate?: string, endDate?: string }) => void onFilterChange" ],
+      "parameters" : [ "onFilterChange: (filters: { classId?: number; userId?: number; startDate?: string; endDate?: string; }) => void" ],
       "return_type" : "JSX.Element",
-      "description" : "Provides input fields and dropdowns to filter bookings. Date inputs are formatted for 'en-IN' locale."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3501,9 +3573,9 @@
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : "Filter component for bookings — provides controls to filter bookings by various criteria.",
+    "file_role" : "Filter component for bookings — provides controls to filter bookings by various criteria.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { onFilterChange: (filters: { classId?: number; userId?: number; startDate?: string; endDate?: string; }) => void }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "AdminTrainersPage.tsx",
     "file_path" : "frontend/src/pages/AdminTrainersPage.tsx",
@@ -3567,9 +3639,9 @@
     "description" : "A table for displaying and managing trainers in the admin portal.",
     "public_functions" : [ {
       "name" : "TrainerTable",
-      "parameters" : [ "TrainerDto[] trainers", "(trainer: TrainerDto) => void onEdit", "(id: Long) => void onDelete" ],
+      "parameters" : [ "trainers: TrainerDto[]", "onEdit: (trainer: TrainerDto) => void", "onDelete: (trainerId: number) => void" ],
       "return_type" : "JSX.Element",
-      "description" : "Displays a table of trainers with actions for edit and delete."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3577,9 +3649,9 @@
     "imports_from" : [ "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : "Table component for trainers — displays a list of trainers with edit and delete actions.",
+    "file_role" : "Table component for trainers — displays a list of trainers with edit and delete actions.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { trainers: TrainerDto[]; onEdit: (trainer: TrainerDto) => void; onDelete: (trainerId: number) => void }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "TrainerForm.tsx",
     "file_path" : "frontend/src/components/trainer/TrainerForm.tsx",
@@ -3591,9 +3663,9 @@
     "description" : "A form for creating/editing trainer profiles.",
     "public_functions" : [ {
       "name" : "TrainerForm",
-      "parameters" : [ "boolean isOpen", "() => void onClose", "TrainerDto | null initialData", "(data: TrainerDto) => Promise<void> onSubmit" ],
+      "parameters" : [ "isOpen: boolean", "onClose: () => void", "initialData: TrainerDto | null", "onSubmit: (data: Omit<TrainerDto, 'id'>) => void" ],
       "return_type" : "JSX.Element",
-      "description" : "Provides a form to create or edit a trainer profile."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3601,9 +3673,9 @@
     "imports_from" : [ "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : "Form component for trainers — handles creation and editing of trainer profiles.",
+    "file_role" : "Form component for trainers — handles creation and editing of trainer profiles.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { isOpen: boolean; onClose: () => void; initialData: TrainerDto | null; onSubmit: (data: Omit<TrainerDto, 'id'>) => void }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "AdminInquiriesPage.tsx",
     "file_path" : "frontend/src/pages/AdminInquiriesPage.tsx",
@@ -3653,9 +3725,9 @@
     "description" : "A table for displaying all lead inquiries in the admin portal.",
     "public_functions" : [ {
       "name" : "InquiryTable",
-      "parameters" : [ "InquiryDto[] inquiries", "(inquiry: InquiryDto) => void onView", "(id: Long) => void onDelete" ],
+      "parameters" : [ "inquiries: InquiryDto[]", "onView: (inquiry: InquiryDto) => void", "onDelete: (inquiryId: number) => void" ],
       "return_type" : "JSX.Element",
-      "description" : "Displays a table of inquiries with actions for viewing details and deleting. Submission times are formatted for 'en-IN' locale."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3663,9 +3735,9 @@
     "imports_from" : [ "frontend/src/types/inquiry.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : "Table component for inquiries — displays a list of lead inquiries with view and delete actions.",
+    "file_role" : "Table component for inquiries — displays a list of lead inquiries with view and delete actions.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { inquiries: InquiryDto[]; onView: (inquiry: InquiryDto) => void; onDelete: (inquiryId: number) => void }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "InquiryDetailView.tsx",
     "file_path" : "frontend/src/components/inquiry/InquiryDetailView.tsx",
@@ -3677,9 +3749,9 @@
     "description" : "A component to show the full details of a selected inquiry.",
     "public_functions" : [ {
       "name" : "InquiryDetailView",
-      "parameters" : [ "boolean isOpen", "() => void onClose", "InquiryDto | null inquiry" ],
+      "parameters" : [ "isOpen: boolean", "onClose: () => void", "inquiry: InquiryDto | null" ],
       "return_type" : "JSX.Element",
-      "description" : "Displays the full details of an inquiry within a modal or drawer. Submission times are formatted for 'en-IN' locale."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3687,9 +3759,9 @@
     "imports_from" : [ "frontend/src/types/inquiry.ts" ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : "Detail view component for inquiries — displays the full details of a selected inquiry.",
+    "file_role" : "Detail view component for inquiries — displays the full details of a selected inquiry.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { isOpen: boolean; onClose: () => void; inquiry: InquiryDto | null }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   }, {
     "file_name" : "DeleteConfirmationDialog.tsx",
     "file_path" : "frontend/src/components/shared/DeleteConfirmationDialog.tsx",
@@ -3701,9 +3773,9 @@
     "description" : "A reusable modal dialog to confirm delete actions across the admin portal.",
     "public_functions" : [ {
       "name" : "DeleteConfirmationDialog",
-      "parameters" : [ "boolean isOpen", "() => void onClose", "() => void onConfirm", "string itemToDeleteName" ],
+      "parameters" : [ "isOpen: boolean", "onClose: () => void", "onConfirm: () => void", "itemToDeleteName: string" ],
       "return_type" : "JSX.Element",
-      "description" : "Displays a modal dialog to confirm a delete action for a specified item."
+      "description" : "Reconciled prop contract"
     } ],
     "public_variables" : null,
     "api_endpoints" : null,
@@ -3711,15 +3783,15 @@
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "admin-portal",
-    "file_role" : "Reusable confirmation dialog — prompts the user to confirm a delete action.",
+    "file_role" : "Reusable confirmation dialog — prompts the user to confirm a delete action.\n\nRECONCILED CONTRACT (ground truth — implement EXACTLY this interface): { isOpen: boolean; onClose: () => void; onConfirm: () => void; itemToDeleteName: string }",
     "change_required" : null,
-    "contract_reconciled" : null
+    "contract_reconciled" : true
   } ],
   "features" : [ {
     "feature_name" : "shared-backend",
     "feature_display_name" : "Shared Backend",
     "feature_type" : "SHARED",
-    "file_paths" : [ "backend/src/main/java/com/absfitness/exception/GlobalExceptionHandler.java", "backend/src/main/java/com/absfitness/dto/ErrorResponse.java", "backend/src/main/java/com/absfitness/exception/ResourceNotFoundException.java" ],
+    "file_paths" : [ "backend/src/main/java/com/absfitness/exception/GlobalExceptionHandler.java", "backend/src/main/java/com/absfitness/dto/ErrorResponse.java" ],
     "feature_instruction" : "This feature provides core backend utilities for error handling and common exceptions. `GlobalExceptionHandler.java` acts as a centralized exception handler for the entire application. It intercepts specific exceptions, such as `ResourceNotFoundException`, and maps them to appropriate HTTP status codes and a standardized `ErrorResponse` DTO. This ensures that all API error responses have a consistent structure, improving API consumer experience. `ErrorResponse.java` defines this standardized structure, including fields for a timestamp, HTTP status, error message, and path. `ResourceNotFoundException.java` is a custom exception that should be thrown by services when a requested resource (e.g., a `MembershipPlan`, `FitnessClass`, or `Trainer`) cannot be found in the database. Services across all other backend features will throw `ResourceNotFoundException` when an entity is not found, and `GlobalExceptionHandler` will catch it and return a 404 Not Found response with an `ErrorResponse` body.",
     "depends_on_features" : [ ],
     "change_required" : true,

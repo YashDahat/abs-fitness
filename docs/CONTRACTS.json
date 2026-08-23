@@ -1,0 +1,641 @@
+{
+  "generated_at" : "2026-08-23",
+  "reconciled_count" : 106,
+  "contracts" : [ {
+    "feature_name" : "membership-management",
+    "module" : "backend/src/main/java/com/absfitness/model/MembershipPlan.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; name: String; description: String; price: BigDecimal; durationInMonths: Integer; isActive: Boolean",
+    "reconciled_interface" : "id: Long; name: String; description: String; price: BigDecimal; durationInMonths: Integer; isActive: Boolean"
+  }, {
+    "feature_name" : "membership-management",
+    "module" : "backend/src/main/java/com/absfitness/repository/MembershipPlanRepository.java",
+    "kind" : "METHODS",
+    "planned_interface" : "findByIsActiveTrue()",
+    "reconciled_interface" : "findByIsActiveTrue(List<MembershipPlan> findByIsActiveTrue())"
+  }, {
+    "feature_name" : "membership-management",
+    "module" : "backend/src/main/java/com/absfitness/service/MembershipPlanService.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllMembershipPlans(); getActiveMembershipPlans(); getMembershipPlanById(Long id); createMembershipPlan(MembershipPlanDto dto); updateMembershipPlan(Long id, MembershipPlanDto dto); deleteMembershipPlan(Long id)",
+    "reconciled_interface" : "getAllMembershipPlans(List<MembershipPlanDto> getAllMembershipPlans()); getActiveMembershipPlans(List<MembershipPlanDto> getActiveMembershipPlans()); getMembershipPlanById(MembershipPlanDto getMembershipPlanById(Long id)); createMembershipPlan(MembershipPlanDto createMembershipPlan(MembershipPlanDto membershipPlanDto)); updateMembershipPlan(MembershipPlanDto updateMembershipPlan(Long id, MembershipPlanDto membershipPlanDto)); deleteMembershipPlan(void deleteMembershipPlan(Long id))"
+  }, {
+    "feature_name" : "membership-management",
+    "module" : "backend/src/main/java/com/absfitness/controller/MembershipPlanController.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllActiveMembershipPlans(); getMembershipPlanById(Long id)",
+    "reconciled_interface" : "getActiveMembershipPlans(List<MembershipPlanDto> getActiveMembershipPlans()); getMembershipPlanById(MembershipPlanDto getMembershipPlanById(Long id))"
+  }, {
+    "feature_name" : "membership-management",
+    "module" : "backend/src/main/java/com/absfitness/controller/admin/AdminMembershipPlanController.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllMembershipPlans(); getMembershipPlanById(Long id); createMembershipPlan(MembershipPlanDto dto); updateMembershipPlan(Long id, MembershipPlanDto dto); deleteMembershipPlan(Long id)",
+    "reconciled_interface" : "getAllMembershipPlans(List<MembershipPlanDto> getAllMembershipPlans()); getMembershipPlanById(MembershipPlanDto getMembershipPlanById(Long id)); createMembershipPlan(MembershipPlanDto createMembershipPlan(MembershipPlanDto membershipPlanDto)); updateMembershipPlan(MembershipPlanDto updateMembershipPlan(Long id, MembershipPlanDto membershipPlanDto)); deleteMembershipPlan(void deleteMembershipPlan(Long id))"
+  }, {
+    "feature_name" : "membership-management",
+    "module" : "backend/src/main/java/com/absfitness/dto/MembershipPlanDto.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; name: String; description: String; price: BigDecimal; durationInMonths: Integer; isActive: Boolean",
+    "reconciled_interface" : "id: Long; name: String; description: String; price: BigDecimal; durationInMonths: Integer; isActive: Boolean"
+  }, {
+    "feature_name" : "membership-management",
+    "module" : "backend/src/main/java/com/absfitness/model/MemberSubscription.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; userId: Integer; membershipPlan: MembershipPlan; startDate: LocalDate; endDate: LocalDate; status: SubscriptionStatus",
+    "reconciled_interface" : "id: Long; userId: Integer; membershipPlan: MembershipPlan; startDate: LocalDate; endDate: LocalDate; status: SubscriptionStatus"
+  }, {
+    "feature_name" : "membership-management",
+    "module" : "backend/src/main/java/com/absfitness/repository/MemberSubscriptionRepository.java",
+    "kind" : "METHODS",
+    "planned_interface" : "findByUserId(Integer userId); findByUserIdAndStatus(Integer userId, SubscriptionStatus status)",
+    "reconciled_interface" : "findByUserId(List<MemberSubscription> findByUserId(Integer userId)); findByUserIdAndStatus(List<MemberSubscription> findByUserIdAndStatus(Integer userId, SubscriptionStatus status)); findByIdAndUserId(Optional<MemberSubscription> findByIdAndUserId(Long id, Integer userId))"
+  }, {
+    "feature_name" : "membership-management",
+    "module" : "backend/src/main/java/com/absfitness/service/MemberSubscriptionService.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getMemberSubscriptions(Integer userId); getMemberSubscriptionById(Long id, Integer userId); createMemberSubscription(Integer userId, Long membershipPlanId); cancelMemberSubscription(Long subscriptionId, Integer userId)",
+    "reconciled_interface" : "getMemberSubscriptions(List<MemberSubscriptionDto> getMemberSubscriptions(Integer userId)); getMemberSubscriptionById(MemberSubscriptionDto getMemberSubscriptionById(Long subscriptionId, Integer userId)); createMemberSubscription(MemberSubscriptionDto createMemberSubscription(Integer userId, Long membershipPlanId)); cancelMemberSubscription(MemberSubscriptionDto cancelMemberSubscription(Long subscriptionId, Integer userId))"
+  }, {
+    "feature_name" : "membership-management",
+    "module" : "backend/src/main/java/com/absfitness/controller/MemberSubscriptionController.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getMemberSubscriptions(Integer userId); getMemberSubscriptionById(Long id, Integer userId); createMemberSubscription(Integer userId, Long membershipPlanId); cancelMemberSubscription(Long id, Integer userId)",
+    "reconciled_interface" : "getMemberSubscriptions(List<MemberSubscriptionDto> getMemberSubscriptions(@CurrentUser Integer userId)); getMemberSubscriptionById(MemberSubscriptionDto getMemberSubscriptionById(Long id, @CurrentUser Integer userId)); createMemberSubscription(MemberSubscriptionDto createMemberSubscription(CreateSubscriptionRequestDto createDto, @CurrentUser Integer userId)); cancelMemberSubscription(MemberSubscriptionDto cancelMemberSubscription(Long id, @CurrentUser Integer userId))"
+  }, {
+    "feature_name" : "membership-management",
+    "module" : "backend/src/main/java/com/absfitness/dto/MemberSubscriptionDto.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; userId: Integer; membershipPlan: MembershipPlanDto; startDate: LocalDate; endDate: LocalDate; status: SubscriptionStatus",
+    "reconciled_interface" : "id: Long; userId: Integer; membershipPlan: MembershipPlanDto; startDate: LocalDate; endDate: LocalDate; status: SubscriptionStatus"
+  }, {
+    "feature_name" : "class-management",
+    "module" : "backend/src/main/java/com/absfitness/model/FitnessClass.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; name: String; description: String; scheduleTime: LocalDateTime; durationMinutes: Integer; capacity: Integer; bookedSlots: Integer; trainer: Trainer",
+    "reconciled_interface" : "id: Long; name: String; description: String; scheduleTime: LocalDateTime; durationMinutes: Integer; capacity: Integer; bookedSlots: Integer; trainer: Trainer"
+  }, {
+    "feature_name" : "class-management",
+    "module" : "backend/src/main/java/com/absfitness/repository/FitnessClassRepository.java",
+    "kind" : "METHODS",
+    "planned_interface" : "findByTrainerId(Long trainerId); findByScheduleTimeAfterAndCapacityGreaterThanBookedSlots(LocalDateTime currentTime)",
+    "reconciled_interface" : "findByTrainerId(List<FitnessClass> findByTrainerId(Long trainerId)); findAvailableClasses(List<FitnessClass> findAvailableClasses(LocalDateTime currentTime))"
+  }, {
+    "feature_name" : "class-management",
+    "module" : "backend/src/main/java/com/absfitness/service/FitnessClassService.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllFitnessClasses(); getFitnessClassById(Long id); createFitnessClass(FitnessClassDto dto); updateFitnessClass(Long id, FitnessClassDto dto); deleteFitnessClass(Long id); getClassesByTrainerId(Long trainerId); getAvailableClasses()",
+    "reconciled_interface" : "getAllFitnessClasses(List<FitnessClassDto> getAllFitnessClasses()); getFitnessClassById(FitnessClassDto getFitnessClassById(Long id)); createFitnessClass(FitnessClassDto createFitnessClass(FitnessClassDto fitnessClassDto)); updateFitnessClass(FitnessClassDto updateFitnessClass(Long id, FitnessClassDto fitnessClassDto)); deleteFitnessClass(void deleteFitnessClass(Long id)); getClassesByTrainerId(List<FitnessClassDto> getClassesByTrainerId(Long trainerId)); getAvailableClasses(List<FitnessClassDto> getAvailableClasses())"
+  }, {
+    "feature_name" : "class-management",
+    "module" : "backend/src/main/java/com/absfitness/controller/FitnessClassController.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllAvailableFitnessClasses(); getFitnessClassById(Long id)",
+    "reconciled_interface" : "getAllAvailableFitnessClasses(ResponseEntity<List<FitnessClassDto>> getAllAvailableFitnessClasses()); getFitnessClassById(ResponseEntity<FitnessClassDto> getFitnessClassById(Long id))"
+  }, {
+    "feature_name" : "class-management",
+    "module" : "backend/src/main/java/com/absfitness/controller/admin/AdminFitnessClassController.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllFitnessClasses(); getFitnessClassById(Long id); createFitnessClass(FitnessClassDto dto); updateFitnessClass(Long id, FitnessClassDto dto); deleteFitnessClass(Long id)",
+    "reconciled_interface" : "getAllFitnessClasses(ResponseEntity<List<FitnessClassDto>> getAllFitnessClasses()); getFitnessClassById(ResponseEntity<FitnessClassDto> getFitnessClassById(Long id)); createFitnessClass(ResponseEntity<FitnessClassDto> createFitnessClass(FitnessClassDto fitnessClassDto)); updateFitnessClass(ResponseEntity<FitnessClassDto> updateFitnessClass(Long id, FitnessClassDto fitnessClassDto)); deleteFitnessClass(ResponseEntity<Void> deleteFitnessClass(Long id))"
+  }, {
+    "feature_name" : "class-management",
+    "module" : "backend/src/main/java/com/absfitness/dto/FitnessClassDto.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; name: String; description: String; scheduleTime: LocalDateTime; durationMinutes: Integer; capacity: Integer; bookedSlots: Integer; trainerId: Long; trainerName: String",
+    "reconciled_interface" : "id: Long; name: String; description: String; scheduleTime: LocalDateTime; durationMinutes: Integer; capacity: Integer; bookedSlots: Integer; trainerId: Long; trainerName: String"
+  }, {
+    "feature_name" : "booking-system",
+    "module" : "backend/src/main/java/com/absfitness/model/Booking.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; userId: Integer; fitnessClass: FitnessClass; bookingTime: LocalDateTime; status: BookingStatus",
+    "reconciled_interface" : "id: Long; userId: Integer; fitnessClass: FitnessClass; bookingTime: LocalDateTime; status: BookingStatus"
+  }, {
+    "feature_name" : "booking-system",
+    "module" : "backend/src/main/java/com/absfitness/repository/BookingRepository.java",
+    "kind" : "METHODS",
+    "planned_interface" : "findByUserId(Integer userId); findByFitnessClassIdAndUserIdAndStatus(Long fitnessClassId, Integer userId, BookingStatus status); findByStatusAndFitnessClass_ScheduleTimeBetween(BookingStatus status, LocalDateTime start, LocalDateTime end)",
+    "reconciled_interface" : "findByUserId(List<Booking> findByUserId(Integer userId)); existsByFitnessClass_IdAndUserIdAndStatus(boolean existsByFitnessClass_IdAndUserIdAndStatus(Long fitnessClassId, Integer userId, BookingStatus status)); findByStatusAndFitnessClass_ScheduleTimeBetween(List<Booking> findByStatusAndFitnessClass_ScheduleTimeBetween(BookingStatus status, LocalDateTime start, LocalDateTime end)); findByIdAndUserId(Optional<Booking> findByIdAndUserId(Long id, Integer userId))"
+  }, {
+    "feature_name" : "booking-system",
+    "module" : "backend/src/main/java/com/absfitness/service/BookingService.java",
+    "kind" : "METHODS",
+    "planned_interface" : "createBooking(Integer userId, CreateBookingRequest request); getMemberBookings(Integer userId); cancelBooking(Long bookingId, Integer userId); getAllBookings(); getBookingById(Long bookingId)",
+    "reconciled_interface" : "createBooking(BookingDto createBooking(Integer userId, CreateBookingRequest request)); getMemberBookings(List<BookingDto> getMemberBookings(Integer userId)); cancelBooking(BookingDto cancelBooking(Long bookingId, Integer userId)); getAllBookings(List<BookingDto> getAllBookings()); getBookingById(BookingDto getBookingById(Long bookingId))"
+  }, {
+    "feature_name" : "booking-system",
+    "module" : "backend/src/main/java/com/absfitness/controller/BookingController.java",
+    "kind" : "METHODS",
+    "planned_interface" : "createBooking(Integer userId, CreateBookingRequest request); getMemberBookings(Integer userId); cancelBooking(Long bookingId, Integer userId)",
+    "reconciled_interface" : "createBooking(BookingDto createBooking(Integer userId, CreateBookingRequest request)); getMemberBookings(List<BookingDto> getMemberBookings(Integer userId)); cancelBooking(BookingDto cancelBooking(Long bookingId, Integer userId))"
+  }, {
+    "feature_name" : "booking-system",
+    "module" : "backend/src/main/java/com/absfitness/controller/admin/AdminBookingController.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllBookings(); getBookingById(Long bookingId)",
+    "reconciled_interface" : "getAllBookings(List<BookingDto> getAllBookings()); getBookingById(BookingDto getBookingById(Long bookingId))"
+  }, {
+    "feature_name" : "booking-system",
+    "module" : "backend/src/main/java/com/absfitness/dto/BookingDto.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; userId: Integer; fitnessClassId: Long; fitnessClassName: String; scheduleTime: LocalDateTime; durationMinutes: Integer; bookingTime: LocalDateTime; status: BookingStatus",
+    "reconciled_interface" : "id: Long; userId: Integer; fitnessClassId: Long; fitnessClassName: String; scheduleTime: LocalDateTime; durationMinutes: Integer; bookingTime: LocalDateTime; status: BookingStatus"
+  }, {
+    "feature_name" : "booking-system",
+    "module" : "backend/src/main/java/com/absfitness/dto/CreateBookingRequest.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "fitnessClassId: Long",
+    "reconciled_interface" : "fitnessClassId: Long"
+  }, {
+    "feature_name" : "booking-system",
+    "module" : "backend/src/main/java/com/absfitness/service/NotificationService.java",
+    "kind" : "METHODS",
+    "planned_interface" : "sendBookingConfirmationEmail(Integer userId, BookingDto bookingDto); sendBookingCancellationEmail(Integer userId, BookingDto bookingDto); sendBookingReminderEmail(BookingDto bookingDto)",
+    "reconciled_interface" : "sendBookingConfirmationEmail(void sendBookingConfirmationEmail(Integer userId, BookingDto bookingDto)); sendBookingCancellationEmail(void sendBookingCancellationEmail(Integer userId, BookingDto bookingDto)); sendBookingReminderEmail(void sendBookingReminderEmail(BookingDto bookingDto))"
+  }, {
+    "feature_name" : "booking-system",
+    "module" : "backend/src/main/java/com/absfitness/service/BookingReminderService.java",
+    "kind" : "METHODS",
+    "planned_interface" : "sendRemindersForUpcomingBookings()",
+    "reconciled_interface" : "sendRemindersForUpcomingBookings(void sendRemindersForUpcomingBookings())"
+  }, {
+    "feature_name" : "trainer-management",
+    "module" : "backend/src/main/java/com/absfitness/model/Trainer.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; name: String; specialty: String; bio: String; imageUrl: String; experienceYears: Integer",
+    "reconciled_interface" : "id: Long; name: String; specialty: String; bio: String; imageUrl: String; experienceYears: Integer"
+  }, {
+    "feature_name" : "trainer-management",
+    "module" : "backend/src/main/java/com/absfitness/repository/TrainerRepository.java",
+    "kind" : "METHODS",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "trainer-management",
+    "module" : "backend/src/main/java/com/absfitness/service/TrainerService.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllTrainers(); getTrainerById(Long id); createTrainer(TrainerDto trainerDto); updateTrainer(Long id, TrainerDto trainerDto); deleteTrainer(Long id)",
+    "reconciled_interface" : "getAllTrainers(List<TrainerDto> getAllTrainers()); getTrainerById(TrainerDto getTrainerById(Long id)); createTrainer(TrainerDto createTrainer(TrainerDto trainerDto)); updateTrainer(TrainerDto updateTrainer(Long id, TrainerDto trainerDto)); deleteTrainer(void deleteTrainer(Long id))"
+  }, {
+    "feature_name" : "trainer-management",
+    "module" : "backend/src/main/java/com/absfitness/controller/TrainerController.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllTrainers(); getTrainerById(Long id)",
+    "reconciled_interface" : "getAllTrainers(ResponseEntity<List<TrainerDto>> getAllTrainers()); getTrainerById(ResponseEntity<TrainerDto> getTrainerById(Long id))"
+  }, {
+    "feature_name" : "trainer-management",
+    "module" : "backend/src/main/java/com/absfitness/controller/admin/AdminTrainerController.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllTrainers(); getTrainerById(Long id); createTrainer(TrainerDto trainerDto); updateTrainer(Long id, TrainerDto trainerDto); deleteTrainer(Long id)",
+    "reconciled_interface" : "getAllTrainers(ResponseEntity<List<TrainerDto>> getAllTrainers()); getTrainerById(ResponseEntity<TrainerDto> getTrainerById(Long id)); createTrainer(ResponseEntity<TrainerDto> createTrainer(TrainerDto trainerDto)); updateTrainer(ResponseEntity<TrainerDto> updateTrainer(Long id, TrainerDto trainerDto)); deleteTrainer(ResponseEntity<Void> deleteTrainer(Long id))"
+  }, {
+    "feature_name" : "trainer-management",
+    "module" : "backend/src/main/java/com/absfitness/dto/TrainerDto.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; name: String; specialty: String; bio: String; imageUrl: String; experienceYears: Integer",
+    "reconciled_interface" : "id: Long; name: String; specialty: String; bio: String; imageUrl: String; experienceYears: Integer"
+  }, {
+    "feature_name" : "inquiry-management",
+    "module" : "backend/src/main/java/com/absfitness/model/Inquiry.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; name: String; email: String; phone: String; inquiryType: InquiryType; message: String; submissionTime: LocalDateTime",
+    "reconciled_interface" : "id: Long; name: String; email: String; phone: String; inquiryType: InquiryType; message: String; submissionTime: LocalDateTime"
+  }, {
+    "feature_name" : "inquiry-management",
+    "module" : "backend/src/main/java/com/absfitness/model/InquiryType.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "FREE_TRIAL: InquiryType; TOUR_BOOKING: InquiryType; GENERAL_INQUIRY: InquiryType",
+    "reconciled_interface" : "FREE_TRIAL: enum; TOUR_BOOKING: enum; GENERAL_INQUIRY: enum"
+  }, {
+    "feature_name" : "inquiry-management",
+    "module" : "backend/src/main/java/com/absfitness/repository/InquiryRepository.java",
+    "kind" : "METHODS",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "inquiry-management",
+    "module" : "backend/src/main/java/com/absfitness/service/InquiryService.java",
+    "kind" : "METHODS",
+    "planned_interface" : "createInquiry(CreateInquiryRequest request); getAllInquiries(); getInquiryById(Long id); deleteInquiry(Long id)",
+    "reconciled_interface" : "createInquiry(InquiryDto createInquiry(CreateInquiryRequest createInquiryRequest)); getAllInquiries(List<InquiryDto> getAllInquiries()); getInquiryById(InquiryDto getInquiryById(Long id)); deleteInquiry(void deleteInquiry(Long id))"
+  }, {
+    "feature_name" : "inquiry-management",
+    "module" : "backend/src/main/java/com/absfitness/controller/InquiryController.java",
+    "kind" : "METHODS",
+    "planned_interface" : "createInquiry(CreateInquiryRequest request)",
+    "reconciled_interface" : "createInquiry(InquiryDto createInquiry(CreateInquiryRequest createInquiryRequest))"
+  }, {
+    "feature_name" : "inquiry-management",
+    "module" : "backend/src/main/java/com/absfitness/controller/admin/AdminInquiryController.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllInquiries(); getInquiryById(Long id); deleteInquiry(Long id)",
+    "reconciled_interface" : "getAllInquiries(List<InquiryDto> getAllInquiries()); getInquiryById(InquiryDto getInquiryById(Long id)); deleteInquiry(void deleteInquiry(Long id))"
+  }, {
+    "feature_name" : "inquiry-management",
+    "module" : "backend/src/main/java/com/absfitness/dto/InquiryDto.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; name: String; email: String; phone: String; inquiryType: InquiryType; message: String; submissionTime: LocalDateTime",
+    "reconciled_interface" : "id: Long; name: String; email: String; phone: String; inquiryType: InquiryType; message: String; submissionTime: LocalDateTime"
+  }, {
+    "feature_name" : "inquiry-management",
+    "module" : "backend/src/main/java/com/absfitness/dto/CreateInquiryRequest.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "name: String; email: String; phone: String; inquiryType: InquiryType; message: String",
+    "reconciled_interface" : "name: String; email: String; phone: String; inquiryType: InquiryType; message: String"
+  }, {
+    "feature_name" : "review-integration",
+    "module" : "backend/src/main/java/com/absfitness/model/Review.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "id: Long; authorName: String; rating: Integer; text: String; time: Long; profilePhotoUrl: String; relativeTimeDescription: String",
+    "reconciled_interface" : "id: Long; authorName: String; rating: Integer; text: String; time: Long; profilePhotoUrl: String; relativeTimeDescription: String"
+  }, {
+    "feature_name" : "review-integration",
+    "module" : "backend/src/main/java/com/absfitness/repository/ReviewRepository.java",
+    "kind" : "METHODS",
+    "planned_interface" : "findByAuthorNameAndText(String authorName, String text)",
+    "reconciled_interface" : "findByAuthorNameAndText(Optional<Review> findByAuthorNameAndText(String authorName, String text)); findAllByOrderByTimeDesc(List<Review> findAllByOrderByTimeDesc())"
+  }, {
+    "feature_name" : "review-integration",
+    "module" : "backend/src/main/java/com/absfitness/service/GoogleReviewService.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllGoogleReviews(); fetchAndCacheGoogleReviews()",
+    "reconciled_interface" : "getAllGoogleReviews(List<GoogleReviewDto> getAllGoogleReviews()); fetchAndCacheGoogleReviews(void fetchAndCacheGoogleReviews())"
+  }, {
+    "feature_name" : "review-integration",
+    "module" : "backend/src/main/java/com/absfitness/controller/GoogleReviewController.java",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllGoogleReviews()",
+    "reconciled_interface" : "getAllGoogleReviews(List<GoogleReviewDto> getAllGoogleReviews())"
+  }, {
+    "feature_name" : "review-integration",
+    "module" : "backend/src/main/java/com/absfitness/dto/GoogleReviewDto.java",
+    "kind" : "FIELDS",
+    "planned_interface" : "authorName: String; rating: Integer; text: String; relativeTimeDescription: String; profilePhotoUrl: String",
+    "reconciled_interface" : "authorName: String; rating: Integer; text: String; relativeTimeDescription: String; profilePhotoUrl: String"
+  }, {
+    "feature_name" : "core-ui",
+    "module" : "frontend/src/pages/HomePage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "core-ui",
+    "module" : "frontend/src/components/home/HeroSection.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "HeroSection()",
+    "reconciled_interface" : "HeroSection()"
+  }, {
+    "feature_name" : "core-ui",
+    "module" : "frontend/src/components/home/FacilitiesHighlight.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "FacilitiesHighlight()",
+    "reconciled_interface" : "FacilitiesHighlight()"
+  }, {
+    "feature_name" : "core-ui",
+    "module" : "frontend/src/components/home/TrainerSpotlight.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "TrainerSpotlight()",
+    "reconciled_interface" : "TrainerSpotlight()"
+  }, {
+    "feature_name" : "core-ui",
+    "module" : "frontend/src/pages/AboutPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "core-ui",
+    "module" : "frontend/src/pages/ContactPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "core-ui",
+    "module" : "frontend/src/pages/GalleryPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "core-ui",
+    "module" : "frontend/src/pages/NotFoundPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "customer-engagement-ui",
+    "module" : "frontend/src/components/home/GoogleReviewsSection.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "GoogleReviewsSection()",
+    "reconciled_interface" : "GoogleReviewsSection()"
+  }, {
+    "feature_name" : "customer-engagement-ui",
+    "module" : "frontend/src/components/home/LeadCaptureForm.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "LeadCaptureForm()",
+    "reconciled_interface" : "LeadCaptureForm()"
+  }, {
+    "feature_name" : "customer-engagement-ui",
+    "module" : "frontend/src/services/inquiryService.ts",
+    "kind" : "METHODS",
+    "planned_interface" : "createInquiry(CreateInquiryRequest request)",
+    "reconciled_interface" : "createInquiry(createInquiry(inquiry: CreateInquiryDto): Promise<void>)"
+  }, {
+    "feature_name" : "customer-engagement-ui",
+    "module" : "frontend/src/services/reviewService.ts",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllGoogleReviews()",
+    "reconciled_interface" : "getAllGoogleReviews(getAllGoogleReviews(): Promise<GoogleReviewDto[]>)"
+  }, {
+    "feature_name" : "user-account",
+    "module" : "frontend/src/pages/LoginPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "LoginPage()",
+    "reconciled_interface" : "LoginPage()"
+  }, {
+    "feature_name" : "user-account",
+    "module" : "frontend/src/components/auth/LoginForm.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "LoginForm()",
+    "reconciled_interface" : "LoginForm()"
+  }, {
+    "feature_name" : "user-account",
+    "module" : "frontend/src/pages/SignupPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "SignupPage()",
+    "reconciled_interface" : "SignupPage()"
+  }, {
+    "feature_name" : "user-account",
+    "module" : "frontend/src/components/auth/SignupForm.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "SignupForm()",
+    "reconciled_interface" : "SignupForm()"
+  }, {
+    "feature_name" : "user-account",
+    "module" : "frontend/src/components/ProtectedRoute.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "ProtectedRoute(React.PropsWithChildren<{}> children)",
+    "reconciled_interface" : "ProtectedRoute(children: React.ReactNode)"
+  }, {
+    "feature_name" : "user-account",
+    "module" : "frontend/src/pages/AccountPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "AccountPage()",
+    "reconciled_interface" : "AccountPage()"
+  }, {
+    "feature_name" : "user-account",
+    "module" : "frontend/src/components/account/ProfileSection.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "ProfileSection()",
+    "reconciled_interface" : "ProfileSection()"
+  }, {
+    "feature_name" : "user-account",
+    "module" : "frontend/src/components/account/MyBookingsTable.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "MyBookingsTable()",
+    "reconciled_interface" : "MyBookingsTable()"
+  }, {
+    "feature_name" : "user-account",
+    "module" : "frontend/src/components/account/MembershipStatus.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "MembershipStatus()",
+    "reconciled_interface" : "MembershipStatus()"
+  }, {
+    "feature_name" : "membership-sales",
+    "module" : "frontend/src/pages/MembershipPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "MembershipPage()",
+    "reconciled_interface" : "MembershipPage()"
+  }, {
+    "feature_name" : "membership-sales",
+    "module" : "frontend/src/components/membership/MembershipPlanCard.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "MembershipPlanCard(MembershipPlanDto plan, () => void onEnroll)",
+    "reconciled_interface" : "MembershipPlanCard(plan: MembershipPlanDto, onEnroll: (plan: MembershipPlanDto) => void)"
+  }, {
+    "feature_name" : "membership-sales",
+    "module" : "frontend/src/pages/CheckoutPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "CheckoutPage()",
+    "reconciled_interface" : "CheckoutPage()"
+  }, {
+    "feature_name" : "membership-sales",
+    "module" : "frontend/src/components/checkout/CheckoutForm.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "CheckoutForm((formData: { name: string, email: string, phone: string }) => Promise<void> onSubmit)",
+    "reconciled_interface" : "CheckoutForm(onSubmit: () => Promise<void>)"
+  }, {
+    "feature_name" : "membership-sales",
+    "module" : "frontend/src/components/checkout/OrderSummary.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "OrderSummary(CartItem[] cartItems, { subtotal: number, adjustments: number, total: number } totals)",
+    "reconciled_interface" : "OrderSummary(cartItems: CartItem[], totals: CartTotals)"
+  }, {
+    "feature_name" : "membership-sales",
+    "module" : "frontend/src/services/membershipService.ts",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllActiveMembershipPlans(); createMemberSubscription(Long membershipPlanId)",
+    "reconciled_interface" : "getAllActiveMembershipPlans(getAllActiveMembershipPlans(): Promise<MembershipPlanDto[]>); createMemberSubscription(createMemberSubscription(request: CreateMemberSubscriptionRequest): Promise<MemberSubscriptionDto>)"
+  }, {
+    "feature_name" : "membership-sales",
+    "module" : "frontend/src/types/membership.ts",
+    "kind" : "NONE",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "membership-sales",
+    "module" : "frontend/src/types/membership.ts",
+    "kind" : "NONE",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "membership-sales",
+    "module" : "frontend/src/types/membership.ts",
+    "kind" : "NONE",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "class-booking-ui",
+    "module" : "frontend/src/pages/ClassesPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "ClassesPage()",
+    "reconciled_interface" : "ClassesPage()"
+  }, {
+    "feature_name" : "class-booking-ui",
+    "module" : "frontend/src/components/classes/ClassSchedule.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "ClassSchedule(FitnessClassDto[] classes)",
+    "reconciled_interface" : "ClassSchedule(classes: FitnessClassDto[], onSelectClass: (cls: FitnessClassDto) => void)"
+  }, {
+    "feature_name" : "class-booking-ui",
+    "module" : "frontend/src/components/classes/ClassBookingModal.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "ClassBookingModal(FitnessClassDto classToBook, boolean isOpen, () => void onClose)",
+    "reconciled_interface" : "ClassBookingModal(classToBook: FitnessClassDto | null, isOpen: boolean, onClose: () => void, onBookingSuccess: (booking: BookingDto) => void)"
+  }, {
+    "feature_name" : "class-booking-ui",
+    "module" : "frontend/src/services/fitnessClassService.ts",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllFitnessClasses()",
+    "reconciled_interface" : "getAllFitnessClasses(getAllFitnessClasses(): Promise<FitnessClassDto[]>)"
+  }, {
+    "feature_name" : "class-booking-ui",
+    "module" : "frontend/src/services/bookingService.ts",
+    "kind" : "METHODS",
+    "planned_interface" : "createBooking(CreateBookingRequest request)",
+    "reconciled_interface" : "createBooking(createBooking(request: CreateBookingRequest): Promise<BookingDto>)"
+  }, {
+    "feature_name" : "class-booking-ui",
+    "module" : "frontend/src/types/fitnessClass.ts",
+    "kind" : "NONE",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "class-booking-ui",
+    "module" : "frontend/src/types/booking.ts",
+    "kind" : "NONE",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "trainer-profiles",
+    "module" : "frontend/src/pages/TrainersPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "TrainersPage()",
+    "reconciled_interface" : "TrainersPage()"
+  }, {
+    "feature_name" : "trainer-profiles",
+    "module" : "frontend/src/components/trainer/TrainerGrid.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "TrainerGrid(TrainerDto[] trainers)",
+    "reconciled_interface" : "TrainerGrid(trainers: TrainerDto[])"
+  }, {
+    "feature_name" : "trainer-profiles",
+    "module" : "frontend/src/components/trainer/TrainerProfileCard.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "TrainerProfileCard(TrainerDto trainer)",
+    "reconciled_interface" : "TrainerProfileCard(trainer: TrainerDto)"
+  }, {
+    "feature_name" : "trainer-profiles",
+    "module" : "frontend/src/pages/TrainerDetailPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "TrainerDetailPage()",
+    "reconciled_interface" : "TrainerDetailPage()"
+  }, {
+    "feature_name" : "trainer-profiles",
+    "module" : "frontend/src/services/trainerService.ts",
+    "kind" : "METHODS",
+    "planned_interface" : "getAllTrainers(); getTrainerById(Long id)",
+    "reconciled_interface" : "getAllTrainers(getAllTrainers(): Promise<TrainerDto[]>); getTrainerById(getTrainerById(id: number): Promise<TrainerDto>)"
+  }, {
+    "feature_name" : "trainer-profiles",
+    "module" : "frontend/src/types/trainer.ts",
+    "kind" : "NONE",
+    "planned_interface" : "",
+    "reconciled_interface" : ""
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/components/AdminLayout.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "AdminLayout(React.PropsWithChildren<{}> children)",
+    "reconciled_interface" : "AdminLayout(children: React.ReactNode)"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/pages/AdminDashboardPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "AdminDashboardPage()",
+    "reconciled_interface" : "AdminDashboardPage()"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/pages/AdminMembershipPlansPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "AdminMembershipPlansPage()",
+    "reconciled_interface" : "AdminMembershipPlansPage()"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/components/membership/MembershipPlanTable.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "MembershipPlanTable(MembershipPlanDto[] plans, (plan: MembershipPlanDto) => void onEdit, (id: Long) => void onDelete)",
+    "reconciled_interface" : "MembershipPlanTable(plans: MembershipPlanDto[], onEdit: (plan: MembershipPlanDto) => void, onDelete: (planId: number) => void)"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/components/membership/MembershipPlanForm.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "MembershipPlanForm(boolean isOpen, () => void onClose, MembershipPlanDto | null initialData, (data: MembershipPlanDto) => Promise<void> onSubmit)",
+    "reconciled_interface" : "MembershipPlanForm(isOpen: boolean, onClose: () => void, initialData: MembershipPlanDto | null, onSubmit: (data: Omit<MembershipPlanDto, 'id'>) => void)"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/pages/AdminClassesPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "AdminClassesPage()",
+    "reconciled_interface" : "AdminClassesPage()"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/components/classes/ClassTable.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "ClassTable(FitnessClassDto[] classes, (fitnessClass: FitnessClassDto) => void onEdit, (id: Long) => void onDelete)",
+    "reconciled_interface" : "ClassTable(classes: FitnessClassDto[], onEdit: (fitnessClass: FitnessClassDto) => void, onDelete: (classId: number) => void)"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/components/classes/ClassForm.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "ClassForm(boolean isOpen, () => void onClose, FitnessClassDto | null initialData, (data: FitnessClassDto) => Promise<void> onSubmit)",
+    "reconciled_interface" : "ClassForm(isOpen: boolean, onClose: () => void, initialData: FitnessClassDto | null, trainers: TrainerDto[], onSubmit: (data: Omit<FitnessClassDto, 'id' | 'bookedSlots' | 'trainerName'>) => void)"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/pages/AdminBookingsPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "AdminBookingsPage()",
+    "reconciled_interface" : "AdminBookingsPage()"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/components/booking/BookingTable.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "BookingTable(BookingDto[] bookings)",
+    "reconciled_interface" : "BookingTable(bookings: BookingDto[])"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/components/booking/BookingFilter.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "BookingFilter((filters: { classId?: Long, userId?: Integer, startDate?: string, endDate?: string }) => void onFilterChange)",
+    "reconciled_interface" : "BookingFilter(onFilterChange: (filters: { classId?: number; userId?: number; startDate?: string; endDate?: string; }) => void)"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/pages/AdminTrainersPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "AdminTrainersPage()",
+    "reconciled_interface" : "AdminTrainersPage()"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/components/trainer/TrainerTable.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "TrainerTable(TrainerDto[] trainers, (trainer: TrainerDto) => void onEdit, (id: Long) => void onDelete)",
+    "reconciled_interface" : "TrainerTable(trainers: TrainerDto[], onEdit: (trainer: TrainerDto) => void, onDelete: (trainerId: number) => void)"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/components/trainer/TrainerForm.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "TrainerForm(boolean isOpen, () => void onClose, TrainerDto | null initialData, (data: TrainerDto) => Promise<void> onSubmit)",
+    "reconciled_interface" : "TrainerForm(isOpen: boolean, onClose: () => void, initialData: TrainerDto | null, onSubmit: (data: Omit<TrainerDto, 'id'>) => void)"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/pages/AdminInquiriesPage.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "AdminInquiriesPage()",
+    "reconciled_interface" : "AdminInquiriesPage()"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/components/inquiry/InquiryTable.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "InquiryTable(InquiryDto[] inquiries, (inquiry: InquiryDto) => void onView, (id: Long) => void onDelete)",
+    "reconciled_interface" : "InquiryTable(inquiries: InquiryDto[], onView: (inquiry: InquiryDto) => void, onDelete: (inquiryId: number) => void)"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/components/inquiry/InquiryDetailView.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "InquiryDetailView(boolean isOpen, () => void onClose, InquiryDto | null inquiry)",
+    "reconciled_interface" : "InquiryDetailView(isOpen: boolean, onClose: () => void, inquiry: InquiryDto | null)"
+  }, {
+    "feature_name" : "admin-portal",
+    "module" : "frontend/src/components/shared/DeleteConfirmationDialog.tsx",
+    "kind" : "PROPS",
+    "planned_interface" : "DeleteConfirmationDialog(boolean isOpen, () => void onClose, () => void onConfirm, string itemToDeleteName)",
+    "reconciled_interface" : "DeleteConfirmationDialog(isOpen: boolean, onClose: () => void, onConfirm: () => void, itemToDeleteName: string)"
+  } ]
+}
