@@ -1,54 +1,69 @@
-import { useCart } from '@/cart';
-import { useAuth } from '@/context/AuthContext';
-import { Button } from '@/components/ui/button';
-import {
-  Card, CardContent, CardDescription, CardHeader, CardTitle,
-} from '@/components/ui/card';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '@/cart/CartContext';
+import { useCreateMemberSubscription } from '@/hooks/membershipHooks';
+import { toast } from 'sonner';
+import CheckoutForm from '@/components/checkout/CheckoutForm';
+import OrderSummary from '@/components/checkout/OrderSummary';
+import { ROUTES } from '@/routes';
 
-// Minimal foundation checkout — mounted behind <RequireAuth>, so a guest is sent to /login first
-// and returns here with their cart intact. A generated business replaces this with its real
-// checkout (which sends only the cart to the server; the current user is derived from the token —
-// orders link by Integer userId, never email/phone).
 export default function CheckoutPage() {
   const { cartItems, totals, clearCart } = useCart();
-  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { mutateAsync: createSubscription, isPending: isCreatingSubscription } = useCreateMemberSubscription();
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async () => {
+    setError(null);
+    if (cartItems.length === 0) {
+      setError('Your cart is empty. Please add a membership plan to proceed.');
+      toast.error('Your cart is empty. Please add a membership plan to proceed.');
+      return;
+    }
+
+    const membershipPlanItem = cartItems.find(item => item.metadata?.type === 'membership');
+
+    if (!membershipPlanItem) {
+      setError('No membership plan found in your cart.');
+      toast.error('No membership plan found in your cart.');
+      return;
+    }
+
+    try {
+      await createSubscription({ membershipPlanId: membershipPlanItem.id });
+      clearCart();
+      toast.success('Membership purchased successfully!');
+      navigate(ROUTES.ACCOUNT);
+    } catch (err) {
+      console.error('Failed to create subscription:', err);
+      setError('Failed to process your membership. Please try again.');
+      toast.error('Failed to process your membership. Please try again.');
+    }
+  };
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12">
-      <Card data-testid="checkout-card">
-        <CardHeader>
-          <CardTitle>Checkout</CardTitle>
-          <CardDescription>
-            Logged in as <span data-testid="checkout-user">{user?.username}</span>.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {cartItems.length === 0 ? (
-            <p data-testid="checkout-empty" className="text-muted-foreground">Your cart is empty.</p>
-          ) : (
-            <ul className="space-y-1" data-testid="checkout-items">
-              {cartItems.map((item) => (
-                <li key={`${item.id}:${item.variantKey ?? ''}`} className="flex justify-between text-sm">
-                  <span>{item.name} × {item.quantity}</span>
-                  <span>₹{item.unitPrice * item.quantity}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className="flex items-center justify-between border-t pt-3 font-semibold">
-            <span>Total</span>
-            <span data-testid="checkout-total">₹{totals.total}</span>
+    <section className="py-16 px-4">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-12 text-[#1A1A1A]">Checkout</h1>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <h2 className="text-2xl font-semibold mb-6 text-[#1A1A1A]">Order Summary</h2>
+            <OrderSummary cartItems={cartItems} totals={totals} />
+            {error && <p className="text-red-500 mt-4">{error}</p>}
           </div>
-          <Button
-            className="w-full"
-            disabled={cartItems.length === 0}
-            data-testid="place-order"
-            onClick={clearCart}
-          >
-            Place order
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
+
+          <div>
+            <h2 className="text-2xl font-semibold mb-6 text-[#1A1A1A]">Payment Details</h2>
+            <CheckoutForm onSubmit={handleSubmit} />
+            {isCreatingSubscription && (
+              <div className="flex items-center justify-center mt-4">
+                <p className="text-lg text-gray-700">Processing your order...</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
