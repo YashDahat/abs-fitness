@@ -3017,14 +3017,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A gallery page showcasing all personal trainers with photos and specialties.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "TrainersPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the main trainers gallery, fetching all trainer data and displaying it in a grid."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/components/trainer/TrainerGrid.tsx", "frontend/src/services/trainerService.ts", "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-profiles",
-    "file_role" : null,
+    "file_role" : "PAGE layer — displays a gallery of all personal trainers by fetching data from `trainerService.getAllTrainers()` and rendering them using `TrainerGrid`.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -3036,14 +3041,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A grid layout component for displaying multiple trainer profiles.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "TrainerGrid",
+      "parameters" : [ "TrainerDto[] trainers" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a grid of TrainerProfileCard components based on the provided array of trainers."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/components/trainer/TrainerProfileCard.tsx", "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-profiles",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — responsible for arranging multiple `TrainerProfileCard` components in a responsive grid.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -3055,14 +3065,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A card component for displaying a single trainer's summary.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "TrainerProfileCard",
+      "parameters" : [ "TrainerDto trainer" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a card with a trainer's image, name, specialty, experience, and a link to their detail page."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-profiles",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a single trainer's summary with their image, name, specialty, and a link to their detailed profile.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -3074,14 +3089,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A detailed profile page for a single trainer, showing bio, qualifications, and schedule.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "TrainerDetailPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the detailed profile for a specific trainer, including their bio, qualifications, and a call to action."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "frontend/src/services/trainerService.ts", "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-profiles",
-    "file_role" : null,
+    "file_role" : "PAGE layer — displays the detailed profile of a single trainer by fetching data using `trainerService.getTrainerById(id)`.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -3094,13 +3114,17 @@
     "status" : "PLANNED",
     "description" : "TypeScript types for Trainer profiles.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "TrainerDto",
+      "type" : "{ id: Long; name: String; specialty: String; bio: String; imageUrl: String; experienceYears: Integer; }",
+      "description" : "Interface for trainer data, mirroring the backend TrainerDto."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "trainer-profiles",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract — defines the TypeScript interface for trainer data.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -3112,14 +3136,38 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "API service for fetching trainer data.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllTrainers",
+      "parameters" : [ ],
+      "return_type" : "Promise<TrainerDto[]>",
+      "description" : "Fetches a list of all trainers from the backend."
+    }, {
+      "name" : "getTrainerById",
+      "parameters" : [ "Long id" ],
+      "return_type" : "Promise<TrainerDto>",
+      "description" : "Fetches a single trainer's details by their ID from the backend."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/trainers",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a list of all trainers.",
+      "access" : null
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/trainers/{id}",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a single trainer's details by ID.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/trainer.ts" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-profiles",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — provides functions to interact with the backend trainer API, including `getAllTrainers()` and `getTrainerById(id)`.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -3578,8 +3626,8 @@
     "feature_display_name" : "Trainer Profiles UI",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/pages/TrainersPage.tsx", "frontend/src/components/trainer/TrainerGrid.tsx", "frontend/src/components/trainer/TrainerProfileCard.tsx", "frontend/src/pages/TrainerDetailPage.tsx", "frontend/src/types/trainer.ts", "frontend/src/services/trainerService.ts" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThis feature provides the frontend UI for displaying trainer profiles, including a gallery page and individual trainer detail pages. It consumes the `trainer-management` backend feature's API to fetch trainer data.\n\n### `frontend/src/types/trainer.ts`\nThis file defines the TypeScript interface `TrainerDto` which mirrors the `TrainerDto` data shape from the `trainer-management` backend feature. It ensures type safety across the frontend components and services when handling trainer data.\n\n### `frontend/src/services/trainerService.ts`\nThis service file provides functions to interact with the backend `trainer-management` API. It exports two asynchronous functions:\n1. `getAllTrainers(): Promise<TrainerDto[]>`: This function makes a GET request to `/api/v1/trainers` to fetch a list of all trainers. It returns a promise that resolves to an array of `TrainerDto` objects.\n2. `getTrainerById(id: Long): Promise<TrainerDto>`: This function makes a GET request to `/api/v1/trainers/{id}` to fetch a single trainer's details by their ID. It returns a promise that resolves to a `TrainerDto` object.\n\n### `frontend/src/components/trainer/TrainerProfileCard.tsx`\nThis component renders a single trainer's summary as a card. It receives a `TrainerDto` object as props. The card displays the trainer's `imageUrl`, `name`, `specialty`, and `experienceYears`. It includes a \"View Profile\" button (styled with `Primary CTA` tokens) that links to the `TrainerDetailPage` for the specific trainer using their `id`.\n\n### `frontend/src/components/trainer/TrainerGrid.tsx`\nThis component is responsible for laying out multiple `TrainerProfileCard` components in a responsive grid. It accepts an array of `TrainerDto` objects as props. It iterates over the array and renders a `TrainerProfileCard` for each trainer, passing the individual `TrainerDto` to each card.\n\n### `frontend/src/pages/TrainersPage.tsx`\nThis page serves as the main gallery for all trainers. It uses the `trainerService.getAllTrainers()` function to fetch all trainer data. While the data is being fetched, it displays a loading indicator. If an error occurs, it displays an error message. Once the data is successfully loaded, it renders a `TrainerGrid` component, passing the fetched `TrainerDto[]` to it. The page includes a prominent heading \"Meet Our Expert Trainers\" and a sub-heading \"Achieve your fitness goals with guidance from the best in the industry.\" (using `Hero h1` and `Body` tokens respectively). The section uses `Section bg` and `Section container` tokens.\n\n### `frontend/src/pages/TrainerDetailPage.tsx`\nThis page displays the detailed profile of a single trainer. It retrieves the trainer's ID from the URL parameters. It then uses `trainerService.getTrainerById(id)` to fetch the specific trainer's data. Similar to `TrainersPage`, it handles loading and error states. Once the trainer data is loaded, it displays the trainer's `name` (using `Hero h1` token), `specialty`, `bio`, `experienceYears`, and `imageUrl`. It also includes a call to action button \"Book a Session\" (styled with `Primary CTA` tokens) which would link to the class booking feature (not implemented in this feature). The page uses `Section bg` and `Section container` tokens for its layout.",
+    "depends_on_features" : [ "trainer-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
