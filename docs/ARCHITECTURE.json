@@ -1534,14 +1534,42 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Represents a lead capture inquiry for a free trial or tour.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "description" : "Unique identifier for the inquiry. Auto-generated."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Full name of the person making the inquiry. Not null, max 100 characters."
+    }, {
+      "name" : "email",
+      "type" : "String",
+      "description" : "Email address of the person making the inquiry. Not null, valid email format, max 100 characters."
+    }, {
+      "name" : "phone",
+      "type" : "String",
+      "description" : "Phone number of the person making the inquiry. Not null, max 20 characters."
+    }, {
+      "name" : "inquiryType",
+      "type" : "InquiryType",
+      "description" : "Type of inquiry (e.g., FREE_TRIAL, TOUR_BOOKING). Not null."
+    }, {
+      "name" : "message",
+      "type" : "String",
+      "description" : "Optional message from the inquirer. Max 500 characters."
+    }, {
+      "name" : "submissionTime",
+      "type" : "LocalDateTime",
+      "description" : "Timestamp when the inquiry was submitted. Not null."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/InquiryType.java" ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : null,
+    "file_role" : "MODEL layer — represents a lead capture inquiry with fields for contact details, type, and submission timestamp.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1553,14 +1581,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Enum for the type of inquiry (e.g., FREE_TRIAL, TOUR_BOOKING).",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "FREE_TRIAL",
+      "type" : "InquiryType",
+      "description" : "Inquiry for a free trial."
+    }, {
+      "name" : "TOUR_BOOKING",
+      "type" : "InquiryType",
+      "description" : "Inquiry for a facility tour booking."
+    }, {
+      "name" : "GENERAL_INQUIRY",
+      "type" : "InquiryType",
+      "description" : "General inquiry."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : null,
+    "file_role" : "MODEL layer — an enum defining the distinct types of inquiries that can be submitted.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1572,14 +1612,14 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "JPA repository for Inquiry entities.",
-    "public_functions" : null,
+    "public_functions" : [ ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Inquiry.java" ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : null,
+    "file_role" : "REPOSITORY layer — provides standard CRUD operations for `Inquiry` entities.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1591,14 +1631,34 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Business logic for saving and managing inquiries.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createInquiry",
+      "parameters" : [ "CreateInquiryRequest request" ],
+      "return_type" : "InquiryDto",
+      "description" : "Creates a new inquiry from the provided request, saves it, and returns the DTO. Throws IllegalArgumentException if request is invalid."
+    }, {
+      "name" : "getAllInquiries",
+      "parameters" : [ ],
+      "return_type" : "List<InquiryDto>",
+      "description" : "Retrieves all inquiries and returns them as a list of DTOs."
+    }, {
+      "name" : "getInquiryById",
+      "parameters" : [ "Long id" ],
+      "return_type" : "InquiryDto",
+      "description" : "Retrieves an inquiry by its ID and returns it as a DTO. Throws ResourceNotFoundException if the inquiry does not exist."
+    }, {
+      "name" : "deleteInquiry",
+      "parameters" : [ "Long id" ],
+      "return_type" : "void",
+      "description" : "Deletes an inquiry by its ID. Throws ResourceNotFoundException if the inquiry does not exist."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/InquiryRepository.java", "backend/src/main/java/com/absfitness/dto/InquiryDto.java", "backend/src/main/java/com/absfitness/dto/CreateInquiryRequest.java" ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — implements `createInquiry(CreateInquiryRequest): InquiryDto`, `getAllInquiries(): List<InquiryDto>`, `getInquiryById(Long): InquiryDto`, and `deleteInquiry(Long): void` for managing lead inquiries; delegates persistence to `InquiryRepository`.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1610,14 +1670,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Public REST controller for submitting new inquiries.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createInquiry",
+      "parameters" : [ "CreateInquiryRequest request" ],
+      "return_type" : "ResponseEntity<InquiryDto>",
+      "description" : "Handles POST requests to create a new inquiry."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/inquiries",
+      "request_body" : "CreateInquiryRequest",
+      "response_body" : "InquiryDto",
+      "description" : "Submits a new lead inquiry.",
+      "access" : "public"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/InquiryService.java", "backend/src/main/java/com/absfitness/dto/CreateInquiryRequest.java" ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — exposes public REST endpoints for submitting new inquiries.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1629,14 +1701,50 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin-only REST controller for viewing and managing inquiries.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllInquiries",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<InquiryDto>>",
+      "description" : "Handles GET requests to retrieve all inquiries."
+    }, {
+      "name" : "getInquiryById",
+      "parameters" : [ "Long id" ],
+      "return_type" : "ResponseEntity<InquiryDto>",
+      "description" : "Handles GET requests to retrieve a specific inquiry by ID."
+    }, {
+      "name" : "deleteInquiry",
+      "parameters" : [ "Long id" ],
+      "return_type" : "ResponseEntity<Void>",
+      "description" : "Handles DELETE requests to remove an inquiry by ID."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/inquiries",
+      "request_body" : null,
+      "response_body" : "List<InquiryDto>",
+      "description" : "Retrieves all lead inquiries.",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/inquiries/{id}",
+      "request_body" : null,
+      "response_body" : "InquiryDto",
+      "description" : "Retrieves a specific lead inquiry by ID.",
+      "access" : "admin"
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/inquiries/{id}",
+      "request_body" : null,
+      "response_body" : "Void",
+      "description" : "Deletes a specific lead inquiry by ID.",
+      "access" : "admin"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/InquiryService.java", "backend/src/main/java/com/absfitness/dto/InquiryDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — exposes admin-only REST endpoints for viewing and managing inquiries.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1648,14 +1756,42 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Data Transfer Object for Inquiry entities.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "description" : "Unique identifier for the inquiry."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Full name of the person making the inquiry."
+    }, {
+      "name" : "email",
+      "type" : "String",
+      "description" : "Email address of the person making the inquiry."
+    }, {
+      "name" : "phone",
+      "type" : "String",
+      "description" : "Phone number of the person making the inquiry."
+    }, {
+      "name" : "inquiryType",
+      "type" : "InquiryType",
+      "description" : "Type of inquiry (e.g., FREE_TRIAL, TOUR_BOOKING)."
+    }, {
+      "name" : "message",
+      "type" : "String",
+      "description" : "Optional message from the inquirer."
+    }, {
+      "name" : "submissionTime",
+      "type" : "LocalDateTime",
+      "description" : "Timestamp when the inquiry was submitted."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : null,
+    "file_role" : "DTO layer — represents the data structure for an inquiry when exposed via the API.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1667,14 +1803,34 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "DTO for creating a new lead inquiry.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Full name of the person making the inquiry. Not null, max 100 characters."
+    }, {
+      "name" : "email",
+      "type" : "String",
+      "description" : "Email address of the person making the inquiry. Not null, valid email format, max 100 characters."
+    }, {
+      "name" : "phone",
+      "type" : "String",
+      "description" : "Phone number of the person making the inquiry. Not null, max 20 characters."
+    }, {
+      "name" : "inquiryType",
+      "type" : "InquiryType",
+      "description" : "Type of inquiry (e.g., FREE_TRIAL, TOUR_BOOKING). Not null."
+    }, {
+      "name" : "message",
+      "type" : "String",
+      "description" : "Optional message from the inquirer. Max 500 characters."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "inquiry-management",
-    "file_role" : null,
+    "file_role" : "DTO layer — defines the data structure for creating a new inquiry via the API.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -3020,8 +3176,8 @@
     "feature_display_name" : "Inquiry Management (Backend)",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/model/Inquiry.java", "backend/src/main/java/com/absfitness/model/InquiryType.java", "backend/src/main/java/com/absfitness/repository/InquiryRepository.java", "backend/src/main/java/com/absfitness/service/InquiryService.java", "backend/src/main/java/com/absfitness/controller/InquiryController.java", "backend/src/main/java/com/absfitness/controller/admin/AdminInquiryController.java", "backend/src/main/java/com/absfitness/dto/InquiryDto.java", "backend/src/main/java/com/absfitness/dto/CreateInquiryRequest.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "The Inquiry Management feature handles the submission and administration of lead inquiries from potential ABS FITNESS members. It consists of `Inquiry` and `InquiryType` models, `InquiryRepository` for persistence, `InquiryService` for business logic, and two controllers: `InquiryController` for public submissions and `AdminInquiryController` for administrative management. The `InquiryController` exposes a public API endpoint for creating new inquiries. The `AdminInquiryController` provides authenticated and authorized endpoints for retrieving all inquiries, retrieving a single inquiry by ID, and deleting an inquiry. All data is transferred using `InquiryDto` and `CreateInquiryRequest` DTOs.\n\n### Inquiry Submission Flow\n1. A user (potential member) fills out a lead capture form on the frontend (e.g., for a free trial or tour booking).\n2. The frontend calls `POST /api/v1/inquiries` with a `CreateInquiryRequest` containing the user's name, email, phone, and the `InquiryType`.\n3. `InquiryController.createInquiry()` receives the request, validates it, and delegates to `InquiryService.createInquiry()`.\n4. `InquiryService.createInquiry()` maps the `CreateInquiryRequest` to an `Inquiry` entity, sets the submission timestamp, and saves it using `InquiryRepository.save()`.\n5. The service returns an `InquiryDto` representing the newly created inquiry.\n\n### Inquiry Management Flow (Admin)\n1. An authenticated administrator accesses the admin portal to view inquiries.\n2. To fetch all inquiries, the frontend calls `GET /api/v1/admin/inquiries`.\n3. `AdminInquiryController.getAllInquiries()` receives the request and calls `InquiryService.getAllInquiries()`.\n4. `InquiryService.getAllInquiries()` retrieves all `Inquiry` entities from `InquiryRepository.findAll()` and maps them to a `List<InquiryDto>`.\n5. To fetch a specific inquiry, the frontend calls `GET /api/v1/admin/inquiries/{id}`.\n6. `AdminInquiryController.getInquiryById()` receives the request, extracts the `id`, and calls `InquiryService.getInquiryById(Long id)`.\n7. `InquiryService.getInquiryById()` retrieves the `Inquiry` by ID using `InquiryRepository.findById()`. If not found, it throws a `ResourceNotFoundException`.\n8. To delete an inquiry, the frontend calls `DELETE /api/v1/admin/inquiries/{id}`.\n9. `AdminInquiryController.deleteInquiry()` receives the request, extracts the `id`, and calls `InquiryService.deleteInquiry(Long id)`.\n10. `InquiryService.deleteInquiry()` first verifies the inquiry exists using `InquiryRepository.existsById()`. If not found, it throws a `ResourceNotFoundException`. If found, it deletes the inquiry using `InquiryRepository.deleteById()`.\n\n### Error Handling\n- If an inquiry is not found during retrieval or deletion by ID, `InquiryService` throws a `ResourceNotFoundException`. The `AdminInquiryController` catches this and returns an HTTP 404 Not Found response.",
+    "depends_on_features" : [ ],
     "change_required" : true,
     "change_instruction" : null
   }, {
