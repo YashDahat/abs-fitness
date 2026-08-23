@@ -1264,13 +1264,37 @@
     "status" : "PLANNED",
     "description" : "Represents a personal trainer with a profile, specialty, and photo.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "description" : "Unique identifier for the trainer. Primary key, auto-generated."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the trainer. Not null, max 255 characters."
+    }, {
+      "name" : "specialty",
+      "type" : "String",
+      "description" : "Specialization of the trainer (e.g., 'Strength Training', 'Yoga'). Not null, max 255 characters."
+    }, {
+      "name" : "bio",
+      "type" : "String",
+      "description" : "Biography of the trainer. Not null, max 1000 characters."
+    }, {
+      "name" : "imageUrl",
+      "type" : "String",
+      "description" : "URL to the trainer's profile photo. Not null, max 500 characters."
+    }, {
+      "name" : "experienceYears",
+      "type" : "Integer",
+      "description" : "Years of experience of the trainer. Not null, must be positive."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "trainer-management",
-    "file_role" : null,
+    "file_role" : "MODEL layer — represents a personal trainer with attributes like name, specialty, and a profile image URL.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1282,14 +1306,14 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "JPA repository for Trainer entities.",
-    "public_functions" : null,
+    "public_functions" : [ ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Trainer.java" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-management",
-    "file_role" : null,
+    "file_role" : "REPOSITORY layer — provides standard CRUD operations for Trainer entities.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1301,14 +1325,39 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Business logic for managing trainer profiles.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllTrainers",
+      "parameters" : [ ],
+      "return_type" : "List<TrainerDto>",
+      "description" : "Retrieves all trainer profiles."
+    }, {
+      "name" : "getTrainerById",
+      "parameters" : [ "Long id" ],
+      "return_type" : "TrainerDto",
+      "description" : "Retrieves a single trainer profile by ID. Throws ResourceNotFoundException if not found."
+    }, {
+      "name" : "createTrainer",
+      "parameters" : [ "TrainerDto trainerDto" ],
+      "return_type" : "TrainerDto",
+      "description" : "Creates a new trainer profile."
+    }, {
+      "name" : "updateTrainer",
+      "parameters" : [ "Long id", "TrainerDto trainerDto" ],
+      "return_type" : "TrainerDto",
+      "description" : "Updates an existing trainer profile by ID. Throws ResourceNotFoundException if not found."
+    }, {
+      "name" : "deleteTrainer",
+      "parameters" : [ "Long id" ],
+      "return_type" : "void",
+      "description" : "Deletes a trainer profile by ID. Throws ResourceNotFoundException if not found."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/TrainerRepository.java", "backend/src/main/java/com/absfitness/dto/TrainerDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-management",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — implements business logic for managing trainer profiles, including `getAllTrainers(): List<TrainerDto>`, `getTrainerById(Long id): TrainerDto`, `createTrainer(TrainerDto trainerDto): TrainerDto`, `updateTrainer(Long id, TrainerDto trainerDto): TrainerDto`, and `deleteTrainer(Long id): void`.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1320,14 +1369,38 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Public REST controller for fetching trainer profiles.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllTrainers",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<TrainerDto>>",
+      "description" : "Handles GET requests to retrieve all trainer profiles."
+    }, {
+      "name" : "getTrainerById",
+      "parameters" : [ "Long id" ],
+      "return_type" : "ResponseEntity<TrainerDto>",
+      "description" : "Handles GET requests to retrieve a single trainer profile by ID."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/trainers",
+      "request_body" : null,
+      "response_body" : "List<TrainerDto>",
+      "description" : "Retrieves a list of all trainer profiles.",
+      "access" : "public"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/trainers/{id}",
+      "request_body" : null,
+      "response_body" : "TrainerDto",
+      "description" : "Retrieves a single trainer profile by its ID.",
+      "access" : "public"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/TrainerService.java", "backend/src/main/java/com/absfitness/dto/TrainerDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-management",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — exposes public REST endpoints for fetching trainer profiles via `getAllTrainers(): ResponseEntity<List<TrainerDto>>` and `getTrainerById(Long id): ResponseEntity<TrainerDto>>`.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1339,14 +1412,74 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Admin-only REST controller for CRUD operations on trainers.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllTrainers",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<TrainerDto>>",
+      "description" : "Handles GET requests to retrieve all trainer profiles for admin."
+    }, {
+      "name" : "getTrainerById",
+      "parameters" : [ "Long id" ],
+      "return_type" : "ResponseEntity<TrainerDto>",
+      "description" : "Handles GET requests to retrieve a single trainer profile by ID for admin."
+    }, {
+      "name" : "createTrainer",
+      "parameters" : [ "TrainerDto trainerDto" ],
+      "return_type" : "ResponseEntity<TrainerDto>",
+      "description" : "Handles POST requests to create a new trainer profile."
+    }, {
+      "name" : "updateTrainer",
+      "parameters" : [ "Long id", "TrainerDto trainerDto" ],
+      "return_type" : "ResponseEntity<TrainerDto>",
+      "description" : "Handles PUT requests to update an existing trainer profile by ID."
+    }, {
+      "name" : "deleteTrainer",
+      "parameters" : [ "Long id" ],
+      "return_type" : "ResponseEntity<Void>",
+      "description" : "Handles DELETE requests to delete a trainer profile by ID."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/admin/trainers",
+      "request_body" : null,
+      "response_body" : "List<TrainerDto>",
+      "description" : "Retrieves a list of all trainer profiles for administrative purposes.",
+      "access" : "admin"
+    }, {
+      "method" : "GET",
+      "path" : "/api/v1/admin/trainers/{id}",
+      "request_body" : null,
+      "response_body" : "TrainerDto",
+      "description" : "Retrieves a single trainer profile by its ID for administrative purposes.",
+      "access" : "admin"
+    }, {
+      "method" : "POST",
+      "path" : "/api/v1/admin/trainers",
+      "request_body" : "TrainerDto",
+      "response_body" : "TrainerDto",
+      "description" : "Creates a new trainer profile.",
+      "access" : "admin"
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/admin/trainers/{id}",
+      "request_body" : "TrainerDto",
+      "response_body" : "TrainerDto",
+      "description" : "Updates an existing trainer profile by its ID.",
+      "access" : "admin"
+    }, {
+      "method" : "DELETE",
+      "path" : "/api/v1/admin/trainers/{id}",
+      "request_body" : null,
+      "response_body" : "Void",
+      "description" : "Deletes a trainer profile by its ID.",
+      "access" : "admin"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/TrainerService.java", "backend/src/main/java/com/absfitness/dto/TrainerDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "trainer-management",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — exposes admin-only REST endpoints for CRUD operations on trainers via `getAllTrainers(): ResponseEntity<List<TrainerDto>>`, `getTrainerById(Long id): ResponseEntity<TrainerDto>>`, `createTrainer(TrainerDto trainerDto): ResponseEntity<TrainerDto>>`, `updateTrainer(Long id, TrainerDto trainerDto): ResponseEntity<TrainerDto>>`, and `deleteTrainer(Long id): ResponseEntity<Void>>`.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1359,13 +1492,37 @@
     "status" : "PLANNED",
     "description" : "Data Transfer Object for Trainer entities.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "description" : "Unique identifier for the trainer."
+    }, {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the trainer. @NotBlank, max 255 characters."
+    }, {
+      "name" : "specialty",
+      "type" : "String",
+      "description" : "Specialization of the trainer. @NotBlank, max 255 characters."
+    }, {
+      "name" : "bio",
+      "type" : "String",
+      "description" : "Biography of the trainer. @NotBlank, max 1000 characters."
+    }, {
+      "name" : "imageUrl",
+      "type" : "String",
+      "description" : "URL to the trainer's profile photo. @NotBlank, max 500 characters."
+    }, {
+      "name" : "experienceYears",
+      "type" : "Integer",
+      "description" : "Years of experience of the trainer. @NotNull, @Positive."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "trainer-management",
-    "file_role" : null,
+    "file_role" : "DTO layer — Data Transfer Object for Trainer entities, used for request and response bodies.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2854,8 +3011,8 @@
     "feature_display_name" : "Trainer Management (Backend)",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/model/Trainer.java", "backend/src/main/java/com/absfitness/repository/TrainerRepository.java", "backend/src/main/java/com/absfitness/service/TrainerService.java", "backend/src/main/java/com/absfitness/controller/TrainerController.java", "backend/src/main/java/com/absfitness/controller/admin/AdminTrainerController.java", "backend/src/main/java/com/absfitness/dto/TrainerDto.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "The Trainer Management feature provides a complete backend solution for managing personal trainer profiles at ABS FITNESS. It includes a `Trainer` entity to store trainer details, a `TrainerRepository` for database interactions, a `TrainerService` for business logic, and two controllers: `TrainerController` for public access to trainer profiles and `AdminTrainerController` for administrative CRUD operations. The `TrainerDto` facilitates data transfer between layers.\n\n**Trainer.java**\nRepresents a personal trainer. It will have fields for `id`, `name`, `specialty`, `bio`, `imageUrl`, and `experienceYears`. The `id` will be a `Long` and serve as the primary key. `imageUrl` will store a URL to the trainer's photo.\n\n**TrainerRepository.java**\nThis interface extends `JpaRepository<Trainer, Long>` to provide standard CRUD operations for `Trainer` entities. No custom query methods are required for this feature.\n\n**TrainerService.java**\nThis service class encapsulates the business logic for trainer management. It injects `TrainerRepository` to perform database operations. It provides the following public methods:\n1. `getAllTrainers(): List<TrainerDto>`:\n   - Retrieves all `Trainer` entities from the repository.\n   - Maps each `Trainer` entity to a `TrainerDto`.\n   - Returns a list of `TrainerDto`.\n2. `getTrainerById(Long id): TrainerDto`:\n   - Retrieves a `Trainer` entity by its `id` from the repository.\n   - If the trainer is not found, throws `ResourceNotFoundException`.\n   - Maps the `Trainer` entity to a `TrainerDto`.\n   - Returns the `TrainerDto`.\n3. `createTrainer(TrainerDto trainerDto): TrainerDto`:\n   - Maps the input `TrainerDto` to a new `Trainer` entity.\n   - Saves the new `Trainer` entity using the repository.\n   - Maps the saved `Trainer` entity back to a `TrainerDto`.\n   - Returns the created `TrainerDto`.\n4. `updateTrainer(Long id, TrainerDto trainerDto): TrainerDto`:\n   - Retrieves an existing `Trainer` entity by `id` from the repository.\n   - If the trainer is not found, throws `ResourceNotFoundException`.\n   - Updates the fields of the existing `Trainer` entity with values from `trainerDto`.\n   - Saves the updated `Trainer` entity using the repository.\n   - Maps the updated `Trainer` entity back to a `TrainerDto`.\n   - Returns the updated `TrainerDto`.\n5. `deleteTrainer(Long id): void`:\n   - Checks if a `Trainer` with the given `id` exists.\n   - If not found, throws `ResourceNotFoundException`.\n   - Deletes the `Trainer` entity by `id` from the repository.\n\n**TrainerController.java**\nThis controller handles public API requests related to trainer profiles. It injects `TrainerService`.\n1. `getAllTrainers(): ResponseEntity<List<TrainerDto>>`:\n   - Handles GET requests to `/api/v1/trainers`.\n   - Calls `trainerService.getAllTrainers()`.\n   - Returns a `200 OK` response with a list of `TrainerDto`.\n2. `getTrainerById(Long id): ResponseEntity<TrainerDto>`:\n   - Handles GET requests to `/api/v1/trainers/{id}`.\n   - Calls `trainerService.getTrainerById(id)`.\n   - Returns a `200 OK` response with the `TrainerDto`.\n   - If `ResourceNotFoundException` is thrown by the service, returns `404 NOT FOUND`.\n\n**AdminTrainerController.java**\nThis controller handles administrative API requests for managing trainer profiles. It injects `TrainerService`.\n1. `getAllTrainers(): ResponseEntity<List<TrainerDto>>`:\n   - Handles GET requests to `/api/v1/admin/trainers`.\n   - Calls `trainerService.getAllTrainers()`.\n   - Returns a `200 OK` response with a list of `TrainerDto`.\n2. `getTrainerById(Long id): ResponseEntity<TrainerDto>`:\n   - Handles GET requests to `/api/v1/admin/trainers/{id}`.\n   - Calls `trainerService.getTrainerById(id)`.\n   - Returns a `200 OK` response with the `TrainerDto`.\n   - If `ResourceNotFoundException` is thrown by the service, returns `404 NOT FOUND`.\n3. `createTrainer(TrainerDto trainerDto): ResponseEntity<TrainerDto>`:\n   - Handles POST requests to `/api/v1/admin/trainers`.\n   - Validates the `trainerDto` using `@Valid`.\n   - Calls `trainerService.createTrainer(trainerDto)`.\n   - Returns a `201 CREATED` response with the created `TrainerDto`.\n4. `updateTrainer(Long id, TrainerDto trainerDto): ResponseEntity<TrainerDto>`:\n   - Handles PUT requests to `/api/v1/admin/trainers/{id}`.\n   - Validates the `trainerDto` using `@Valid`.\n   - Calls `trainerService.updateTrainer(id, trainerDto)`.\n   - Returns a `200 OK` response with the updated `TrainerDto`.\n   - If `ResourceNotFoundException` is thrown by the service, returns `404 NOT FOUND`.\n5. `deleteTrainer(Long id): ResponseEntity<Void>`:\n   - Handles DELETE requests to `/api/v1/admin/trainers/{id}`.\n   - Calls `trainerService.deleteTrainer(id)`.\n   - Returns a `204 NO CONTENT` response.\n   - If `ResourceNotFoundException` is thrown by the service, returns `404 NOT FOUND`.\n\n**TrainerDto.java**\nThis DTO defines the structure for transferring trainer data. It will include fields for `id`, `name`, `specialty`, `bio`, `imageUrl`, and `experienceYears`. All fields except `id` should have appropriate Bean Validation annotations like `@NotBlank` and `@NotNull`.",
+    "depends_on_features" : [ ],
     "change_required" : true,
     "change_instruction" : null
   }, {
