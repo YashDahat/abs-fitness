@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import type { InquiryDto } from '@/types/inquiry';

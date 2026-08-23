@@ -29,51 +29,31 @@ const AdminTrainersPage = () => {
     setIsFormOpen(true);
   };
 
-  const handleDeleteTrainer = (trainer: TrainerDto) => {
+  const handleDeleteTrainer = (trainerId: number) => {
+    const trainer = trainers?.find(t => t.id === trainerId) || null;
     setTrainerToDelete(trainer);
     setIsDeleteDialogOpen(true);
   };
 
   const confirmDelete = () => {
     if (trainerToDelete) {
-      deleteTrainer(trainerToDelete.id, {
-        onSuccess: () => {
-          toast.success(`Trainer ${trainerToDelete.name} deleted successfully.`);
-          setIsDeleteDialogOpen(false);
-          setTrainerToDelete(null);
-        },
-        onError: (err) => {
-          toast.error(`Failed to delete trainer: ${err.message}`);
-        },
-      });
+      deleteTrainer(trainerToDelete.id);
+      toast.success(`Trainer ${trainerToDelete.name} deleted successfully.`);
+      setIsDeleteDialogOpen(false);
+      setTrainerToDelete(null);
     }
   };
 
   const handleSubmit = (data: Omit<TrainerDto, 'id'>) => {
     if (editingTrainer) {
-      updateTrainer(
-        { id: editingTrainer.id, request: data as TrainerDto },
-        {
-          onSuccess: () => {
-            toast.success(`Trainer ${data.name} updated successfully.`);
-            setIsFormOpen(false);
-            setEditingTrainer(null);
-          },
-          onError: (err) => {
-            toast.error(`Failed to update trainer: ${err.message}`);
-          },
-        },
-      );
+      updateTrainer({ id: editingTrainer.id, request: data as TrainerDto });
+      toast.success(`Trainer ${data.name} updated successfully.`);
+      setIsFormOpen(false);
+      setEditingTrainer(null);
     } else {
-      createTrainer(data as TrainerDto, {
-        onSuccess: () => {
-          toast.success(`Trainer ${data.name} created successfully.`);
-          setIsFormOpen(false);
-        },
-        onError: (err) => {
-          toast.error(`Failed to create trainer: ${err.message}`);
-        },
-      });
+      createTrainer(data as TrainerDto);
+      toast.success(`Trainer ${data.name} created successfully.`);
+      setIsFormOpen(false);
     }
   };
 

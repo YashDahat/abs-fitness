@@ -1,13 +1,21 @@
-import siteConfig from '@/config/siteConfig';
+import { siteConfig } from '@/config/siteConfig';
 import LeadCaptureForm from '@/components/home/LeadCaptureForm';
 import { Separator } from '@/components/ui/separator';
 
+const GYM_HOURS = [
+  'Mon - Fri: 6:00 AM - 10:00 PM',
+  'Sat: 7:00 AM - 8:00 PM',
+  'Sun: 8:00 AM - 6:00 PM',
+];
+const MAP_LAT = 28.7041;
+const MAP_LNG = 77.1025;
+
 export default function ContactPage() {
-  const { address, phone, email, openingHours, mapCoordinates } = siteConfig.footer;
+  const { address, phone, email } = siteConfig.footer;
 
   const googleMapsEmbedUrl = `https://www.google.com/maps/embed/v1/place?key=${
     import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-  }&q=${mapCoordinates.lat},${mapCoordinates.lng}`;
+  }&q=${MAP_LAT},${MAP_LNG}`;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -37,7 +45,7 @@ export default function ContactPage() {
               <div>
                 <strong>Opening Hours:</strong>
                 <ul className="list-disc list-inside ml-4">
-                  {openingHours.map((hour, index) => (
+                  {GYM_HOURS.map((hour: string, index: number) => (
                     <li key={index}>{hour}</li>
                   ))}
                 </ul>

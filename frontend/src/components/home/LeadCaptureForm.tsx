@@ -22,13 +22,15 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useCreateInquiry } from '@/hooks/inquiryHooks';
-import { InquiryType } from '@/types/inquiry';
+import type { InquiryType } from '@/types/inquiry';
+
+const INQUIRY_TYPES: InquiryType[] = ['FREE_TRIAL', 'TOUR_BOOKING', 'GENERAL_INQUIRY'];
 
 const formSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   email: z.string().email('Invalid email address'),
   phone: z.string().min(10, 'Phone number must be at least 10 digits').max(15, 'Phone number must not exceed 15 digits'),
-  inquiryType: z.nativeEnum(InquiryType, {
+  inquiryType: z.enum(['FREE_TRIAL', 'TOUR_BOOKING', 'GENERAL_INQUIRY'], {
     message: 'Please select an inquiry type',
   }),
   message: z.string().min(10, 'Message must be at least 10 characters').max(500, 'Message must not exceed 500 characters'),
@@ -41,7 +43,7 @@ export default function LeadCaptureForm() {
       name: '',
       email: '',
       phone: '',
-      inquiryType: InquiryType.GENERAL_INQUIRY,
+      inquiryType: 'GENERAL_INQUIRY' as InquiryType,
       message: '',
     },
   });
@@ -49,26 +51,15 @@ export default function LeadCaptureForm() {
   const { mutate: createInquiry, isPending } = useCreateInquiry();
 
   const onSubmit = (values: z.infer<typeof formSchema>): void => {
-    createInquiry(
-      {
-        name: values.name,
-        email: values.email,
-        phone: values.phone,
-        inquiryType: values.inquiryType,
-        message: values.message,
-      },
-      {
-        onSuccess: () => {
-          toast.success('Inquiry submitted successfully!');
-          form.reset();
-        },
-        onError: (error) => {
-          toast.error('Failed to submit inquiry.', {
-            description: error.message || 'Please try again.',
-          });
-        },
-      },
-    );
+    createInquiry({
+      name: values.name,
+      email: values.email,
+      phone: values.phone,
+      inquiryType: values.inquiryType,
+      message: values.message,
+    });
+    toast.success('Inquiry submitted successfully!');
+    form.reset();
   };
 
   return (
@@ -132,7 +123,7 @@ export default function LeadCaptureForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {Object.values(InquiryType).map((type) => (
+                        {INQUIRY_TYPES.map((type: InquiryType) => (
                           <SelectItem key={type} value={type}>
                             {type.replace(/_/g, ' ')}
                           </SelectItem>

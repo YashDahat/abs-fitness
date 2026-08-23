@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -34,16 +35,9 @@ export default function ClassBookingModal({
       fitnessClassId: classToBook.id,
     };
 
-    createBooking(request, {
-      onSuccess: (booking) => {
-        toast.success('Class booked successfully!');
-        onBookingSuccess(booking);
-        onClose();
-      },
-      onError: (error) => {
-        toast.error(`Failed to book class: ${error.message}`);
-      },
-    });
+    createBooking(request);
+    toast.success('Class booked successfully!');
+    onClose();
   };
 
   return (

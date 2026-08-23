@@ -34,51 +34,31 @@ const AdminMembershipPlansPage = () => {
     setIsFormOpen(true);
   };
 
-  const handleDelete = (plan: MembershipPlanDto): void => {
+  const handleDelete = (planId: number): void => {
+    const plan = plans?.find(p => p.id === planId) || null;
     setPlanToDelete(plan);
     setIsDeleteDialogOpen(true);
   };
 
   const confirmDelete = (): void => {
     if (planToDelete) {
-      deletePlan(planToDelete.id, {
-        onSuccess: () => {
-          toast.success(`Membership plan "${planToDelete.name}" deleted successfully.`);
-          setIsDeleteDialogOpen(false);
-          setPlanToDelete(null);
-        },
-        onError: (err) => {
-          toast.error(`Failed to delete plan: ${err.message}`);
-        },
-      });
+      deletePlan(planToDelete.id);
+      toast.success(`Membership plan "${planToDelete.name}" deleted successfully.`);
+      setIsDeleteDialogOpen(false);
+      setPlanToDelete(null);
     }
   };
 
   const handleSubmit = (data: Omit<MembershipPlanDto, 'id'>): void => {
     if (editingPlan) {
-      updatePlan(
-        { id: editingPlan.id, request: data as MembershipPlanDto },
-        {
-          onSuccess: () => {
-            toast.success(`Membership plan "${data.name}" updated successfully.`);
-            setIsFormOpen(false);
-            setEditingPlan(null);
-          },
-          onError: (err) => {
-            toast.error(`Failed to update plan: ${err.message}`);
-          },
-        },
-      );
+      updatePlan({ id: editingPlan.id, request: data as MembershipPlanDto });
+      toast.success(`Membership plan "${data.name}" updated successfully.`);
+      setIsFormOpen(false);
+      setEditingPlan(null);
     } else {
-      createPlan(data as MembershipPlanDto, {
-        onSuccess: () => {
-          toast.success(`Membership plan "${data.name}" created successfully.`);
-          setIsFormOpen(false);
-        },
-        onError: (err) => {
-          toast.error(`Failed to create plan: ${err.message}`);
-        },
-      });
+      createPlan(data as MembershipPlanDto);
+      toast.success(`Membership plan "${data.name}" created successfully.`);
+      setIsFormOpen(false);
     }
   };
 

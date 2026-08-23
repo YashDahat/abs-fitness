@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { useState } from 'react';
 import { useMemberBookings, useCancelBooking } from '@/hooks/bookingHooks';
 import { BookingDto } from '@/types/booking';
@@ -36,16 +37,9 @@ export default function MyBookingsTable(): React.JSX.Element {
 
   const confirmCancelBooking = (): void => {
     if (bookingToCancel !== null) {
-      cancelBookingMutation(bookingToCancel, {
-        onSuccess: () => {
-          toast.success('Booking cancelled successfully.');
-          setBookingToCancel(null);
-        },
-        onError: (err) => {
-          toast.error(`Failed to cancel booking: ${err.message}`);
-          setBookingToCancel(null);
-        },
-      });
+      cancelBookingMutation(bookingToCancel);
+      toast.success('Booking cancelled successfully.');
+      setBookingToCancel(null);
     }
   };
 

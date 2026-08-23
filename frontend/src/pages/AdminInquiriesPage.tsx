@@ -21,23 +21,18 @@ const AdminInquiriesPage = () => {
     setIsDetailViewOpen(true);
   };
 
-  const handleDeleteInquiry = (inquiry: InquiryDto): void => {
+  const handleDeleteInquiry = (inquiryId: number): void => {
+    const inquiry = inquiries?.find(i => i.id === inquiryId) || null;
     setInquiryToDelete(inquiry);
     setIsDeleteDialogOpen(true);
   };
 
   const confirmDelete = (): void => {
     if (inquiryToDelete) {
-      deleteInquiry(inquiryToDelete.id, {
-        onSuccess: () => {
-          toast.success('Inquiry deleted successfully!');
-          setIsDeleteDialogOpen(false);
-          setInquiryToDelete(null);
-        },
-        onError: (err) => {
-          toast.error(`Failed to delete inquiry: ${err.message}`);
-        },
-      });
+      deleteInquiry(inquiryToDelete.id);
+      toast.success('Inquiry deleted successfully!');
+      setIsDeleteDialogOpen(false);
+      setInquiryToDelete(null);
     }
   };
 

@@ -9,7 +9,6 @@ import { useDeleteFitnessClass } from '@/hooks/fitness-classHooks';
 import { useAdminGetAllTrainers } from '@/hooks/trainerHooks';
 import { toast } from 'sonner';
 import type { FitnessClassDto } from '@/types/fitnessClass';
-import type { TrainerDto } from '@/types/trainer';
 
 const AdminClassesPage = () => {
   const { data: classes, isLoading, isError, error } = useFitnessClasses();
@@ -33,54 +32,31 @@ const AdminClassesPage = () => {
     setIsFormOpen(true);
   };
 
-  const handleDeleteClass = (fitnessClass: FitnessClassDto): void => {
+  const handleDeleteClass = (classId: number): void => {
+    const fitnessClass = classes?.find(c => c.id === classId) || null;
     setClassToDelete(fitnessClass);
     setIsDeleteDialogOpen(true);
   };
 
   const confirmDelete = (): void => {
     if (classToDelete) {
-      deleteClass(classToDelete.id, {
-        onSuccess: () => {
-          toast.success('Fitness class deleted successfully!');
-          setIsDeleteDialogOpen(false);
-          setClassToDelete(null);
-        },
-        onError: (err) => {
-          toast.error(`Failed to delete fitness class: ${err.message}`);
-        },
-      });
+      deleteClass(classToDelete.id);
+      toast.success('Fitness class deleted successfully!');
+      setIsDeleteDialogOpen(false);
+      setClassToDelete(null);
     }
   };
 
   const handleFormSubmit = (data: Omit<FitnessClassDto, 'id' | 'bookedSlots' | 'trainerName'>): void => {
     if (editingClass) {
-      updateClass(
-        { id: editingClass.id, request: { ...editingClass, ...data, trainerName: trainers?.find(t => t.id === data.trainerId)?.name || '' } },
-        {
-          onSuccess: () => {
-            toast.success('Fitness class updated successfully!');
-            setIsFormOpen(false);
-            setEditingClass(null);
-          },
-          onError: (err) => {
-            toast.error(`Failed to update fitness class: ${err.message}`);
-          },
-        },
-      );
+      updateClass({ id: editingClass.id, request: { ...editingClass, ...data, trainerName: trainers?.find(t => t.id === data.trainerId)?.name || '' } });
+      toast.success('Fitness class updated successfully!');
+      setIsFormOpen(false);
+      setEditingClass(null);
     } else {
-      createClass(
-        { ...data, bookedSlots: 0, trainerName: trainers?.find(t => t.id === data.trainerId)?.name || '' },
-        {
-          onSuccess: () => {
-            toast.success('Fitness class created successfully!');
-            setIsFormOpen(false);
-          },
-          onError: (err) => {
-            toast.error(`Failed to create fitness class: ${err.message}`);
-          },
-        },
-      );
+      createClass({ id: 0, ...data, bookedSlots: 0, trainerName: trainers?.find(t => t.id === data.trainerId)?.name || '' });
+      toast.success('Fitness class created successfully!');
+      setIsFormOpen(false);
     }
   };
 

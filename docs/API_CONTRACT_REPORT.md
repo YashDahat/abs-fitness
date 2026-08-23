@@ -1,0 +1,99 @@
+# API Contract Report
+
+Effective client baseURL: `(empty)`
+
+## Mismatches (1)
+- POST /api/v1/admin/media  (path exists but not for POST — method or path mismatch)
+
+## Backend routes (45)
+- DELETE /api/v1/admin/fitness-classes/*
+- DELETE /api/v1/admin/inquiries/*
+- DELETE /api/v1/admin/media/*
+- DELETE /api/v1/admin/membership-plans/*
+- DELETE /api/v1/admin/trainers/*
+- GET /api/v1/admin/bookings
+- GET /api/v1/admin/bookings/*
+- GET /api/v1/admin/fitness-classes
+- GET /api/v1/admin/fitness-classes/*
+- GET /api/v1/admin/inquiries
+- GET /api/v1/admin/inquiries/*
+- GET /api/v1/admin/media
+- GET /api/v1/admin/membership-plans
+- GET /api/v1/admin/membership-plans/*
+- GET /api/v1/admin/trainers
+- GET /api/v1/admin/trainers/*
+- GET /api/v1/bookings
+- GET /api/v1/fitness-classes
+- GET /api/v1/fitness-classes/*
+- GET /api/v1/gallery
+- GET /api/v1/media/*
+- GET /api/v1/member-subscriptions
+- GET /api/v1/member-subscriptions/*
+- GET /api/v1/membership-plans
+- GET /api/v1/membership-plans/*
+- GET /api/v1/reviews/google
+- GET /api/v1/trainers
+- GET /api/v1/trainers/*
+- POST /api/v1/admin/fitness-classes
+- POST /api/v1/admin/membership-plans
+- POST /api/v1/admin/trainers
+- POST /api/v1/auth/login
+- POST /api/v1/auth/register
+- POST /api/v1/bookings
+- POST /api/v1/inquiries
+- POST /api/v1/member-subscriptions
+- POST /api/v1/payments/create-order
+- POST /api/v1/payments/verify
+- POST /api/v1/payments/webhook
+- PUT /api/v1/admin/fitness-classes/*
+- PUT /api/v1/admin/media/*
+- PUT /api/v1/admin/membership-plans/*
+- PUT /api/v1/admin/trainers/*
+- PUT /api/v1/bookings/*/cancel
+- PUT /api/v1/member-subscriptions/*/cancel
+
+## Frontend calls (44)
+- POST /api/v1/payments/create-order
+- POST /api/v1/payments/verify
+- POST /api/v1/auth/login
+- POST /api/v1/auth/register
+- GET /api/v1/admin/media
+- POST /api/v1/admin/media
+- PUT /api/v1/admin/media/${id}
+- DELETE /api/v1/admin/media/${id}
+- GET /api/v1/fitness-classes
+- GET /api/v1/fitness-classes/${id}
+- GET /api/v1/admin/fitness-classes
+- GET /api/v1/admin/fitness-classes/${id}
+- POST /api/v1/admin/fitness-classes
+- PUT /api/v1/admin/fitness-classes/${id}
+- POST /api/v1/bookings
+- GET /api/v1/bookings
+- PUT /api/v1/bookings/${bookingId}/cancel
+- GET /api/v1/admin/bookings
+- GET /api/v1/admin/bookings/${bookingId}
+- DELETE /api/v1/admin/fitness-classes/${id}
+- GET /api/v1/gallery
+- GET /api/v1/reviews/google
+- GET /api/v1/trainers
+- GET /api/v1/trainers/${id}
+- GET /api/v1/admin/trainers
+- GET /api/v1/admin/trainers/${id}
+- POST /api/v1/admin/trainers
+- PUT /api/v1/admin/trainers/${id}
+- DELETE /api/v1/admin/trainers/${id}
+- GET /api/v1/membership-plans
+- GET /api/v1/membership-plans/${id}
+- GET /api/v1/member-subscriptions
+- GET /api/v1/member-subscriptions/${id}
+- POST /api/v1/member-subscriptions
+- PUT /api/v1/member-subscriptions/${id}/cancel
+- GET /api/v1/admin/membership-plans
+- GET /api/v1/admin/membership-plans/${id}
+- POST /api/v1/admin/membership-plans
+- PUT /api/v1/admin/membership-plans/${id}
+- DELETE /api/v1/admin/membership-plans/${id}
+- POST /api/v1/inquiries
+- GET /api/v1/admin/inquiries
+- GET /api/v1/admin/inquiries/${id}
+- DELETE /api/v1/admin/inquiries/${id}

@@ -116,7 +116,6 @@ const BookingFilter: React.FC<BookingFilterProps> = ({ onFilterChange }) => {
             mode="single"
             selected={startDate}
             onSelect={setStartDate}
-            initialFocus
             data-testid="booking-filter-start-date-calendar"
           />
         </PopoverContent>
@@ -141,7 +140,6 @@ const BookingFilter: React.FC<BookingFilterProps> = ({ onFilterChange }) => {
             mode="single"
             selected={endDate}
             onSelect={setEndDate}
-            initialFocus
             data-testid="booking-filter-end-date-calendar"
           />
         </PopoverContent>

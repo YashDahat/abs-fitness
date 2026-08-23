@@ -3,13 +3,8 @@ import AdminLayout from '@/components/AdminLayout';
 import { BookingTable } from '@/components/booking/BookingTable';
 import BookingFilter from '@/components/booking/BookingFilter';
 import { useBookings } from '@/hooks/bookingHooks';
-import { FitnessClassDto } from '@/types/fitnessClass';
 import { useFitnessClasses } from '@/hooks/fitnessClassHooks';
 import { useAdminGetAllTrainers } from '@/hooks/trainerHooks';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 
 export default function AdminBookingsPage() {
   const [filters, setFilters] = useState<{ classId?: number; userId?: number; startDate?: string; endDate?: string; }>({});

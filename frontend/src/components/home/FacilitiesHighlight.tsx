@@ -1,5 +1,6 @@
+import type { JSX } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dumbbell, Snowflake, SwimmingPool, Users } from 'lucide-react';
+import { Dumbbell, Snowflake, Waves, Users } from 'lucide-react';
 
 interface Facility {
   icon: React.ElementType;
@@ -14,7 +15,7 @@ const facilities: Facility[] = [
     description: 'Equipped with the latest cardio and strength training machines for all fitness levels.',
   },
   {
-    icon: SwimmingPool,
+    icon: Waves,
     title: 'Olympic-Size Swimming Pool',
     description: 'Dive into our expansive pool for laps, aquatic workouts, or relaxation.',
   },

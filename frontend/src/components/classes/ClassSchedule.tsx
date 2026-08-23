@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import React, { useState } from 'react';
 import { FitnessClassDto } from '@/types/fitnessClass';
 import { Button } from '@/components/ui/button';

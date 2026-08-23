@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { Link } from 'react-router-dom';
 import { useTrainers } from '@/hooks/trainerHooks';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
