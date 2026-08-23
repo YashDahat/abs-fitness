@@ -2392,14 +2392,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Page containing the member login form.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "LoginPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the login form and handles redirection after successful login."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/auth/LoginForm.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "user-account",
-    "file_role" : null,
+    "file_role" : "Page containing the member login form. It renders the `LoginForm` component.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2411,14 +2416,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Component with email and password fields for user authentication.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "LoginForm",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Provides a form for user login, handles input, and calls the authentication service."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "POST",
+      "path" : "/api/auth/login",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Authenticates a user with email and password.",
+      "access" : null
+    } ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "user-account",
-    "file_role" : null,
+    "file_role" : "Component with email and password fields for user authentication. It calls the generated authentication service to log in a user.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2430,14 +2447,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Page for new members to register an account.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "SignupPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the signup form and handles redirection after successful registration."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/auth/SignupForm.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "user-account",
-    "file_role" : null,
+    "file_role" : "Page for new members to register an account. It renders the `SignupForm` component.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2449,14 +2471,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Component with fields for user registration.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "SignupForm",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Provides a form for user registration, handles input, and calls the authentication service."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "POST",
+      "path" : "/api/auth/register",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Registers a new user with name, email, and password.",
+      "access" : null
+    } ],
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "user-account",
-    "file_role" : null,
+    "file_role" : "Component with fields for user registration. It calls the generated authentication service to register a new user.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2468,14 +2502,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A route guard that checks for user authentication and authorization.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ProtectedRoute",
+      "parameters" : [ "React.PropsWithChildren<{}> children" ],
+      "return_type" : "JSX.Element",
+      "description" : "Protects routes by redirecting unauthenticated users to the login page."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "user-account",
-    "file_role" : null,
+    "file_role" : "A route guard that checks for user authentication and authorization. It uses the `useAuth` hook to determine if a user is logged in.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2487,14 +2526,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "The main dashboard for the logged-in member portal.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "AccountPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the member's account dashboard, including profile, bookings, and membership details."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/account/ProfileSection.tsx", "frontend/src/components/account/MyBookingsTable.tsx", "frontend/src/components/account/MembershipStatus.tsx" ],
     "depends_on" : [ ],
     "feature_name" : "user-account",
-    "file_role" : null,
+    "file_role" : "The main dashboard for the logged-in member portal. It displays user profile information, bookings, and membership status.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2506,14 +2550,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Component within the account page to display and edit user profile information.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ProfileSection",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays the authenticated user's name and email."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "user-account",
-    "file_role" : null,
+    "file_role" : "Component within the account page to display and edit user profile information. It uses the `useAuth` hook to get user details.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2525,14 +2574,33 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Component to display a table of the member's upcoming and past bookings.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MyBookingsTable",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Fetches and displays a table of the current member's bookings, with an option to cancel."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/bookings",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all bookings for the authenticated user.",
+      "access" : null
+    }, {
+      "method" : "PUT",
+      "path" : "/api/v1/bookings/{bookingId}/cancel",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Cancels a specific booking for the authenticated user.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/services/bookingService.ts", "frontend/src/types/booking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "user-account",
-    "file_role" : null,
+    "file_role" : "Component to display a table of the member's upcoming and past bookings. It fetches booking data from the `booking-system` feature.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2544,14 +2612,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Component to display the member's current membership plan and expiry date.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "MembershipStatus",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Fetches and displays the current member's active membership plan details."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/member-subscriptions",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches all membership subscriptions for the authenticated user.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/services/membershipService.ts", "frontend/src/types/membership.ts" ],
     "depends_on" : [ ],
     "feature_name" : "user-account",
-    "file_role" : null,
+    "file_role" : "Component to display the member's current membership plan and expiry date. It fetches membership data from the `membership-management` feature.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -3363,8 +3443,8 @@
     "feature_display_name" : "User Account & Authentication",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/pages/LoginPage.tsx", "frontend/src/components/auth/LoginForm.tsx", "frontend/src/pages/SignupPage.tsx", "frontend/src/components/auth/SignupForm.tsx", "frontend/src/components/ProtectedRoute.tsx", "frontend/src/pages/AccountPage.tsx", "frontend/src/components/account/ProfileSection.tsx", "frontend/src/components/account/MyBookingsTable.tsx", "frontend/src/components/account/MembershipStatus.tsx" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThis feature provides user authentication (login, signup) and a protected member account area for ABS FITNESS. It consists of several pages and components that handle user input, interact with the authentication system, and display user-specific data such as bookings and membership status. The `LoginPage.tsx` and `SignupPage.tsx` provide the entry points for user authentication, utilizing `LoginForm.tsx` and `SignupForm.tsx` respectively to capture user credentials. The `ProtectedRoute.tsx` component acts as a route guard, ensuring that only authenticated and authorized users can access specific routes. The `AccountPage.tsx` serves as the member dashboard, displaying various user-specific information through sub-components like `ProfileSection.tsx`, `MyBookingsTable.tsx`, and `MembershipStatus.tsx`.\n\n### Authentication Flow\n\n1.  **Login:**\n    *   `LoginPage.tsx` renders `LoginForm.tsx`.\n    *   `LoginForm.tsx` collects `email` and `password`.\n    *   Upon submission, `LoginForm.tsx` calls the generated authentication service's `login(email, password)` function. This function handles the API call to `/api/auth/login` and stores the JWT token in `AuthContext` upon success. It also redirects the user to `/account` on successful login.\n    *   Error cases: If login fails (e.g., invalid credentials), `LoginForm.tsx` displays an error message to the user.\n\n2.  **Signup:**\n    *   `SignupPage.tsx` renders `SignupForm.tsx`.\n    *   `SignupForm.tsx` collects `name`, `email`, and `password`.\n    *   Upon submission, `SignupForm.tsx` calls the generated authentication service's `signup(name, email, password)` function. This function handles the API call to `/api/auth/register` and stores the JWT token in `AuthContext` upon success. It also redirects the user to `/account` on successful registration.\n    *   Error cases: If signup fails (e.g., email already exists), `SignupForm.tsx` displays an error message to the user.\n\n### Protected Routes\n\n*   `ProtectedRoute.tsx` is a React component that wraps routes requiring authentication.\n*   It uses the `useAuth()` hook from `@/context/AuthContext` to check if a user is authenticated (`isAuthenticated`).\n*   If the user is not authenticated, it redirects them to the `/login` page.\n*   If the user is authenticated, it renders the child components (the protected route).\n\n### Account Page\n\n*   `AccountPage.tsx` is the main dashboard for logged-in members. It uses the `useAuth()` hook to display the current user's name.\n*   It renders `ProfileSection.tsx`, `MyBookingsTable.tsx`, and `MembershipStatus.tsx`.\n\n#### Profile Section\n*   `ProfileSection.tsx` displays the user's name and email, obtained from the `useAuth()` hook.\n*   It provides a placeholder for future profile editing functionality.\n\n#### My Bookings Table\n*   `MyBookingsTable.tsx` fetches and displays a list of the member's bookings.\n*   It calls the generated service function `getMemberBookings(): Promise<BookingDto[]>` from the `booking-system` feature.\n*   The table displays `fitnessClassName`, `scheduleTime`, `durationMinutes`, `bookingTime`, and `status` for each booking.\n*   `scheduleTime` and `bookingTime` should be formatted using `toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })`.\n*   It includes a button to cancel a booking, which calls the generated service function `cancelBooking(bookingId: Long): Promise<BookingDto>` from the `booking-system` feature. A confirmation dialog should be used before canceling.\n\n#### Membership Status\n*   `MembershipStatus.tsx` fetches and displays the member's current membership plan and expiry date.\n*   It calls the generated service function `getMemberSubscriptions(): Promise<MemberSubscriptionDto[]>` from the `membership-management` feature.\n*   It displays the `membershipPlan.name`, `startDate`, `endDate`, and `status` of the active subscription.\n*   `startDate` and `endDate` should be formatted using `toLocaleString('en-IN', { dateStyle: 'medium' })`.\n*   If no active membership is found, it displays a message encouraging the user to purchase a plan.\n\n### Styling\nAll pages and components in this feature will adhere to the design tokens defined above, using Tailwind CSS classes for styling. Monetary values will be displayed in Indian Rupees (₹) using the `en-IN` locale.",
+    "depends_on_features" : [ "booking-system", "membership-management" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
