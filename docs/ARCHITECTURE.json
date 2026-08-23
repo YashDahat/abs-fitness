@@ -2228,14 +2228,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Displays a dynamic feed of high-rated Google Reviews in a carousel or grid.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "GoogleReviewsSection",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a section displaying Google Reviews fetched from the backend. Reviews are shown with author name, rating, text, and relative time description."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/services/reviewService.ts", "frontend/src/types/review.ts" ],
     "depends_on" : [ ],
     "feature_name" : "customer-engagement-ui",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — displays a dynamic feed of high-rated Google Reviews in a carousel or grid, consuming data via `reviewService.ts`.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2247,14 +2252,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A form for capturing leads for free trials or facility tours.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "LeadCaptureForm",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a form for users to submit inquiries. Captures name, email, phone, inquiry type, and message."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/services/inquiryService.ts", "frontend/src/types/inquiry.ts" ],
     "depends_on" : [ ],
     "feature_name" : "customer-engagement-ui",
-    "file_role" : null,
+    "file_role" : "COMPONENT layer — provides a form for capturing leads for free trials or facility tours, submitting data via `inquiryService.ts`.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2267,13 +2277,25 @@
     "status" : "PLANNED",
     "description" : "TypeScript types and interfaces for inquiries.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "InquiryType",
+      "type" : "enum",
+      "description" : "Enum for different types of inquiries: FREE_TRIAL, TOUR_BOOKING, GENERAL_INQUIRY."
+    }, {
+      "name" : "InquiryDto",
+      "type" : "{ id: number; name: string; email: string; phone: string; inquiryType: InquiryType; message: string; submissionTime: string; }",
+      "description" : "DTO for an inquiry, including its ID, contact details, type, message, and submission timestamp."
+    }, {
+      "name" : "CreateInquiryRequest",
+      "type" : "{ name: string; email: string; phone: string; inquiryType: InquiryType; message: string; }",
+      "description" : "Request DTO for creating a new inquiry, containing contact details, type, and message."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "customer-engagement-ui",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract — TypeScript types and interfaces for inquiries.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2285,14 +2307,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "API service for submitting and managing inquiries.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createInquiry",
+      "parameters" : [ "CreateInquiryRequest request" ],
+      "return_type" : "Promise<InquiryDto>",
+      "description" : "Submits a new inquiry to the backend."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/inquiries",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Endpoint for creating a new inquiry.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/inquiry.ts" ],
     "depends_on" : [ ],
     "feature_name" : "customer-engagement-ui",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — provides functions for submitting inquiries to the backend.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2305,13 +2339,17 @@
     "status" : "PLANNED",
     "description" : "TypeScript types and interfaces for Google Reviews.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "GoogleReviewDto",
+      "type" : "{ authorName: string; rating: number; text: string; relativeTimeDescription: string; profilePhotoUrl: string; }",
+      "description" : "DTO for a Google Review, including author, rating, text, relative time, and profile photo URL."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "customer-engagement-ui",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract — TypeScript types and interfaces for Google Reviews.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2323,14 +2361,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "API service for fetching Google Reviews.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllGoogleReviews",
+      "parameters" : [ ],
+      "return_type" : "Promise<GoogleReviewDto[]>",
+      "description" : "Fetches all Google Reviews from the backend."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/reviews/google",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Endpoint for fetching all Google Reviews.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/review.ts" ],
     "depends_on" : [ ],
     "feature_name" : "customer-engagement-ui",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — provides functions for fetching Google Reviews from the backend.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -3304,8 +3354,8 @@
     "feature_display_name" : "Customer Engagement UI",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/components/home/GoogleReviewsSection.tsx", "frontend/src/components/home/LeadCaptureForm.tsx", "frontend/src/types/inquiry.ts", "frontend/src/services/inquiryService.ts", "frontend/src/types/review.ts", "frontend/src/services/reviewService.ts" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThis feature provides UI components for customer engagement on the ABS FITNESS website, specifically a Google Reviews section and a lead capture form. It includes the necessary TypeScript types and API service integrations for these components.\n\nThe `GoogleReviewsSection.tsx` component displays a dynamic feed of high-rated Google Reviews. It fetches reviews by calling the `reviewService.ts` to interact with the backend's `/api/v1/reviews/google` endpoint. The reviews are then rendered in a visually appealing carousel or grid format, adhering to the premium and modern aesthetic. Each review will display the author's name, rating, review text, and relative time description, formatted for the Indian locale where applicable.\n\nThe `LeadCaptureForm.tsx` component provides a form for users to submit inquiries for free trials or facility tours. It uses `inquiryService.ts` to send the inquiry data to the backend's `/api/v1/inquiries` endpoint. The form includes fields for name, email, phone, inquiry type (dropdown for 'Free Trial', 'Tour Booking', 'General Inquiry'), and a message. Upon successful submission, a success message or toast notification should be displayed. Error handling should be implemented to show validation errors or API submission failures.\n\n`inquiryService.ts` and `reviewService.ts` are responsible for making API calls to their respective backend endpoints. They will use the generated API client to perform these operations. `inquiry.ts` and `review.ts` define the TypeScript interfaces for the data structures used by these services and components, ensuring type safety throughout the frontend application. All monetary values, if any, will be displayed in Indian Rupees (₹) using the `en-IN` locale.",
+    "depends_on_features" : [ "inquiry-management", "review-integration" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
