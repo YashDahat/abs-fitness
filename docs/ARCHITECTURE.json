@@ -2833,14 +2833,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Displays the weekly class schedule and allows members to book a spot.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ClassesPage",
+      "parameters" : [ ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders the main classes page, including a hero section and the ClassSchedule component."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/classes/ClassSchedule.tsx", "frontend/src/services/fitnessClassService.ts", "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : null,
+    "file_role" : "Page component that displays the weekly class schedule and allows members to book a spot. It fetches all available fitness classes and passes them to the ClassSchedule component.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2852,14 +2857,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "An interactive schedule/calendar component to display and filter fitness classes.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ClassSchedule",
+      "parameters" : [ "FitnessClassDto[] classes" ],
+      "return_type" : "JSX.Element",
+      "description" : "Renders a weekly schedule of fitness classes, allowing filtering and selection to open the booking modal."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/components/classes/ClassBookingModal.tsx", "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : null,
+    "file_role" : "Interactive schedule/calendar component that displays and filters fitness classes. It takes a list of FitnessClassDto objects as props and opens ClassBookingModal when a class is selected.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2871,14 +2881,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "A dialog component to confirm booking for a selected class.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "ClassBookingModal",
+      "parameters" : [ "FitnessClassDto classToBook", "boolean isOpen", "() => void onClose" ],
+      "return_type" : "JSX.Element",
+      "description" : "Displays class details and allows the user to confirm a booking."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "frontend/src/services/bookingService.ts", "frontend/src/types/booking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : null,
+    "file_role" : "Dialog component to confirm booking for a selected class. It takes a FitnessClassDto as a prop and calls the bookingService.createBooking function upon confirmation.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2891,13 +2906,17 @@
     "status" : "PLANNED",
     "description" : "TypeScript types for FitnessClass.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "FitnessClassDto",
+      "type" : "{ id: number; name: string; description: string; scheduleTime: string; durationMinutes: number; capacity: number; bookedSlots: number; trainerId: number; trainerName: string; }",
+      "description" : "Interface for fitness class data, mirroring the backend DTO."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract – TypeScript types for FitnessClass.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2909,14 +2928,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "API service for fetching fitness class data.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllFitnessClasses",
+      "parameters" : [ ],
+      "return_type" : "Promise<FitnessClassDto[]>",
+      "description" : "Fetches all available fitness classes from the backend."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/fitness-classes",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Fetches a list of all available fitness classes.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/fitnessClass.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : null,
+    "file_role" : "API service for fetching fitness class data. It exports getAllFitnessClasses(): Promise<FitnessClassDto[]>.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2929,13 +2960,21 @@
     "status" : "PLANNED",
     "description" : "TypeScript types for Bookings.",
     "public_functions" : null,
-    "public_variables" : null,
+    "public_variables" : [ {
+      "name" : "BookingDto",
+      "type" : "{ id: number; userId: number; fitnessClassId: number; fitnessClassName: string; scheduleTime: string; durationMinutes: number; bookingTime: string; status: string; }",
+      "description" : "Interface for booking data, mirroring the backend DTO."
+    }, {
+      "name" : "CreateBookingRequest",
+      "type" : "{ fitnessClassId: number; }",
+      "description" : "Interface for creating a new booking, mirroring the backend request DTO."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : null,
+    "file_role" : "Generated from the backend API contract – TypeScript types for Bookings.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -2947,14 +2986,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "API service for creating and managing bookings.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "createBooking",
+      "parameters" : [ "CreateBookingRequest request" ],
+      "return_type" : "Promise<BookingDto>",
+      "description" : "Creates a new booking for a fitness class."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ {
+      "method" : "POST",
+      "path" : "/api/v1/bookings",
+      "request_body" : null,
+      "response_body" : null,
+      "description" : "Creates a new booking.",
+      "access" : null
+    } ],
     "imports_from" : [ "frontend/src/types/booking.ts" ],
     "depends_on" : [ ],
     "feature_name" : "class-booking-ui",
-    "file_role" : null,
+    "file_role" : "API service for creating and managing bookings. It exports createBooking(request: CreateBookingRequest): Promise<BookingDto>.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -3518,8 +3569,8 @@
     "feature_display_name" : "Class Booking UI",
     "feature_type" : "FRONTEND",
     "file_paths" : [ "frontend/src/pages/ClassesPage.tsx", "frontend/src/components/classes/ClassSchedule.tsx", "frontend/src/components/classes/ClassBookingModal.tsx", "frontend/src/types/fitnessClass.ts", "frontend/src/services/fitnessClassService.ts", "frontend/src/types/booking.ts", "frontend/src/services/bookingService.ts" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "## Design Tokens\n- Navbar: bg-[#1A1A1A] text-[#FFFFFF]\n- Primary CTA: bg-[#FF5722] hover:bg-[#E64A19] text-white font-semibold rounded-full px-8 py-3 transition-all duration-200\n- Brand text accent: text-[#FF5722]\n- Section bg: bg-[#F5F5F5] (odd sections) / bg-white (even sections)\n- Card: bg-white rounded-xl shadow-md border border-gray-100 p-6\n- Section container: <section className=\"py-16 px-4\"><div className=\"max-w-7xl mx-auto\">\n- Hero h1: text-4xl md:text-6xl font-bold text-white\n- Body: text-[#1A1A1A] leading-relaxed\n\nThis feature provides the user interface for viewing and booking fitness classes at ABS FITNESS. It consists of a main `ClassesPage.tsx` which displays the weekly schedule using the `ClassSchedule.tsx` component. When a user selects a class to book, a `ClassBookingModal.tsx` appears to confirm the booking. The feature interacts with the `class-management` backend feature to fetch available fitness classes and with the `booking-system` backend feature to create new bookings. It also uses `fitnessClassService.ts` and `bookingService.ts` to abstract API calls, and `fitnessClass.ts` and `booking.ts` for TypeScript type definitions.\n\n### ClassesPage.tsx\nThis page is the entry point for users to view and book fitness classes. It will fetch all available fitness classes using the generated service function `getAllFitnessClasses(): Promise<FitnessClassDto[]>` from `fitnessClassService.ts`. The page will then pass this data to the `ClassSchedule` component for display. It should include a motivational hero section at the top, followed by the class schedule.\n\n### ClassSchedule.tsx\nThis component receives a list of `FitnessClassDto` objects as props and renders an interactive weekly schedule. It should allow users to filter classes by day and potentially by trainer or class type. Each class slot should display the class name, trainer, time, and available slots. Clicking on a class will open the `ClassBookingModal` component, passing the selected `FitnessClassDto` as a prop.\n\n### ClassBookingModal.tsx\nThis modal component receives a `FitnessClassDto` as a prop. It displays the class details and a confirmation button. Upon confirmation, it calls the generated service function `createBooking(request: CreateBookingRequest): Promise<BookingDto>` from `bookingService.ts` with the `fitnessClassId` from the selected class. It should provide user feedback (e.g., a toast notification) on successful booking or error. The `CreateBookingRequest` object will have a single field: `fitnessClassId: Long`.\n\n### fitnessClass.ts\nThis file defines the TypeScript interface `FitnessClassDto` which mirrors the backend `FitnessClassDto` data shape from the `class-management` feature. It will include fields such as `id: number`, `name: string`, `description: string`, `scheduleTime: string` (ISO string), `durationMinutes: number`, `capacity: number`, `bookedSlots: number`, `trainerId: number`, and `trainerName: string`.\n\n### fitnessClassService.ts\nThis service file provides functions to interact with the backend `class-management` API. It will export an async function `getAllFitnessClasses(): Promise<FitnessClassDto[]>` which makes a GET request to `/api/v1/fitness-classes` and returns a list of `FitnessClassDto` objects.\n\n### booking.ts\nThis file defines the TypeScript interfaces `BookingDto` and `CreateBookingRequest`. `BookingDto` mirrors the backend `BookingDto` data shape from the `booking-system` feature, including fields like `id: number`, `userId: number`, `fitnessClassId: number`, `fitnessClassName: string`, `scheduleTime: string`, `durationMinutes: number`, `bookingTime: string`, and `status: string`. `CreateBookingRequest` mirrors the backend `CreateBookingRequest` with `fitnessClassId: number`.\n\n### bookingService.ts\nThis service file provides functions to interact with the backend `booking-system` API. It will export an async function `createBooking(request: CreateBookingRequest): Promise<BookingDto>` which makes a POST request to `/api/v1/bookings` with the `CreateBookingRequest` as the body and returns a `BookingDto`.",
+    "depends_on_features" : [ "class-management", "booking-system" ],
     "change_required" : true,
     "change_instruction" : null
   }, {
