@@ -1,5 +1,6 @@
 package com.absfitness.repository;
 
+import com.absfitness.dto.SubscriptionStatus;
 import com.absfitness.model.MemberSubscription;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

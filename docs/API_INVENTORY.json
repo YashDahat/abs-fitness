@@ -1,0 +1,519 @@
+{
+  "endpoints" : [ {
+    "method" : "GET",
+    "path" : "/api/v1/membership-plans",
+    "handler" : "getActiveMembershipPlans",
+    "request" : null,
+    "response" : "MembershipPlanDto[]"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/membership-plans/{id}",
+    "handler" : "getMembershipPlanById",
+    "request" : null,
+    "response" : "MembershipPlanDto"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/fitness-classes",
+    "handler" : "getAllAvailableFitnessClasses",
+    "request" : null,
+    "response" : "FitnessClassDto[]"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/fitness-classes/{id}",
+    "handler" : "getFitnessClassById",
+    "request" : null,
+    "response" : "FitnessClassDto"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/trainers",
+    "handler" : "getAllTrainers",
+    "request" : null,
+    "response" : "TrainerDto[]"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/trainers/{id}",
+    "handler" : "getTrainerById",
+    "request" : null,
+    "response" : "TrainerDto"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/reviews/google",
+    "handler" : "getAllGoogleReviews",
+    "request" : null,
+    "response" : "GoogleReviewDto[]"
+  }, {
+    "method" : "POST",
+    "path" : "/api/v1/inquiries",
+    "handler" : "createInquiry",
+    "request" : "CreateInquiryRequest",
+    "response" : "InquiryDto"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/admin/inquiries",
+    "handler" : "getAllInquiries",
+    "request" : null,
+    "response" : "InquiryDto[]"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/admin/inquiries/{id}",
+    "handler" : "getInquiryById",
+    "request" : null,
+    "response" : "InquiryDto"
+  }, {
+    "method" : "DELETE",
+    "path" : "/api/v1/admin/inquiries/{id}",
+    "handler" : "deleteInquiry",
+    "request" : null,
+    "response" : null
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/admin/membership-plans",
+    "handler" : "getAllMembershipPlans",
+    "request" : null,
+    "response" : "MembershipPlanDto[]"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/admin/membership-plans/{id}",
+    "handler" : "getMembershipPlanById",
+    "request" : null,
+    "response" : "MembershipPlanDto"
+  }, {
+    "method" : "POST",
+    "path" : "/api/v1/admin/membership-plans",
+    "handler" : "createMembershipPlan",
+    "request" : "MembershipPlanDto",
+    "response" : "MembershipPlanDto"
+  }, {
+    "method" : "PUT",
+    "path" : "/api/v1/admin/membership-plans/{id}",
+    "handler" : "updateMembershipPlan",
+    "request" : "MembershipPlanDto",
+    "response" : "MembershipPlanDto"
+  }, {
+    "method" : "DELETE",
+    "path" : "/api/v1/admin/membership-plans/{id}",
+    "handler" : "deleteMembershipPlan",
+    "request" : null,
+    "response" : null
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/admin/bookings",
+    "handler" : "getAllBookings",
+    "request" : null,
+    "response" : "BookingDto[]"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/admin/bookings/{bookingId}",
+    "handler" : "getBookingById",
+    "request" : null,
+    "response" : "BookingDto"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/admin/trainers",
+    "handler" : "getAllTrainers",
+    "request" : null,
+    "response" : "TrainerDto[]"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/admin/trainers/{id}",
+    "handler" : "getTrainerById",
+    "request" : null,
+    "response" : "TrainerDto"
+  }, {
+    "method" : "POST",
+    "path" : "/api/v1/admin/trainers",
+    "handler" : "createTrainer",
+    "request" : "TrainerDto",
+    "response" : "TrainerDto"
+  }, {
+    "method" : "PUT",
+    "path" : "/api/v1/admin/trainers/{id}",
+    "handler" : "updateTrainer",
+    "request" : "TrainerDto",
+    "response" : "TrainerDto"
+  }, {
+    "method" : "DELETE",
+    "path" : "/api/v1/admin/trainers/{id}",
+    "handler" : "deleteTrainer",
+    "request" : null,
+    "response" : null
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/admin/fitness-classes",
+    "handler" : "getAllFitnessClasses",
+    "request" : null,
+    "response" : "FitnessClassDto[]"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/admin/fitness-classes/{id}",
+    "handler" : "getFitnessClassById",
+    "request" : null,
+    "response" : "FitnessClassDto"
+  }, {
+    "method" : "POST",
+    "path" : "/api/v1/admin/fitness-classes",
+    "handler" : "createFitnessClass",
+    "request" : "FitnessClassDto",
+    "response" : "FitnessClassDto"
+  }, {
+    "method" : "PUT",
+    "path" : "/api/v1/admin/fitness-classes/{id}",
+    "handler" : "updateFitnessClass",
+    "request" : "FitnessClassDto",
+    "response" : "FitnessClassDto"
+  }, {
+    "method" : "DELETE",
+    "path" : "/api/v1/admin/fitness-classes/{id}",
+    "handler" : "deleteFitnessClass",
+    "request" : null,
+    "response" : null
+  }, {
+    "method" : "POST",
+    "path" : "/api/v1/bookings",
+    "handler" : "createBooking",
+    "request" : "CreateBookingRequest",
+    "response" : "BookingDto"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/bookings",
+    "handler" : "getMemberBookings",
+    "request" : null,
+    "response" : "BookingDto[]"
+  }, {
+    "method" : "PUT",
+    "path" : "/api/v1/bookings/{bookingId}/cancel",
+    "handler" : "cancelBooking",
+    "request" : null,
+    "response" : "BookingDto"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/member-subscriptions",
+    "handler" : "getMemberSubscriptions",
+    "request" : null,
+    "response" : "MemberSubscriptionDto[]"
+  }, {
+    "method" : "GET",
+    "path" : "/api/v1/member-subscriptions/{id}",
+    "handler" : "getMemberSubscriptionById",
+    "request" : null,
+    "response" : "MemberSubscriptionDto"
+  }, {
+    "method" : "POST",
+    "path" : "/api/v1/member-subscriptions",
+    "handler" : "createMemberSubscription",
+    "request" : "CreateSubscriptionRequestDto",
+    "response" : "MemberSubscriptionDto"
+  }, {
+    "method" : "PUT",
+    "path" : "/api/v1/member-subscriptions/{id}/cancel",
+    "handler" : "cancelMemberSubscription",
+    "request" : null,
+    "response" : "MemberSubscriptionDto"
+  } ],
+  "types" : {
+    "Booking" : {
+      "fields" : {
+        "id" : "Long",
+        "userId" : "Integer",
+        "fitnessClass" : "FitnessClass",
+        "bookingTime" : "LocalDateTime",
+        "status" : "BookingStatus"
+      }
+    },
+    "Inquiry" : {
+      "fields" : {
+        "id" : "Long",
+        "name" : "String",
+        "email" : "String",
+        "phone" : "String",
+        "inquiryType" : "InquiryType",
+        "message" : "String",
+        "submissionTime" : "LocalDateTime"
+      }
+    },
+    "GallerySection" : {
+      "constants" : [ "WEBSITE", "EVENT" ]
+    },
+    "MemberSubscription" : {
+      "fields" : {
+        "id" : "Long",
+        "userId" : "Integer",
+        "membershipPlan" : "MembershipPlan",
+        "startDate" : "LocalDate",
+        "endDate" : "LocalDate",
+        "status" : "SubscriptionStatus"
+      }
+    },
+    "Trainer" : {
+      "fields" : {
+        "id" : "Long",
+        "name" : "String",
+        "specialty" : "String",
+        "bio" : "String",
+        "imageUrl" : "String",
+        "experienceYears" : "Integer"
+      }
+    },
+    "User" : {
+      "fields" : {
+        "id" : "Integer",
+        "firstName" : "String",
+        "lastName" : "String",
+        "email" : "String",
+        "phone" : "String",
+        "password" : "String",
+        "role" : "Role"
+      }
+    },
+    "FitnessClass" : {
+      "fields" : {
+        "id" : "Long",
+        "name" : "String",
+        "description" : "String",
+        "scheduleTime" : "LocalDateTime",
+        "durationMinutes" : "Integer",
+        "capacity" : "Integer",
+        "trainer" : "Trainer"
+      }
+    },
+    "MediaAsset" : {
+      "fields" : {
+        "id" : "Long",
+        "objectKey" : "String",
+        "filename" : "String",
+        "contentType" : "String",
+        "sizeBytes" : "Long",
+        "label" : "String",
+        "showInGallery" : "Boolean",
+        "section" : "GallerySection",
+        "eventName" : "String",
+        "eventDate" : "LocalDate",
+        "sortOrder" : "Integer",
+        "uploadedAt" : "Instant"
+      }
+    },
+    "InquiryType" : {
+      "constants" : [ "FREE_TRIAL", "TOUR_BOOKING", "GENERAL_INQUIRY" ]
+    },
+    "owned" : {
+      "fields" : {
+        "id" : "Long",
+        "referenceId" : "String",
+        "gatewayOrderId" : "String",
+        "gatewayPaymentId" : "String",
+        "amount" : "BigDecimal",
+        "currency" : "String",
+        "status" : "PaymentStatus",
+        "createdAt" : "Instant"
+      }
+    },
+    "Role" : {
+      "constants" : [ "ADMIN", "USER" ]
+    },
+    "MembershipPlan" : {
+      "fields" : {
+        "id" : "Long",
+        "name" : "String",
+        "description" : "String",
+        "price" : "BigDecimal",
+        "durationInMonths" : "Integer",
+        "isActive" : "Boolean"
+      }
+    },
+    "Review" : {
+      "fields" : {
+        "id" : "Long",
+        "authorName" : "String",
+        "rating" : "Integer",
+        "text" : "String",
+        "time" : "Long",
+        "profilePhotoUrl" : "String",
+        "relativeTimeDescription" : "String"
+      }
+    },
+    "PaymentStatus" : {
+      "constants" : [ "CREATED", "CAPTURED", "FAILED" ]
+    },
+    "TrainerDto" : {
+      "fields" : {
+        "id" : "Long",
+        "name" : "String",
+        "specialty" : "String",
+        "bio" : "String",
+        "imageUrl" : "String",
+        "experienceYears" : "Integer"
+      }
+    },
+    "GalleryItemDto" : {
+      "fields" : {
+        "id" : "Long",
+        "url" : "String",
+        "caption" : "String",
+        "section" : "GallerySection",
+        "eventName" : "String",
+        "eventDate" : "LocalDate",
+        "sortOrder" : "Integer"
+      }
+    },
+    "FitnessClassDto" : {
+      "fields" : {
+        "id" : "Long",
+        "name" : "String",
+        "description" : "String",
+        "scheduleTime" : "LocalDateTime",
+        "durationMinutes" : "Integer",
+        "capacity" : "Integer",
+        "bookedSlots" : "Integer",
+        "trainerId" : "Long",
+        "trainerName" : "String"
+      }
+    },
+    "MemberSubscriptionDto" : {
+      "fields" : {
+        "id" : "Long",
+        "userId" : "Integer",
+        "membershipPlan" : "MembershipPlanDto",
+        "startDate" : "java.time.LocalDate",
+        "endDate" : "java.time.LocalDate",
+        "status" : "SubscriptionStatus"
+      }
+    },
+    "GoogleReviewDto" : {
+      "fields" : {
+        "authorName" : "String",
+        "rating" : "Integer",
+        "text" : "String",
+        "relativeTimeDescription" : "String",
+        "profilePhotoUrl" : "String"
+      }
+    },
+    "BookingDto" : {
+      "fields" : {
+        "id" : "Long",
+        "userId" : "Integer",
+        "fitnessClassId" : "Long",
+        "fitnessClassName" : "String",
+        "scheduleTime" : "LocalDateTime",
+        "durationMinutes" : "Integer",
+        "bookingTime" : "LocalDateTime",
+        "status" : "BookingStatus"
+      }
+    },
+    "BookingStatus" : {
+      "constants" : [ "CONFIRMED", "REMINDER_SENT", "CANCELLED" ]
+    },
+    "CreateBookingRequest" : {
+      "fields" : {
+        "fitnessClassId" : "Long"
+      }
+    },
+    "InquiryDto" : {
+      "fields" : {
+        "id" : "Long",
+        "name" : "String",
+        "email" : "String",
+        "phone" : "String",
+        "inquiryType" : "InquiryType",
+        "message" : "String",
+        "submissionTime" : "LocalDateTime"
+      }
+    },
+    "MediaAssetDto" : {
+      "fields" : {
+        "id" : "Long",
+        "url" : "String",
+        "filename" : "String",
+        "contentType" : "String",
+        "sizeBytes" : "Long",
+        "label" : "String",
+        "showInGallery" : "Boolean",
+        "section" : "GallerySection",
+        "eventName" : "String",
+        "eventDate" : "LocalDate",
+        "sortOrder" : "Integer",
+        "uploadedAt" : "Instant"
+      }
+    },
+    "AuthResponse" : {
+      "fields" : {
+        "token" : "String"
+      }
+    },
+    "CreatePaymentRequest" : {
+      "fields" : {
+        "amount" : "BigDecimal",
+        "currency" : "String",
+        "referenceId" : "String"
+      }
+    },
+    "AuthRequest" : {
+      "fields" : {
+        "username" : "String",
+        "password" : "String"
+      }
+    },
+    "MembershipPlanDto" : {
+      "fields" : {
+        "id" : "Long",
+        "name" : "String",
+        "description" : "String",
+        "price" : "java.math.BigDecimal",
+        "durationInMonths" : "Integer",
+        "isActive" : "Boolean"
+      }
+    },
+    "PaymentVerificationResponse" : {
+      "fields" : {
+        "verified" : "boolean",
+        "status" : "String",
+        "referenceId" : "String"
+      }
+    },
+    "ErrorResponse" : {
+      "fields" : {
+        "timestamp" : "LocalDateTime",
+        "status" : "Integer",
+        "error" : "String",
+        "message" : "String",
+        "path" : "String"
+      }
+    },
+    "PaymentOrderResponse" : {
+      "fields" : {
+        "gatewayOrderId" : "String",
+        "gatewayKeyId" : "String",
+        "amount" : "int",
+        "currency" : "String",
+        "paymentRecordId" : "Long"
+      }
+    },
+    "VerifyPaymentRequest" : {
+      "fields" : {
+        "gatewayOrderId" : "String",
+        "gatewayPaymentId" : "String",
+        "signature" : "String"
+      }
+    },
+    "SubscriptionStatus" : {
+      "constants" : [ "ACTIVE", "CANCELLED" ]
+    },
+    "RegisterRequest" : {
+      "fields" : {
+        "firstName" : "String",
+        "lastName" : "String",
+        "email" : "String",
+        "phone" : "String",
+        "password" : "String"
+      }
+    },
+    "CreateInquiryRequest" : {
+      "fields" : {
+        "name" : "String",
+        "email" : "String",
+        "phone" : "String",
+        "inquiryType" : "InquiryType",
+        "message" : "String"
+      }
+    }
+  }
+}

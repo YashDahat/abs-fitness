@@ -2,6 +2,7 @@ package com.absfitness.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import com.absfitness.dto.BookingStatus;
 import com.absfitness.model.FitnessClass;
 
 @Entity
@@ -69,7 +70,4 @@ public class Booking {
         this.status = status;
     }
 
-    public enum BookingStatus {
-        CONFIRMED, CANCELLED, REMINDER_SENT
-    }
 }

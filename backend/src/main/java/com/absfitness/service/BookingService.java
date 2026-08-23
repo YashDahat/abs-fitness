@@ -1,8 +1,10 @@
 package com.absfitness.service;
 
 import com.absfitness.dto.BookingDto;
+import com.absfitness.dto.BookingStatus;
 import com.absfitness.dto.CreateBookingRequest;
 import com.absfitness.dto.FitnessClassDto;
+import com.absfitness.dto.SubscriptionStatus;
 import com.absfitness.exception.ResourceNotFoundException;
 import com.absfitness.model.Booking;
 import com.absfitness.model.FitnessClass;
@@ -14,11 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.absfitness.service.FitnessClassService;
-import com.absfitness.service.MemberSubscriptionService;
-import com.absfitness.service.NotificationService;
-import com.absfitness.model.User;
-import com.absfitness.model.Trainer;
 
 @Service
 public class BookingService {
@@ -41,7 +38,7 @@ public class BookingService {
     @Transactional
     public BookingDto createBooking(Integer userId, CreateBookingRequest request) {
         // 1a. Validate active membership
-        List<MemberSubscription> activeSubscriptions = memberSubscriptionService.findByUserIdAndStatus(userId, SubscriptionStatus.ACTIVE);
+        List<MemberSubscription> activeSubscriptions = memberSubscriptionService.getActiveSubscriptions(userId);
         if (activeSubscriptions.isEmpty()) {
             throw new IllegalStateException("User does not have an active membership to create a booking.");
         }
@@ -61,10 +58,6 @@ public class BookingService {
         fitnessClass.setDurationMinutes(fitnessClassDto.getDurationMinutes());
         fitnessClass.setCapacity(fitnessClassDto.getCapacity());
         fitnessClass.setBookedSlots(fitnessClassDto.getBookedSlots());
-        // Trainer is not directly needed for booking creation logic, but set to avoid NPE if accessed later
-        // In a real scenario, you might fetch the full FitnessClass entity from its service
-        // For now, we'll rely on the DTO's data
-        // fitnessClass.setTrainer(trainerService.getTrainerById(fitnessClassDto.getTrainerId())); // Assuming trainerService exists
 
         // 1c. Check available slots
         if (fitnessClass.getBookedSlots() >= fitnessClass.getCapacity()) {
@@ -72,7 +65,7 @@ public class BookingService {
         }
 
         // 1d. Check if user already booked this class
-        if (bookingRepository.existsByFitnessClass_IdAndUserIdAndStatus(fitnessClass.getId(), userId, Booking.BookingStatus.CONFIRMED)) {
+        if (bookingRepository.existsByFitnessClass_IdAndUserIdAndStatus(fitnessClass.getId(), userId, BookingStatus.CONFIRMED)) {
             throw new IllegalStateException("User has already booked this fitness class.");
         }
 
@@ -81,13 +74,13 @@ public class BookingService {
         booking.setUserId(userId);
         booking.setFitnessClass(fitnessClass);
         booking.setBookingTime(LocalDateTime.now());
-        booking.setStatus(Booking.BookingStatus.CONFIRMED);
+        booking.setStatus(BookingStatus.CONFIRMED);
 
         // 1f. Save Booking entity
         booking = bookingRepository.save(booking);
 
         // 1g. Increment booked slots for FitnessClass
-        fitnessClassService.incrementBookedSlots(fitnessClass.getId());
+        fitnessClassService.adjustBookedSlots(fitnessClass.getId(), 1);
 
         BookingDto bookingDto = convertToDto(booking);
 
@@ -110,16 +103,16 @@ public class BookingService {
         Booking booking = bookingRepository.findByIdAndUserId(bookingId, userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Booking not found or not owned by user with ID: " + bookingId));
 
-        if (booking.getStatus() == Booking.BookingStatus.CANCELLED) {
+        if (booking.getStatus() == BookingStatus.CANCELLED) {
             throw new IllegalStateException("Booking is already cancelled.");
         }
 
         // Update booking status to CANCELLED
-        booking.setStatus(Booking.BookingStatus.CANCELLED);
+        booking.setStatus(BookingStatus.CANCELLED);
         booking = bookingRepository.save(booking);
 
         // Decrement booked slots for the associated FitnessClass
-        fitnessClassService.decrementBookedSlots(booking.getFitnessClass().getId());
+        fitnessClassService.adjustBookedSlots(booking.getFitnessClass().getId(), -1);
 
         BookingDto bookingDto = convertToDto(booking);
 
@@ -150,7 +143,7 @@ public class BookingService {
                 .scheduleTime(booking.getFitnessClass().getScheduleTime())
                 .durationMinutes(booking.getFitnessClass().getDurationMinutes())
                 .bookingTime(booking.getBookingTime())
-                .status(BookingDto.BookingStatus.valueOf(booking.getStatus().name()))
+                .status(booking.getStatus())
                 .build();
     }
 }

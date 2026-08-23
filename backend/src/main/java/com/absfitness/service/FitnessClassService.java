@@ -36,18 +36,14 @@ public class FitnessClassService {
     }
 
     public FitnessClassDto createFitnessClass(FitnessClassDto fitnessClassDto) {
-        Trainer trainer = trainerService.getTrainerById(fitnessClassDto.getTrainerId())
-                .map(dto -> {
-                    Trainer t = new Trainer();
-                    t.setId(dto.getId());
-                    t.setName(dto.getName());
-                    t.setSpecialty(dto.getSpecialty());
-                    t.setBio(dto.getBio());
-                    t.setImageUrl(dto.getImageUrl());
-                    t.setExperienceYears(dto.getExperienceYears());
-                    return t;
-                })
-                .orElseThrow(() -> new IllegalArgumentException("Trainer not found with ID: " + fitnessClassDto.getTrainerId()));
+        com.absfitness.dto.TrainerDto trainerDto = trainerService.getTrainerById(fitnessClassDto.getTrainerId());
+        Trainer trainer = new Trainer();
+        trainer.setId(trainerDto.getId());
+        trainer.setName(trainerDto.getName());
+        trainer.setSpecialty(trainerDto.getSpecialty());
+        trainer.setBio(trainerDto.getBio());
+        trainer.setImageUrl(trainerDto.getImageUrl());
+        trainer.setExperienceYears(trainerDto.getExperienceYears());
 
         FitnessClass fitnessClass = new FitnessClass();
         fitnessClass.setName(fitnessClassDto.getName());
@@ -67,18 +63,14 @@ public class FitnessClassService {
                 .orElseThrow(() -> new ResourceNotFoundException("Fitness class not found with ID: " + id));
 
         if (fitnessClassDto.getTrainerId() != null && !existingClass.getTrainer().getId().equals(fitnessClassDto.getTrainerId())) {
-            Trainer trainer = trainerService.getTrainerById(fitnessClassDto.getTrainerId())
-                    .map(dto -> {
-                        Trainer t = new Trainer();
-                        t.setId(dto.getId());
-                        t.setName(dto.getName());
-                        t.setSpecialty(dto.getSpecialty());
-                        t.setBio(dto.getBio());
-                        t.setImageUrl(dto.getImageUrl());
-                        t.setExperienceYears(dto.getExperienceYears());
-                        return t;
-                    })
-                    .orElseThrow(() -> new IllegalArgumentException("Trainer not found with ID: " + fitnessClassDto.getTrainerId()));
+            com.absfitness.dto.TrainerDto trainerDto = trainerService.getTrainerById(fitnessClassDto.getTrainerId());
+            Trainer trainer = new Trainer();
+            trainer.setId(trainerDto.getId());
+            trainer.setName(trainerDto.getName());
+            trainer.setSpecialty(trainerDto.getSpecialty());
+            trainer.setBio(trainerDto.getBio());
+            trainer.setImageUrl(trainerDto.getImageUrl());
+            trainer.setExperienceYears(trainerDto.getExperienceYears());
             existingClass.setTrainer(trainer);
         }
 
@@ -105,6 +97,14 @@ public class FitnessClassService {
         return fitnessClassRepository.findByTrainerId(trainerId).stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    @org.springframework.transaction.annotation.Transactional
+    public void adjustBookedSlots(Long fitnessClassId, int delta) {
+        FitnessClass fitnessClass = fitnessClassRepository.findById(fitnessClassId)
+                .orElseThrow(() -> new ResourceNotFoundException("Fitness class not found with ID: " + fitnessClassId));
+        fitnessClass.setBookedSlots(fitnessClass.getBookedSlots() + delta);
+        fitnessClassRepository.save(fitnessClass);
     }
 
     public List<FitnessClassDto> getAvailableClasses() {

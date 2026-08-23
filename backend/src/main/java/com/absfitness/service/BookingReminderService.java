@@ -1,5 +1,6 @@
 package com.absfitness.service;
 
+import com.absfitness.dto.BookingStatus;
 import com.absfitness.model.Booking;
 import com.absfitness.repository.BookingRepository;
 import com.absfitness.dto.BookingDto;
@@ -39,7 +40,7 @@ public class BookingReminderService {
                     .scheduleTime(booking.getFitnessClass().getScheduleTime())
                     .durationMinutes(booking.getFitnessClass().getDurationMinutes())
                     .bookingTime(booking.getBookingTime())
-                    .status(booking.getStatus())
+                    .status(BookingStatus.valueOf(booking.getStatus().name()))
                     .build();
 
             notificationService.sendBookingReminderEmail(bookingDto);

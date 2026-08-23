@@ -2,6 +2,7 @@ package com.absfitness.service;
 
 import com.absfitness.dto.MemberSubscriptionDto;
 import com.absfitness.dto.MembershipPlanDto;
+import com.absfitness.dto.SubscriptionStatus;
 import com.absfitness.exception.ResourceNotFoundException;
 import com.absfitness.model.MemberSubscription;
 import com.absfitness.model.MembershipPlan;
@@ -28,6 +29,14 @@ public class MemberSubscriptionService {
         return memberSubscriptionRepository.findByUserId(userId).stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    public List<MemberSubscription> getActiveSubscriptions(Integer userId) {
+        return memberSubscriptionRepository.findByUserIdAndStatus(userId, SubscriptionStatus.ACTIVE);
+    }
+
+    public List<MemberSubscription> findByUserIdAndStatus(Integer userId, SubscriptionStatus status) {
+        return memberSubscriptionRepository.findByUserIdAndStatus(userId, status);
     }
 
     public MemberSubscriptionDto getMemberSubscriptionById(Long subscriptionId, Integer userId) {
