@@ -1,0 +1,25 @@
+package com.absfitness.dto;
+
+import jakarta.validation.constraints.*;
+import java.util.List;
+import java.util.UUID;
+import java.time.LocalDateTime;
+import lombok.Data;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class BookingDto {
+    private Long id;
+    private Integer userId;
+    private Long fitnessClassId;
+    private String fitnessClassName;
+    private LocalDateTime scheduleTime;
+    private Integer durationMinutes;
+    private LocalDateTime bookingTime;
+    private BookingStatus status;
+}
