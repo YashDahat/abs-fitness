@@ -1842,14 +1842,42 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Entity for caching Google Reviews to avoid excessive API calls.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "id",
+      "type" : "Long",
+      "description" : "Primary key for the Review entity, auto-generated."
+    }, {
+      "name" : "authorName",
+      "type" : "String",
+      "description" : "Name of the review author. Not null, max 255 characters."
+    }, {
+      "name" : "rating",
+      "type" : "Integer",
+      "description" : "Rating given by the author (1-5). Not null."
+    }, {
+      "name" : "text",
+      "type" : "String",
+      "description" : "Full text of the review. Not null, max 2000 characters."
+    }, {
+      "name" : "time",
+      "type" : "Long",
+      "description" : "Timestamp of the review in milliseconds since epoch. Not null."
+    }, {
+      "name" : "profilePhotoUrl",
+      "type" : "String",
+      "description" : "URL to the author's profile photo. Nullable, max 500 characters."
+    }, {
+      "name" : "relativeTimeDescription",
+      "type" : "String",
+      "description" : "Human-readable relative time description (e.g., 'a month ago'). Not null, max 100 characters."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "review-integration",
-    "file_role" : null,
+    "file_role" : "MODEL layer — defines the `Review` entity for persisting Google Reviews in the database.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1861,14 +1889,19 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "JPA repository for cached Review entities.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "findByAuthorNameAndText",
+      "parameters" : [ "String authorName", "String text" ],
+      "return_type" : "Optional<Review>",
+      "description" : "Finds a review by its author name and text to check for duplicates."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/model/Review.java" ],
     "depends_on" : [ ],
     "feature_name" : "review-integration",
-    "file_role" : null,
+    "file_role" : "REPOSITORY layer — provides JPA data access operations for the `Review` entity.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1880,14 +1913,24 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Service to fetch Google Reviews from the Places API and cache them.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllGoogleReviews",
+      "parameters" : [ ],
+      "return_type" : "List<GoogleReviewDto>",
+      "description" : "Retrieves all cached Google Reviews, ordered by time descending. If the cache is empty or stale, it attempts to fetch new reviews from the Google Places API."
+    }, {
+      "name" : "fetchAndCacheGoogleReviews",
+      "parameters" : [ ],
+      "return_type" : "void",
+      "description" : "Fetches reviews from the Google Places API and caches them in the database. This method is intended to be called by a scheduled task."
+    } ],
     "public_variables" : null,
     "api_endpoints" : null,
-    "api_endpoints_consumed" : null,
+    "api_endpoints_consumed" : [ ],
     "imports_from" : [ "backend/src/main/java/com/absfitness/repository/ReviewRepository.java", "backend/src/main/java/com/absfitness/dto/GoogleReviewDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "review-integration",
-    "file_role" : null,
+    "file_role" : "SERVICE layer — implements `getAllGoogleReviews(): List<GoogleReviewDto>` to fetch, cache, and retrieve Google Reviews.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1899,14 +1942,26 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Public REST controller to expose cached Google Reviews to the frontend.",
-    "public_functions" : null,
+    "public_functions" : [ {
+      "name" : "getAllGoogleReviews",
+      "parameters" : [ ],
+      "return_type" : "ResponseEntity<List<GoogleReviewDto>>",
+      "description" : "Handles GET requests to retrieve all cached Google Reviews."
+    } ],
     "public_variables" : null,
-    "api_endpoints" : null,
+    "api_endpoints" : [ {
+      "method" : "GET",
+      "path" : "/api/v1/reviews/google",
+      "request_body" : null,
+      "response_body" : "List<GoogleReviewDto>",
+      "description" : "Retrieves a list of cached Google Reviews for public display.",
+      "access" : "public"
+    } ],
     "api_endpoints_consumed" : null,
     "imports_from" : [ "backend/src/main/java/com/absfitness/service/GoogleReviewService.java", "backend/src/main/java/com/absfitness/dto/GoogleReviewDto.java" ],
     "depends_on" : [ ],
     "feature_name" : "review-integration",
-    "file_role" : null,
+    "file_role" : "CONTROLLER layer — exposes a public REST endpoint `/api/v1/reviews/google` for fetching cached Google Reviews.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -1918,14 +1973,34 @@
     "updated_date" : "2024-07-30",
     "status" : "PLANNED",
     "description" : "Data Transfer Object representing a single Google Review.",
-    "public_functions" : null,
-    "public_variables" : null,
+    "public_functions" : [ ],
+    "public_variables" : [ {
+      "name" : "authorName",
+      "type" : "String",
+      "description" : "Name of the review author."
+    }, {
+      "name" : "rating",
+      "type" : "Integer",
+      "description" : "Rating given by the author (1-5)."
+    }, {
+      "name" : "text",
+      "type" : "String",
+      "description" : "Full text of the review."
+    }, {
+      "name" : "relativeTimeDescription",
+      "type" : "String",
+      "description" : "Human-readable relative time description (e.g., 'a month ago')."
+    }, {
+      "name" : "profilePhotoUrl",
+      "type" : "String",
+      "description" : "URL to the author's profile photo."
+    } ],
     "api_endpoints" : null,
     "api_endpoints_consumed" : null,
     "imports_from" : [ ],
     "depends_on" : [ ],
     "feature_name" : "review-integration",
-    "file_role" : null,
+    "file_role" : "DTO layer — defines the `GoogleReviewDto` for transferring Google Review data to the frontend.",
     "change_required" : null,
     "contract_reconciled" : null
   }, {
@@ -3185,8 +3260,8 @@
     "feature_display_name" : "Google Review Integration (Backend)",
     "feature_type" : "BACKEND",
     "file_paths" : [ "backend/src/main/java/com/absfitness/model/Review.java", "backend/src/main/java/com/absfitness/repository/ReviewRepository.java", "backend/src/main/java/com/absfitness/service/GoogleReviewService.java", "backend/src/main/java/com/absfitness/controller/GoogleReviewController.java", "backend/src/main/java/com/absfitness/dto/GoogleReviewDto.java" ],
-    "feature_instruction" : null,
-    "depends_on_features" : null,
+    "feature_instruction" : "This feature integrates Google Reviews into the ABS FITNESS backend by fetching reviews from the Google Places API, caching them in a local database, and exposing them via a public REST endpoint. This caching mechanism prevents excessive API calls to Google and ensures fast retrieval of reviews for the frontend.\n\nThe `Review` entity serves as the persistence model for storing Google Reviews, including fields like `authorName`, `rating`, `text`, and `time`.\n\nThe `ReviewRepository` provides standard JPA operations for the `Review` entity, allowing the service layer to interact with the database.\n\nThe `GoogleReviewService` is responsible for the core business logic:\n1. **Fetching Reviews**: It will periodically (e.g., daily via a scheduled task, though the scheduling itself is outside this feature's scope) fetch reviews from the Google Places API for the ABS FITNESS location. The Google Place ID for ABS FITNESS will be configured as an environment variable or application property.\n2. **Caching**: It will store the fetched reviews in the `Review` table, ensuring that only new or updated reviews are persisted. It will also handle deduplication based on `authorName` and `text` to avoid storing duplicate reviews.\n3. **Retrieval**: It provides a method `getAllGoogleReviews(): List<GoogleReviewDto>` to retrieve all cached reviews, ordered by `time` in descending order.\n\nThe `GoogleReviewController` exposes a public GET endpoint `/api/v1/reviews/google` that returns a list of `GoogleReviewDto` objects. This endpoint will be consumed by the frontend to display reviews on the homepage.\n\nThe `GoogleReviewDto` is a Data Transfer Object used to expose review data to the frontend, containing fields like `authorName`, `rating`, `text`, and `relativeTimeDescription`.\n\n**Inter-file Wiring:**\n- `GoogleReviewService` injects `ReviewRepository` to perform database operations.\n- `GoogleReviewService` will make HTTP calls to the Google Places API (external dependency, not part of this project's features).\n- `GoogleReviewController` injects `GoogleReviewService` to retrieve the cached reviews.\n\n**Error Handling:**\n- If the Google Places API call fails, `GoogleReviewService` should log the error and return an empty list of reviews or throw a custom exception (e.g., `GoogleApiException`) if critical. For this feature, it will simply log and return an empty list, allowing the application to continue functioning without reviews.\n- If no reviews are found in the cache, `GoogleReviewService.getAllGoogleReviews()` will return an empty list.\n\n**Google Places API Integration Details:**\n- The Google Places API requires an API key and a Place ID. These should be configured as environment variables (e.g., `GOOGLE_PLACES_API_KEY`, `GOOGLE_PLACE_ID`).\n- The service will call the \"Places Details\" endpoint to get reviews. The URL will be similar to `https://maps.googleapis.com/maps/api/place/details/json?place_id={PLACE_ID}&fields=reviews&key={API_KEY}`.\n- The response will be parsed to extract review details and map them to `Review` entities.",
+    "depends_on_features" : [ ],
     "change_required" : true,
     "change_instruction" : null
   }, {
